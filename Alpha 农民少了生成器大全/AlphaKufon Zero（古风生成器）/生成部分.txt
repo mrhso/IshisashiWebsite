@@ -1,0 +1,9 @@
+随机数						汉字/词						合并结果（句式）
+
+=INT(RAND()*86)+1	=INT(RAND()*86)+1	=INT(RAND()*86)+1	=INT(RAND()*86)+1			=VLOOKUP(A3,双字词表!$A:$B,2,FALSE)	=VLOOKUP(B3,双字词表!$A:$B,2,FALSE)	=VLOOKUP(C3,双字词表!$A:$B,2,FALSE)	=VLOOKUP(D3,双字词表!$A:$B,2,FALSE)			=G3&"，"&H3&"，"&I3&"了"&J3&"。"
+=INT(RAND()*21)+1	=INT(RAND()*21)+1	=INT(RAND()*21)+1				=VLOOKUP(A4,四字词表!$A:$B,2,FALSE)	=VLOOKUP(B4,四字词表!$A:$B,2,FALSE)	=VLOOKUP(C4,四字词表!$A:$B,2,FALSE)				=G4&"，"&H4&"，不过是一场"&I4&"。"
+=INT(RAND()*21)+1	=INT(RAND()*21)+1	=INT(RAND()*21)+1				=VLOOKUP(A5,四字词表!$A:$B,2,FALSE)	=VLOOKUP(B5,四字词表!$A:$B,2,FALSE)	=VLOOKUP(C5,四字词表!$A:$B,2,FALSE)				="你说"&G5&"，我说"&H5&"，最后不过"&I5&"。"
+=INT(RAND()*86)+1	=INT(RAND()*86)+1	=INT(RAND()*21)+1				=VLOOKUP(A6,双字词表!$A:$B,2,FALSE)	=VLOOKUP(B6,双字词表!$A:$B,2,FALSE)	=VLOOKUP(C6,四字词表!$A:$B,2,FALSE)				=G6&"，"&H6&"，许我一场"&I6&"。"
+=INT(RAND()*5)+1	=INT(RAND()*5)+1	=INT(RAND()*86)+1	=INT(RAND()*5)+1	=INT(RAND()*5)+1	=INT(RAND()*86)+1	=VLOOKUP(A7,单字表!$A:$B,2,FALSE)	=VLOOKUP(B7,单字表!$A:$B,2,FALSE)	=VLOOKUP(C7,双字词表!$A:$B,2,FALSE)	=VLOOKUP(D7,单字表!$A:$B,2,FALSE)	=VLOOKUP(E7,单字表!$A:$B,2,FALSE)	=VLOOKUP(F7,双字词表!$A:$B,2,FALSE)	="一"&G7&"一"&H7&"一"&I7&"，半"&J7&"半"&K7&"半"&L7&"。"
+=INT(RAND()*21)+1	=INT(RAND()*21)+1	=INT(RAND()*21)+1	=INT(RAND()*21)+1			=VLOOKUP(A8,四字词表!$A:$B,2,FALSE)	=VLOOKUP(B8,四字词表!$A:$B,2,FALSE)	=VLOOKUP(C8,四字词表!$A:$B,2,FALSE)	=VLOOKUP(D8,四字词表!$A:$B,2,FALSE)			="你说"&G8&H8&"，后来"&I8&J8&"。"
+=INT(RAND()*21)+1	=INT(RAND()*21)+1	=INT(RAND()*21)+1				=VLOOKUP(A9,四字词表!$A:$B,2,FALSE)	=VLOOKUP(B9,四字词表!$A:$B,2,FALSE)	=VLOOKUP(C9,四字词表!$A:$B,2,FALSE)				=G9&"，"&H9&"，终不敌"&I9&"。"
