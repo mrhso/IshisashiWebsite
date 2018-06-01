@@ -8,7 +8,6 @@
 ## 远程仓库总表
 - [GitHub](https://github.com/mrhso/IshisashiWebsite)
 - [GitLab](https://gitlab.com/mrhso/IshisashiWebsite)
-- [Coding](https://coding.net/u/mrhso/p/IshisashiWebsite/git)
 - [码云](https://gitee.com/mrhso/IshisashiWebsite)
 - [Bitbucket](https://bitbucket.org/mrhso/ishisashiwebsite)
 - [Visual Studio Team Services](https://mrhso.visualstudio.com/IshisashiWebsite)
