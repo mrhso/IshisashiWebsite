@@ -145,3 +145,25 @@ OpenWrt 也快支持 MT7621 的硬件 NAT 了，这样性能和 EdgeOS 其实没
 ![](https://img.vim-cn.com/c6/1aafe5e5dd01b8cefd8f3d0a3e755b7f58aa40.png)
 
 ao！支持！威武！有希望叻！！！111111111111111111
+
+顺便在路由器安装了某种软件，嗯，OC！
+
+![](https://img.vim-cn.com/f8/b279115b489b8f7e095ab2ea66d85f3d5d4003.png)
+
+InSb Kwaku：疯狂思考。
+
+Ishisashi：![](https://img.vim-cn.com/55/0841394cb216c95c3559ada8ead77a901d759d.png)
+
+竟然还够用。
+
+![](https://img.vim-cn.com/ce/709481e38ed59c45ef5dc09b2b85362240602c.png)
+
+![](https://img.vim-cn.com/7c/026bb57b1014150306bfe80fcd47b1bcb754c7.jpg)
+
+老杨：![](https://img.vim-cn.com/7c/026bb57b1014150306bfe80fcd47b1bcb754c7.jpg)
+
+InSb Kwaku：厉害了。
+
+Ishisashi：![](https://img.vim-cn.com/0f/fd4746e36aed94200cc4eca12bce7bc5509d0e.png)
+
+同时还建了本地 hosts，这样用手机都好上维基百科。
