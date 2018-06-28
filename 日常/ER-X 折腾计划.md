@@ -167,3 +167,27 @@ InSb Kwaku：厉害了。
 Ishisashi：![](https://img.vim-cn.com/0f/fd4746e36aed94200cc4eca12bce7bc5509d0e.png)
 
 同时还建了本地 hosts，这样用手机都好上维基百科。
+
+有时候我在想，我往 ER-X 刷 OpenWrt 是不是暴殄天物了（
+
+但是就 EdgeOS 那体验来看，好像不亏，而且 OpenWrt 也快有硬件 NAT（
+
+羽浮风：![](https://img.vim-cn.com/8e/981f96f7c4f04acb92875317611f3e7e89d550.jpg)
+
+刷了 OpenWrt 之后信号变差了好多，开源驱动这个动力不够强劲。
+
+Ishisashi： 反正 ER-X 是有线路由。
+
+羽浮风：![](https://img.vim-cn.com/6d/e3fa28d7e6d9f6e3cee9178bc2d804c0d447c8.jpg)
+
+没玩过。我给我的小米路由刷过很多固件，最后感觉还是老毛子固件最好了。
+
+![](https://img.vim-cn.com/2c/adfff2a93baeef3cf445043f3e45bf12722412.gif)
+
+然后我朋友家正好路由器坏了，我就把那个送给他用了。
+
+Ishisashi：虽然之前 Zenam 倒是说过「刷 OpenWrt 浪费」这种事情……但是现在 OpenWrt 快支持硬件 NAT 了，比起 EdgeOS 来说性能不会有差。
+
+中途刷入我用了两次跳板（其实只要用一次就够了，只不过我一开始不知道 18.06 出了 rc1）
+
+Zenam：![](https://img.vim-cn.com/29/1690fa64f5e2fb6fe4f9641830a8399fbb091f.gif)
