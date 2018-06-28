@@ -6,27 +6,27 @@ _Ishisashi_：今天国内骨干网爆炸了，IPv4 上不了维基百科。
 
 不知道骨干网要炸几天才好。
 
-_Zenam_:电信怎么申请 v6？
+_Zenam_：电信怎么申请 v6？
 
 _Ishisashi_：我地不用申请（就有）。
 
 直接开启双栈，就能拨到 IPv6 地址。
 
-_Zenam_:我在家想用。在学校天天用 v6。Youtube、打开南方卫视、看今日关注回拨……D":
+_Zenam_：我在家想用。在学校天天用 v6。Youtube、打开南方卫视、看今日关注回拨……D":
 
 _Ishisashi_：我还没上大学，没用过教育网，，，但是家用已经体验到了 IPv6 了，，，
 
-_Zenam_:你的 v6 哪里来的。
+_Zenam_：你的 v6 哪里来的。
 
 _Ishisashi_：直接拨号就有。
 
-_Zenam_:为啥我就没。
+_Zenam_：为啥我就没。
 
 _Ishisashi_：240E 开头的地址，查询属于中国电信。
 
-_Zenam_:我 2001。
+_Zenam_：我 2001。
 
-D: 家用 v6 也没 ＧＦＷ!V
+D: 家用 v6 也没ＧＦＷ!V
 
 _Ishisashi_：校园和家用都有 DNS 污染，不过 hosts 就好。
 
@@ -34,27 +34,27 @@ _Ishisashi_：校园和家用都有 DNS 污染，不过 hosts 就好。
 
 ER-X 好便宜，，，256 MiB 的 Flash，Debian 基础系统。
 
-_Zenam_:Wow，还有 Linux 路由器。太消耗资源了吧。相当于数据中心/。/？比得过树莓派。
+_Zenam_：Wow，还有 Linux 路由器。太消耗资源了吧。相当于数据中心/。/？比得过树莓派。
 
 _Ishisashi_：国内售价仅 390 人民币（
 
 淘宝还打折 339（
 
-_Zenam_:我觉得能刷 OpenWrt 就很好了。
+_Zenam_：我觉得能刷 OpenWrt 就很好了。
 
 _Ishisashi_：能刷。
 
-_Zenam_:是浪费，这么好的性能。
+_Zenam_：是浪费，这么好的性能。
 
 _Ishisashi_：而且这路由还有硬件 NAT。
 
-_Zenam_:OH
+_Zenam_：OH
 
 硬件 NAT 和软件有啥区别 XD
 
 _Ishisashi_：软件的吃 CPU。
 
-_Zenam_:Oh
+_Zenam_：Oh
 
 没区别吧。（就几台主机的话）
 
@@ -62,7 +62,7 @@ _Zenam_:Oh
 
 _Ishisashi_：主要是如果有百兆以上宽带的话用处就非常大了，因为一般软件 NAT 没那么好性能。
 
-_Zenam_:好吧。记得没错家用都是用 PAT 的吧，想不懂为什么会消耗这么多资源。
+_Zenam_：好吧。记得没错家用都是用 PAT 的吧，想不懂为什么会消耗这么多资源。
 
 ### （2018 年 6 月 25 日——到货）
 
@@ -70,7 +70,7 @@ _Ishisashi_：我谔谔，ER-X 到叻，，，
 
 打算在上面搞点科学上网的东西，，，
 
-_老杨_:吇乚！
+_老杨_：吇乚！
 
 _Ishisashi_：首先看说明书，是纯英文，，，
 
@@ -86,7 +86,7 @@ eth 自然是 Linux 了，我的意思，，，
 
 ![](https://img.vim-cn.com/54/def8406a2dcfc16433b9204d126b75a6ecfa72.jpg)
 
-_老杨_:那么是使用 IPv6 来（消音）还是使用其他方式（消音）呢？
+_老杨_：那么是使用 IPv6 来（消音）还是使用其他方式（消音）呢？
 
 _Ishisashi_：当然是 IPv6 了，毕竟 IPv4 之前不是物理断网了么，，，
 
@@ -116,21 +116,21 @@ _Ishisashi_：当然是 IPv6 了，毕竟 IPv4 之前不是物理断网了么，
 
 （进行网络设置中……）
 
-_InSb Kwaku_:什么这么高举。
+_InSb Kwaku_：什么这么高举。
 
 _Ishisashi_：然后根据一些资料，这个 EdgeOS 似乎是基于 Debian 的。
 
-_老杨_:去他（消音）的物理断网（绝望）
+_老杨_：去他（消音）的物理断网（绝望）
 
 基于Dabian的。（幻视）
 
-_InSb Kwaku_:厉害。
+_InSb Kwaku_：厉害。
 
 所以说这是要做什么。
 
 _Ishisashi_：在路由器上进行科学 XX。
 
-_InSb Kwaku_:可以。
+_InSb Kwaku_：可以。
 
 _Ishisashi_：所以现在需要个 Putty，这样能进行比较高举的配置。
 
@@ -222,7 +222,7 @@ _Ishisashi_：顺便在路由器安装了某种软件，嗯，OC！
 
 ![](https://img.vim-cn.com/f8/b279115b489b8f7e095ab2ea66d85f3d5d4003.png)
 
-_InSb Kwaku_:疯狂思考。
+_InSb Kwaku_：疯狂思考。
 
 _Ishisashi_：![](https://img.vim-cn.com/55/0841394cb216c95c3559ada8ead77a901d759d.png)
 
@@ -232,9 +232,9 @@ _Ishisashi_：![](https://img.vim-cn.com/55/0841394cb216c95c3559ada8ead77a901d75
 
 ![](https://img.vim-cn.com/7c/026bb57b1014150306bfe80fcd47b1bcb754c7.jpg)
 
-_老杨_:![](https://img.vim-cn.com/7c/026bb57b1014150306bfe80fcd47b1bcb754c7.jpg)
+_老杨_：![](https://img.vim-cn.com/7c/026bb57b1014150306bfe80fcd47b1bcb754c7.jpg)
 
-_InSb Kwaku_:厉害了。
+_InSb Kwaku_：厉害了。
 
 _Ishisashi_：![](https://img.vim-cn.com/0f/fd4746e36aed94200cc4eca12bce7bc5509d0e.png)
 
@@ -244,13 +244,13 @@ _Ishisashi_：![](https://img.vim-cn.com/0f/fd4746e36aed94200cc4eca12bce7bc5509d
 
 但是就 EdgeOS 那体验来看，好像不亏，而且 OpenWrt 也快有硬件 NAT（
 
-_羽浮风_:![](https://img.vim-cn.com/8e/981f96f7c4f04acb92875317611f3e7e89d550.jpg)
+_羽浮风_：![](https://img.vim-cn.com/8e/981f96f7c4f04acb92875317611f3e7e89d550.jpg)
 
 刷了 OpenWrt 之后信号变差了好多，开源驱动这个动力不够强劲。
 
 _Ishisashi_： 反正 ER-X 是有线路由。
 
-_羽浮风_:![](https://img.vim-cn.com/6d/e3fa28d7e6d9f6e3cee9178bc2d804c0d447c8.jpg)
+_羽浮风_：![](https://img.vim-cn.com/6d/e3fa28d7e6d9f6e3cee9178bc2d804c0d447c8.jpg)
 
 没玩过。我给我的小米路由刷过很多固件，最后感觉还是老毛子固件最好了。
 
@@ -262,7 +262,7 @@ _Ishisashi_：虽然之前 Zenam 倒是说过「刷 OpenWrt 浪费」这种事�
 
 中途刷入我用了两次跳板（其实只要用一次就够了，只不过我一开始不知道 18.06 出了 rc1）
 
-_Zenam_:![](https://img.vim-cn.com/29/1690fa64f5e2fb6fe4f9641830a8399fbb091f.gif)
+_Zenam_：![](https://img.vim-cn.com/29/1690fa64f5e2fb6fe4f9641830a8399fbb091f.gif)
 
 _Ishisashi_：![](https://img.vim-cn.com/79/23b05fa42d7330a771c873f996b8d23fba6d16.png)
 
