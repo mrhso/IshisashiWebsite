@@ -191,3 +191,7 @@ Ishisashi：虽然之前 Zenam 倒是说过「刷 OpenWrt 浪费」这种事情�
 中途刷入我用了两次跳板（其实只要用一次就够了，只不过我一开始不知道 18.06 出了 rc1）
 
 Zenam：![](https://img.vim-cn.com/29/1690fa64f5e2fb6fe4f9641830a8399fbb091f.gif)
+
+Ishisashi：打算在模糊发表这篇文章，那么先来拍张封面罢。
+
+![](https://img.vim-cn.com/ed/61a03d3e767e9edf290d2d4a407ffb7af60e43.jpg)
