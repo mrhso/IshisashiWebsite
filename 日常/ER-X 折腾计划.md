@@ -1,3 +1,5 @@
+（2018 年 6 月 25 日）
+
 Ishisashi：我谔谔，ER-X 到叻，，，
 
 打算在上面搞点科学上网的东西，，，
@@ -78,7 +80,9 @@ Ishisashi：所以现在需要个 Putty，这样能进行比较高举的配置�
 
 （打开硬件 NAT）
 
-当然我现在其实打算刷 OpenWrt 了，因为 EdgeOS 太高举了，玩不动（不如说是部分配置复杂到亲妈都不认识）
+（2018 年 6 月 26 日）
+
+Ishisashi：当然我现在其实打算刷 OpenWrt 了，因为 EdgeOS 太高举了，玩不动（不如说是部分配置复杂到亲妈都不认识）
 
 OpenWrt 也快支持 MT7621 的硬件 NAT 了，这样性能和 EdgeOS 其实没差（反正都是 Linux）况且想刷回来也只要一条 TTL 线就够了。
 
@@ -146,7 +150,9 @@ OpenWrt 也快支持 MT7621 的硬件 NAT 了，这样性能和 EdgeOS 其实没
 
 ao！支持！威武！有希望叻！！！111111111111111111
 
-顺便在路由器安装了某种软件，嗯，OC！
+（2018 年 6 月 27 日）
+
+Ishisashi：顺便在路由器安装了某种软件，嗯，OC！
 
 ![](https://img.vim-cn.com/f8/b279115b489b8f7e095ab2ea66d85f3d5d4003.png)
 
@@ -192,6 +198,18 @@ Ishisashi：虽然之前 Zenam 倒是说过「刷 OpenWrt 浪费」这种事情�
 
 Zenam：![](https://img.vim-cn.com/29/1690fa64f5e2fb6fe4f9641830a8399fbb091f.gif)
 
+Ishisashi：![](https://img.vim-cn.com/79/23b05fa42d7330a771c873f996b8d23fba6d16.png)
+
+科学上网软件有点吃内存，不过还很空余。
+
+（2018 年 6 月 28 日）
+
 Ishisashi：打算在模糊发表这篇文章，那么先来拍张封面罢。
 
 ![](https://img.vim-cn.com/ed/61a03d3e767e9edf290d2d4a407ffb7af60e43.jpg)
+
+那么先讲讲配置叉叉网的经验。主要是先在电脑上配置好之后，再用 SCP 传到路由器上去。大家想放酸酸乳也可以试试，毕竟 Flash 足足有 256 MiB。
+
+传上去之后在叉叉网目录 chmod +x start，就可以执行了。
+
+顺便设置个开机自启动，每次开机都会自动运行叉叉网，无缝蝌穴上网。
