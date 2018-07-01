@@ -1,3 +1,5 @@
+[模糊版](https://www.mohu.club/article/140)、[纸糊版](https://zhuanlan.zhihu.com/p/38680594)
+
 既然买了 ER-X，不玩玩 IPv6 可不行啊。一般来说，内部组建 IPv6 有两种组建方案。一种是直接把公网 IP Relay 到下级，另外一种就是给设备分配 ULA 并进行 NAT。
 
 在 IPv4 中，我们已经很熟悉 NAT 了。这次我们先谈谈 NAT6，如果有时间的话会讲 Relay。
