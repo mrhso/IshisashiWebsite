@@ -104,7 +104,7 @@ iface_linux 已经讲过了，但是 iface_uci 又没讲过。其实：
 
 这块可以有！
 
-事实上 OpenWrt 的帮助文档便是这么用的：
+事实上 [OpenWrt 的帮助文档](https://openwrt.org/docs/guide-user/network/ipv6/ipv6.nat6)便是这么用的：
 
 ![](https://img.vim-cn.com/ec/6d4288411f93213b2f18914bc6fce14c8fb13b.png)
 
