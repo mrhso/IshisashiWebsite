@@ -1,5 +1,6 @@
 [模糊版](https://www.mohu.club/article/140)、[纸糊版](https://zhuanlan.zhihu.com/p/38680594)
 
+### （2018 年 6 月 29 日）
 既然买了 ER-X，不玩玩 IPv6 可不行啊。一般来说，内部组建 IPv6 有两种组建方案。一种是直接把公网 IP Relay 到下级，另外一种就是给设备分配 ULA 并进行 NAT。
 
 在 IPv4 中，我们已经很熟悉 NAT 了。这次我们先谈谈 NAT6，如果有时间的话会讲 Relay。
@@ -89,3 +90,32 @@ iface_linux 已经讲过了，但是 iface_uci 又没讲过。其实：
 （由此还能看出电信的 IPv6 还跑到了 CERNET（教育网）……其实三大运营商的 IPv6 差不多都是）
 
 最后看完这篇的大佬们，谢谢茄子，，，
+
+### （2018 年 7 月 4 日）
+首先要补充的是，如果地址是 ULA 的话，那么像 Android 等系统可能会优先解析 IPv4。为了避免这种情况，只好不使用 ULA 了。
+
+但是这个地址也不能乱设，不然冲突了就不好了。所以我们从 [IANA 的 IPv6 分配表](https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml)选一个没被用的地址。
+
+![](https://img.vim-cn.com/20/817d04362c06bdcff4f90d0f8c5f34f50b5e5a.png)
+
+这个有 Note 的区块我们也不方便用，因为应该是有了用途的。那么我们可以瞄一个无 Note 的区块。
+
+![](https://img.vim-cn.com/2b/eaa729f6ec3cd8dabd9b5909f6f49809ca025d.png)
+
+这块可以有！
+
+事实上 OpenWrt 的帮助文档便是这么用的：
+
+![](https://img.vim-cn.com/ec/6d4288411f93213b2f18914bc6fce14c8fb13b.png)
+
+（按：d000::/4 显然属于 c000::/3 的一部分）
+
+当然，其实我不建议滥用地址，但是迫不得已的情况下不影响到他人（冲突）就没事。
+
+那么我来谈谈为什么要用 IPv6 NAT。
+
+事实上，家用 IPv6 的前缀会变化。而且你也保不准会不会拿到 /128 的地址。
+
+拿到 /128 也只好自认倒楣了。而前缀变化意味着……试想你 IPv6 上得好好的，断线重连原来的地址就失效了（
+
+所以我的意思很明白了，，，这种情况下用 Relay 反而不太方便，，，
