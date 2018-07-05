@@ -10,7 +10,7 @@
 
 ![](https://img.vim-cn.com/c9/7195c7de398c9d85f0b352325dd21c4b7a74ab.png)
 
-我建议安装 dnsmasq-full，并去除 dnsmasq。
+同时我建议安装 dnsmasq-full，并去除 dnsmasq。
 
 接下来编辑 /etc/config/https_dns_proxy，因为默认是 Google DNS，那当然不行。
 
@@ -18,7 +18,7 @@
 
 将 url_prefix 修改为「https://cloudflare-dns.com/dns-query?ct=application/dns-json&」。
 
-修改 /etc/dnsmasq.conf，加入一行「conf-dir=/etc/dnsmasq.d」，然后建立 /etc/dnsmasq.d。建立一行专用的 dnsmasq 配置文件夹会很方便。
+修改 /etc/dnsmasq.conf，加入一行「conf-dir=/etc/dnsmasq.d」，然后建立 /etc/dnsmasq.d。建立专用的 dnsmasq 配置文件夹，管理配置会很方便。
 
 在 /etc/dnsmasq.d 放入 dns.conf，内容为「server=127.0.0.1#5053」，这样最基础的设置就完成了。
 
