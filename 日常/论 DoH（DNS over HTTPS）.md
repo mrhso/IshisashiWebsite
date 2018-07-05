@@ -1,3 +1,5 @@
+[模糊版](https://www.mohu.club/article/142)、[纸糊版](https://zhuanlan.zhihu.com/p/39042451)
+
 为什么要用 DoH？DoH 是将 HTTPS 的优点融入 DNS，这样传输过程中也就不怕唐突劫持了。应对运营商的 DNS 劫持甚至某长城的 DNS 污染都特有用。
 
 写得有点仓促，见谅。我什么都会做的（激寒）
