@@ -56,12 +56,13 @@ Function x264(clip input, string "matrix", bool "tvrange", int "dither")
     return input.RGB2YUV(matrix=matrix, tvrange=tvrange).Down10(depth=10, TVrange=tvrange, dither=dither).C16()
 }
 
-Function unx264(clip input, string "matrix", bool "tvrange")
+Function unx264(clip input, string "matrix", bool "tvrange", string "output")
 {
     matrix  = Default(matrix, "YCgCo")
     tvrange = Default(tvrange, False)
+    output  = Default(output, "rgb24")
 
-    return input.f3kdb(range=0, Y=0, Cb=0, Cr=0, grainY=0, grainC=0, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tvrange=tvrange)
+    return input.f3kdb(range=0, Y=0, Cb=0, Cr=0, grainY=0, grainC=0, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tvrange=tvrange, output=output)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -72,7 +73,9 @@ Function AlphaStack(clip input)
 
 Function unAlphaStack(clip input)
 {
-    return Mask(Crop(input, 0, 0, -0, -Height(input)/2), Crop(input, 0, Height(input)/2, -0, -0))
+    input_RGB32 = PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input
+	
+    return Mask(Crop(input_RGB32, 0, 0, -0, -Height(input_RGB32)/2), Crop(input_RGB32, 0, Height(input_RGB32)/2, -0, -0))
 }
 
 Function Background(clip input, int "color")
