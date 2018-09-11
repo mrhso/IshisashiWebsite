@@ -40,12 +40,14 @@ Function YUV2RGB32(clip input, string "matrix", bool "tvrange", bool "lsb")
     return input.YUV2RGB(matrix=matrix, tvrange=tvrange, lsb=lsb, output="rgb32")
 }
 
-Function unC16(clip input) # 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
+# 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
+Function unC16(clip input)
 {
     return input.f3kdb(range=0, Y=0, Cb=0, Cr=0, grainY=0, grainC=0, input_mode=2, output_mode=1)
 }
 
-Function x264(clip input, string "matrix", bool "tvrange", int "dither") # 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
+# 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
+Function x264(clip input, string "matrix", bool "tvrange", int "dither")
 {
     matrix  = Default(matrix, "YCgCo")
     tvrange = Default(tvrange, False)
@@ -62,7 +64,8 @@ Function unx264(clip input, string "matrix", bool "tvrange")
     return input.f3kdb(range=0, Y=0, Cb=0, Cr=0, grainY=0, grainC=0, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tvrange=tvrange)
 }
 
-Function AlphaStack(clip input) # 将 RGB32 透明 Clip 制作成 Alpha Stack。
+# 将 RGB32 透明 Clip 制作成 Alpha Stack。
+Function AlphaStack(clip input)
 {
     return StackVertical(input, ShowAlpha(input)).ResetMask()
 }
@@ -89,7 +92,8 @@ Function GB(clip input)
     return input.Background(color=$00FF00)
 }
 
-Function BB(clip input) # 制作 BB 的时候可以用到。将 RGB32 透明 Clip 制作成 BB。
+# 制作 BB 的时候可以用到。将 RGB32 透明 Clip 制作成 BB。
+Function BB(clip input)
 {
     return input.Background(color=$0000FF)
 }
