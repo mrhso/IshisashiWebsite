@@ -74,8 +74,8 @@ Function AlphaStack(clip input)
 
 # 将 Alpha Stack 解译为 RGB32。
 Function unAlphaStack(clip input)
-{	
-    return Mask(Crop(PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input, 0, 0, -0, -Height(input)/2), Crop(input, 0, Height(input)/2, -0, -0))
+{
+    return Mask(Crop(PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input, 0, 0, -0, -Height(input)/2), Crop(PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input, 0, Height(input)/2, -0, -0))
 }
 
 # 对 RGB32 透明 Clip 添加纯色背景。
