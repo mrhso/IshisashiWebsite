@@ -133,6 +133,20 @@ Function BlankAudio(int "length", float "fps", int "fps_denominator", int "audio
     return BlankClip(length=length, fps=fps, fps_denominator=fps_denominator, audio_rate=audio_rate, channels=channels, sample_type=sample_type).KillVideo()
 }
 
+# 对音频添加空视频。
+Function AddBlankVideo(clip input, int "width", int "height", string "pixel_type", float "fps", int "fps_denominator", int "color")
+{
+
+    width           = Default(width, 1920)
+    height          = Default(height, 1080)
+    pixel_type      = Default(pixel_type, "RGB24")
+    fps             = Default(fps, 60)
+    fps_denominator = Default(fps_denominator, 1)
+    color           = Default(color, $000000)
+
+    return AudioDub(BlankVideo(length=Round((Float(AudioLength(input))/Float(AudioRate(input)))*(Float(fps)/Float(fps_denominator))), width=width, height=height, pixel_type=pixel_type, fps=fps, fps_denominator=fps_denominator, color=color), input)
+}
+
 # 对视频添加空音频。
 Function AddBlankAudio(clip input, int "audio_rate", int "channels", string "sample_type")
 {
