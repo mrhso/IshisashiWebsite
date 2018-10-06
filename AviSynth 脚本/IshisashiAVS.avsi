@@ -1,5 +1,5 @@
 # Ishisashi 制作的 AviSynth 快捷脚本
-# 依赖：[O16 (mawen1250 mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools](https://forum.doom9.org/showpost.php?p=1386559)
+# 依赖：[O16 (mawen1250 mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)
 
 Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", int "dither")
 {
@@ -9,7 +9,9 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     output   = Default(output, "YV24")
     dither   = Default(dither, -3)      # 抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
 
-    return lsb == False ? input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output).Down10(depth=8, TVrange=tv_range, dither=dither) : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=lsb, mode=-1, ampn=0, output=output)
+    YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output)
+
+    return lsb == False ? YUV.Down10(depth=8, TVrange=tv_range, dither=dither) : YUV
 }
 
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output")
@@ -19,7 +21,9 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     lsb      = Default(lsb, True)
     output   = Default(output, "rgb24")
 
-    return output == "rgb32" ? input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output="rgb32").ResetMask() : input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output)
+    RGB = input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output)
+
+    return output == "rgb32" ? RGB.ResetMask() : RGB
 }
 
 Function YUV2RGB24(clip input, string "matrix", bool "tv_range", bool "lsb")
@@ -75,7 +79,9 @@ Function AlphaStack(clip input)
 # 将 Alpha Stack 解译为 RGB32。
 Function unAlphaStack(clip input)
 {
-    return Mask(Crop(PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input, 0, 0, -0, -Height(input)/2), Crop(PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input, 0, Height(input)/2, -0, -0))
+    RGB32 = PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input
+
+    return Mask(Crop(RGB32, 0, 0, -0, -Height(RGB32)/2), RGB32, 0, Height(RGB32)/2, -0, -0))
 }
 
 # 对 RGB32 透明 Clip 添加纯色背景。
@@ -156,4 +162,14 @@ Function AddBlankAudio(clip input, int "audio_rate", int "channels", string "sam
     sample_type = Default(sample_type, "16bit")
 
     return AudioDub(input, BlankAudio(length=FrameCount(input), fps=FrameRateNumerator(input), fps_denominator=FrameRateDenominator(input), audio_rate=audio_rate, channels=channels, sample_type=sample_type))
+}
+
+# 利用 nnedi3_resize16 将 4:2:0/4:2:2 YUV 转换到 4:4:4。
+Function nnedi3_YV24(clip input, bool "lsb_in", bool "tv_range", bool "lsb")
+{
+    lsb_in   = Default(lsb_in, False)  # 一般用了 4:2:0 的视频，也往往是 8-bit 的。
+    tv_range = Default(tv_range, True) # 同理也往往是 TV Range。
+    lsb      = Default(lsb, False)
+
+    return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
