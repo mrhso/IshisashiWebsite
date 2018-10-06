@@ -81,7 +81,7 @@ Function unAlphaStack(clip input)
 {
     RGB32 = PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input
 
-    return Mask(Crop(RGB32, 0, 0, -0, -Height(RGB32)/2), RGB32, 0, Height(RGB32)/2, -0, -0))
+    return Mask(Crop(RGB32, 0, 0, -0, -Height(RGB32)/2), Crop(RGB32, 0, Height(RGB32)/2, -0, -0))
 }
 
 # 对 RGB32 透明 Clip 添加纯色背景。
