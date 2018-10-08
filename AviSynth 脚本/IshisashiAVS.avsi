@@ -11,7 +11,7 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
 
     YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output)
 
-    return lsb == False ? YUV.Down10(depth=8, TVrange=tv_range, dither=dither) : YUV
+    return lsb ? YUV : YUV.Down10(depth=8, TVrange=tv_range, dither=dither)
 }
 
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output")
@@ -67,7 +67,7 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output")
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
+    return input.un10bit(matrix=matrix, tv_range=tv_range, input_mode=2, output=output)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -169,7 +169,18 @@ Function nnedi3_YV24(clip input, bool "lsb_in", bool "tv_range", bool "lsb")
 {
     lsb_in   = Default(lsb_in, False)  # 一般用了 4:2:0 的视频，也往往是 8-bit 的。
     tv_range = Default(tv_range, True) # 同理也往往是 TV Range。
-    lsb      = Default(lsb, False)
+    lsb      = Default(lsb, True)      # 默认输出 16-bit，以保留高精度 Chroma-Resize 结果。
 
     return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
+}
+
+# 解码 10-bit YUV 到 RGB。
+Function un10bit(clip input, string "matrix", bool "tv_range", int "input_mode", string "output")
+{
+    matrix     = Default(matrix, "YCgCo")
+    tv_range   = Default(tv_range, False)
+    input_mode = Default(input_mode, 2)   # 1 为层叠（Stacked），2 为交织（Interleaved）。
+    output     = Default(output, "rgb24")
+
+    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=input_mode, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
 }
