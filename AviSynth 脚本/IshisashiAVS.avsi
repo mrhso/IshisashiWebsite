@@ -1,5 +1,7 @@
 # Ishisashi 制作的 AviSynth 快捷脚本
 # 依赖：[O16 (mawen1250 mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)
+# 在同时有 AviSynth 和 AviSynth+ 不同实现方案的情况下，「Plus」为 AviSynth+ 专用版函数，效率可能比通用版更高。
+# 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」。判断详见注释。
 
 Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", int "dither")
 {
@@ -183,4 +185,25 @@ Function un10bit(clip input, string "matrix", bool "tv_range", int "input_mode",
     output     = Default(output, "rgb24")
 
     return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=input_mode, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
+}
+
+# C16 AviSynth+ 版。
+Function C16Plus(clip input)
+{
+    return input.ConvertFromStacked().ConvertToDoubleWidth()
+}
+
+# unC16 AviSynth+ 版。
+Function unC16Plus(clip input)
+{
+    return input.ConvertFromDoubleWidth().ConvertToStacked()
+}
+
+# 仅 AviSynth+。
+# 强制将 16-bit 以下 Clip 标为 16-bit，即数值上不扩张到 16-bit。
+# 但是，这个实现方法好像有点强行 www
+# 用途主要是让 ConvertToStacked/ConvertToDoubleWidth 顺利进行，因为这俩函数必须要 16-bit 输入，所以为了能让输入、输出都为 10-bit，就写了这个。
+Function ForceTo16bit(clip input)
+{
+    return input.Expr("x", format=LeftStr(PixelType, StrLen(PixelType)-StrLen(String(BitsPerComponent))) + "16")
 }
