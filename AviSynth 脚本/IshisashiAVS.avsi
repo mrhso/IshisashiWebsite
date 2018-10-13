@@ -188,6 +188,7 @@ Function unC16Plus(clip input)
     return input.ConvertFromDoubleWidth().ConvertToStacked()
 }
 
+# 仅 AviSynth+ 可用。
 # 强制将 16-bit 以下 Clip 标为 16-bit，即数值上不扩张到 16-bit。
 # 但是，这个实现方法好像有点强行 www
 # 用途主要是让 ConvertToStacked/ConvertToDoubleWidth 顺利进行，因为这俩函数必须要 16-bit 输入，所以为了能让输入、输出都为 10-bit，就写了这个。
