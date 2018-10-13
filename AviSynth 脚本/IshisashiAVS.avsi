@@ -69,7 +69,7 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output")
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return input.un10bit(matrix=matrix, tv_range=tv_range, input_mode=2, output=output)
+    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -176,17 +176,6 @@ Function nnedi3_YV24(clip input, bool "lsb_in", bool "tv_range", bool "lsb")
     return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
 
-# 解码 10-bit YUV 到 RGB。
-Function un10bit(clip input, string "matrix", bool "tv_range", int "input_mode", string "output")
-{
-    matrix     = Default(matrix, "YCgCo")
-    tv_range   = Default(tv_range, False)
-    input_mode = Default(input_mode, 2)   # 1 为层叠（Stacked），2 为交织（Interleaved）。
-    output     = Default(output, "rgb24")
-
-    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=input_mode, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
-}
-
 # C16 AviSynth+ 版。
 Function C16Plus(clip input)
 {
@@ -205,4 +194,25 @@ Function unC16Plus(clip input)
 Function ForceTo16bit(clip input)
 {
     return input.Expr("x", format=LeftStr(PixelType(input), StrLen(PixelType(input))-StrLen(String(BitsPerComponent(input)))) + "16")
+}
+
+# x264 AviSynth+ 版。
+# 实践发现 AviSynth+ 内置的转换精度还是不高，所以仍旧使用 Dither tools。
+Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither")
+{
+    matrix   = Default(matrix, "YCgCo")
+    tv_range = Default(tv_range, False)
+    dither   = Default(dither, -1)
+
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
+}
+
+# unx264 AviSynth+ 版。
+Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output")
+{
+    matrix   = Default(matrix, "YCgCo")
+    tv_range = Default(tv_range, False)
+    output   = Default(output, "rgb24")
+
+    return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
 }
