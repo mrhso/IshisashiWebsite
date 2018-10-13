@@ -198,7 +198,7 @@ Function ForceTo16bit(clip input)
 }
 
 # x264 AviSynth+ 版。
-# 实践发现 AviSynth+ 内置的转换精度还是不高，所以仍旧使用 Dither tools。
+# 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
 Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither")
 {
     matrix   = Default(matrix, "YCgCo")
