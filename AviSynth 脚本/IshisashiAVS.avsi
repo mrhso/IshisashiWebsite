@@ -10,7 +10,7 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "
     lsb      = Default(lsb, True)       # 设置为 True 就是 16-bit，False 就是 8-bit。
     dither   = Default(dither, -3)      # 降至 8-bit 的抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
 
-    YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=YV24, kr=kr, kg=kg, kb=kb)
+    YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb)
 
     return lsb ? YUV : YUV.Down10(depth=8, TVrange=tv_range, dither=dither)
 }
