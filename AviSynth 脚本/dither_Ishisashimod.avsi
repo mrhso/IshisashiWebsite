@@ -187,15 +187,16 @@ Function Dither_convert_yuv_to_rgb (clip src, string "matrix", bool "interlaced"
 	# Coefficient calculation
 
 	matrix    = Default (matrix, (h > 576 || w > 1024) ? "709" : "601")
-	matrix    = matrix == "YCgCo" ? Defined (kr) || Defined (kg) || Defined (kb) ? (h > 576 || w > 1024) ? "709" : "601" : "YCgCo" : matrix
 	mat_i     = Dither_matrix_to_index (matrix)
 	Assert ((mat_i >= 0),
 \		"Dither_convert_yuv_to_rgb: unexpected matrix " + matrix + ".")
 
-	#                                  BT.601   BT.709  SMPTE 240M  FCC    YCgCo  BT.2020
-	kr = Default (kr, Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627))
-	kg = Default (kg, Select (mat_i,   0.587,   0.7152,   0.701,   0.59,    0.0,  0.6780))
-	kb = Default (kb, Select (mat_i,   0.114,   0.0722,   0.087,   0.11,    0.0,  0.0593))
+	#                     BT.601   BT.709  SMPTE 240M  FCC    YCgCo  BT.2020  Custom
+	kr = Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627,  kr)
+	kg = Select (mat_i,   0.587,   0.7152,   0.701,   0.59,    0.0,  0.6780,  kg)
+	kb = Select (mat_i,   0.114,   0.0722,   0.087,   0.11,    0.0,  0.0593,  kb)
+    Assert (kr + kg + kb == 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy kr + kg + kb = 1.")
+    Assert (0 < kr < 1 && 0 < kg < 1 && 0 < kb < 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy 0 < k < 1.")
 
 	offset_y = (tv_range) ?          16.0 : 0.0
 	scale_y  = (tv_range) ? (255.0 / 219) : 1.0
@@ -372,15 +373,16 @@ Function Dither_convert_rgb_to_yuv (clip src, clip "g", clip "b",
 	# Coefficient calculation
 
 	matrix    = Default (matrix, (h > 576 || w > 1024) ? "709" : "601")
-	matrix    = matrix == "YCgCo" ? Defined (kr) || Defined (kg) || Defined (kb) ? (h > 576 || w > 1024) ? "709" : "601" : "YCgCo" : matrix
 	mat_i     = Dither_matrix_to_index (matrix)
 	Assert ((mat_i >= 0),
 \		"Dither_convert_to_rgb: unexpected matrix" + matrix + ".")
 
-	#                                  BT.601   BT.709  SMPTE 240M  FCC    YCgCo  BT.2020
-	kr = Default (kr, Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627))
-	kg = Default (kg, Select (mat_i,   0.587,   0.7152,   0.701,   0.59,    0.0,  0.6780))
-	kb = Default (kb, Select (mat_i,   0.114,   0.0722,   0.087,   0.11,    0.0,  0.0593))
+	#                     BT.601   BT.709  SMPTE 240M  FCC    YCgCo  BT.2020  Custom
+	kr = Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627,  kr)
+	kg = Select (mat_i,   0.587,   0.7152,   0.701,   0.59,    0.0,  0.6780,  kg)
+	kb = Select (mat_i,   0.114,   0.0722,   0.087,   0.11,    0.0,  0.0593,  kb)
+    Assert (kr + kg + kb == 1, "Dither_convert_rgb_to_yuv: Color matrix must satisfy kr + kg + kb = 1.")
+    Assert (0 < kr < 1 && 0 < kg < 1 && 0 < kb < 1, "Dither_convert_rgb_to_yuv: Color matrix must satisfy 0 < k < 1.")
 
 	offset_y = (tv_range) ?          16.0 : 0.0
 	scale_y  = (tv_range) ? (219 / 255.0) : 1.0
@@ -1903,13 +1905,14 @@ Function Dither_convert_rgb_to_yuv_resize_fields (clip src, int w, int h,
 Function Dither_matrix_to_index (string matrix)
 {
 	return (
-\	  (matrix == "601")   ?  0
-\	: (matrix == "709")   ?  1
-\	: (matrix == "240")   ?  2
-\	: (matrix == "FCC")   ?  3
-\	: (matrix == "YCgCo") ?  4
-\	: (matrix == "2020")  ?  5
-\	:                       -1)
+\	  (matrix == "601" || matrix == "BT.601" || matrix == "BT601")           ?  0
+\	: (matrix == "709" || matrix == "BT.709" || matrix == "BT709")           ?  1
+\	: (matrix == "240" || matrix == "SMPTE 240M" || matrix == "SMPTE240M")   ?  2
+\	: (matrix == "FCC")                                                      ?  3
+\	: (matrix == "YCgCo")                                                    ?  4
+\	: (matrix == "2020" || matrix == "BT.2020" || matrix == "BT2020")        ?  5
+\	: (matrix == "Custom" || matrix == "User")                               ?  6
+\	:                                                                          -1)
 }
 
 
