@@ -375,7 +375,7 @@ Function Dither_convert_rgb_to_yuv (clip src, clip "g", clip "b",
 	matrix    = Default (matrix, (h > 576 || w > 1024) ? "709" : "601")
 	mat_i     = Dither_matrix_to_index (matrix)
 	Assert ((mat_i >= 0),
-\		"Dither_convert_to_rgb: unexpected matrix" + matrix + ".")
+\		"Dither_convert_to_rgb: unexpected matrix " + matrix + ".")
 
 	#                     BT.601   BT.709  SMPTE 240M  FCC    YCgCo  BT.2020  Custom
 	kr = Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627,  kr)
