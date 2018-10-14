@@ -11,12 +11,6 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     output   = Default(output, "YV24")
     dither   = Default(dither, -3)      # 抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
 
-    mat_i = Dither_matrix_to_index(matrix)
-
-    kr = Default(kr, Select(mat_i, 0.299, 0.2126, 0.212, 0.30, 0.0, 0.2627))
-    kg = Default(kg, Select(mat_i, 0.587, 0.7152, 0.701, 0.59, 0.0, 0.6780))
-    kb = Default(kb, Select(mat_i, 0.114, 0.0722, 0.087, 0.11, 0.0, 0.0593))
-
     YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 
     return lsb ? YUV : YUV.Down10(depth=8, TVrange=tv_range, dither=dither)
@@ -29,12 +23,6 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     lsb      = Default(lsb, True)
     output   = Default(output, "rgb24")
 
-    mat_i = Dither_matrix_to_index(matrix)
-
-    kr = Default(kr, Select(mat_i, 0.299, 0.2126, 0.212, 0.30, 0.0, 0.2627))
-    kg = Default(kg, Select(mat_i, 0.587, 0.7152, 0.701, 0.59, 0.0, 0.6780))
-    kb = Default(kb, Select(mat_i, 0.114, 0.0722, 0.087, 0.11, 0.0, 0.0593))
-
     RGB = input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 
     return output == "rgb32" ? RGB.ResetMask() : RGB
@@ -46,12 +34,6 @@ Function YUV2RGB24(clip input, string "matrix", bool "tv_range", bool "lsb", flo
     tv_range = Default(tv_range, False)
     lsb      = Default(lsb, True)
 
-    mat_i = Dither_matrix_to_index(matrix)
-
-    kr = Default(kr, Select(mat_i, 0.299, 0.2126, 0.212, 0.30, 0.0, 0.2627))
-    kg = Default(kg, Select(mat_i, 0.587, 0.7152, 0.701, 0.59, 0.0, 0.6780))
-    kb = Default(kb, Select(mat_i, 0.114, 0.0722, 0.087, 0.11, 0.0, 0.0593))
-
     return input.YUV2RGB(matrix=matrix, tv_range=tv_range, lsb=lsb, output="rgb24", kr=kr, kg=kg, kb=kb)
 }
 
@@ -60,12 +42,6 @@ Function YUV2RGB32(clip input, string "matrix", bool "tv_range", bool "lsb", flo
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     lsb      = Default(lsb, True)
-
-    mat_i = Dither_matrix_to_index(matrix)
-
-    kr = Default(kr, Select(mat_i, 0.299, 0.2126, 0.212, 0.30, 0.0, 0.2627))
-    kg = Default(kg, Select(mat_i, 0.587, 0.7152, 0.701, 0.59, 0.0, 0.6780))
-    kb = Default(kb, Select(mat_i, 0.114, 0.0722, 0.087, 0.11, 0.0, 0.0593))
 
     return input.YUV2RGB(matrix=matrix, tv_range=tv_range, lsb=lsb, output="rgb32", kr=kr, kg=kg, kb=kb)
 }

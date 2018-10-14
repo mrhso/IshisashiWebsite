@@ -187,6 +187,7 @@ Function Dither_convert_yuv_to_rgb (clip src, string "matrix", bool "interlaced"
 	# Coefficient calculation
 
 	matrix    = Default (matrix, (h > 576 || w > 1024) ? "709" : "601")
+    matrix    = matrix == "YCgCo" ? Defined (kr) || Defined (kg) || Defined (kb) ? (h > 576 || w > 1024) ? "709" : "601" : "YCgCo" : matrix
 	mat_i     = Dither_matrix_to_index (matrix)
 	Assert ((mat_i >= 0),
 \		"Dither_convert_yuv_to_rgb: unexpected matrix " + matrix + ".")
@@ -371,6 +372,7 @@ Function Dither_convert_rgb_to_yuv (clip src, clip "g", clip "b",
 	# Coefficient calculation
 
 	matrix    = Default (matrix, (h > 576 || w > 1024) ? "709" : "601")
+    matrix    = matrix == "YCgCo" ? Defined (kr) || Defined (kg) || Defined (kb) ? (h > 576 || w > 1024) ? "709" : "601" : "YCgCo" : matrix
 	mat_i     = Dither_matrix_to_index (matrix)
 	Assert ((mat_i >= 0),
 \		"Dither_convert_to_rgb: unexpected matrix" + matrix + ".")
