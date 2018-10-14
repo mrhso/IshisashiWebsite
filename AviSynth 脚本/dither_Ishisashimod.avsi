@@ -195,8 +195,8 @@ Function Dither_convert_yuv_to_rgb (clip src, string "matrix", bool "interlaced"
 	kr = Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627,  kr)
 	kg = Select (mat_i,   0.587,   0.7152,   0.701,   0.59,    0.0,  0.6780,  kg)
 	kb = Select (mat_i,   0.114,   0.0722,   0.087,   0.11,    0.0,  0.0593,  kb)
-    Assert (mat_i == 6 && kr + kg + kb == 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy kr + kg + kb = 1.")
-    Assert (mat_i == 6 && 0 < kr < 1 && 0 < kg < 1 && 0 < kb < 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy 0 < k < 1.")
+    mat_i == 6 ? Assert (kr + kg + kb == 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy kr + kg + kb = 1.") : NOP
+    mat_i == 6 ? Assert (0 < kr < 1 && 0 < kg < 1 && 0 < kb < 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy 0 < k < 1.") : NOP
 
 	offset_y = (tv_range) ?          16.0 : 0.0
 	scale_y  = (tv_range) ? (255.0 / 219) : 1.0
@@ -381,8 +381,8 @@ Function Dither_convert_rgb_to_yuv (clip src, clip "g", clip "b",
 	kr = Select (mat_i,   0.299,   0.2126,   0.212,   0.30,    0.0,  0.2627,  kr)
 	kg = Select (mat_i,   0.587,   0.7152,   0.701,   0.59,    0.0,  0.6780,  kg)
 	kb = Select (mat_i,   0.114,   0.0722,   0.087,   0.11,    0.0,  0.0593,  kb)
-    Assert (mat_i == 6 && kr + kg + kb == 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy kr + kg + kb = 1.")
-    Assert (mat_i == 6 && 0 < kr < 1 && 0 < kg < 1 && 0 < kb < 1, "Dither_convert_yuv_to_rgb: Color matrix must satisfy 0 < k < 1.")
+    mat_i == 6 ? Assert (kr + kg + kb == 1, "Dither_convert_rgb_to_yuv: Color matrix must satisfy kr + kg + kb = 1.") : NOP
+    mat_i == 6 ? Assert (0 < kr < 1 && 0 < kg < 1 && 0 < kb < 1, "Dither_convert_rgb_to_yuv: Color matrix must satisfy 0 < k < 1.") : NOP
 
 	offset_y = (tv_range) ?          16.0 : 0.0
 	scale_y  = (tv_range) ? (219 / 255.0) : 1.0
