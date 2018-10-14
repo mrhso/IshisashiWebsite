@@ -3,15 +3,14 @@
 # 在同时有 AviSynth 和 AviSynth+ 不同实现方案的情况下，「Plus」为 AviSynth+ 专用版函数，效率可能比通用版更高。
 # 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」。判断详见注释。
 
-Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", int "dither", float "kr", float "kg", float "kb")
+Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo") # 个人喜欢使用 YCgCo，所以就这样设定了。
     tv_range = Default(tv_range, False) # PC Range 也是同理。
     lsb      = Default(lsb, True)       # 设置为 True 就是 16-bit，False 就是 8-bit。
-    output   = Default(output, "YV24")
-    dither   = Default(dither, -3)      # 抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
+    dither   = Default(dither, -3)      # 降至 8-bit 的抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
 
-    YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
+    YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=YV24, kr=kr, kg=kg, kb=kb)
 
     return lsb ? YUV : YUV.Down10(depth=8, TVrange=tv_range, dither=dither)
 }
@@ -53,23 +52,23 @@ Function unC16(clip input)
 }
 
 # 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
-Function x264(clip input, string "matrix", bool "tv_range", int "dither")
+Function x264(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     dither   = Default(dither, -1)
 
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range).Down10(depth=10, TVrange=tv_range, dither=dither).C16()
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16()
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
-Function unx264(clip input, string "matrix", bool "tv_range", string "output")
+Function unx264(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
+    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -199,21 +198,21 @@ Function ForceTo16bit(clip input)
 
 # x264 AviSynth+ 版。
 # 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
-Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither")
+Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     dither   = Default(dither, -1)
 
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
 }
 
 # unx264 AviSynth+ 版。
-Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output")
+Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output)
+    return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
