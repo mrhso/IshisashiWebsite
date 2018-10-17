@@ -156,7 +156,7 @@ Function AlphaStack(clip input)
 Function unAlphaStack(clip input)
 {
     input = PixelType(input) == "RGB24" ? input.ConvertToRGB32()
-                                        : input
+\                                       : input
 
     return Mask(Crop(input, 0, 0, -0, -Height(input)/2), Crop(input, 0, Height(input)/2, -0, -0))
 }
