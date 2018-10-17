@@ -46,10 +46,28 @@ Function YUV2RGB32(clip input, string "matrix", bool "tv_range", bool "lsb", flo
     return input.YUV2RGB(matrix=matrix, tv_range=tv_range, lsb=lsb, output="rgb32", kr=kr, kg=kg, kb=kb)
 }
 
+# C16 AviSynth+ 版。
+Function C16Plus(clip input)
+{
+    return input.ConvertFromStacked().ConvertToDoubleWidth()
+}
+
 # unC16 AviSynth 2.6 通用版。
 Function unC1626(clip input)
 {
     return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, output_mode=1)
+}
+
+# unC16 AviSynth+ 版。
+Function unC16Plus(clip input)
+{
+    return input.ConvertFromDoubleWidth().ConvertToStacked()
+}
+
+# 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
+Function unC16(clip input)
+{
+    return IsAVSPlus() ? input.unC16Plus() : input.unC1626()
 }
 
 # 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
@@ -62,6 +80,17 @@ Function x264(clip input, string "matrix", bool "tv_range", int "dither", float 
     return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16()
 }
 
+# x264 AviSynth+ 版。
+# 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
+Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
+{
+    matrix   = Default(matrix, "YCgCo")
+    tv_range = Default(tv_range, False)
+    dither   = Default(dither, -1)
+
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
+}
+
 # 解码 10-bit Interleaved YUV 到 RGB。
 Function unx264(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
 {
@@ -70,6 +99,16 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", f
     output   = Default(output, "rgb24")
 
     return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+}
+
+# unx264 AviSynth+ 版。
+Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
+{
+    matrix   = Default(matrix, "YCgCo")
+    tv_range = Default(tv_range, False)
+    output   = Default(output, "rgb24")
+
+    return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -176,18 +215,6 @@ Function nnedi3_YV24(clip input, bool "lsb_in", bool "tv_range", bool "lsb")
     return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
 
-# C16 AviSynth+ 版。
-Function C16Plus(clip input)
-{
-    return input.ConvertFromStacked().ConvertToDoubleWidth()
-}
-
-# unC16 AviSynth+ 版。
-Function unC16Plus(clip input)
-{
-    return input.ConvertFromDoubleWidth().ConvertToStacked()
-}
-
 # 仅 AviSynth+ 可用。
 # 强制将 16-bit 以下 Clip 标为 16-bit，即数值上不扩张到 16-bit。
 # 但是，这个实现方法好像有点强行 www
@@ -197,42 +224,9 @@ Function ForceTo16bit(clip input)
     return input.Expr("x", format=LeftStr(PixelType(input), StrLen(PixelType(input))-StrLen(String(BitsPerComponent(input)))) + "16")
 }
 
-# x264 AviSynth+ 版。
-# 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
-Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
-{
-    matrix   = Default(matrix, "YCgCo")
-    tv_range = Default(tv_range, False)
-    dither   = Default(dither, -1)
-
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
-}
-
-# unx264 AviSynth+ 版。
-Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
-{
-    matrix   = Default(matrix, "YCgCo")
-    tv_range = Default(tv_range, False)
-    output   = Default(output, "rgb24")
-
-    return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-}
-
 # 判断 AviSynth+ 与否。
 Function IsAVSPlus()
 {
     sVer = LCase(VersionString) 
     return (FindStr(sVer, "avisynth+") > 0) || (FindStr(sVer, "avisynthplus") > 0)
-}
-
-# 把层叠（Stacked）转为交织（Interleaved）。
-Function C16(clip input)
-{
-    return input.Dither_out()
-}
-
-# 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
-Function unC16(clip input)
-{
-    return IsAVSPlus() ? input.unC16Plus() : input.unC1626()
 }
