@@ -11,9 +11,8 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "
     lsb      = Default(lsb, True)       # 设置为 True 就是 16-bit，False 就是 8-bit。
     dither   = Default(dither, -3)      # 降至 8-bit 的抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
 
-    YUV = input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb)
-
-    return lsb ? YUV : YUV.Down10(depth=8, TVrange=tv_range, dither=dither)
+    return lsb ? input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb)
+\              : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb).Down10(depth=8, TVrange=tv_range, dither=dither)
 }
 
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", float "kr", float "kg", float "kb")
@@ -23,9 +22,8 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     lsb      = Default(lsb, True)
     output   = Default(output, "rgb24")
 
-    RGB = input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
-
-    return output == "rgb32" ? RGB.ResetMask() : RGB
+    return output == "rgb32" ? input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb).ResetMask()
+\                            : input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 Function YUV2RGB24(clip input, string "matrix", bool "tv_range", bool "lsb", float "kr", float "kg", float "kb")
@@ -77,7 +75,8 @@ Function unC16Plus(clip input)
 # 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
 Function unC16(clip input)
 {
-    return IsAVSPlus() ? input.unC16Plus() : input.unC1626()
+    return IsAVSPlus() ? input.unC16Plus()
+\                      : input.unC1626()
 }
 
 # x264 AviSynth 2.6 版。
@@ -110,7 +109,8 @@ Function x264(clip input, string "matrix", bool "tv_range", int "dither", float 
     tv_range = Default(tv_range, False)
     dither   = Default(dither, -1)
 
-    return IsAVSPlus() ? input.x264Plus(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb) : input.x26426(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
+    return IsAVSPlus() ? input.x264Plus(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
+\                      : input.x26426(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
 }
 
 # unx264 AviSynth 2.6 版。
@@ -142,7 +142,8 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", f
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return IsAVSPlus() ? input.unx264Plus(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb) : input.unx26426(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return IsAVSPlus() ? input.unx264Plus(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+\                      : input.unx26426(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -154,9 +155,10 @@ Function AlphaStack(clip input)
 # 将 Alpha Stack 解译为 RGB32。
 Function unAlphaStack(clip input)
 {
-    RGB32 = PixelType(input) == "RGB24" ? input.ConvertToRGB32() : input
+    input = PixelType(input) == "RGB24" ? input.ConvertToRGB32()
+                                        : input
 
-    return Mask(Crop(RGB32, 0, 0, -0, -Height(RGB32)/2), Crop(RGB32, 0, Height(RGB32)/2, -0, -0))
+    return Mask(Crop(input, 0, 0, -0, -Height(input)/2), Crop(input, 0, Height(input)/2, -0, -0))
 }
 
 # 对 RGB32 透明 Clip 添加纯色背景。
