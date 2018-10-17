@@ -1,7 +1,8 @@
 # Ishisashi 制作的 AviSynth 快捷脚本
-# 直接依赖：[O16 (mawen1250 mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)
-# 在同时有 AviSynth 和 AviSynth+ 不同实现方案的情况下，「Plus」为 AviSynth+ 专用版函数，效率可能比通用版更高。
-# 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」。判断详见注释。
+# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)
+# 在同时有 AviSynth 和 AviSynth+ 不同实现方案的情况下，「26」为 AviSynth 2.6 通用版函数，「Plus」为 AviSynth+ 专用版函数，效率可能比通用版更高。
+# 实际使用中已能通过 IsAVSPlus 自动判断。
+# 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」。
 
 Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "dither", float "kr", float "kg", float "kb")
 {
@@ -45,8 +46,8 @@ Function YUV2RGB32(clip input, string "matrix", bool "tv_range", bool "lsb", flo
     return input.YUV2RGB(matrix=matrix, tv_range=tv_range, lsb=lsb, output="rgb32", kr=kr, kg=kg, kb=kb)
 }
 
-# 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
-Function unC16(clip input)
+# unC16 AviSynth 2.6 通用版。
+Function unC1626(clip input)
 {
     return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, output_mode=1)
 }
@@ -215,4 +216,23 @@ Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output
     output   = Default(output, "rgb24")
 
     return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+}
+
+# 判断 AviSynth+ 与否。
+Function IsAVSPlus()
+{
+    sVer = LCase(VersionString) 
+    return (FindStr(sVer, "avisynth+") > 0) || (FindStr(sVer, "avisynthplus") > 0)
+}
+
+# 把层叠（Stacked）转为交织（Interleaved）。
+Function C16(clip input)
+{
+    return input.Dither_out()
+}
+
+# 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）。
+Function unC16(clip input)
+{
+    return IsAVSPlus() ? input.unC16Plus() : input.unC1626()
 }
