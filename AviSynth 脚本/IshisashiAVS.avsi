@@ -119,8 +119,10 @@ Function unx26426(clip input, string "matrix", bool "tv_range", string "output",
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
-
-    return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+# return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+# BitDepth 仿佛有奇妙深刻的[误差](https://www.nmm-hd.org/newbbs/viewtopic.php?t=2161)，过于巩布，，，
+# 那就只好换回 f3kdb 的位移了。所以 AviSynth 2.6 用户暂时无法对 PC Range 正确转换了，我谔谔。不过转换到 16-bit YUV 的方法不同，也许并不影响最终转到 8-bit RGB 的结果。
 }
 
 # unx264 AviSynth+ 版。
