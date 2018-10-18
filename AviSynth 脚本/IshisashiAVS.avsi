@@ -61,7 +61,7 @@ Function C16Plus(clip input)
 # unC16 AviSynth 2.6 版。
 Function unC1626(clip input)
 {
-    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, output_mode=1)
+    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=False, input_mode=2, output_mode=1)
 }
 
 # unC16 AviSynth+ 版。
@@ -120,7 +120,7 @@ Function unx26426(clip input, string "matrix", bool "tv_range", string "output",
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=false, input_mode=2, input_depth=10, output_mode=1, output_depth=16).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # unx264 AviSynth+ 版。
@@ -132,7 +132,8 @@ Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return input.ConvertFromDoubleWidth(10).ConvertBits(16).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return tv_range ? input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=False).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+\                   : input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=True).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
@@ -253,13 +254,12 @@ Function nnedi3_YV24(clip input, bool "lsb_in", bool "tv_range", bool "lsb")
 
 # 仅 AviSynth+ 可用。
 # 强制将 16-bit 以下 Clip 标为 16-bit，即数值上不扩张到 16-bit。
-# 但是，这个实现方法好像有点强行 www
 # 用途主要是让 ConvertToStacked/ConvertToDoubleWidth 顺利进行，因为这俩函数必须要 16-bit 输入，所以为了能让输入、输出都为 10-bit，就写了这个。
 Function ForceTo16bit(clip input)
 {
     Assert(IsAVSPlus(), "AviSynth+ only!")
 
-    return input.Expr("x", format=LeftStr(PixelType(input), StrLen(PixelType(input))-StrLen(String(BitsPerComponent(input)))) + "16")
+    return input.ConvertBits(bits=16, truerange=False)
 }
 
 # 判断 AviSynth+ 与否。
