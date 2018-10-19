@@ -271,3 +271,48 @@ Function IsAVSPlus()
     sVer = LCase(VersionString) 
     return (FindStr(sVer, "avisynth+") > 0) || (FindStr(sVer, "avisynthplus") > 0)
 }
+
+# 将 RGB48YV12 转换为 RGB48Y。
+Function RGB48YV12ToRGB48Y(clip input)
+{
+    width  = input.Width()
+    height = input.Height()
+
+    Y = input.ConvertToY8()
+    U = input.UtoY8()
+    V = input.VtoY8()
+
+    U.StackVertical(V).SeparateFields()
+    Y.StackVertical(StackHorizontal(SelectEven(),SelectOdd()))
+
+    m = PointResize(width, height * 2).SeparateFields()
+    m0 = m.SelectOdd().AssumeFrameBased().SeparateFields()
+    m1 = m.SelectEven().AssumeFrameBased().SeparateFields()
+
+    o = m0.SelectOdd()
+    p = m1.SelectEven()
+    q = m0.SelectEven()
+    StackHorizontal(o, p, q)
+
+    SeparateColumns(2)
+    StackVertical(SelectOdd(),SelectEven())
+    m = PointResize(width * 2, height).AssumeFrameBased().SeparateColumns(2)
+    m0 = m.SelectOdd().AssumeFrameBased().SeparateColumns(2)
+    m1 = m.SelectEven().AssumeFrameBased().SeparateColumns(2)
+
+    R = m0.SelectEven()
+    G = m1.SelectOdd()
+    B = m0.SelectOdd()
+
+    return Interleave(R, G, B)
+}
+
+# 将 RGB48YV12ToRGB48Y 逆向，即是说把 RGB48Y 转换为 RGB48YV12。
+Function RGB48YToRGB48YV12(clip input)
+{
+    R = input.SelectEvery(3, 0)
+    G = input.SelectEvery(3, 1)
+    B = input.SelectEvery(3, 2)
+
+    return R.Dither_convey_rgb48_on_yv12(G, B)
+}

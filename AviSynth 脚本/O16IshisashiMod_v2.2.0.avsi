@@ -1,7 +1,7 @@
 #############################################################################################
 ###                                                                                       ###
 ### O16 & Down10 v2.2.0: output 16 bit clip using "dither", "f3kdb" or "SmoothAdjust"     ###
-### original script by 06_taro, modified by mawen1250                                     ###
+### original script by 06_taro, 1st modified by mawen1250, last modified by Ishisashi     ###
 ###                                                                                       ###
 #############################################################################################
 ###
