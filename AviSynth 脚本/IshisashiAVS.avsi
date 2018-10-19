@@ -349,5 +349,5 @@ Function YV24RGB24(clip input)
     U = input.UToY8()       # 提取出 U 通道。
     V = input.VToY8()       # 提取出 V 通道。
 
-    return Y.MergeRGB(U, V)
+    return Y.MergeRGB(U, V, pixel_type="RGB24")
 }
