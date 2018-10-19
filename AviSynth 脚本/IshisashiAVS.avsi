@@ -327,7 +327,7 @@ Function RGB48Stacked(clip input)
     G = input.SelectEvery(3, 1) # 提取出 G 通道。
     B = input.SelectEvery(3, 2) # 提取出 B 通道。
 
-    return R.MergeRGB(G, B)
+    return R.MergeRGB(G, B, pixel_type="RGB24")
 }
 
 # 将 RGB24 伪装成 YV24。
