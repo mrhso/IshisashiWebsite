@@ -120,7 +120,7 @@ Function unx26426(clip input, string "matrix", bool "tv_range", string "output",
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
     return tv_range ? input.unC1626().Dither_lut16("x 6 <<", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-\                     input.unC1626().Dither_lut16("x 21845 341 / *", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+\                   : input.unC1626().Dither_lut16("x 21845 341 / *", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 # return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 # BitDepth 仿佛有奇妙深刻的[误差](https://www.nmm-hd.org/newbbs/viewtopic.php?t=2161)，过于巩布，，，
 # 那么我暂且用 Dither_lut16 实现了。
