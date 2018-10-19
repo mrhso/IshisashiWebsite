@@ -351,3 +351,52 @@ Function YV24RGB24(clip input)
 
     return Y.MergeRGB(U, V, pixel_type="RGB24")
 }
+
+# 当然是把 Hack 的 RGB48 Stack 转回那种 RGB48Y 啊。
+Function unRGB48Stacked(clip input)
+{
+    R = input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
+    G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
+    B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
+
+    return Interleave(R, G, B)
+}
+
+# 在 AviSynth+ 中还没有什么很方便把 RGB48Y 读到 RGB48 的方法。毕竟 ConvertFromStacked 只支持 YUV。
+# 那么就使用这种伪装成 YUV 的方法吧。但是效率不知为何有点低。
+Function RGB48(clip input)
+{
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
+    R = input.SelectEvery(3, 0) # 提取出 R 通道。
+    G = input.SelectEvery(3, 1) # 提取出 G 通道。
+    B = input.SelectEvery(3, 2) # 提取出 B 通道。
+
+    G.YToUV(B, R)        # 伪装成 YUV。
+    ConvertFromStacked() # 这样就没问题了吧。
+
+    R = ExtractY() # 因为是 High Bit-Depth 所以要用 Extract，这也是 AviSynth+ 所独有的。
+    G = ExtractU()
+    B = ExtractV()
+
+    return R.MergeRGB(G, B, pixel_type="RGB48")
+}
+
+# 把 AviSynth+ RGB48 转到 RGB48Y 去。
+Function unRGB48(clip input)
+{
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
+    R = input.ExtractR() # 提取出 R 通道。
+    G = input.ExtractG() # 提取出 G 通道。
+    B = input.ExtractB() # 提取出 B 通道。
+
+    G.YToUV(B, R)      # 同样伪装成 YUV。
+    ConvertToStacked() # 啊，又是。
+
+    R = ConvertToY8()
+    G = UToY8()
+    B = VToY8()
+
+    return R.Interleave(G, B) # 但是这里稍稍不同了，因为 RGB48Y 是把通道拆散到三帧的。
+}
