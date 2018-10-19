@@ -273,19 +273,21 @@ Function IsAVSPlus()
 }
 
 # 将 RGB48YV12 转换为 RGB48Y。
+# 这个实现方法我自己都没看懂，奇妙深刻，何等申必。
+# 有待大触解读。
 Function RGB48YV12ToRGB48Y(clip input)
 {
     width  = input.Width()
     height = input.Height()
 
-    Y = input.ConvertToY8()
-    U = input.UtoY8()
-    V = input.VtoY8()
+    Y = input.ConvertToY8() # 提取出 Y 通道，并存储为 Y8。
+    U = input.UtoY8()       # 提取出 U 通道，并存储为 Y8。
+    V = input.VtoY8()       # 提取出 V 通道，并存储为 Y8。
 
     U.StackVertical(V).SeparateFields()
     Y.StackVertical(StackHorizontal(SelectEven(),SelectOdd()))
 
-    m = PointResize(width, height * 2).SeparateFields()
+    m  = PointResize(width, height * 2).SeparateFields()
     m0 = m.SelectOdd().AssumeFrameBased().SeparateFields()
     m1 = m.SelectEven().AssumeFrameBased().SeparateFields()
 
@@ -296,7 +298,7 @@ Function RGB48YV12ToRGB48Y(clip input)
 
     SeparateColumns(2)
     StackVertical(SelectOdd(),SelectEven())
-    m = PointResize(width * 2, height).AssumeFrameBased().SeparateColumns(2)
+    m  = PointResize(width * 2, height).AssumeFrameBased().SeparateColumns(2)
     m0 = m.SelectOdd().AssumeFrameBased().SeparateColumns(2)
     m1 = m.SelectEven().AssumeFrameBased().SeparateColumns(2)
 
@@ -310,9 +312,42 @@ Function RGB48YV12ToRGB48Y(clip input)
 # 将 RGB48YV12ToRGB48Y 逆向，即是说把 RGB48Y 转换为 RGB48YV12。
 Function RGB48YToRGB48YV12(clip input)
 {
-    R = input.SelectEvery(3, 0)
-    G = input.SelectEvery(3, 1)
-    B = input.SelectEvery(3, 2)
+    R = input.SelectEvery(3, 0) # 提取出 R 通道。
+    G = input.SelectEvery(3, 1) # 提取出 G 通道。
+    B = input.SelectEvery(3, 2) # 提取出 B 通道。
 
     return R.Dither_convey_rgb48_on_yv12(G, B)
+}
+
+# 像 YUV 的 High Bit-Depth 那样 Hack 的 RGB48，我的意思。
+# 没什么技术含量。
+Function RGB48Stacked(clip input)
+{
+    R = input.SelectEvery(3, 0) # 提取出 R 通道。
+    G = input.SelectEvery(3, 1) # 提取出 G 通道。
+    B = input.SelectEvery(3, 2) # 提取出 B 通道。
+
+    return R.MergeRGB(G, B)
+}
+
+# 将 RGB24 伪装成 YV24。
+# 同样没什么技术含量。
+Function RGB24YV24(clip input)
+{
+    R = input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
+    G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
+    B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
+
+    return G.YToUV(B, R)
+}
+
+# 反过来，将 YV24 伪装成 RGB24。
+# 啊啊还是没什么技术含量。
+Function YV24RGB24(clip input)
+{
+    Y = input.ConvertToY8() # 提取出 Y 通道。
+    U = input.UToY8()       # 提取出 U 通道。
+    V = input.VToY8()       # 提取出 V 通道。
+
+    return Y.MergeRGB(U, V)
 }
