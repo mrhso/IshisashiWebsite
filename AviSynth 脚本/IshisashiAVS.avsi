@@ -12,7 +12,7 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "
     dither   = Default(dither, -3)      # 降至 8-bit 的抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
 
     return lsb ? input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb)
-\              : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb).Down10(depth=8, TVrange=tv_range, dither=dither)
+    \          : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb).Down10(depth=8, TVrange=tv_range, dither=dither)
 }
 
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", float "kr", float "kg", float "kb")
@@ -23,7 +23,7 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     output   = Default(output, "rgb24")
 
     return output == "rgb32" ? input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb).ResetMask()
-\                            : input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
+    \                        : input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 Function YUV2RGB24(clip input, string "matrix", bool "tv_range", bool "lsb", float "kr", float "kg", float "kb")
@@ -76,7 +76,7 @@ Function unC16Plus(clip input)
 Function unC16(clip input)
 {
     return IsAVSPlus() ? input.unC16Plus()
-\                      : input.unC1626()
+    \                  : input.unC1626()
 }
 
 # x264 AviSynth 2.6 版。
@@ -110,7 +110,7 @@ Function x264(clip input, string "matrix", bool "tv_range", int "dither", float 
     dither   = Default(dither, -1)
 
     return IsAVSPlus() ? input.x264Plus(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
-\                      : input.x26426(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
+    \                  : input.x26426(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
 }
 
 # unx264 AviSynth 2.6 版。
@@ -120,10 +120,10 @@ Function unx26426(clip input, string "matrix", bool "tv_range", string "output",
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
     return tv_range ? input.unC1626().Dither_lut16("x 6 <<", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-\                   : input.unC1626().Dither_lut16("x 21845 341 / *", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-# return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-# BitDepth 仿佛有奇妙深刻的[误差](https://www.nmm-hd.org/newbbs/viewtopic.php?t=2161)，过于巩布，，，
-# 那么我暂且用 Dither_lut16 实现了。
+    \               : input.unC1626().Dither_lut16("x 1023 / 65535 *", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    # return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    # BitDepth 仿佛有奇妙深刻的[误差](https://www.nmm-hd.org/newbbs/viewtopic.php?t=2161)，过于巩布，，，
+    # 那么我暂且用 Dither_lut16 实现了。
 }
 
 # unx264 AviSynth+ 版。
@@ -136,7 +136,7 @@ Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output
     output   = Default(output, "rgb24")
 
     return tv_range ? input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=False).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-\                   : input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=True).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    \               : input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=True).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
@@ -147,7 +147,7 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", f
     output   = Default(output, "rgb24")
 
     return IsAVSPlus() ? input.unx264Plus(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-\                      : input.unx26426(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    \                  : input.unx26426(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
@@ -160,7 +160,7 @@ Function AlphaStack(clip input)
 Function unAlphaStack(clip input)
 {
     input = PixelType(input) == "RGB24" ? input.ConvertToRGB32()
-\                                       : input
+    \                                   : input
 
     return Mask(Crop(input, 0, 0, -0, -Height(input)/2), Crop(input, 0, Height(input)/2, -0, -0))
 }
