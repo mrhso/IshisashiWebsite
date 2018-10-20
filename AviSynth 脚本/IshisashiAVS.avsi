@@ -135,8 +135,7 @@ Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return tv_range ? input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=False).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-    \               : input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=True).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=!tv_range).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
