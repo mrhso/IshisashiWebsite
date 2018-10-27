@@ -112,8 +112,7 @@ SetFilterMTMode("MosquitoNR",          MT_SERIALIZED)     #MosquitoNR        v0.
 SetFilterMTMode("StaticNoiseC",        MT_NICE_FILTER)    #StaticNoiseC      --->    2011/01/08 - Mode 1/2 performance is almost identical. 
 SetFilterMTMode("SVSuper",             MT_NICE_FILTER)    #SVPflow       4.0.0.128   2016/02/12 - Documentation states "all filters now compatible with MT mode 1"
 SetFilterMTMode("SVAnalyse",           MT_NICE_FILTER)    #SVPflow       4.0.0.128   2016/02/12 - Documentation states "all filters now compatible with MT mode 1"
-SetFilterMTMode("SVSmoothFps",         MT_MULTI_INSTANCE)    #SVPflow       
-4.0.0.128   2016/02/12 - Documentation states "all filters now compatible with MT mode 1" #2018/02/03
+SetFilterMTMode("SVSmoothFps",         MT_MULTI_INSTANCE)    #SVPflow       4.0.0.128   2016/02/12 - Documentation states "all filters now compatible with MT mode 1" #2018/02/03
 SetFilterMTMode("tcanny",              MT_MULTI_INSTANCE) #tcanny            v1.0    2009/06/03 - With mode 1 the output is corrupted, random artifacts when playing and/or seeking.
 SetFilterMTMode("tdtrans",             MT_MULTI_INSTANCE) #tcanny            v1.0    2009/06/03 - Same as tcanny
 #SetFilterMTMode("TCannyMod_TCannyMod", MT_NICE_FILTER)    #TCannyMod         v1.2.0  2016/05/25 #this line is not needed after v1.2.0

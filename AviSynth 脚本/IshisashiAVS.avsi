@@ -6,10 +6,10 @@
 
 Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "dither", float "kr", float "kg", float "kb")
 {
-    matrix   = Default(matrix, "YCgCo") # 个人喜欢使用 YCgCo，所以就这样设定了。
-    tv_range = Default(tv_range, False) # PC Range 也是同理。
-    lsb      = Default(lsb, True)       # 设置为 True 就是 16-bit，False 就是 8-bit。
-    dither   = Default(dither, -3)      # 降至 8-bit 的抖动算法，默认是用的 Floyd-Steinberg dithering。参见 O16 的 Down10。
+    matrix   = Default(matrix, "YCgCo")                             # 个人喜欢使用 YCgCo，所以就这样设定了。
+    tv_range = Default(tv_range, False)                             # PC Range 也是同理。
+    lsb      = Default(lsb, True)                                   # 设置为 True 就是 16-bit，False 就是 8-bit。
+    dither   = tv_range ? Default(dither, -3) : Default(dither, 50) # 降至 8-bit 的抖动算法，默认情况对 TV Range 是用的 Floyd-Steinberg dithering，PC Range 的 Dither 带有 Random Noise。参见 O16 的 Down10。
 
     return lsb ? input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb)
     \          : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb).Down10(depth=8, TVrange=tv_range, dither=dither)
@@ -245,11 +245,11 @@ Function AddBlankAudio(clip input, int "audio_rate", int "channels", string "sam
 }
 
 # 利用 nnedi3_resize16 将 4:2:0/4:2:2 YUV 转换到 4:4:4。
-Function nnedi3_YV24(clip input, bool "lsb_in", bool "tv_range", bool "lsb")
+Function nnedi3_YV24(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
 {
-    lsb_in   = Default(lsb_in, False)  # 一般用了 4:2:0 的视频，也往往是 8-bit 的。
-    tv_range = Default(tv_range, True) # 同理也往往是 TV Range。
-    lsb      = Default(lsb, True)      # 默认输出 16-bit，以保留高精度 Chroma-Resize 结果。
+    tv_range = Default(tv_range, False)
+    lsb_in   = Default(lsb_in, True)   
+    lsb      = Default(lsb, True)       # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
     return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
@@ -398,4 +398,15 @@ Function unRGB48(clip input)
     B = VToY8()
 
     return R.Interleave(G, B) # 但是这里稍稍不同了，因为 RGB48Y 是把通道拆散到三帧的。
+}
+
+# 利用 nnedi3_resize16 将 4:4:4 YUV 转换到 4:2:0。
+# 有时间的话，为了获得比屑站二压更高的 Chroma Resample 精度，就可以用这个。
+Function nnedi3_YV12(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
+{
+    tv_range = Default(tv_range, False)
+    lsb_in   = Default(lsb_in, True)   
+    lsb      = Default(lsb, True)       # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
+
+    return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
