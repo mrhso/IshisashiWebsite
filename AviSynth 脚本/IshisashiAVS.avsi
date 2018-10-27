@@ -4,15 +4,16 @@
 # 实际使用中已能通过 IsAVSPlus 自动判断。
 # 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」。
 
-Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", int "dither", float "kr", float "kg", float "kb")
+Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")                             # 个人喜欢使用 YCgCo，所以就这样设定了。
     tv_range = Default(tv_range, False)                             # PC Range 也是同理。
     lsb      = Default(lsb, True)                                   # 设置为 True 就是 16-bit，False 就是 8-bit。
     dither   = tv_range ? Default(dither, -3) : Default(dither, 50) # 降至 8-bit 的抖动算法，默认情况对 TV Range 是用的 Floyd-Steinberg dithering，PC Range 的 Dither 带有 Random Noise。参见 O16 的 Down10。
+    output   = Default(output, "YV24")                              # 当然不建议用这个设定 YV12，更建议用 nnedi3 降一下。
 
-    return lsb ? input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb)
-    \          : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output="YV24", kr=kr, kg=kg, kb=kb).Down10(depth=8, TVrange=tv_range, dither=dither)
+    return lsb ? input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
+    \          : input.Dither_convert_rgb_to_yuv(matrix=matrix, tv_range=tv_range, lsb=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=8, TVrange=tv_range, dither=dither)
 }
 
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", float "kr", float "kg", float "kb")
@@ -80,37 +81,40 @@ Function unC16(clip input)
 }
 
 # x264 AviSynth 2.6 版。
-Function x26426(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
+Function x26426(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     dither   = Default(dither, -1)
+    output   = Default(output, "YV24")
 
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C1626()
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C1626()
 }
 
 # x264 AviSynth+ 版。
 # 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
-Function x264Plus(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
+Function x264Plus(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     Assert(IsAVSPlus(), "AviSynth+ only!")
 
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     dither   = Default(dither, -1)
+    output   = Default(output, "YV24")
 
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
 }
 
 # 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
-Function x264(clip input, string "matrix", bool "tv_range", int "dither", float "kr", float "kg", float "kb")
+Function x264(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     dither   = Default(dither, -1)
+    output   = Default(output, "YV24")
 
-    return IsAVSPlus() ? input.x264Plus(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
-    \                  : input.x26426(matrix=matrix, tv_range=tv_range, dither=dither, kr=kr, kg=kg, kb=kb)
+    return IsAVSPlus() ? input.x264Plus(matrix=matrix, tv_range=tv_range, output=output, dither=dither, kr=kr, kg=kg, kb=kb)
+    \                  : input.x26426(matrix=matrix, tv_range=tv_range, output=output, dither=dither, kr=kr, kg=kg, kb=kb)
 }
 
 # unx264 AviSynth 2.6 版。
@@ -119,6 +123,7 @@ Function unx26426(clip input, string "matrix", bool "tv_range", string "output",
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
+
     return tv_range ? input.unC1626().Dither_lut16("x 6 <<", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
     \               : input.unC1626().Dither_lut16("x 1023 / 65535 *", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
     # return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
