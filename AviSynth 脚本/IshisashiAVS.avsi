@@ -247,9 +247,9 @@ Function AddBlankAudio(clip input, int "audio_rate", int "channels", string "sam
 # 利用 nnedi3_resize16 将 4:2:0/4:2:2 YUV 转换到 4:4:4。
 Function nnedi3_YV24(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
 {
-    tv_range = Default(tv_range, False)
-    lsb_in   = Default(lsb_in, True)   
-    lsb      = Default(lsb, True)       # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
+    tv_range = Default(tv_range, True) # 用 4:2:0 的视频往往是 TV Range。
+    lsb_in   = Default(lsb_in, False)  # 当然也往往是 8-bit。
+    lsb      = Default(lsb, True)      # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
     return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
@@ -267,7 +267,7 @@ Function ForceTo16bit(clip input)
 # 判断 AviSynth+ 与否。
 Function IsAVSPlus()
 {
-    sVer = LCase(VersionString) 
+    sVer = LCase(VersionString)
     return (FindStr(sVer, "avisynth+") > 0) || (FindStr(sVer, "avisynthplus") > 0)
 }
 
@@ -404,9 +404,9 @@ Function unRGB48(clip input)
 # 有时间的话，为了获得比屑站二压更高的 Chroma Resample 精度，就可以用这个。
 Function nnedi3_YV12(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
 {
-    tv_range = Default(tv_range, False)
-    lsb_in   = Default(lsb_in, True)   
-    lsb      = Default(lsb, True)       # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
+    tv_range = Default(tv_range, True) # 用 4:2:0 的视频往往是 TV Range。
+    lsb_in   = Default(lsb_in, False)  # 当然也往往是 8-bit。
+    lsb      = Default(lsb, True)      # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
     return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
