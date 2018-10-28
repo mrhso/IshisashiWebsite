@@ -413,5 +413,5 @@ Function nnedi3_YV12(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
     lsb_in   = Default(lsb_in, False)  # 当然也往往是 8-bit。
     lsb      = Default(lsb, True)      # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
-    return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
+    return input.nnedi3_resize16(output="YV12", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
