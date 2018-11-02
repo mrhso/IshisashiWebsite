@@ -320,7 +320,7 @@ Function RGB48YToRGB48YV12(clip input)
     G = input.SelectEvery(3, 1) # 提取出 G 通道。
     B = input.SelectEvery(3, 2) # 提取出 B 通道。
 
-    return R.Dither_convey_rgb48_on_yv12(G, B)
+    return Dither_convey_rgb48_on_yv12(R, G, B)
 }
 
 # 像 YUV 的 High Bit-Depth 那样 Hack 的 RGB48，我的意思。
@@ -331,7 +331,7 @@ Function RGB48Stacked(clip input)
     G = input.SelectEvery(3, 1) # 提取出 G 通道。
     B = input.SelectEvery(3, 2) # 提取出 B 通道。
 
-    return R.MergeRGB(G, B, pixel_type="RGB24")
+    return MergeRGB(R, G, B, pixel_type="RGB24")
 }
 
 # 将 RGB24 伪装成 YV24。
@@ -342,7 +342,7 @@ Function RGB24YV24(clip input)
     G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
     B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
 
-    return G.YToUV(B, R)
+    return YToUV(G, B, R)
 }
 
 # 反过来，将 YV24 伪装成 RGB24。
@@ -353,7 +353,7 @@ Function YV24RGB24(clip input)
     U = input.UToY8()       # 提取出 U 通道。
     V = input.VToY8()       # 提取出 V 通道。
 
-    return Y.MergeRGB(U, V, pixel_type="RGB24")
+    return MergeRGB(Y, U, V, pixel_type="RGB24")
 }
 
 # 当然是把 Hack 的 RGB48 Stack 转回那种 RGB48Y 啊。
@@ -383,7 +383,7 @@ Function RGB48(clip input)
     G = ExtractU()
     B = ExtractV()
 
-    return R.MergeRGB(G, B, pixel_type="RGB48")
+    return MergeRGB(R, G, B, pixel_type="RGB48")
 }
 
 # 把 AviSynth+ RGB48 转到 RGB48Y 去。
@@ -402,7 +402,7 @@ Function unRGB48(clip input)
     G = UToY8()
     B = VToY8()
 
-    return R.Interleave(G, B) # 但是这里稍稍不同了，因为 RGB48Y 是把通道拆散到三帧的。
+    return Interleave(R, G, B) # 但是这里稍稍不同了，因为 RGB48Y 是把通道拆散到三帧的。
 }
 
 # 利用 nnedi3_resize16 将 4:4:4 YUV 转换到 4:2:0。
@@ -417,21 +417,18 @@ Function nnedi3_YV12(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
 }
 
 # 转换 Interleaved 至 Planar。
+# 若未转换原样输出，不报错。因为这不像在 AviSynth 2.6 跑 AviSynth+ 专用函数会 RP（当然就算不 Assert 也会提示找不到函数？），就没设了。使用时要多加注意。
 Function Interleaved2Planar(clip input)
 {
-    Assert(IsInterleaved(input), "Clip is not Interleaved!")
-
     return PixelType(input) == "RGB24" || PixelType(input) == "RGB48" ? input.ConvertToPlanarRGB()
 \        : PixelType(input) == "RGB32" || PixelType(input) == "RGB64" ? input.ConvertToPlanarRGBA()
 \        : PixelType(input) == "YUY2"                                 ? input.ConvertToYV16()
 \        :                                                              input
 }
 
-# 转换 Interleaved 至 Planar。
+# 转换 Planar 至 Interleaved。
 Function Planar2Interleaved(clip input)
 {
-    Assert(input.IsPlanar(), "Clip is not Planar!")
-
     return PixelType(input) == "RGBP"    ? input.ConvertToRGB24()
 \        : PixelType(input) == "RGBP16"  ? input.ConvertToRGB48()
 \        : PixelType(input) == "RGBAP"   ? input.ConvertToRGB32()
