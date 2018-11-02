@@ -281,8 +281,8 @@ Function IsAVSPlus()
 # 有待大触解读。
 Function RGB48YV12ToRGB48Y(clip input)
 {
-    width  = input.Width()
-    height = input.Height()
+    width  = Width(input)
+    height = Height(input)
 
     Y = input.ConvertToY8() # 提取出 Y 通道，并存储为 Y8。
     U = input.UtoY8()       # 提取出 U 通道，并存储为 Y8。
@@ -414,4 +414,28 @@ Function nnedi3_YV12(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
     lsb      = Default(lsb, True)      # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
     return input.nnedi3_resize16(output="YV12", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
+}
+
+# 转换 Interleaved 至 Planar。
+Function Interleaved2Planar(clip input)
+{
+    Assert(IsInterleaved(input), "Clip is not Interleaved!")
+
+    return PixelType(input) == "RGB24" || PixelType(input) == "RGB48" ? input.ConvertToPlanarRGB()
+\        : PixelType(input) == "RGB32" || PixelType(input) == "RGB64" ? input.ConvertToPlanarRGBA()
+\        : PixelType(input) == "YUY2"                                 ? input.ConvertToYV16()
+\        :                                                              input
+}
+
+# 转换 Interleaved 至 Planar。
+Function Planar2Interleaved(clip input)
+{
+    Assert(input.IsPlanar(), "Clip is not Planar!")
+
+    return PixelType(input) == "RGBP"    ? input.ConvertToRGB24()
+\        : PixelType(input) == "RGBP16"  ? input.ConvertToRGB48()
+\        : PixelType(input) == "RGBAP"   ? input.ConvertToRGB32()
+\        : PixelType(input) == "RGBAP16" ? input.ConvertToRGB64()
+\        : PixelType(input) == "YV16"    ? input.ConvertToYUY2()
+\        :                                 input
 }
