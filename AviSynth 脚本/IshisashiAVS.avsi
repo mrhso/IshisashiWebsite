@@ -497,6 +497,8 @@ Function unRGB48Stacked26(clip input)
 # unRGB48Stacked AviSynth+ 版。
 Function unRGB48StackedPlus(clip input)
 {
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
     R = input.ExtractR()
     G = input.ExtractG()
     B = input.ExtractB()
