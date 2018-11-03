@@ -93,13 +93,14 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
-Function unx264(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
+Function unx264(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
     tv_range = Default(tv_range, False)
+    dither   = Default(dither, -1)      # 这个 Dither 到底有什么用，我暂且蒙在鼓里。
     output   = Default(output, "rgb24")
 
-    return input.unC16().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=-1).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return input.unC16().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
