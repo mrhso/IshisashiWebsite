@@ -80,32 +80,8 @@ Function unC16(clip input)
     \                  : input.unC1626()
 }
 
-# x264 AviSynth 2.6 版。
-Function x26426(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
-{
-    matrix   = Default(matrix, "YCgCo")
-    tv_range = Default(tv_range, False)
-    dither   = Default(dither, -1)
-    output   = Default(output, "YV24")
-
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C1626()
-}
-
-# x264 AviSynth+ 版。
-# 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
-Function x264Plus(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
-{
-    Assert(IsAVSPlus(), "AviSynth+ only!")
-
-    matrix   = Default(matrix, "YCgCo")
-    tv_range = Default(tv_range, False)
-    dither   = Default(dither, -1)
-    output   = Default(output, "YV24")
-
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16Plus()
-}
-
 # 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
+# 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
 Function x264(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
@@ -113,34 +89,7 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
     dither   = Default(dither, -1)
     output   = Default(output, "YV24")
 
-    return IsAVSPlus() ? input.x264Plus(matrix=matrix, tv_range=tv_range, output=output, dither=dither, kr=kr, kg=kg, kb=kb)
-    \                  : input.x26426(matrix=matrix, tv_range=tv_range, output=output, dither=dither, kr=kr, kg=kg, kb=kb)
-}
-
-# unx264 AviSynth 2.6 版。
-Function unx26426(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
-{
-    matrix   = Default(matrix, "YCgCo")
-    tv_range = Default(tv_range, False)
-    output   = Default(output, "rgb24")
-
-    return tv_range ? input.unC1626().Dither_lut16("x 6 <<", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-    \               : input.unC1626().Dither_lut16("x 1023 / 65535 *", y=3, u=3, v=3).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-    # return input.unC1626().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-    # BitDepth 仿佛有奇妙深刻的[误差](https://www.nmm-hd.org/newbbs/viewtopic.php?t=2161)，过于巩布，，，
-    # 那么我暂且用 Dither_lut16 实现了。
-}
-
-# unx264 AviSynth+ 版。
-Function unx264Plus(clip input, string "matrix", bool "tv_range", string "output", float "kr", float "kg", float "kb")
-{
-    Assert(IsAVSPlus(), "AviSynth+ only!")
-
-    matrix   = Default(matrix, "YCgCo")
-    tv_range = Default(tv_range, False)
-    output   = Default(output, "rgb24")
-
-    return input.ConvertFromDoubleWidth(bits=10).ConvertBits(bits=16, fulls=!tv_range).ConvertToStacked().YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16()
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
@@ -150,8 +99,7 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", f
     tv_range = Default(tv_range, False)
     output   = Default(output, "rgb24")
 
-    return IsAVSPlus() ? input.unx264Plus(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
-    \                  : input.unx26426(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return input.unC16().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=-1).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
