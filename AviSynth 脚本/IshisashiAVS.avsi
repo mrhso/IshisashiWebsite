@@ -230,36 +230,8 @@ Function IsAVSPlus()
 # 有待大触解读。
 Function RGB48YV12ToRGB48Y(clip input)
 {
-    width  = Width(input)
-    height = Height(input)
-
-    Y = input.ConvertToY8() # 提取出 Y 通道，并存储为 Y8。
-    U = input.UtoY8()       # 提取出 U 通道，并存储为 Y8。
-    V = input.VtoY8()       # 提取出 V 通道，并存储为 Y8。
-
-    U.StackVertical(V).SeparateFields()
-    Y.StackVertical(StackHorizontal(SelectEven(),SelectOdd()))
-
-    m  = PointResize(width, height * 2).SeparateFields()
-    m0 = m.SelectOdd().AssumeFrameBased().SeparateFields()
-    m1 = m.SelectEven().AssumeFrameBased().SeparateFields()
-
-    o = m0.SelectOdd()
-    p = m1.SelectEven()
-    q = m0.SelectEven()
-    StackHorizontal(o, p, q)
-
-    SeparateColumns(2)
-    StackVertical(SelectOdd(),SelectEven())
-    m  = PointResize(width * 2, height).AssumeFrameBased().SeparateColumns(2)
-    m0 = m.SelectOdd().AssumeFrameBased().SeparateColumns(2)
-    m1 = m.SelectEven().AssumeFrameBased().SeparateColumns(2)
-
-    R = m0.SelectEven()
-    G = m1.SelectOdd()
-    B = m0.SelectOdd()
-
-    return Interleave(R, G, B)
+    return IsAVSPlus() ? input.RGB48YV12ToRGB48YPlus()
+    \                  : input.RGB48YV12ToRGB48Y26()
 }
 
 # 将 RGB48YV12ToRGB48Y 逆向，即是说把 RGB48Y 转换为 RGB48YV12。
@@ -276,47 +248,35 @@ Function RGB48YToRGB48YV12(clip input)
 # 没什么技术含量。
 Function RGB48Stacked(clip input)
 {
-    R = input.SelectEvery(3, 0) # 提取出 R 通道。
-    G = input.SelectEvery(3, 1) # 提取出 G 通道。
-    B = input.SelectEvery(3, 2) # 提取出 B 通道。
-
-    return MergeRGB(R, G, B, pixel_type="RGB24")
+    return IsAVSPlus() ? input.RGB48StackedPlus()
+    \                  : input.RGB48Stacked26()
 }
 
 # 将 RGB24 伪装成 YV24。
 # 同样没什么技术含量。
 Function RGB24YV24(clip input)
 {
-    R = input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
-    G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
-    B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
-
-    return YToUV(G, B, R)
+    return IsAVSPlus() ? input.RGB24YV24Plus()
+    \                  : input.RGB24YV2426()
 }
 
 # 反过来，将 YV24 伪装成 RGB24。
 # 啊啊还是没什么技术含量。
 Function YV24RGB24(clip input)
 {
-    Y = input.ConvertToY8() # 提取出 Y 通道。
-    U = input.UToY8()       # 提取出 U 通道。
-    V = input.VToY8()       # 提取出 V 通道。
-
-    return MergeRGB(Y, U, V, pixel_type="RGB24")
+    return IsAVSPlus() ? input.YV24RGB24Plus()
+    \                  : input.YV24RGB2426()
 }
 
 # 当然是把 Hack 的 RGB48 Stack 转回那种 RGB48Y 啊。
 Function unRGB48Stacked(clip input)
 {
-    R = input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
-    G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
-    B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
-
-    return Interleave(R, G, B)
+    return IsAVSPlus() ? input.unRGB48StackedPlus()
+    \                  : input.unRGB48Stacked26()
 }
 
 # 在 AviSynth+ 中还没有什么很方便把 RGB48Y 读到 RGB48 的方法。毕竟 ConvertFromStacked 只支持 YUV。
-# 那么就使用这种伪装成 YUV 的方法吧。但是效率不知为何有点低。
+# 那么就使用这种伪装成 YUV 的方法吧。
 Function RGB48(clip input)
 {
     Assert(IsAVSPlus(), "AviSynth+ only!")
@@ -325,14 +285,14 @@ Function RGB48(clip input)
     G = input.SelectEvery(3, 1) # 提取出 G 通道。
     B = input.SelectEvery(3, 2) # 提取出 B 通道。
 
-    G.YToUV(B, R)        # 伪装成 YUV。
-    ConvertFromStacked() # 这样就没问题了吧。
+    CombinePlanes(R, G, B, "YUV") # 伪装成 YUV。
+    ConvertFromStacked()          # 这样就没问题了吧。
 
     R = ExtractY() # 因为是 High Bit-Depth 所以要用 Extract，这也是 AviSynth+ 所独有的。
     G = ExtractU()
     B = ExtractV()
 
-    return MergeRGB(R, G, B, pixel_type="RGB48")
+    return CombinePlanes(R, G, B, "RGB").Planar2Interleaved()
 }
 
 # 把 AviSynth+ RGB48 转到 RGB48Y 去。
@@ -344,12 +304,12 @@ Function unRGB48(clip input)
     G = input.ExtractG() # 提取出 G 通道。
     B = input.ExtractB() # 提取出 B 通道。
 
-    G.YToUV(B, R)      # 同样伪装成 YUV。
-    ConvertToStacked() # 啊，又是。
+    CombinePlanes(R, G, B, "YUV") # 同样伪装成 YUV。
+    ConvertToStacked()            # 啊，又是。
 
-    R = ConvertToY8()
-    G = UToY8()
-    B = VToY8()
+    R = ExtractY()
+    G = ExtractU()
+    B = ExtractV()
 
     return Interleave(R, G, B) # 但是这里稍稍不同了，因为 RGB48Y 是把通道拆散到三帧的。
 }
@@ -370,18 +330,176 @@ Function nnedi3_YV12(clip input, bool "tv_range", bool "lsb_in", bool "lsb")
 Function Interleaved2Planar(clip input)
 {
     return PixelType(input) == "RGB24" || PixelType(input) == "RGB48" ? input.ConvertToPlanarRGB()
-\        : PixelType(input) == "RGB32" || PixelType(input) == "RGB64" ? input.ConvertToPlanarRGBA()
-\        : PixelType(input) == "YUY2"                                 ? input.ConvertToYV16()
-\        :                                                              input
+    \    : PixelType(input) == "RGB32" || PixelType(input) == "RGB64" ? input.ConvertToPlanarRGBA()
+    \    : PixelType(input) == "YUY2"                                 ? input.ConvertToYV16()
+    \    :                                                              input
 }
 
 # 转换 Planar 至 Interleaved。
 Function Planar2Interleaved(clip input)
 {
     return PixelType(input) == "RGBP"    ? input.ConvertToRGB24()
-\        : PixelType(input) == "RGBP16"  ? input.ConvertToRGB48()
-\        : PixelType(input) == "RGBAP"   ? input.ConvertToRGB32()
-\        : PixelType(input) == "RGBAP16" ? input.ConvertToRGB64()
-\        : PixelType(input) == "YV16"    ? input.ConvertToYUY2()
-\        :                                 input
+    \    : PixelType(input) == "RGBP16"  ? input.ConvertToRGB48()
+    \    : PixelType(input) == "RGBAP"   ? input.ConvertToRGB32()
+    \    : PixelType(input) == "RGBAP16" ? input.ConvertToRGB64()
+    \    : PixelType(input) == "YV16"    ? input.ConvertToYUY2()
+    \    :                                 input
+}
+
+# RGB48YV12ToRGB48Y AviSynth 2.6 版。
+Function RGB48YV12ToRGB48Y26(clip input)
+{
+    width  = Width(input)
+    height = Height(input)
+
+    Y = input.ConvertToY8() # 提取出 Y 通道，并存储为 Y8。
+    U = input.UToY8()       # 提取出 U 通道，并存储为 Y8。
+    V = input.VToY8()       # 提取出 V 通道，并存储为 Y8。
+
+    StackVertical(U, V).SeparateFields()
+    StackVertical(Y, StackHorizontal(SelectEven(), SelectOdd()))
+
+    m  = PointResize(width, height * 2).SeparateFields()
+    m0 = m.SelectOdd().AssumeFrameBased().SeparateFields()
+    m1 = m.SelectEven().AssumeFrameBased().SeparateFields()
+
+    o = m0.SelectOdd()
+    p = m1.SelectEven()
+    q = m0.SelectEven()
+    StackHorizontal(o, p, q)
+
+    SeparateColumns(2)
+    StackVertical(SelectOdd(), SelectEven())
+    m  = PointResize(width * 2, height).AssumeFrameBased().SeparateColumns(2)
+    m0 = m.SelectOdd().AssumeFrameBased().SeparateColumns(2)
+    m1 = m.SelectEven().AssumeFrameBased().SeparateColumns(2)
+
+    R = m0.SelectEven()
+    G = m1.SelectOdd()
+    B = m0.SelectOdd()
+
+    return Interleave(R, G, B)
+}
+
+# RGB48YV12ToRGB48Y AviSynth+ 版。
+Function RGB48YV12ToRGB48YPlus(clip input)
+{
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
+    width  = Width(input)
+    height = Height(input)
+
+    Y = input.ExtractY() # 使用 AviSynth+ 特有的 Extract 代替 *ToY8。
+    U = input.ExtractU()
+    V = input.ExtractV()
+
+    StackVertical(U, V).SeparateFields()
+    StackVertical(Y, StackHorizontal(SelectEven(), SelectOdd()))
+
+    m  = PointResize(width, height * 2).SeparateFields()
+    m0 = m.SelectOdd().AssumeFrameBased().SeparateFields()
+    m1 = m.SelectEven().AssumeFrameBased().SeparateFields()
+
+    o = m0.SelectOdd()
+    p = m1.SelectEven()
+    q = m0.SelectEven()
+    StackHorizontal(o, p, q)
+
+    SeparateColumns(2)
+    StackVertical(SelectOdd(), SelectEven())
+    m  = PointResize(width * 2, height).AssumeFrameBased().SeparateColumns(2)
+    m0 = m.SelectOdd().AssumeFrameBased().SeparateColumns(2)
+    m1 = m.SelectEven().AssumeFrameBased().SeparateColumns(2)
+
+    R = m0.SelectEven()
+    G = m1.SelectOdd()
+    B = m0.SelectOdd()
+
+    return Interleave(R, G, B)
+}
+
+# RGB48Stacked AviSynth 2.6 版。
+Function RGB48Stacked26(clip input)
+{
+    R = input.SelectEvery(3, 0) # 提取出 R 通道。
+    G = input.SelectEvery(3, 1) # 提取出 G 通道。
+    B = input.SelectEvery(3, 2) # 提取出 B 通道。
+
+    return MergeRGB(R, G, B, pixel_type="RGB24")
+}
+
+# RGB48Stacked AviSynth+ 版。
+Function RGB48StackedPlus(clip input)
+{
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
+    R = input.SelectEvery(3, 0)
+    G = input.SelectEvery(3, 1)
+    B = input.SelectEvery(3, 2)
+
+    return CombinePlanes(R, G, B, "RGB").Planar2Interleaved()
+}
+
+# RGB24YV24 AviSynth 2.6 版。
+Function RGB24YV2426(clip input)
+{
+    R = input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
+    G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
+    B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
+
+    return YToUV(G, B, R)
+}
+
+# RGB24YV24 AviSynth+ 版。
+Function RGB24YV24Plus(clip input)
+{
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
+    R = input.ExtractR()
+    G = input.ExtractG()
+    B = input.ExtractB()
+
+    return CombinePlanes(R, G, B, "YUV")
+}
+
+# YV24RGB24 AviSynth 2.6 版。
+Function YV24RGB2426(clip input)
+{
+    Y = input.ConvertToY8() # 提取出 Y 通道。
+    U = input.UToY8()       # 提取出 U 通道。
+    V = input.VToY8()       # 提取出 V 通道。
+
+    return MergeRGB(Y, U, V, pixel_type="RGB24")
+}
+
+# YV24RGB24 AviSynth+ 版。
+Function YV24RGB24Plus(clip input)
+{
+    Assert(IsAVSPlus(), "AviSynth+ only!")
+
+    Y = input.ExtractY()
+    U = input.ExtractU()
+    V = input.ExtractV()
+
+    return CombinePlanes(R, G, B, "RGB").Planar2Interleaved()
+}
+
+# unRGB48Stacked AviSynth 2.6 版。
+Function unRGB48Stacked26(clip input)
+{
+    R = input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
+    G = input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
+    B = input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
+
+    return Interleave(R, G, B)
+}
+
+# unRGB48Stacked AviSynth+ 版。
+Function unRGB48StackedPlus(clip input)
+{
+    R = input.ExtractR()
+    G = input.ExtractG()
+    B = input.ExtractB()
+
+    return Interleave(R, G, B)
 }
