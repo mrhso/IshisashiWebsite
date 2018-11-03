@@ -481,7 +481,7 @@ Function YV24RGB24Plus(clip input)
     U = input.ExtractU()
     V = input.ExtractV()
 
-    return CombinePlanes(R, G, B, "RGB").Planar2Interleaved()
+    return CombinePlanes(Y, U, V, "RGB").Planar2Interleaved()
 }
 
 # unRGB48Stacked AviSynth 2.6 版。
