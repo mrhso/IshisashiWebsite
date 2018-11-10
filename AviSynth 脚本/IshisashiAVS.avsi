@@ -1,5 +1,6 @@
 # Ishisashi 制作的 AviSynth 快捷脚本
-# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)
+# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)、[SmoothAdjust](https://forum.doom9.org/showthread.php?t=154971)
+# 直接依赖的依赖自己去找，QQQXX。
 # 在同时有 AviSynth 和 AviSynth+ 不同实现方案的情况下，「26」为 AviSynth 2.6 通用版函数，「Plus」为 AviSynth+ 专用版函数，效率可能比通用版更高。
 # 实际使用中已能通过 IsAVSPlus 自动判断。
 # 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」。
