@@ -89,7 +89,10 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
     dither   = Default(dither, -1)
     output   = Default(output, "YV24")
 
-    return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16()
+    return tv_range ? input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).SmoothCurve16(Ycurve="0-64;4096-64;60160-940;65535-940", Ucurve="0-64;4096-64;61440-960;65535-960", Vcurve="0-64;4096-64;61440-960;65535-960", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).C16()
+    \               : input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).SmoothCurve16(Ycurve="0-0;65535-1023", Ucurve="0-0.5;0.5-0.5;32768-512;65535-"+String((65535-32768) / (65535.5-32768) * (1023.5-512) + 512), Vcurve="0-0.5;0.5-0.5;32768-512;65535-"+String((65535-32768) / (65535.5-32768) * (1023.5-512) + 512), mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).C16()
+    # return input.RGB2YUV(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb).Down10(depth=10, TVrange=tv_range, dither=dither).C16()
+    # O16 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
@@ -100,7 +103,9 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", i
     dither   = Default(dither, -1)      # 这个 Dither 到底有什么用，我暂且蒙在鼓里。
     output   = Default(output, "rgb24")
 
-    return input.unC16().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return tv_range ? input.unC16().SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;960-61440;65535-61440", Vcurve="0-4096;64-4096;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    \               : input.unC16().SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023.5-65535.5;65535-65535.5", Vcurve="0-0.5;0.5-0.5;512-32768;1023.5-65535.5;65535-65535.5", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    # return input.unC16().BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither).YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
