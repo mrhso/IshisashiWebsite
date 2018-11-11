@@ -44,7 +44,7 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     wm2 = input.Width()%2
     hm2 = lsb ? input.Height()/2%2 : input.Height()%2
 
-    input_16 = lsb ? input : tv_range ? SmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;240-61440;65535-61440", Vcurve="0-4096;16-4096;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    input_16 = lsb ? input : tv_range ? SmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;128-32768;240-61440;65535-61440", Vcurve="0-4096;16-4096;128-32768;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
     \                                 : SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
 
     output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
@@ -151,7 +151,7 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", i
     input.unC16()
 
     StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
-    tv_range ? SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;960-61440;65535-61440", Vcurve="0-4096;64-4096;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
+    tv_range ? SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;512-32768;960-61440;65535-61440", Vcurve="0-4096;64-4096;512-32768;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     \        : SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     # BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither)
     # O16 mod BitDepth() 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
