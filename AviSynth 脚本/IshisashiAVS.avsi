@@ -33,6 +33,7 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     \          : out_clip.Down10(depth=8, TVrange=tv_range, dither=dither)
 }
 
+# RGB48 的转换还不完善，不建议使用！
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
@@ -117,7 +118,6 @@ Function unC16(clip input)
 }
 
 # 这个是从 RGB 输出喂给 x264 的 10-bit Interleaved YUV 的函数。
-# 实践发现 AviSynth+ 内置转换，不先升 16-bit 精度还是不够高，而且更关键的是没 YCgCo。所以仍旧用 Dither tools 转换。
 Function x264(clip input, string "matrix", bool "tv_range", string "output", int "dither", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
@@ -131,11 +131,8 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
     input.RGB2YUV(matrix=matrix, tv_range=tv_range, lsb=True, output=output, kr=kr, kg=kg, kb=kb)
 
     StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
-    tv_range ? SmoothCurve16(Ycurve="0-64;4096-64;60160-940;65535-940", Ucurve="0-64;4096-64;61440-960;65535-960", Vcurve="0-64;4096-64;61440-960;65535-960", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
-    \        : SmoothCurve16(Ycurve="0-0;65535-1023", Ucurve="0-0.5;0.5-0.5;32768-512;65535-1023.4921950103", Vcurve="0-0.5;0.5-0.5;32768-512;65535-1023.4921950103", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
-    # Down10(depth=10, TVrange=tv_range, dither=dither)
+    Down10(depth=10, TVrange=tv_range, dither=dither)
     out_clip = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
-    # O16 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
 
     return out_clip.C16()
 }
@@ -157,6 +154,7 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", i
     tv_range ? SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;960-61440;65535-61440", Vcurve="0-4096;64-4096;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     \        : SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     # BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither)
+    # O16 mod BitDepth() 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
     out_clip = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
 
     return out_clip.YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
