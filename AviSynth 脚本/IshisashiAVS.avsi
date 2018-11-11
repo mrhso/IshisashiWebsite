@@ -43,8 +43,11 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     wm2 = input.Width()%2
     hm2 = lsb ? input.Height()/2%2 : input.Height()%2
 
-    output == "rgb24" || output == "rgb32" ? input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
-    \                                      : input.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
+    input_16 = lsb ? input : tv_range ? SmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;240-61440;65535-61440", Vcurve="0-4096;16-4096;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    \                                 : SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+
+    output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
+    \                                      : input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 
     output == "rgb24" || output == "rgb32" ? StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
     \                                      : Last
