@@ -131,10 +131,10 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
     tv_range ? SmoothCurve16(Ycurve="0-64;4096-64;60160-940;65535-940", Ucurve="0-64;4096-64;61440-960;65535-960", Vcurve="0-64;4096-64;61440-960;65535-960", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     \        : SmoothCurve16(Ycurve="0-0;65535-1023", Ucurve="0-0.5;0.5-0.5;32768-512;65535-1023.4921950103", Vcurve="0-0.5;0.5-0.5;32768-512;65535-1023.4921950103", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     # Down10(depth=10, TVrange=tv_range, dither=dither)
-    StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
+    out_clip = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
     # O16 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
 
-    return C16()
+    return out_clip.C16()
 }
 
 # 解码 10-bit Interleaved YUV 到 RGB。
@@ -154,9 +154,9 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", i
     tv_range ? SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;960-61440;65535-61440", Vcurve="0-4096;64-4096;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     \        : SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
     # BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither)
-    StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
+    out_clip = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
 
-    return YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
+    return out_clip.YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
 
 # 将 RGB32 透明 Clip 制作成 Alpha Stack。
