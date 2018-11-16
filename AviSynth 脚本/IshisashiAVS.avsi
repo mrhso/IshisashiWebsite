@@ -13,11 +13,8 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     dither   = tv_range ? Default(dither, -3) : Default(dither, 50) # 降至 8-bit 的抖动算法，默认情况对 TV Range 是用的 Floyd-Steinberg dithering，PC Range 的 Dither 带有 Random Noise。参见 O16 的 Down10。
     output   = Default(output, "YV24")                              # 当然不建议用这个设定 YV12，更建议用 nnedi3 降一下。
 
-    wm2 = input.Width()%2
-    hm2 = input.Height()%2
-
-    input_16 = tv_range ? input.unRGB48Stacked().AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;255-65280;65535-65280", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
-    \                   : input.unRGB48Stacked().AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    input_16 = tv_range ? input.unRGB48Stacked().AddNullMSB().iSmoothCurve16(Ycurve="0-0;255-65280;65535-65280", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    \                   : input.unRGB48Stacked().AddNullMSB().iSmoothCurve16(Ycurve="0-0;255-65535;65535-65535", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
 
     r = input_16.SelectEvery(3, 0)
     g = input_16.SelectEvery(3, 1)
@@ -37,17 +34,14 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     lsb      = Default(lsb, True)
     output   = Default(output, "rgb24")
 
-    wm2 = input.Width()%2
-    hm2 = lsb ? input.Height()/2%2 : input.Height()%2
-
-    input_16 = lsb ? input : tv_range ? input.AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;128-32768;240-61440;65535-61440", Vcurve="0-4096;16-4096;128-32768;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
-    \                                 : input.AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    input_16 = lsb ? input : tv_range ? input.AddNullMSB().iSmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;128-32768;240-61440;65535-61440", Vcurve="0-4096;16-4096;128-32768;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    \                                 : input.AddNullMSB().iSmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
 
     dither_output = output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
     \                                                      : input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 
-    curved = output == "rgb24" || output == "rgb32" ? tv_range ? dither_output.ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;65280-255;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
-    \                                                          : dither_output.ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    curved = output == "rgb24" || output == "rgb32" ? tv_range ? dither_output.iSmoothCurve16(Ycurve="0-0;65280-255;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    \                                                          : dither_output.iSmoothCurve16(Ycurve="0-0;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
     \                                               : dither_output
 
     out_clip = output == "rgb24" || output == "rgb32" ? curved.Dither_get_lsb().RGB48Stacked() : curved
@@ -117,12 +111,9 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
     dither   = Default(dither, -1)
     output   = Default(output, "YV24")
 
-    wm2 = input.Width()%2
-    hm2 = input.Height()%2
-
     input.RGB2YUV(matrix=matrix, tv_range=tv_range, lsb=True, output=output, kr=kr, kg=kg, kb=kb)
 
-    out_clip = ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).Down10(depth=10, TVrange=tv_range, dither=dither).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    out_clip = Down10(depth=10, TVrange=tv_range, dither=dither)
 
     return out_clip.C16()
 }
@@ -135,14 +126,11 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", i
     dither   = Default(dither, -1)      # 这个 Dither 到底有什么用，我暂且蒙在鼓里。
     output   = Default(output, "rgb24")
 
-    wm2 = input.Width()/2%2
-    hm2 = input.Height()%2
-
     input.unC16()
 
-    out_clip = tv_range ? ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;512-32768;960-61440;65535-61440", Vcurve="0-4096;64-4096;512-32768;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
-    \                   : ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
-    # ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    out_clip = tv_range ? iSmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;512-32768;960-61440;65535-61440", Vcurve="0-4096;64-4096;512-32768;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
+    \                   : iSmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
+    # BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither)
     # O16 mod BitDepth() 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
 
     return out_clip.YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
@@ -567,4 +555,22 @@ Function ForceMod(clip input, bool "lsb" ,bool "crop", int "horizontal", int "ve
 Function AddNullMSB(clip input)
 {
     return StackVertical(input.Dither_gen_null_lsb(), input)
+}
+
+# 突破 Mod 2 限制的 SmoothCurve。
+Function iSmoothCurve(clip input, string "Ycurve", string "Ucurve", string "Vcurve", int "mode", bool "limiter", int "TVrange", int "interp", int "dither", bool "HQ", int "useMT", int "useOPT", bool "debug", int "screenW", int "screenH", bool "scale")
+{
+    wm2 = input.Width()%2
+    hm2 = input.Height()/2%2
+
+    return input.ForceMod(lsb=False, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve(Ycurve=Ycurve, Ucurve=Ucurve, Vcurve=Vcurve, mode=mode, limiter=limiter, TVrange=TVrange, interp=interp, dither=dither, HQ=HQ, useMT=useMT, useOPT=useOPT, debug=debug, screenW=screenW, screenH=screenH, scale=scale).ForceMod(lsb=False, crop=True, horizontal=wm2, vertical=hm2)
+}
+
+# 突破 Mod 2 限制的 SmoothCurve16。
+Function iSmoothCurve16(clip input, string "Ycurve", string "Ucurve", string "Vcurve", int "mode", bool "limiter", int "TVrange", int "interp", int "dither", bool "HQ", int "useMT", int "useOPT", bool "debug", int "screenW", int "screenH", bool "scale")
+{
+    wm2 = input.Width()%2
+    hm2 = input.Height()/2%2
+
+    return input.ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve=Ycurve, Ucurve=Ucurve, Vcurve=Vcurve, mode=mode, limiter=limiter, TVrange=TVrange, interp=interp, dither=dither, HQ=HQ, useMT=useMT, useOPT=useOPT, debug=debug, screenW=screenW, screenH=screenH, scale=scale).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
 }

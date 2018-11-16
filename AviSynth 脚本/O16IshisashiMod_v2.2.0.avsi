@@ -287,10 +287,10 @@ Function BitDepth(clip input, int "input_depth", int "output_depth", bool "input
     pre     =  input_LDPad>=1 ?  input.mt_lut(yexpr=Yexpr1, uexpr=Cexpr1, vexpr=Cexpr1, Y=3, U=3, V=3) :  input
     pre     = hp &&  input_depth<=8 ? StackVertical(pre.Dither_gen_null_lsb(), pre) : pre
     
-    smoothC = hp ? pre.SmoothCurve16(Ycurve=Yexpr2, Ucurve=Cexpr2, Vcurve=Cexpr2, mode=0, interp=interp, HQ=HQ,
-    \                                dither=dither, limiter=False, TVrange=0)
-    \            : pre.SmoothCurve  (Ycurve=Yexpr2, Ucurve=Cexpr2, Vcurve=Cexpr2, mode=0, interp=interp, HQ=HQ,
-    \                                dither=dither, limiter=False, TVrange=0)
+    smoothC = hp ? pre.iSmoothCurve16(Ycurve=Yexpr2, Ucurve=Cexpr2, Vcurve=Cexpr2, mode=0, interp=interp, HQ=HQ,
+    \                                 dither=dither, limiter=False, TVrange=0)
+    \            : pre.iSmoothCurve  (Ycurve=Yexpr2, Ucurve=Cexpr2, Vcurve=Cexpr2, mode=0, interp=interp, HQ=HQ,
+    \                                 dither=dither, limiter=False, TVrange=0)
 	
     output  = hp && output_depth<=8 ? smoothC.Dither_get_lsb() : smoothC
     output  = output_LDPad>=1 ? output.mt_lut(yexpr=Yexpr3, uexpr=Cexpr3, vexpr=Cexpr3, Y=3, U=3, V=3) : output
@@ -319,8 +319,8 @@ Function U16(clip input, bool "TVrange", int "dither", int "interp", bool "HQ", 
     
     up      =  TVrange ? input.Dither_convert_8_to_16()
     \                  : StackVertical(input.Dither_gen_null_lsb(), input)
-	\                   .SmoothCurve16(Ycurve=Yexpr, Ucurve=Cexpr, Vcurve=Cexpr, mode=0, interp=interp, HQ=HQ,
-    \                                  dither=dither, limiter=False, TVrange=0)
+	\                   .iSmoothCurve16(Ycurve=Yexpr, Ucurve=Cexpr, Vcurve=Cexpr, mode=0, interp=interp, HQ=HQ,
+    \                                   dither=dither, limiter=False, TVrange=0)
     
     return stack ? up : up.Dither_out()
 }
@@ -417,8 +417,8 @@ Function Down10(clip input, int "depth", bool "TVrange", int "dither", int "dith
 	
     ###############################################################################################################################
     
-    smoothD = input.SmoothCurve16(Ycurve=Yexpr, Ucurve=Cexpr, Vcurve=Cexpr, mode=0, interp=interp, HQ=HQ,
-    \                             dither=(dither>-1 ? dither : -1), limiter=False, TVrange=0)
+    smoothD = input.iSmoothCurve16(Ycurve=Yexpr, Ucurve=Cexpr, Vcurve=Cexpr, mode=0, interp=interp, HQ=HQ,
+    \                              dither=(dither>-1 ? dither : -1), limiter=False, TVrange=0)
     
     ditherD = dither==-4 ? stack ? input.Dither_quantize(depth, reducerange=True, mode=ditherm)
     \                            : input.Dither_quantize(depth, reducerange=True, mode=ditherm).C16()
