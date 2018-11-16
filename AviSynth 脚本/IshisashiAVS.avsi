@@ -16,12 +16,8 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     wm2 = input.Width()%2
     hm2 = input.Height()%2
 
-    input.unRGB48Stacked()
-    StackVertical(Dither_gen_null_lsb(), Last)
-    StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
-    tv_range ? SmoothCurve16(Ycurve="0-0;255-65280;65535-65280", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    \        : SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    input_16 = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
+    input_16 = tv_range ? input.unRGB48Stacked().AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;255-65280;65535-65280", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    \                   : input.unRGB48Stacked().AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
 
     r = input_16.SelectEvery(3, 0)
     g = input_16.SelectEvery(3, 1)
@@ -44,21 +40,17 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     wm2 = input.Width()%2
     hm2 = lsb ? input.Height()/2%2 : input.Height()%2
 
-    input_16 = lsb ? input : tv_range ? SmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;128-32768;240-61440;65535-61440", Vcurve="0-4096;16-4096;128-32768;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    \                                 : SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    input_16 = lsb ? input : tv_range ? input.AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;128-32768;240-61440;65535-61440", Vcurve="0-4096;16-4096;128-32768;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    \                                 : input.AddNullMSB().ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
 
-    output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
-    \                                      : input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=lsb, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
+    dither_output = output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
+    \                                                      : input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
 
-    output == "rgb24" || output == "rgb32" ? StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
-    \                                      : Last
-    output == "rgb24" || output == "rgb32" ? tv_range ? SmoothCurve16(Ycurve="0-0;65280-255;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    \                                                 : SmoothCurve16(Ycurve="0-0;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    \                                      : Last
-    output == "rgb24" || output == "rgb32" ? StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
-    \                                      : Last
+    curved = output == "rgb24" || output == "rgb32" ? tv_range ? dither_output.ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;65280-255;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    \                                                          : dither_output.ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    \                                               : dither_output
 
-    out_clip = output == "rgb24" || output == "rgb32" ? Dither_get_lsb().RGB48Stacked() : Last
+    out_clip = output == "rgb24" || output == "rgb32" ? curved.Dither_get_lsb().RGB48Stacked() : curved
 
     return output == "rgb32" ? out_clip.ResetMask()
     \                        : out_clip
@@ -130,9 +122,7 @@ Function x264(clip input, string "matrix", bool "tv_range", string "output", int
 
     input.RGB2YUV(matrix=matrix, tv_range=tv_range, lsb=True, output=output, kr=kr, kg=kg, kb=kb)
 
-    StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
-    Down10(depth=10, TVrange=tv_range, dither=dither)
-    out_clip = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
+    out_clip = ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).Down10(depth=10, TVrange=tv_range, dither=dither).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
 
     return out_clip.C16()
 }
@@ -150,12 +140,10 @@ Function unx264(clip input, string "matrix", bool "tv_range", string "output", i
 
     input.unC16()
 
-    StackVertical(Dither_get_msb().AddBorders(0, 0, wm2, hm2), Dither_get_lsb().AddBorders(0, 0, wm2, hm2))
-    tv_range ? SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;512-32768;960-61440;65535-61440", Vcurve="0-4096;64-4096;512-32768;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
-    \        : SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0)
-    # BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither)
+    out_clip = tv_range ? ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-4096;64-4096;940-60160;65535-60160", Ucurve="0-4096;64-4096;512-32768;960-61440;65535-61440", Vcurve="0-4096;64-4096;512-32768;960-61440;65535-61440", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    \                   : ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve16(Ycurve="0-0;1023-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", Vcurve="0-0.5;0.5-0.5;512-32768;1023-65503.4692082111;65535-65503.4692082111", mode=0, interp=0, HQ=False, dither=dither, limiter=False, TVrange=0).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
+    # ForceMod(lsb=True, crop=False, horizontal=wm2, vertical=hm2).BitDepth(input_depth=10, output_depth=16, input_TVrange=tv_range, output_TVrange=tv_range, dither=dither).ForceMod(lsb=True, crop=True, horizontal=wm2, vertical=hm2)
     # O16 mod BitDepth() 的位深转换疑似有问题，解决前还是手写 SmoothCurve 比较好。
-    out_clip = StackVertical(Dither_get_msb().Crop(0, 0, -wm2, -hm2), Dither_get_lsb().Crop(0, 0, -wm2, -hm2))
 
     return out_clip.YUV2RGB(matrix=matrix, tv_range=tv_range, output=output, kr=kr, kg=kg, kb=kb)
 }
@@ -563,4 +551,20 @@ Function unRGB48StackedPlus(clip input)
     B = input.ExtractB()
 
     return Interleave(R, G, B)
+}
+
+# 中间凑成 Mod 2，然后剪回，都可以用这个。
+Function ForceMod(clip input, bool "lsb" ,bool "crop", int "horizontal", int "vertical")
+{
+    return horizontal == 0 && vertical == 0 ? input
+    \                                       : lsb ? crop ? StackVertical(input.Dither_get_msb().Crop(0, 0, -horizontal, -vertical), input.Dither_get_lsb().Crop(0, 0, -horizontal, -vertical))
+    \                                                    : StackVertical(input.Dither_get_msb().AddBorders(0, 0, horizontal, vertical), input.Dither_get_lsb().AddBorders(0, 0, horizontal, vertical))
+    \                                             : crop ? input.Crop(0, 0, -horizontal, -vertical)
+    \                                                    : input.AddBorders(0, 0, horizontal, vertical)
+}
+
+# 给 8-bit 加上空的 MSB。
+Function AddNullMSB(clip input)
+{
+    return StackVertical(input.Dither_gen_null_lsb(), input)
 }
