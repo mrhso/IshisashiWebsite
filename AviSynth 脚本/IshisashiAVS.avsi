@@ -561,7 +561,7 @@ Function AddNullMSB(clip input)
 Function iSmoothCurve(clip input, string "Ycurve", string "Ucurve", string "Vcurve", int "mode", bool "limiter", int "TVrange", int "interp", int "dither", bool "HQ", int "useMT", int "useOPT", bool "debug", int "screenW", int "screenH", bool "scale")
 {
     wm2 = input.Width()%2
-    hm2 = input.Height()/2%2
+    hm2 = input.Height()%2
 
     return input.ForceMod(lsb=False, crop=False, horizontal=wm2, vertical=hm2).SmoothCurve(Ycurve=Ycurve, Ucurve=Ucurve, Vcurve=Vcurve, mode=mode, limiter=limiter, TVrange=TVrange, interp=interp, dither=dither, HQ=HQ, useMT=useMT, useOPT=useOPT, debug=debug, screenW=screenW, screenH=screenH, scale=scale).ForceMod(lsb=False, crop=True, horizontal=wm2, vertical=hm2)
 }
