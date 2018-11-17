@@ -34,8 +34,8 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     lsb      = Default(lsb, True)
     output   = Default(output, "rgb24")
 
-    input_16 = lsb ? input : tv_range ? input.AddNullMSB().iSmoothCurve16(Ycurve="0-4096;16-4096;235-60160;65535-60160", Ucurve="0-4096;16-4096;128-32768;240-61440;65535-61440", Vcurve="0-4096;16-4096;128-32768;240-61440;65535-61440", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    \                                 : input.AddNullMSB().iSmoothCurve16(Ycurve="0-0;255-65535;65535-65535", Ucurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", Vcurve="0-0.5;0.5-0.5;128-32768;255-65407;65535-65407", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    input_16 = lsb ? input
+    \              : input.U16(TVrange=tv_range)
 
     dither_output = output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
     \                                                      : input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
@@ -46,7 +46,7 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
 
     out_clip = output == "rgb24" || output == "rgb32" ? curved.Dither_get_lsb().RGB48Stacked() : curved
 
-    return output == "rgb32" ? out_clip.ResetMask()
+    return output == "rgb32" ? out_clip.ConvertToRGB32()
     \                        : out_clip
 }
 

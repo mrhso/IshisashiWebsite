@@ -1,7 +1,7 @@
 #############################################################################################
 ###                                                                                       ###
 ### O16 & Down10 v2.2.0: output 16 bit clip using "dither", "f3kdb" or "SmoothAdjust"     ###
-### original script by 06_taro, 1st modified by mawen1250, last modified by Ishisashi     ###
+### original script by 06_taro, 1st modified by mawen1250, 2nd modified by Ishisashi      ###
 ###                                                                                       ###
 #############################################################################################
 ###
@@ -48,6 +48,7 @@
 ### "dither"       - [ 1.25.1 ~ ] : http://forum.doom9.org/showthread.php?p=1386559#post1386559
 ### "f3kdb"        - [ 1.5.1 ~  ] : http://forum.doom9.org/showthread.php?t=161411
 ### "SmoothAdjust" - [ 3.00  ~  ] : http://forum.doom9.org/showthread.php?t=154971
+### "IshisashiAVS"
 ###
 ###################################################################################################################################
 ###
