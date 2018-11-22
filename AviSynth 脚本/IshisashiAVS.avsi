@@ -26,7 +26,6 @@ Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     \          : out_clip.Down10(depth=8, TVrange=tv_range, dither=dither)
 }
 
-# RGB48 的转换还不完善，不建议使用！
 Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", float "kr", float "kg", float "kb")
 {
     matrix   = Default(matrix, "YCgCo")
@@ -37,14 +36,16 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     input_16 = lsb ? input
     \              : input.U16(TVrange=tv_range)
 
-    dither_output = output == "rgb24" || output == "rgb32" ? input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
-    \                                                      : input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output=output, kr=kr, kg=kg, kb=kb)
+    dither_output = input_16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=-1, ampn=0, output="rgb48y", kr=kr, kg=kg, kb=kb)
 
     curved = output == "rgb24" || output == "rgb32" ? tv_range ? dither_output.iSmoothCurve16(Ycurve="0-0;65280-255;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
     \                                                          : dither_output.iSmoothCurve16(Ycurve="0-0;65535-255", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
-    \                                               : dither_output
+    \                                               : tv_range ? dither_output.iSmoothCurve16(Ycurve="0-0;65280-65535;65535-65535", mode=0, interp=0, HQ=False, dither=-1, limiter=False, TVrange=0)
+    \                                                          : dither_output
 
-    out_clip = output == "rgb24" || output == "rgb32" ? curved.Dither_get_lsb().RGB48Stacked() : curved
+    out_clip = output == "rgb24" || output == "rgb32" ? curved.Dither_get_lsb().RGB48Stacked()
+    \                                                 : output == "rgb48yv12" ? Dither_convey_rgb48_on_yv12(curved.SelectEvery(3, 0), curved.SelectEvery(3, 1), curved.SelectEvery(3, 2))
+    \                                                                         : curved
 
     return output == "rgb32" ? out_clip.ConvertToRGB32()
     \                        : out_clip
