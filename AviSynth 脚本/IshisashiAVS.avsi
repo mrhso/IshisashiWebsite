@@ -546,8 +546,8 @@ Function unRGB48StackedPlus(clip input)
 Function ForceMod(clip input, bool "lsb" ,bool "crop", int "horizontal", int "vertical")
 {
     return horizontal == 0 && vertical == 0 ? input
-    \                                       : lsb ? crop ? StackVertical(input.Dither_get_msb().Crop(0, 0, -horizontal, -vertical), input.Dither_get_lsb().Crop(0, 0, -horizontal, -vertical))
-    \                                                    : StackVertical(input.Dither_get_msb().AddBorders(0, 0, horizontal, vertical), input.Dither_get_lsb().AddBorders(0, 0, horizontal, vertical))
+    \                                       : lsb ? crop ? input.Dither_Crop16(0, 0, -horizontal, -vertical)
+    \                                                    : input.Dither_Addborders16(0, 0, horizontal, vertical)
     \                                             : crop ? input.Crop(0, 0, -horizontal, -vertical)
     \                                                    : input.AddBorders(0, 0, horizontal, vertical)
 }
