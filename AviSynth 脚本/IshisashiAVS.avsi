@@ -44,7 +44,7 @@ Function YUV2RGB(clip input, string "matrix", bool "tv_range", bool "lsb", strin
     \                                                          : dither_output
 
     out_clip = output == "rgb24" || output == "rgb32" ? curved.Dither_get_lsb().RGB48Stacked()
-    \                                                 : output == "rgb48yv12" ? Dither_convey_rgb48_on_yv12(curved.SelectEvery(3, 0), curved.SelectEvery(3, 1), curved.SelectEvery(3, 2))
+    \                                                 : output == "rgb48yv12" ? curved.RGB48YToRGB48YV12()
     \                                                                         : curved
 
     return output == "rgb32" ? out_clip.ConvertToRGB32()
