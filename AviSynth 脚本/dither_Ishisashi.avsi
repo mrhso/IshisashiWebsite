@@ -1046,7 +1046,7 @@ Function Dither_gen_null_lsb (clip src)
 {
 	vers = VersionNumber ()
 	p_t = (vers < 2.60) ? "YV12" : Dither_undef ()
-	BlankClip (src, pixel_type=p_t, color_yuv=0)
+	AudioDubEx(BlankClip (src, pixel_type=p_t, color_yuv=0), src)
 }
 
 
