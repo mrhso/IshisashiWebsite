@@ -218,7 +218,7 @@ Function AddBlankVideo(clip input, int "width", int "height", string "pixel_type
     fps_denominator = Default(fps_denominator, 1)
     color           = Default(color, $000000)
 
-    return AudioDub(BlankVideo(length=Round((Float(AudioLength(input))/Float(AudioRate(input)))*(Float(fps)/Float(fps_denominator))), width=width, height=height, pixel_type=pixel_type, fps=fps, fps_denominator=fps_denominator, color=color), input)
+    return AudioDubEx(BlankVideo(length=Round((Float(AudioLength(input))/Float(AudioRate(input)))*(Float(fps)/Float(fps_denominator))), width=width, height=height, pixel_type=pixel_type, fps=fps, fps_denominator=fps_denominator, color=color), input)
 }
 
 # 对视频添加空音频。
@@ -229,7 +229,7 @@ Function AddBlankAudio(clip input, int "audio_rate", int "channels", string "sam
     channels    = Default(channels, 2)
     sample_type = Default(sample_type, "16bit")
 
-    return AudioDub(input, BlankAudio(length=FrameCount(input), fps=FrameRateNumerator(input), fps_denominator=FrameRateDenominator(input), audio_rate=audio_rate, channels=channels, sample_type=sample_type))
+    return AudioDubEx(input, BlankAudio(length=FrameCount(input), fps=FrameRateNumerator(input), fps_denominator=FrameRateDenominator(input), audio_rate=audio_rate, channels=channels, sample_type=sample_type))
 }
 
 # 利用 nnedi3_resize16 将 YUV 升采样到 4:4:4。

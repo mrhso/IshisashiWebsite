@@ -1131,7 +1131,7 @@ Function Dither_addborders16 (clip src, int "left", int "top",
 	(bottom > 0) ? StackVertical (last, BlankClip (last, height=bottom, pixel_type=p_t, color_yuv=c0_yuv, color=c0)) : last
 	lsb = last
 
-	StackVertical (msb, lsb)
+	AudioDubEx(StackVertical (msb, lsb), src)
 }
 
 
