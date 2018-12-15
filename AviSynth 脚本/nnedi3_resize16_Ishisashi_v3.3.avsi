@@ -521,7 +521,7 @@ Function nnedi3_resize16(clip input, int "target_width", int "target_height", fl
     """) : \
     Eval("""
         shift16  = input16.Dither_resize16(ow, oh, src_left, src_top, src_width, src_height, kernel="point", y=Y, u=U, v=V)
-        shift16  = IsY8 ? output=="Y8" ? merge16.ConvertToY8() : Eval("shift16.ConvertTo"+oCSP).Dither_lut16(Y=2, U=-32768, V=-32768) : shift16
+        shift16  = IsY8 ? output=="Y8" ? shift16.ConvertToY8() : Eval("shift16.ConvertTo"+oCSP).Dither_lut16(Y=2, U=-32768, V=-32768) : shift16
         
         final    = IsRGB ? shift16.Dither_convert_yuv_to_rgb(matrix=matrix, tv_range=tv_range, lsb_in=True, mode=dither, output=output)
         \                : lsb ? shift16

@@ -240,7 +240,7 @@ Function nnedi3_YV24(clip input, bool "tv_range", string "cplace", bool "lsb_in"
     lsb_in   = Default(lsb_in, False)   # 当然也往往是 8-bit。
     lsb      = Default(lsb, True)       # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
-    return input.nnedi3_resize16(output="YV24", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
+    return input.nnedi3_resize16(output="YV24", tv_range=tv_range, cplace=cplace, lsb_in=lsb_in, lsb=lsb)
 }
 
 # 仅 AviSynth+ 可用。
@@ -358,7 +358,7 @@ Function nnedi3_YV12(clip input, bool "tv_range", string "cplace", bool "lsb_in"
     lsb_in   = Default(lsb_in, False)   # 当然也往往是 8-bit。
     lsb      = Default(lsb, True)       # 默认输出 16-bit，以保留高精度 Chroma Resample 结果。
 
-    return input.nnedi3_resize16(output="YV12", tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
+    return input.nnedi3_resize16(output="YV12", cplace=cplace, tv_range=tv_range, lsb_in=lsb_in, lsb=lsb)
 }
 
 # 转换 Interleaved 至 Planar。
