@@ -1,46 +1,54 @@
 我之前谈到了 Chroma Subsampling 常见有 Centre Align（中心对齐）与 Left Align（靠左对齐）两种方式。那么具体来说，我们该如何处理呢？
 
-首先我们来看 MPEG-2 4:2:0 和 MPEG-1 4:2:0 的示意图。
+首先我们来看 MPEG-2 4:2:0（属 Left Align）和 MPEG-1 4:2:0（属 Centre Align）的示意图。
 
-![](https://img.vim-cn.com/71/cae4a6b31ca33c666329a703bc11e629c2bc0a.jpg)
+![](https://img.vim-cn.com/5e/8722054707c6f7cf0c8e60bf11a1dc9a690b76.jpg)
 
-从图中可以看出，MPEG-2 是在 2×2 区域里面取左中，而 MPEG-1 取正中。
-
-图中我也用虚线标出了采样前后的相对位置。
+从图中可以看出，MPEG-2 是在 2×2 区域里面取左中，而 MPEG-1 取的是正中。
 
 那么能不能用 Centre Align 来作 Left Align 采样呢？答案是肯定的。
 
-图中可以看到 Left Align 与 Centre Align 相差 0.5 px，那么？……
+我们再来将之前的示意图对比一下区域。
 
-![](https://img.vim-cn.com/a9/0d3a6c300d407ce2614095fcc60e22f179a964.jpg)
+其实我们很容易知道 Centre Align 采样后，与 Full 放入同一个参考系（坐标放大到两倍再对齐）是重合的，因为采样后的中心没有变。这我就不画了。
+
+而 Left Align 采样后的中心发生了改变。
+
+![](https://img.vim-cn.com/e7/30eb1a80e8c6d3f80eca00df577f46aebc0c64.jpg)
+
+我用叉标上了采样前后的中心。
+
+图中可以看到 Left Align 与 Full（按 Full 来说）其实相差了 0.5 px，那么？……
+
+![](https://img.vim-cn.com/09/2b127a7876b228dc48de413fee8e01e13fc407.jpg)
 
 首先我们将 Chroma 向右移 0.5 px，然后进行 Centre Align 采样。得到的结果（以采样为中心点）可以看到，布局与 Left Align 是一致的。
 
 这启发我们用 Centre Align 的 Resizer 处理 Left Align。我们来实践一下。
 
-![](https://img.vim-cn.com/b1/a3880c201cef8b6fc3e106e0c59840985ae2cc.png)
+![](https://img.vim-cn.com/1c/6eee604e6a233f7f96d562c1c241da288f1a6a.png)
 
 这是 4:4:4 的源，如何用 MPEG-2 的方式采样成 4:2:0 呢？
 
 首先分离 Y、U、V 三通道。
 
-![](https://img.vim-cn.com/f9/d4b7f537a46e7623338e2fb386baf63aae01ed.png)
+![](https://img.vim-cn.com/b6/65a1debec43942d9af491e39cb0281d765ab38.png)
 
 然后，对 Chroma 右移 0.5 px 后 Resize。实际上，Resizer 有参数 src_left 可以指定横向偏移。
 
-![](https://img.vim-cn.com/3e/0d297713cef624c1e4ba1bbae96930e3b71ce1.png)
+![](https://img.vim-cn.com/8d/d61f1d4dfae9107e673c45c7c0b6a5e3d231ef.png)
 
 这里指定 src_left=-0.5，就是向右偏移 0.5 px 后 Resize 了。
 
 最后便可以合并通道了。
 
-![](https://img.vim-cn.com/00/5cee938ac8c05124b74f4ecf9c9131c3647f08.png)
+![](https://img.vim-cn.com/23/fa820a57484adc4e31c799242cde9b98928402.png)
 
 事实上，nnedi3_resize16 内部也就是用这种方法处理 Left Align 采样的。有兴趣可以对比，结果应当是一致的。
 
 反之我们可以对 Chroma 进行拉升，原理如图：
 
-![](https://img.vim-cn.com/9a/2f48543479f2bc6e64345def65cffa29b13a83.jpg)
+![](https://img.vim-cn.com/67/b354acc1a0e35d6cce07540ee38334a1dbb4f2.jpg)
 
 就是说我们只要指定 src_left=0.25，向左偏移 0.25 px 再 Resize 就好了。
 
@@ -50,20 +58,18 @@
 
 首先我们以最简的手法重写。
 
-![](https://img.vim-cn.com/4a/8405cfaf1f03b389f7ad66232ff8e379df78cf.png)
+![](https://img.vim-cn.com/d3/ffa6d5827e5a30efac408bf489368af1238d8a.png)
 
 对 Chroma 进行 Resize，指定 src_left=0.25。
 
-![](https://img.vim-cn.com/b7/55a7178cc93fedca80dab22b90aaf9f85d5989.png)
+![](https://img.vim-cn.com/06/d20f3918ed4446e21bacfd33fc4da8d5361124.png)
 
 合并通道。
 
-![](https://img.vim-cn.com/1e/66f46eeeb8c18edf2a5898708b60e27a40bddf.png)
+![](https://img.vim-cn.com/1a/e991f9e960e1e07c00023f14666581775d0d83.png)
 
-是不是相当简单呢？
+是不是相当简单呢？（大嘘）
 
 所以啊，这东西关键在于要分析偏移的抵消方案，但是。
 
 Chroma Subsampling 必须死1111111111111111111111111111111111111111111111111111111111111111111
-
-时间太晚了所以草草写完了事，若不详细以后写备考吧。
