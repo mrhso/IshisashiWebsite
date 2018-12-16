@@ -1,4 +1,4 @@
-我之前谈到了 Chroma Subsampling 常见有 Center Align（中心对齐）与 Left Align（靠左对齐）两种方式。那么具体来说，我们该如何处理呢？
+我之前谈到了 Chroma Subsampling 常见有 Centre Align（中心对齐）与 Left Align（靠左对齐）两种方式。那么具体来说，我们该如何处理呢？
 
 首先我们来看 MPEG-2 4:2:0 和 MPEG-1 4:2:0 的示意图。
 
@@ -8,15 +8,15 @@
 
 图中我也用虚线标出了采样前后的相对位置。
 
-那么能不能用 Center Align 来作 Left Align 采样呢？答案是肯定的。
+那么能不能用 Centre Align 来作 Left Align 采样呢？答案是肯定的。
 
-图中可以看到 Left Align 与 Center Align 相差 0.5 px，那么？……
+图中可以看到 Left Align 与 Centre Align 相差 0.5 px，那么？……
 
 ![](https://img.vim-cn.com/a9/0d3a6c300d407ce2614095fcc60e22f179a964.jpg)
 
-首先我们将 Chroma 向右移 0.5 px，然后进行 Center Align 采样。得到的结果（以采样为中心点）可以看到，布局与 Left Align 是一致的。
+首先我们将 Chroma 向右移 0.5 px，然后进行 Centre Align 采样。得到的结果（以采样为中心点）可以看到，布局与 Left Align 是一致的。
 
-这启发我们用 Center Align 的 Resizer 处理 Left Align。我们来实践一下。
+这启发我们用 Centre Align 的 Resizer 处理 Left Align。我们来实践一下。
 
 ![](https://img.vim-cn.com/b1/a3880c201cef8b6fc3e106e0c59840985ae2cc.png)
 
