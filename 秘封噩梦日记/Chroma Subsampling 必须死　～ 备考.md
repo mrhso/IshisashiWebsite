@@ -33,11 +33,11 @@
 
 那么我们要解释一下 Chroma Subsampling 到底是怎么做的。
 
-对于 MPEG-1、JPEG 和 MJPEG 的 4:2:0 来说，采样的时候是 Center Align（中心对齐）
+对于 MPEG-1、JPEG 和 MJPEG 的 4:2:0 来说，采样的时候是 Centre Align（中心对齐）
 
 而 MPEG-2 的 4:2:0，以及 4:2:2，则都是 Left Align（靠左对齐）
 
-那么问题来了，我们的 Resizer（缩放滤镜）一般则是 Center Align，若是用这样的 Resizer 去处理 Left Align 的 Chroma，势必会造成 Chroma Shift。
+那么问题来了，我们的 Resizer（缩放滤镜）一般则是 Centre Align，若是用这样的 Resizer 去处理 Left Align 的 Chroma，势必会造成 Chroma Shift。
 
 所以啊，Chroma Subsampling 这东西，模拟信号时代的遗留产物，跟 Interlaced 是一个道理。
 
