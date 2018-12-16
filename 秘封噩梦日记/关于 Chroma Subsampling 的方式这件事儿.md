@@ -22,7 +22,7 @@
 
 ![](https://img.vim-cn.com/09/2b127a7876b228dc48de413fee8e01e13fc407.jpg)
 
-首先我们将 Chroma 向右移 0.5 px，然后进行 Centre Align 采样。得到的结果（以采样为中心点）可以看到，布局与 Left Align 是一致的。
+首先我们将 Chroma 向右移 0.5 px，然后进行 Centre Align 采样。得到的结果可以看到，布局与 Left Align 是一致的。
 
 这启发我们用 Centre Align 的 Resizer 处理 Left Align。我们来实践一下。
 
