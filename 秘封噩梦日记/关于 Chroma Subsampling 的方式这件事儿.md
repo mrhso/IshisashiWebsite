@@ -1,3 +1,5 @@
+[屑站版](https://www.bilibili.com/read/cv1714795)
+
 我之前谈到了 Chroma Subsampling 常见有 Centre Align（中心对齐）与 Left Align（靠左对齐）两种方式。那么具体来说，我们该如何处理呢？
 
 首先我们来看 MPEG-2 4:2:0（属 Left Align）和 MPEG-1 4:2:0（属 Centre Align）的示意图。
