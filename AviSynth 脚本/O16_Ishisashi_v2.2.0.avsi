@@ -329,7 +329,8 @@ Function U16(clip input, bool "TVrange", int "dither", int "interp", bool "HQ", 
 
 Function C16(clip input)
 {
-    return IsAVSPlus() ? input.C16Plus() : input.C1626()
+    return IsAVSPlus() ? input.ConvertFromStacked().ConvertToDoubleWidth()
+    \                  : input.Dither_out()
 }
 
 
