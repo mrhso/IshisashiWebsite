@@ -239,12 +239,12 @@ Function RGB48YV12ToRGB48Y(clip input)
     width  = Width(input)
     height = Height(input)
 
-    Y = IsAVSPlus() ? input.ExtractY()    # 提取出 Y 通道，并存储为 Y8。
-    \               : input.ConvertToY8()
-    U = IsAVSPlus() ? input.ExtractU()    # 提取出 U 通道，并存储为 Y8。
-    \               : input.UToY8()
-    V = IsAVSPlus() ? input.ExtractV()    # 提取出 V 通道，并存储为 Y8。
-    \               : input.VToY8()
+    Y = IsAVSPlus() ? input.ExtractY()
+    \               : input.ConvertToY8() # 提取出 Y 通道，并存储为 Y8。
+    U = IsAVSPlus() ? input.ExtractU()
+    \               : input.UToY8()       # 提取出 U 通道，并存储为 Y8
+    V = IsAVSPlus() ? input.ExtractV()
+    \               : input.VToY8()       # 提取出 V 通道，并存储为 Y8。
 
     StackVertical(U, V).SeparateFields()
     StackVertical(Y, StackHorizontal(SelectEven(), SelectOdd()))
@@ -297,12 +297,12 @@ Function RGB48Stacked(clip input)
 # 同样没什么技术含量。
 Function RGB24YV24(clip input)
 {
-    R = IsAVSPlus() ? input.ExtractR()                 # 提取出 R 通道。
-    \               : input.ShowRed(pixel_type="Y8")
-    G = IsAVSPlus() ? input.ExtractG()                 # 提取出 G 通道。
-    \               : input.ShowGreen(pixel_type="Y8")
-    B = IsAVSPlus() ? input.ExtractB()                 # 提取出 B 通道。
-    \               : input.ShowBlue(pixel_type="Y8")
+    R = IsAVSPlus() ? input.ExtractR()
+    \               : input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
+    G = IsAVSPlus() ? input.ExtractG()
+    \               : input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
+    B = IsAVSPlus() ? input.ExtractB()
+    \               : input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
 
     return IsAVSPlus() ? CombinePlanes(R, G, B, "YUV")
     \                  : YToUV(G, B, R)
@@ -312,12 +312,12 @@ Function RGB24YV24(clip input)
 # 啊啊还是没什么技术含量。
 Function YV24RGB24(clip input)
 {
-    Y = IsAVSPlus() ? input.ExtractY()    # 提取出 Y 通道。
-    \               : input.ConvertToY8()
-    U = IsAVSPlus() ? input.ExtractU()    # 提取出 U 通道。
-    \               : input.UToY8()
-    V = IsAVSPlus() ? input.ExtractV()    # 提取出 V 通道。
-    \               : input.VToY8()
+    Y = IsAVSPlus() ? input.ExtractY()
+    \               : input.ConvertToY8() # 提取出 Y 通道。
+    U = IsAVSPlus() ? input.ExtractU()
+    \               : input.UToY8()       # 提取出 U 通道。
+    V = IsAVSPlus() ? input.ExtractV()
+    \               : input.VToY8()       # 提取出 V 通道。
 
     return IsAVSPlus() ? CombinePlanes(Y, U, V, "RGB").Planar2Interleaved()
     \                  : MergeRGB(Y, U, V, pixel_type="RGB24")
@@ -326,12 +326,12 @@ Function YV24RGB24(clip input)
 # 当然是把 Hack 的 RGB48 Stack 转回那种 RGB48Y 啊。
 Function unRGB48Stacked(clip input)
 {
-    R = IsAVSPlus() ? input.ExtractR()                 # 提取出 R 通道。
-    \               : input.ShowRed(pixel_type="Y8")
-    G = IsAVSPlus() ? input.ExtractG()                 # 提取出 G 通道。
-    \               : input.ShowGreen(pixel_type="Y8")
-    B = IsAVSPlus() ? input.ExtractB()                 # 提取出 B 通道。
-    \               : input.ShowBlue(pixel_type="Y8")
+    R = IsAVSPlus() ? input.ExtractR()
+    \               : input.ShowRed(pixel_type="Y8")   # 提取出 R 通道。
+    G = IsAVSPlus() ? input.ExtractG()
+    \               : input.ShowGreen(pixel_type="Y8") # 提取出 G 通道。
+    B = IsAVSPlus() ? input.ExtractB()
+    \               : input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道。
 
     return Interleave(R, G, B)
 }
