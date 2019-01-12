@@ -20,7 +20,7 @@ opkg install kmod-ipt-nat6
 
 ![](https://img.vim-cn.com/13/f92a22124d0ecbb556c2dab4b4861ad90b3afc.png)
 
-非常地简单（大嘘）
+非常地简单。（大嘘）
 
 然后我们要注意，如果 LAN 的地址段属于 ULA，那么 OpenWrt 便不会公布网关，所以需要勾选：
 
