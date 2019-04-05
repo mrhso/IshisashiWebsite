@@ -217,7 +217,7 @@ Function nnedi3_YV24(clip input, bool "tv_range", string "cplace", bool "lsb_in"
 # 仅 AviSynth+ 可用。
 # 强制将 16-bit 以下 Clip 标为 16-bit，即数值上不扩张到 16-bit。
 # 用途主要是让 ConvertToStacked/ConvertToDoubleWidth 顺利进行，因为这俩函数必须要 16-bit 输入，所以为了能让输入、输出都为 10-bit，就写了这个。
-Function ForceTo16bit(clip input)
+Function Force16(clip input)
 {
     Assert(IsAVSPlus(), "AviSynth+ only!")
 
