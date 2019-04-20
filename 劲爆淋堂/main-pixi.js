@@ -1,6 +1,6 @@
 var app = new PIXI.Application(1060, 760, {forceFXAA: true,antialias:true,backgroundColor: colorHex(255,250,240)});//0x1099bb
 PIXI.settings.ROUND_PIXELS = true; PIXI.settings.RESOLUTION = 1;
-app.view.innerHTML = "你的浏览器旧得生蛆了";
+app.view.innerHTML = "范一满借钱不还，你也不至于用如此旧的浏览器吧？";
 app.view.style = "position: fixed;left:0px; top:0px;cursor:default;"
 document.body.appendChild(app.view);
 if ("onmousewheel" in document) {
@@ -391,22 +391,22 @@ function SliderHorizontal(x, y, width, height, radius, text, defaultValue, type)
         switch(this.valueType){
             case 1:
                 Volume = this.value;
-                this.text.text = "音量:" + this.value + "%";
+                this.text.text = "音量：" + this.value + "%";
                 break;
             case 2:
                 Smooth = this.value;
-                this.text.text = "平滑:" + this.value + "%";
+                this.text.text = "平滑：" + this.value + "%";
                 break;
             case 3:
                 MinDecibels = this.value;
-                this.text.text = "最小分贝:" + this.value + "%";
+                this.text.text = "最小分贝：" + this.value + "%";
                 break;
             case 4:
                 MaxDecibels = this.value;
-                this.text.text = "最大分贝:" + this.value + "%";
+                this.text.text = "最大分贝：" + this.value + "%";
                 break;
             default:  
-                this.text.text = "未知:" + this.value + "%";
+                this.text.text = "未知：" + this.value + "%";
                 break;
         }
         updateAudioBasic();
@@ -473,22 +473,22 @@ function SliderHorizontal(x, y, width, height, radius, text, defaultValue, type)
         switch(this.valueType){
             case 1:
                 Volume = this.value;
-                this.text.text = "音量:" + this.value + "%";
+                this.text.text = "音量：" + this.value + "%";
                 break;
             case 2:
                 Smooth = this.value;
-                this.text.text = "平滑:" + this.value + "%";
+                this.text.text = "平滑：" + this.value + "%";
                 break;
             case 3:
                 MinDecibels = this.value;
-                this.text.text = "最小分贝:" + this.value + "%";
+                this.text.text = "最小分贝：" + this.value + "%";
                 break;
             case 4:
                 MaxDecibels = this.value;
-                this.text.text = "最大分贝:" + this.value + "%";
+                this.text.text = "最大分贝：" + this.value + "%";
                 break;
             default:  
-                this.text.text = "未知:" + this.value + "%";
+                this.text.text = "未知：" + this.value + "%";
                 break;
         }
         updateAudioBasic();
@@ -523,22 +523,22 @@ function SliderHorizontal(x, y, width, height, radius, text, defaultValue, type)
         switch(this.graphics.valueType){
             case 1:
                 Volume = this.graphics.value;
-                this.text.text = "音量:" + this.graphics.value + "%";
+                this.text.text = "音量：" + this.graphics.value + "%";
                 break;
             case 2:
                 Smooth = this.graphics.value;
-                this.text.text = "平滑:" + this.graphics.value + "%";
+                this.text.text = "平滑：" + this.graphics.value + "%";
                 break;
             case 3:
                 MinDecibels = this.graphics.value;
-                this.text.text = "最小分贝:" + this.graphics.value + "%";
+                this.text.text = "最小分贝：" + this.graphics.value + "%";
                 break;
             case 4:
                 MaxDecibels = this.graphics.value;
-                this.text.text = "最大分贝:" + this.graphics.value + "%";
+                this.text.text = "最大分贝：" + this.graphics.value + "%";
                 break;
             default:  
-                this.text.text = "未知:" + this.graphics.value + "%";
+                this.text.text = "未知：" + this.graphics.value + "%";
                 break;
         }
         updateAudioBasic();
@@ -569,7 +569,7 @@ function SliderFFT(x, y, width, height, radius, defaultValue)
     this.shape = new PIXI.RoundedRectangle(x, y, width, height, radius);
     this.graphics.interactive = true;
     this.graphics.hitArea = this.shape;
-    this.text = new PIXI.Text("FFT:8192");
+    this.text = new PIXI.Text("FFT：8192");
     this.text.x = x + width/2;
     this.text.y = y + height*1.25;
     this.text.anchor.set(0.5,0);
@@ -626,7 +626,7 @@ function SliderFFT(x, y, width, height, radius, defaultValue)
         if (Inited)
         {
             AnalyserNode.fftSize = Math.round(Math.pow(2,6+this.value));
-            this.text.text = "FFT:"+AnalyserNode.fftSize;
+            this.text.text = "FFT："+AnalyserNode.fftSize;
             AnalyserNode.fftSize <= 8192 ? GScale = 2-(AnalyserNode.fftSize / 32768 * 1.5) : 1.5;
             arrayBit = new Uint8Array(AnalyserNode.frequencyBinCount);
 
@@ -684,7 +684,7 @@ function SliderFFT(x, y, width, height, radius, defaultValue)
         if (Inited)
         {
             AnalyserNode.fftSize = Math.round(Math.pow(2,6+this.value));
-            this.text.text = `FFT:${AnalyserNode.fftSize}`;
+            this.text.text = `FFT：${AnalyserNode.fftSize}`;
             AnalyserNode.fftSize <= 8192 ? GScale = 2-(AnalyserNode.fftSize / 32768 * 1.5) : 1.5;
             arrayBit = new Uint8Array(AnalyserNode.frequencyBinCount);
 
@@ -719,7 +719,7 @@ function SliderSpeed(x, y, width, height, radius, defaultValue)
     this.shape = new PIXI.RoundedRectangle(x, y, width, height, radius);
     this.graphics.interactive = true;
     this.graphics.hitArea = this.shape;
-    this.text = new PIXI.Text("颤↓音↑:正常");
+    this.text = new PIXI.Text("变调：正常");
     this.text.x = x + width/2;
     this.text.y = y + height*1.25;
     this.text.anchor.set(0.5,0);
@@ -777,9 +777,9 @@ function SliderSpeed(x, y, width, height, radius, defaultValue)
         updatePitch();
         let v = (this.value-24);
         if(v == 0)
-            this.text.text = "颤↓音↑:正常";
+            this.text.text = "变调：正常";
         else
-            this.text.text = `颤↓音↑:${(v > 0 ? "+" : "")+v}00Cents`;
+            this.text.text = `变调：${(v > 0 ? "+" : "")+v}00 Cents`;
 
         this.graphicsFill.clear();
         this.graphicsFill.beginFill(colorUIDown,1);
@@ -831,9 +831,9 @@ function SliderSpeed(x, y, width, height, radius, defaultValue)
         updatePitch();
         let v = (this.value-24);
         if(v == 0)
-            this.text.text = "颤↓音↑:正常";
+            this.text.text = "变调：正常";
         else
-            this.text.text = `颤↓音↑:${(v > 0 ? "+" : "")+ v}00Cents`;
+            this.text.text = `变调：${(v > 0 ? "+" : "")+ v}00 Cents`;
         this.graphicsFill.clear();
         this.graphicsFill.beginFill(colorUINormal,1);
         this.graphicsFill.drawRect(x+width*this.value/48,y,width / 2 - (width*this.value/48),height);
@@ -1756,7 +1756,7 @@ function UiWaveSettings(x, y ,w ,h){
         'fontSize' : 17
     });
 
-    this.UiTexts["FPSText"] = new PIXI.Text("|FPS:0");
+    this.UiTexts["FPSText"] = new PIXI.Text(" FPS：0");
     this.UiTexts["FPSText"].x = x + 320;
     this.UiTexts["FPSText"].y = y + h - 25;
     this.UiTexts["FPSText"].style = new PIXI.TextStyle({
@@ -1777,21 +1777,21 @@ function UiWaveSettings(x, y ,w ,h){
     var uiX = DefaultX,uiY = DefaultY;
 
     //Base Region
-    this.UiControls["sliderSmooth"] = new SliderHorizontal(uiX,uiY,140,8,3,"平滑:80%",80,2); uiY += addHeight;
-    this.UiControls["sliderMinDecibels"] = new SliderHorizontal(uiX,uiY,140,8,3,"最小分贝:30%",30,3); uiY += addHeight;
-    this.UiControls["sliderMaxDecibels"] = new SliderHorizontal(uiX,uiY,140,8,3,"最大分贝:80%",80,4); uiY += addHeight;
-    this.UiControls["sliderVolume"] = new SliderHorizontal(uiX,uiY,140,8,3,"音量:50%", 50, 1); uiY += addHeight;
+    this.UiControls["sliderSmooth"] = new SliderHorizontal(uiX,uiY,140,8,3,"平滑：80%",80,2); uiY += addHeight;
+    this.UiControls["sliderMinDecibels"] = new SliderHorizontal(uiX,uiY,140,8,3,"最小分贝：30%",30,3); uiY += addHeight;
+    this.UiControls["sliderMaxDecibels"] = new SliderHorizontal(uiX,uiY,140,8,3,"最大分贝：80%",80,4); uiY += addHeight;
+    this.UiControls["sliderVolume"] = new SliderHorizontal(uiX,uiY,140,8,3,"音量：50%", 50, 1); uiY += addHeight;
     this.UiControls["sliderFFT"] = new SliderFFT(uiX,uiY,140,8,3,7); uiY += addHeight;
     this.UiControls["sliderSpeed"] = new SliderSpeed(uiX,uiY,140,8,3,PlaySpeed+24.0); uiY += addHeight;
 
 
     //Limiter Region
     uiX = DefaultX + addWidth + 30; uiY = DefaultY;
-    this.UiControls["sliderLimiterThresHold"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"触发阈值:-18db",-18,1,-100,0); uiX += (addWidth * 1.5);
-    this.UiControls["sliderLimiterKnee"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"压缩拐点:14",14,2,0,40);uiX = DefaultX + addWidth + 30; uiY += addHeight;
-    this.UiControls["sliderLimiterAttack"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"起始时间:10ms",0.01,3,0,1); uiX += (addWidth * 1.5);
-    this.UiControls["sliderLimiterRelease"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"释放时间:250ms",0.25,4,0.001,1);uiX = DefaultX + addWidth + 30; uiY += addHeight;
-    this.UiControls["sliderLimiterRatio"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"压缩比例 : 1:14",14,5,1,20);uiX += (addWidth * 1.5);
+    this.UiControls["sliderLimiterThresHold"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"触发阈值：-18 dB",-18,1,-100,0); uiX += (addWidth * 1.5);
+    this.UiControls["sliderLimiterKnee"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"压缩拐点：14",14,2,0,40);uiX = DefaultX + addWidth + 30; uiY += addHeight;
+    this.UiControls["sliderLimiterAttack"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"起始时间：10 ms",0.01,3,0,1); uiX += (addWidth * 1.5);
+    this.UiControls["sliderLimiterRelease"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"释放时间：250 ms",0.25,4,0.001,1);uiX = DefaultX + addWidth + 30; uiY += addHeight;
+    this.UiControls["sliderLimiterRatio"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,"压缩比例：1:14",14,5,1,20);uiX += (addWidth * 1.5);
     this.UiControls["checkBoxAutoSetRelease"] = new CheckBox(uiX,uiY, 24,16,8,5,"自动设置释放时间",
         (event,id,state) => {
             Settings.AutoSetLimiterRelease = state;
@@ -1800,12 +1800,12 @@ function UiWaveSettings(x, y ,w ,h){
 
     //Other Region
     uiX = DefaultX + addWidth + 30; uiY = DefaultY + 135;
-    this.UiControls["sliderBPM"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,`BPM:125`,65,"BPMSlider",60,200,
+    this.UiControls["sliderBPM"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,`BPM：125`,65,"BPMSlider",60,200,
         (value,id) => {
             value = 60 + Math.ceil(value / 200 * 140);
             SongBPM = value;
             sliderLimiterRelease.RefreshRelease(60 / value);
-            return `BPM:${value}`;
+            return `BPM：${value}`;
         });
     uiY += addHeight - 3;
     this.UiControls["BPM/2Button"] = new Button(uiX,uiY,63,25,5,"BPM /2",() => {
@@ -1815,7 +1815,7 @@ function UiWaveSettings(x, y ,w ,h){
             if(value > 200)
                 return;
             SongBPM = value;
-            this.UiControls["sliderBPM"].SetValue((value - 60) / 140 * 100,`BPM:${value}`);
+            this.UiControls["sliderBPM"].SetValue((value - 60) / 140 * 100,`BPM：${value}`);
             sliderLimiterRelease.RefreshRelease(60 / value);
             ResetSideChainTime();
     },false);
@@ -1827,7 +1827,7 @@ function UiWaveSettings(x, y ,w ,h){
             if(value > 200)
                 return;
             SongBPM = value;
-            this.UiControls["sliderBPM"].SetValue((value - 60) / 140 * 100,`BPM:${value}`);
+            this.UiControls["sliderBPM"].SetValue((value - 60) / 140 * 100,`BPM：${value}`);
             sliderLimiterRelease.RefreshRelease(60 / value);
             ResetSideChainTime();
     },false);
@@ -1839,12 +1839,12 @@ function UiWaveSettings(x, y ,w ,h){
             if(value > 200)
                 return;
             SongBPM = value;
-            this.UiControls["sliderBPM"].SetValue((value - 60) / 140 * 100,`BPM:${value}`);
+            this.UiControls["sliderBPM"].SetValue((value - 60) / 140 * 100,`BPM：${value}`);
             sliderLimiterRelease.RefreshRelease(60 / value);
             ResetSideChainTime();
     },false);
     uiX += addWidth - 62;
-    this.UiControls["SideChainVolume"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,`侧链(需鼓声测量):关闭`,0,"SideChainVolume",0,1,
+    this.UiControls["SideChainVolume"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,`侧链（需鼓声测量）：关闭`,0,"SideChainVolume",0,1,
     (value,id) => {
         value = value;
         for(let i=0;i<10;i++){
@@ -1856,16 +1856,16 @@ function UiWaveSettings(x, y ,w ,h){
             SideChainCurve[i] = parseFloat(x);
         }
         SideChainScale = value;
-        return `侧链(需鼓声测量):${value > 0 ? value.toFixed(2) : "关闭"}`;
+        return `侧链（需鼓声测量）：${value > 0 ? value.toFixed(2) : "关闭"}`;
     });
     
     uiY = DefaultY + 135;
     uiX += addWidth - 147;
-    this.UiControls["DelayTime"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,`输出延迟:0.0s`,0,"DelayTime",0,1,
+    this.UiControls["DelayTime"] = new SliderHorizontalAdaptive(uiX,uiY,200,8,3,`输出延迟：0.0 s`,0,"DelayTime",0,1,
         (value,id) => {
             value = value.toFixed(1);
             DelayNode.delayTime.value = value;
-            return `输出延迟:${value}s`;
+            return `输出延迟：${value} s`;
         });
     uiY = DefaultY + 200;
     uiX = DefaultX + addWidth + 30;
@@ -1875,7 +1875,7 @@ function UiWaveSettings(x, y ,w ,h){
         }
     ,"AutoLinkSmooth",true);
     uiX += addWidth + 60;
-    this.UiControls["checkBoxAutoHRTF"] = new CheckBox(uiX,uiY, 24,16,8,5,"警 报 3 D 环 绕",
+    this.UiControls["checkBoxAutoHRTF"] = new CheckBox(uiX,uiY, 24,16,8,5,"３　Ｄ　环　绕",
         (event,id,state) => {
             Settings.Auto3DHRTF = state;
         }
@@ -2040,14 +2040,14 @@ function Ui3DHRTF(x, y ,w ,h){
 
     app.stage.addChild(this.graphics);
     app.stage.addChild(this.graphicsBottom);
-    this.graphicsSlider = new SliderHorizontalAdaptive(x + 120,y + h - 32,184,8,3,"衰减:1.00",1,"3DVolume",0,8.0,
+    this.graphicsSlider = new SliderHorizontalAdaptive(x + 120,y + h - 32,184,8,3,"衰减：1.00",1,"3DVolume",0,8.0,
         function(value,id){
             PannerNode.rolloffFactor = value;
             HRTFWindow.graphics.rolloffFactor = value;
             HRTFWindow.Refresh(value);
-            return `衰减:${value.toFixed(2)}`;
+            return `衰减：${value.toFixed(2)}`;
         });
-    this.EnableCheckbox = new CheckBox(x + 10,y + h - 35, 24,16,8,5,"开启3D",
+    this.EnableCheckbox = new CheckBox(x + 10,y + h - 35, 24,16,8,5,"开启 3D",
         function(event,ID,Enabled){
             if(Enabled){
                 LimiterNode.disconnect(AnalyserNode);
@@ -2255,27 +2255,27 @@ function DoLimiter(value,id){
         case 1:{
             if(LimiterNode != undefined)
                 LimiterNode.threshold.setValueAtTime(value, Howler.ctx.currentTime);
-            return `触发阈值:${value}db`;
+            return `触发阈值：${value} dB`;
         };
         case 2:{
             if(LimiterNode != undefined)
                 LimiterNode.knee.setValueAtTime(value, Howler.ctx.currentTime);
-            return `压缩拐点:${value}`;
+            return `压缩拐点：${value}`;
         };
         case 3:{
             if(LimiterNode != undefined)
                 LimiterNode.attack.setValueAtTime(value, Howler.ctx.currentTime);
-            return `起始时间:${(value * 1000).toFixed(0)}ms`;
+            return `起始时间：${(value * 1000).toFixed(0)} ms`;
         };
         case 4:{
             if(LimiterNode != undefined)
                 LimiterNode.release.setValueAtTime(value, Howler.ctx.currentTime);
-            return `释放时间:${(value * 1000).toFixed(0)}ms`;
+            return `释放时间：${(value * 1000).toFixed(0)} ms`;
         };
         case 5:{
             if(LimiterNode != undefined)
                 LimiterNode.ratio.setValueAtTime(value, Howler.ctx.currentTime);
-            return `压缩比例 : 1:${value}`;
+            return `压缩比例：1:${value}`;
         };
     }
     return "Unknown:" + value;
@@ -2677,8 +2677,8 @@ WaveSettingWindow = new UiWaveSettings(eqGraphX,eqGraphY,eqGraphW,eqGraphH);
 
 var LevelMeter = new UiLevelMeter(LevelX,LevelY,LevelW,LevelH);
 //Interactive UI
-var buttonHelp = new Button(10,710,160,40,5,"显示帮助",buttonShowHelpAction, true);
-var buttonSelect = new Button(175,710,160,40,5,"选择警报帝杰",buttonSelectAction,true);
+var buttonHelp = new Button(10,710,160,40,5,"鸣谢",buttonShowHelpAction, true);
+var buttonSelect = new Button(175,710,160,40,5,"载入音频",buttonSelectAction,true);
 var sliderSmooth = WaveSettingWindow.UiControls["sliderSmooth"];
 var sliderMinDecibels = WaveSettingWindow.UiControls["sliderMinDecibels"];
 var sliderMaxDecibels = WaveSettingWindow.UiControls["sliderMinDecibels"];
@@ -2703,12 +2703,12 @@ var WaveButton = new WaveformButton(1006,710,45,40,6,ControlWindow,true);
 
 var HRTFWindow = new Ui3DHRTF(15,457,315,240);
 
-var helpImage = PIXI.Sprite.from('Heip.png');
-helpImage.anchor.set(0.5);
-helpImage.position.set(530, 380);
-helpImage.interactive = true;
-helpImage.visible = false;
-app.stage.addChild(helpImage);
+var thanksImage = PIXI.Sprite.from('thanks.png');
+thanksImage.anchor.set(0.5);
+thanksImage.position.set(530, 380);
+thanksImage.interactive = true;
+thanksImage.visible = false;
+app.stage.addChild(thanksImage);
 InitWindow();
 
 drawEQCurve();
@@ -2720,7 +2720,7 @@ app.ticker.add(function(delta){
     CurrentTime = performance.now();
     DeltaTime = CurrentTime - PrevTime; 
     if(CurrentTime >= LastFPSTime && WaveSettingWindow.UiTexts["FPSText"] != undefined){
-        WaveSettingWindow.UiTexts["FPSText"].text = `|FPS:${Math.round(app.ticker.FPS)}`;
+        WaveSettingWindow.UiTexts["FPSText"].text = ` FPS：${Math.round(app.ticker.FPS)}`;
         LastFPSTime = CurrentTime + 300;
     }
 
@@ -2836,7 +2836,7 @@ function InitMusic()
                     SongBPM = BPMDetector.beat.BPM;
                     DetectedBPM = SongBPM;
                     sliderLimiterRelease.RefreshRelease(Math.floor(BPM.beat.ms) / 1000);
-                    WaveSettingWindow.UiControls["sliderBPM"].SetValue((DetectedBPM - 60) / 140 * 100,`BPM:${DetectedBPM}`);
+                    WaveSettingWindow.UiControls["sliderBPM"].SetValue((DetectedBPM - 60) / 140 * 100,`BPM：${DetectedBPM}`);
                     CanPlay = true;
                     Howler.DeleteAudioBuffer(); //We Dont need it now
                 });
@@ -2966,9 +2966,9 @@ function InitMusic()
 
 function buttonShowHelpAction()
 {
-    helpImage.visible = !helpImage.visible;
-    if (helpImage.visible) buttonHelp.text.text = "隐藏帮助";
-    else buttonHelp.text.text = "显示帮助";
+    thanksImage.visible = !thanksImage.visible;
+    if (thanksImage.visible) buttonHelp.text.text = "鸣谢";
+    else buttonHelp.text.text = "鸣谢";
 }
 
 function ResetSideChainTime(){
@@ -3024,7 +3024,7 @@ function onFileChanged(event) {
                             MusicDuration = Music.duration();
                             SongBPM = BPMDetector.beat.bpm;
                             DetectedBPM = SongBPM;
-                            WaveSettingWindow.UiControls["sliderBPM"].SetValue((DetectedBPM - 60) / 140 * 100,`BPM:${DetectedBPM}`);
+                            WaveSettingWindow.UiControls["sliderBPM"].SetValue((DetectedBPM - 60) / 140 * 100,`BPM：${DetectedBPM}`);
                             sliderLimiterRelease.RefreshRelease(Math.floor(BPM.beat.ms) / 1000);
                             InitMusic();
                             CanPlay = true;
@@ -3249,4 +3249,4 @@ function GetVolume(BufferArray,channel,AudioProcesser){
 }
 
 console.log("%c欢迎来到俄苏维基诈骗范动感灵堂！"," color: #d00; font-family: Microsoft Yahei; font-weight:bolder; text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:8em");
-console.log("%cIshisashi 修改。在此感谢原作者 Tatsu68。"," color: #fff; background-image:repeating-linear-gradient(-50deg, #000, #000 5px, #666 5px, #666 10px);padding:0.5em");
+console.log("%cIshisashi 修改。在此感谢原作者。"," color: #fff; background-image:repeating-linear-gradient(-50deg, #000, #000 5px, #666 5px, #666 10px);padding:0.5em");
