@@ -1808,7 +1808,7 @@ function UiWaveSettings(x, y ,w ,h){
             return `BPM：${value}`;
         });
     uiY += addHeight - 3;
-    this.UiControls["BPM/2Button"] = new Button(uiX,uiY,63,25,5,"BPM /2",() => {
+    this.UiControls["BPM/2Button"] = new Button(uiX,uiY,63,25,5,"BPM / 2",() => {
             value = Math.floor(SongBPM / 2);
             if(value < 60)
                 return;
@@ -1820,7 +1820,7 @@ function UiWaveSettings(x, y ,w ,h){
             ResetSideChainTime();
     },false);
     uiX += addWidth - 80;
-    this.UiControls["BPMx2Button"] = new Button(uiX,uiY,63,25,5,"BPM x2",() => {
+    this.UiControls["BPMx2Button"] = new Button(uiX,uiY,63,25,5,"BPM × 2",() => {
             value = Math.floor(SongBPM * 2);
             if(value < 60)
                 return;
@@ -1832,7 +1832,7 @@ function UiWaveSettings(x, y ,w ,h){
             ResetSideChainTime();
     },false);
     uiX += addWidth - 80;
-    this.UiControls["BPMDefault"] = new Button(uiX,uiY,70,25,5,"自动BPM",() => {
+    this.UiControls["BPMDefault"] = new Button(uiX,uiY,70,25,5,"自动 BPM",() => {
             value = DetectedBPM;
             if(value < 60)
                 return;
@@ -2823,9 +2823,11 @@ function InitMusic()
     if(Music === undefined){
         Howler.usingWebAudio = true;
         // BGM 列表，随机抽取
-        let bgm = ['Bad Apple!!.m4a', '禁じざるをえない遊戯.m4a', '死を賭して.m4a', 'かわいい悪魔　～ Innocence.m4a', '幽夢　～ Inanimate Dream（未使用バージョン）.m4a', 'Romantic Children.m4a', 'プラスチックマインド.m4a', '魔鏡.m4a'];
+        let bgmList = ['Bad Apple!!.m4a', '禁じざるをえない遊戯.m4a', '死を賭して.m4a', 'かわいい悪魔　～ Innocence.m4a', '幽夢　～ Inanimate Dream（未使用バージョン）.m4a', 'Romantic Children.m4a', 'プラスチックマインド.m4a', '魔鏡.m4a'];
+        let bgm = bgmList[Math.floor(Math.random() * bgmList.length)];
+        console.log(`BGM: ${bgm}`);
         Music = new Howl({
-            src: [bgm[Math.floor(Math.random() * bgm.length)]],
+            src: [bgm],
             autoplay: false,
             loop: false,
             onload: function(){

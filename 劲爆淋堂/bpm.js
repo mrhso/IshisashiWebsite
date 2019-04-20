@@ -270,9 +270,9 @@
             self.beat.bpm = self.beat.BPM;
             self.beat.ms = 60000 / self.beat.BPM;
             if(isNaN(BPM))
-                console.log("Warning:Cant Detect BPM");
+                console.log("Warning: can't detect BPM");
             else
-                console.log(`BPM:${self.beat.BPM} | ${self.beat.ms}ms`);
+                console.log(`BPM: ${self.beat.BPM} | ${self.beat.ms} ms`);
 
             //callback
             nextFunction(self);
