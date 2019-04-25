@@ -2519,7 +2519,7 @@ personFrameText.style = new PIXI.TextStyle({
     'padding' : 5,
     'fontWeight' : 'bolder'
 });
-personFrameText.text = '奠';
+personFrameText.text = '幻拐';
 
 uiBottomGraphics.lineStyle(30, 0xffffff, 1);
 uiBottomGraphics.moveTo(530-borderSize, 230-borderSize);uiBottomGraphics.lineTo(530+borderSize, 230-borderSize);uiBottomGraphics.lineTo(530+borderSize, 230+borderSize);uiBottomGraphics.lineTo(530-borderSize, 230+borderSize);uiBottomGraphics.lineTo(530-borderSize, 230-borderSize);
@@ -2579,7 +2579,7 @@ app.stage.addChild(textBigL); app.stage.addChild(textBigR); app.stage.addChild(t
 textBigL.anchor.set(0.5); textBigR.anchor.set(0.5); textTop.anchor.set(0.5);
 textBigL.style = bigTextStyle; textBigR.style = bigTextStyle; textTop.style = topTextStyle;
 textBigL.position.set(85,245); textBigR.position.set(975,245); textTop.position.set(530,29);
-textBigL.text = "大\n势\n所\n趋"; textBigR.text = "黑\n屁\n无\n罪"; textTop.text = "屁黑妙奇的拼通";
+textBigL.text = "超\n越\n德\n文"; textBigR.text = "黑\n屁\n无\n罪"; textTop.text = "屁黑妙奇的拼通";
 
 var pooArr = new Array(), pooArrTmp = new Array();
 function PooParticle(x, y){
