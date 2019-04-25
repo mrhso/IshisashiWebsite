@@ -2703,7 +2703,7 @@ var WaveButton = new WaveformButton(1006,710,45,40,6,ControlWindow,true);
 
 var HRTFWindow = new Ui3DHRTF(15,457,315,240);
 
-var thanksImage = PIXI.Sprite.from('../../image/thanks.png');
+var thanksImage = PIXI.Sprite.from('../image/thanks.png');
 thanksImage.anchor.set(0.5);
 thanksImage.position.set(530, 380);
 thanksImage.interactive = true;
@@ -2827,7 +2827,7 @@ function InitMusic()
         let bgm = bgmList[Math.floor(Math.random() * bgmList.length)];
         console.log(`BGM: ${bgm}`);
         Music = new Howl({
-            src: [`../../bgm/${bgm}`],
+            src: [`../bgm/${bgm}`],
             autoplay: false,
             loop: false,
             onload: function(){
