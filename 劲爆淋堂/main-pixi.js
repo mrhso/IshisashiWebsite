@@ -1,6 +1,6 @@
 var app = new PIXI.Application(1060, 760, {forceFXAA: true,antialias:true,backgroundColor: colorHex(255,250,240)});//0x1099bb
 PIXI.settings.ROUND_PIXELS = true; PIXI.settings.RESOLUTION = 1;
-app.view.innerHTML = "范一满借钱不还，你也不至于用如此旧的浏览器吧？";
+app.view.innerHTML = "张龙到处背刺，你也不至于用如此旧的浏览器吧？";
 app.view.style = "position: fixed;left:0px; top:0px;cursor:default;"
 document.body.appendChild(app.view);
 if ("onmousewheel" in document) {
@@ -2579,7 +2579,7 @@ app.stage.addChild(textBigL); app.stage.addChild(textBigR); app.stage.addChild(t
 textBigL.anchor.set(0.5); textBigR.anchor.set(0.5); textTop.anchor.set(0.5);
 textBigL.style = bigTextStyle; textBigR.style = bigTextStyle; textTop.style = topTextStyle;
 textBigL.position.set(85,245); textBigR.position.set(975,245); textTop.position.set(530,29);
-textBigL.text = "灵\n魂\n永\n存"; textBigR.text = "满\n满\n千\n古"; textTop.text = "堂淋感动的范骗诈";
+textBigL.text = "梦\n断\n北\n堂"; textBigR.text = "香\n消\n玉\n殒"; textTop.text = "古千龙张";
 
 var pooArr = new Array(), pooArrTmp = new Array();
 function PooParticle(x, y){
@@ -3250,5 +3250,5 @@ function GetVolume(BufferArray,channel,AudioProcesser){
     delete sum;
 }
 
-console.log("%c欢迎来到俄苏维基诈骗范动感灵堂！"," color: #d00; font-family: Microsoft Yahei; font-weight:bolder; text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:8em");
+console.log("%c欢迎来到俄苏维基张龙动感灵堂！"," color: #d00; font-family: Microsoft Yahei; font-weight:bolder; text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:8em");
 console.log("%cIshisashi 修改。在此感谢原作者。"," color: #fff; background-image:repeating-linear-gradient(-50deg, #000, #000 5px, #666 5px, #666 10px);padding:0.5em");
