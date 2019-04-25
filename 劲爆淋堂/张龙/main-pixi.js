@@ -2703,7 +2703,7 @@ var WaveButton = new WaveformButton(1006,710,45,40,6,ControlWindow,true);
 
 var HRTFWindow = new Ui3DHRTF(15,457,315,240);
 
-var thanksImage = PIXI.Sprite.from('thanks.png');
+var thanksImage = PIXI.Sprite.from('../image/thanks.png');
 thanksImage.anchor.set(0.5);
 thanksImage.position.set(530, 380);
 thanksImage.interactive = true;
@@ -2827,7 +2827,7 @@ function InitMusic()
         let bgm = bgmList[Math.floor(Math.random() * bgmList.length)];
         console.log(`BGM: ${bgm}`);
         Music = new Howl({
-            src: [bgm],
+            src: [`../bgm/${bgm}`],
             autoplay: false,
             loop: false,
             onload: function(){
@@ -3250,5 +3250,5 @@ function GetVolume(BufferArray,channel,AudioProcesser){
     delete sum;
 }
 
-console.log("%c欢迎来到俄苏维基张龙动感灵堂！"," color: #d00; font-family: Microsoft Yahei; font-weight:bolder; text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:8em");
+console.log("%c欢迎来到俄苏维基动感灵堂！"," color: #d00; font-family: Microsoft Yahei; font-weight:bolder; text-shadow: 0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.2),0 20px 20px rgba(0,0,0,.15);font-size:8em");
 console.log("%cIshisashi 修改。在此感谢原作者。"," color: #fff; background-image:repeating-linear-gradient(-50deg, #000, #000 5px, #666 5px, #666 10px);padding:0.5em");
