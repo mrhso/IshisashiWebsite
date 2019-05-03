@@ -451,14 +451,14 @@ Function FixPC98(clip input, bool "unshift")
 
     input_rgb32 = input.ConvertToRGB32()
 
-    R = IsAVSPlus() ? input.ExtractR()
-    \               : input.ShowRed(pixel_type="Y8")
-    G = IsAVSPlus() ? input.ExtractG()
-    \               : input.ShowGreen(pixel_type="Y8")
-    B = IsAVSPlus() ? input.ExtractB()
-    \               : input.ShowBlue(pixel_type="Y8")
-    A = IsAVSPlus() ? input.ExtractA()
-    \               : input.ShowAlpha(pixel_type="Y8")
+    R = IsAVSPlus() ? input_rgb32.ExtractR()
+    \               : input_rgb32.ShowRed(pixel_type="Y8")
+    G = IsAVSPlus() ? input_rgb32.ExtractG()
+    \               : input_rgb32.ShowGreen(pixel_type="Y8")
+    B = IsAVSPlus() ? input_rgb32.ExtractB()
+    \               : input_rgb32.ShowBlue(pixel_type="Y8")
+    A = IsAVSPlus() ? input_rgb32.ExtractA()
+    \               : input_rgb32.ShowAlpha(pixel_type="Y8")
 
     R = unshift ? R.mt_lut("x 16 /")
     \           : R
