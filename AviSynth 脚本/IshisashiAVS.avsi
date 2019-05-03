@@ -465,7 +465,7 @@ Function FixPC98(clip input, bool "unshift")
     G = unshift ? G.mt_lut("x 16 /")
     \           : G
     B = unshift ? B.mt_lut("x 16 /")
-    \           : R
+    \           : B
 
     R = R.mt_lut("x 17 *")
     G = G.mt_lut("x 17 *")
