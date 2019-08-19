@@ -17,17 +17,36 @@ const bd_gcj = prcoords.bd_gcj;
 const wgs_bd = (bd, checkChina = true) => gcj_bd(wgs_gcj(bd, checkChina));
 const bd_wgs = (bd, checkChina = true) => gcj_wgs(bd_gcj(bd), checkChina);
 
-const gcj_wgs_bored = prcoords.__bored__(wgs_gcj, gcj_wgs);
-const bd_gcj_bored = prcoords.__bored__(gcj_bd, bd_gcj);
-const bd_wgs_bored = prcoords.__bored__(wgs_bd, bd_wgs);
+const __bored__ = (fwd, rev) => {
+    const _coord_diff = (a, b) => ({ lat: a.lat - b.lat, lon: a.lon - b.lon });
+
+    // eps 表示所求精度，maxTimes 表示最大迭代次数
+    return (heck, checkChina = true, eps = 1e-5, maxTimes = 10) => {
+        let curr = rev(heck, checkChina);
+        let diff = { lat: Infinity, lon: Infinity };
+
+        // Wait till we hit fixed point or get bored
+        let i = 0;
+        while (Math.max(Math.abs(diff.lat), Math.abs(diff.lon)) > eps && i++ < maxTimes) {
+            diff = _coord_diff(fwd(curr, checkChina), heck);
+            curr = _coord_diff(curr, diff);
+        };
+
+        return curr;
+    };
+};
+
+const gcj_wgs_bored = __bored__(wgs_gcj, gcj_wgs);
+const bd_gcj_bored = __bored__(gcj_bd, bd_gcj);
+const bd_wgs_bored = __bored__(wgs_bd, bd_wgs);
 
 // 坐标转换精度测试
 // 每个 Array 中 [0] 表示转换后的纬度，[1] 表示转换后的经度，[2] 表示转换前后的距离（米），[3] 表示来回转换与原坐标的距离（米）
 // 其中 [3] 可以反映精度
-const deltaTest = (coord, bored = true) => {
+const deltaTest = (coord, bored = true, eps = 1e-5, maxTimes = 10) => {
     const handle = (fwd, rev) => {
-        let result_fwd = fwd(coord, false);
-        let result_rev = rev(result_fwd, false);
+        let result_fwd = fwd(coord, false, eps, maxTimes);
+        let result_rev = rev(result_fwd, false, eps, maxTimes);
         return [result_fwd.lat, result_fwd.lon, prcoords.distance(coord, result_fwd), prcoords.distance(coord, result_rev)];
     };
     return {
@@ -91,6 +110,7 @@ let expts = {
     bd_gcj,
     wgs_bd,
     bd_wgs,
+    __bored__,
     gcj_wgs_bored,
     bd_gcj_bored,
     bd_wgs_bored,
