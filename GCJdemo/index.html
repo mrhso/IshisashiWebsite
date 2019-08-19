@@ -123,7 +123,9 @@ tbody td:nth-child(n+2) {
               <input type="number" name="slon" min="0" max="69" value="0" step=any>″
               <select name="hlon"><option>E</option><option>W</option></select>.</ul>
         <li><label>Accuracy:</label><ul id="accuracy">
-          <li><label><input type="checkbox" name="bored" checked=true>Bored</label></ul></ul>
+          <li><label><input type="checkbox" name="bored" checked=true>Bored</label>
+          <li><label>Epsilon</label> <input type="number" name="eps" value="1e-5">
+          <li><label>Max times</label> <input type="number" name="maxTimes" value="10"></ul></ul>
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
       <script src="IshisashiMap.js"></script>
