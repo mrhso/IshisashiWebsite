@@ -357,7 +357,7 @@ function fill_output() {
   let bored = inputs.bored.checked;
   let eps = inputs.eps.value;
   let maxTimes = inputs.maxTimes.value;
-  let delta = IshisashiMap.deltaTest(incoords, bored);
+  let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes);
   for (var i in fnames) {
     var row = document.getElementById(i)
     var get = delta[fnames[i]]
