@@ -355,6 +355,15 @@ function fill_output() {
   }
   
   let bored = inputs.bored.checked;
+  if (bored) {
+    document.getElementById('dgcj').childNodes[0].style.background = 'Aquamarine';
+    document.getElementById('dbd').childNodes[0].style.background = 'Aquamarine';
+    document.getElementById('bgcj').childNodes[0].style.background = 'Aquamarine';
+  } else {
+    document.getElementById('dgcj').childNodes[0].style.background = 'PaleGreen';
+    document.getElementById('dbd').childNodes[0].style.background = 'PaleGreen';
+    document.getElementById('bgcj').childNodes[0].style.background = 'PaleGreen';
+  };
   let eps = inputs.eps.value;
   let maxTimes = inputs.maxTimes.value;
   let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes);
