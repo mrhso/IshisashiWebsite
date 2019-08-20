@@ -90,9 +90,6 @@ tbody td:nth-child(n+2) {
   background: LightSalmon;
 }
 #dgcj td:nth-child(1), #dbd td:nth-child(1), #bgcj td:nth-child(1) {
-  background: PaleGreen;
-}
-#cgcj td:nth-child(1), #cbd td:nth-child(1), #bcgcj td:nth-child(1) {
   background: Aquamarine;
 }
 
@@ -140,10 +137,10 @@ tbody td:nth-child(n+2) {
           <th title="How precise is this operation?">ΔRoundtrip/m</tr>
         <tr id="egcj"><td>WGS → GCJ<td><td><td>
         <tr id="ebd"><td>WGS → BD<td><td><td>
-        <tr id="dgcj"><td>GCJ → WGS<td><td><td>
-        <tr id="dbd"><td>BD → WGS<td><td><td>
+        <tr id="dgcj"><td>GCJ →<sup>cai</sup> WGS<td><td><td>
+        <tr id="dbd"><td>BD →<sup>cai</sup> WGS<td><td><td>
         <tr id="bbd"><td>GCJ → BD<td><td><td>
-        <tr id="bgcj"><td>BD → GCJ<td><td><td>
+        <tr id="bgcj"><td>BD →<sup>cai</sup> GCJ<td><td><td>
       </table>
       <p><a id="permalink" href="https://mrhso.github.io/IshisashiWebsite/GCJdemo">Permalink to this result</a>. Toggle sections: <a href="javascript:toggle('notes')">Notes</a>, <a href="javascript:toggle('faq')">FAQ</a>, <a href="javascript:toggle('footer')">footer</a>.
     </section></article>
@@ -356,10 +353,16 @@ function fill_output() {
   
   let bored = inputs.bored.checked;
   if (bored) {
+    document.getElementById('dgcj').childNodes[0].innerHTML = 'GCJ →<sup>cai</sup> WGS';
+    document.getElementById('dbd').childNodes[0].innerHTML = 'BD →<sup>cai</sup> WGS';
+    document.getElementById('bgcj').childNodes[0].innerHTML = 'BD →<sup>cai</sup> GCJ';
     document.getElementById('dgcj').childNodes[0].style.background = 'Aquamarine';
     document.getElementById('dbd').childNodes[0].style.background = 'Aquamarine';
     document.getElementById('bgcj').childNodes[0].style.background = 'Aquamarine';
   } else {
+    document.getElementById('dgcj').childNodes[0].innerHTML = 'GCJ → WGS';
+    document.getElementById('dbd').childNodes[0].innerHTML = 'BD → WGS';
+    document.getElementById('bgcj').childNodes[0].innerHTML = 'BD → GCJ';
     document.getElementById('dgcj').childNodes[0].style.background = 'PaleGreen';
     document.getElementById('dbd').childNodes[0].style.background = 'PaleGreen';
     document.getElementById('bgcj').childNodes[0].style.background = 'PaleGreen';
