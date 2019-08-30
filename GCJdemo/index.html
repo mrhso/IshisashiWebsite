@@ -127,6 +127,7 @@ tbody td:nth-child(n+2) {
       </form>
       <script src="IshisashiMap.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/prcoords@1//js/PRCoords.min.js"></script>
+      <script src="https://api.tianditu.gov.cn/api?v=4.0&tk=31f1da09a075fbfb835aec24c5618ee6"></script>
       
       <h2>Results</h2>
       <table id="output">
@@ -143,6 +144,15 @@ tbody td:nth-child(n+2) {
         <tr id="bgcj"><td>BD →<sup>cai</sup> GCJ<td><td><td>
       </table>
       <p><a id="permalink" href="https://mrhso.github.io/IshisashiWebsite/GCJdemo/">Permalink to this result</a>. Toggle sections: <a href="javascript:toggle('notes')">Notes</a>, <a href="javascript:toggle('faq')">FAQ</a>, <a href="javascript:toggle('footer')">footer</a>.
+
+      <h2>Map</h2>
+      <form id="map">
+        <input type="radio" name="coordType" value="wgs" checked=true>WGS-84
+        <input type="radio" name="coordType" value="gcj">GCJ-02
+        <input type="radio" name="coordType" value="bd">BD-09
+      </form>
+      <button onclick="return fill_output() && false">Screw that!</button>
+      <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
     </section></article>
     <section id="notes">
       <h2>Notes</h2>
@@ -313,6 +323,7 @@ for (let i of Array.from(inputs.querySelectorAll('#dms-in input, #dms-in select'
 // handler..
 var a_perm = document.getElementById('permalink')
 var baseurl = a_perm.href
+let tmap;
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -383,6 +394,23 @@ function fill_output() {
     out[2].innerText = dRoundtrip.toExponential()
   }
   a_perm.href = baseurl + '?lat=' + incoords.lat + '&lon=' + incoords.lon // + '#output'
+  let wgs, gcj, bd;
+  if (document.getElementById('map').coordType[0].checked) {
+    wgs = incoords;
+    gcj = { lat: delta.wgs_gcj[0], lon: delta.wgs_gcj[1] };
+    bd = { lat: delta.wgs_bd[0], lon: delta.wgs_bd[1] };
+  } else if (document.getElementById('map').coordType[1].checked) {
+    wgs = { lat: delta.gcj_wgs[0], lon: delta.gcj_wgs[1] };
+    gcj = incoords;
+    bd = { lat: delta.gcj_bd[0], lon: delta.gcj_bd[1] };
+  } else if (document.getElementById('map').coordType[2].checked) {
+    wgs = { lat: delta.bd_wgs[0], lon: delta.bd_wgs[1] };
+    gcj = { lat: delta.bd_gcj[0], lon: delta.bd_gcj[1] };
+    bd = incoords;
+  };
+  tmap.panTo(new T.LngLat(wgs.lon, wgs.lat));
+  tmap.clearOverLays();
+  tmap.addOverLay(new T.Marker(new T.LngLat(wgs.lon, wgs.lat)));
   return false
 }
 
@@ -418,6 +446,8 @@ function __from_query() {
   catch (e) {
     console.error(e)
   }
+  tmap = new T.Map('tmapDiv');
+  tmap.centerAndZoom(new T.LngLat(inputs.lon.value, inputs.lat.value), 12);
   return fill_output()
 }
 
