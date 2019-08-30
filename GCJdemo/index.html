@@ -128,6 +128,7 @@ tbody td:nth-child(n+2) {
       <script src="IshisashiMap.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/prcoords@1//js/PRCoords.min.js"></script>
       <script src="https://api.tianditu.gov.cn/api?v=4.0&tk=31f1da09a075fbfb835aec24c5618ee6"></script>
+      <script src="https://webapi.amap.com/maps?v=1.4.15&key=45d1c9aca0b67cdfb982018bf14d211b"></script>
       
       <h2>Results</h2>
       <table id="output">
@@ -153,6 +154,7 @@ tbody td:nth-child(n+2) {
       </form>
       <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
+      <div id="amapDiv" style="width: 250px; height: 250px;"></div>
     </section></article>
     <section id="notes">
       <h2>Notes</h2>
@@ -323,7 +325,7 @@ for (let i of Array.from(inputs.querySelectorAll('#dms-in input, #dms-in select'
 // handler..
 var a_perm = document.getElementById('permalink')
 var baseurl = a_perm.href
-let tmap;
+let tmap, amap;
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -448,6 +450,7 @@ function __from_query() {
   }
   tmap = new T.Map('tmapDiv');
   tmap.centerAndZoom(new T.LngLat(inputs.lon.value, inputs.lat.value), 12);
+  amap = new AMap.Map('amapDiv');
   return fill_output()
 }
 
