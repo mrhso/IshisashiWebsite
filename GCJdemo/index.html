@@ -334,6 +334,7 @@ var a_perm = document.getElementById('permalink')
 var baseurl = a_perm.href
 let tmap, amap, bmap;
 let gpsHandler;
+let tmapMarker, amapMarker, bmapMarker;
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -436,14 +437,11 @@ function fill_output() {
     bd = incoords;
   };
   tmap.panTo(new T.LngLat(wgs.lon, wgs.lat));
-  tmap.clearOverLays();
-  tmap.addOverLay(new T.Marker(new T.LngLat(wgs.lon, wgs.lat)));
+  tmapMarker.setLngLat(new T.LngLat(wgs.lon, wgs.lat));
   amap.panTo(new AMap.LngLat(gcj.lon, gcj.lat));
-  amap.clearMap();
-  amap.add(new AMap.Marker({ position: new AMap.LngLat(gcj.lon, gcj.lat) }));
+  amapMarker.setPosition(new AMap.LngLat(gcj.lon, gcj.lat));
   bmap.panTo(new BMap.Point(bd.lon, bd.lat));
-  bmap.clearOverlays();
-  bmap.addOverlay(new BMap.Marker(new BMap.Point(bd.lon, bd.lat)));
+  bmapMarker.setPosition(new BMap.Point(bd.lon, bd.lat));
   return false
 }
 
@@ -480,10 +478,16 @@ function __from_query() {
     console.error(e)
   }
   tmap = new T.Map('tmapDiv');
-  tmap.centerAndZoom(new T.LngLat(inputs.lon.value, inputs.lat.value), 12);
-  amap = new AMap.Map('amapDiv', { zoom: 12, center: new AMap.LngLat(inputs.lon.value, inputs.lat.value) });
+  tmap.centerAndZoom(new T.LngLat(+inputs.lon.value, +inputs.lat.value), 12);
+  tmapMarker = new T.Marker(new T.LngLat(+inputs.lon.value, +inputs.lat.value));
+  tmap.addOverlay(tmapMarker);
+  amap = new AMap.Map('amapDiv', { zoom: 12, center: new AMap.LngLat(+inputs.lon.value, +inputs.lat.value) });
+  amapMarker = new AMap.Marker({ position: new AMap.LngLat(+inputs.lon.value, +inputs.lat.value) });
+  amap.add(amapMarker);
   bmap = new BMap.Map("bmapDiv");
-  bmap.centerAndZoom(new BMap.Point(inputs.lon.value, inputs.lat.value), 13);
+  bmap.centerAndZoom(new BMap.Point(+inputs.lon.value, +inputs.lat.value), 13);
+  bmapMarker = new BMap.Marker(new BMap.Point(+inputs.lon.value, +inputs.lat.value));
+  bmap.addOverlay(bmapMarker);
   return fill_output()
 }
 
