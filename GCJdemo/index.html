@@ -122,7 +122,8 @@ tbody td:nth-child(n+2) {
         <li><label>Accuracy:</label><ul id="accuracy">
           <li><label><input type="checkbox" name="bored" checked=true>Bored</label>
           <li><label>Epsilon</label> <input type="number" name="eps" value="1e-5">
-          <li><label>Max times</label> <input type="number" name="maxTimes" value="10"></ul></ul>
+          <li><label>Max times</label> <input type="number" name="maxTimes" value="10"></ul>
+        <li><label><input type="checkbox" name="gps">GPS</label></ul>
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
       <script src="IshisashiMap.js"></script>
@@ -332,6 +333,7 @@ for (let i of Array.from(inputs.querySelectorAll('#dms-in input, #dms-in select'
 var a_perm = document.getElementById('permalink')
 var baseurl = a_perm.href
 let tmap, amap, bmap;
+let gpsHandler;
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -345,6 +347,19 @@ function fill_output() {
     bgcj: 'bd_gcj',
     bbd: 'gcj_bd',
   }
+  let gps = inputs.gps.checked;
+  if (gps && !gpsHandler) {
+    gpsHandler = navigator.geolocation.watchPosition((position) => {
+      inputs.lat.value = position.coords.latitude.toString();
+      inputs.lon.value = position.coords.longitude.toString();
+      [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
+      [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
+      fill_output();
+    }, _ => {}, { enableHighAccuracy: true });
+  } else if (!gps && gpsHandler) {
+    navigator.geolocation.clearWatch(gpsHandler);
+    gpsHandler = undefined;
+  };
   var incoords = {
     lat: +inputs.lat.value,
     lon: +inputs.lon.value,
@@ -386,8 +401,8 @@ function fill_output() {
     document.getElementById('dbd').childNodes[0].style.background = 'PaleGreen';
     document.getElementById('bgcj').childNodes[0].style.background = 'PaleGreen';
   };
-  let eps = inputs.eps.value;
-  let maxTimes = inputs.maxTimes.value;
+  let eps = +inputs.eps.value;
+  let maxTimes = +inputs.maxTimes.value;
   let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes);
   for (var i in fnames) {
     var row = document.getElementById(i)
