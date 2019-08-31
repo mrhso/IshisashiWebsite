@@ -129,6 +129,7 @@ tbody td:nth-child(n+2) {
       <script src="https://cdn.jsdelivr.net/npm/prcoords@1//js/PRCoords.min.js"></script>
       <script src="https://api.tianditu.gov.cn/api?v=4.0&tk=31f1da09a075fbfb835aec24c5618ee6"></script>
       <script src="https://webapi.amap.com/maps?v=1.4.15&key=45d1c9aca0b67cdfb982018bf14d211b"></script>
+      <script src="https://api.map.baidu.com/api?v=3.0&ak=dIYjmuWbi4cxhLichsDyr80lTrQ3WGyU"></script>
       
       <h2>Results</h2>
       <table id="output">
@@ -151,10 +152,12 @@ tbody td:nth-child(n+2) {
         <input type="radio" name="coordType" value="wgs" checked=true>WGS-84
         <input type="radio" name="coordType" value="gcj">GCJ-02
         <input type="radio" name="coordType" value="bd">BD-09
+        <input type="radio" name="coordType" value="direct">Direct
       </form>
       <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
       <div id="amapDiv" style="width: 250px; height: 250px;"></div>
+      <div id="bmapDiv" style="width: 300px; height: 300px;"></div>
     </section></article>
     <section id="notes">
       <h2>Notes</h2>
@@ -325,7 +328,7 @@ for (let i of Array.from(inputs.querySelectorAll('#dms-in input, #dms-in select'
 // handler..
 var a_perm = document.getElementById('permalink')
 var baseurl = a_perm.href
-let tmap, amap;
+let tmap, amap, bmap;
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -409,10 +412,20 @@ function fill_output() {
     wgs = { lat: delta.bd_wgs[0], lon: delta.bd_wgs[1] };
     gcj = { lat: delta.bd_gcj[0], lon: delta.bd_gcj[1] };
     bd = incoords;
+  } else if (document.getElementById('map').coordType[3].checked) {
+    wgs = incoords;
+    gcj = incoords;
+    bd = incoords;
   };
   tmap.panTo(new T.LngLat(wgs.lon, wgs.lat));
   tmap.clearOverLays();
   tmap.addOverLay(new T.Marker(new T.LngLat(wgs.lon, wgs.lat)));
+  amap.panTo(new AMap.LngLat(gcj.lon, gcj.lat));
+  amap.clearMap();
+  amap.add(new AMap.Marker({ position: new AMap.LngLat(gcj.lon, gcj.lat) }));
+  bmap.panTo(new BMap.Point(bd.lon, bd.lat));
+  bmap.clearOverlays();
+  bmap.addOverlay(new BMap.Marker(new BMap.Point(bd.lon, bd.lat)));
   return false
 }
 
@@ -450,7 +463,9 @@ function __from_query() {
   }
   tmap = new T.Map('tmapDiv');
   tmap.centerAndZoom(new T.LngLat(inputs.lon.value, inputs.lat.value), 12);
-  amap = new AMap.Map('amapDiv');
+  amap = new AMap.Map('amapDiv', { zoom: 12, center: new AMap.LngLat(inputs.lon.value, inputs.lat.value) });
+  bmap = new BMap.Map("bmapDiv");
+  bmap.centerAndZoom(new BMap.Point(inputs.lon.value, inputs.lat.value), 13);
   return fill_output()
 }
 
