@@ -480,7 +480,7 @@ function __from_query() {
   tmap = new T.Map('tmapDiv');
   tmap.centerAndZoom(new T.LngLat(+inputs.lon.value, +inputs.lat.value), 12);
   tmapMarker = new T.Marker(new T.LngLat(+inputs.lon.value, +inputs.lat.value));
-  tmap.addOverlay(tmapMarker);
+  tmap.addOverLay(tmapMarker);
   amap = new AMap.Map('amapDiv', { zoom: 12, center: new AMap.LngLat(+inputs.lon.value, +inputs.lat.value) });
   amapMarker = new AMap.Marker({ position: new AMap.LngLat(+inputs.lon.value, +inputs.lat.value) });
   amap.add(amapMarker);
