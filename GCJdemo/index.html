@@ -150,11 +150,13 @@ tbody td:nth-child(n+2) {
 
       <h2>Map</h2>
       <form id="map">
-        <input type="radio" name="coordType" value="wgs" checked=true onclick="return fill_output() || true">WGS-84
-        <input type="radio" name="coordType" value="gcj" onclick="return fill_output() || true">GCJ-02
-        <input type="radio" name="coordType" value="bd" onclick="return fill_output() || true">BD-09
-        <input type="radio" name="coordType" value="direct" onclick="return fill_output() || true">Direct
+        <input type="radio" name="coordType" value="wgs" checked=true>WGS-84
+        <input type="radio" name="coordType" value="gcj">GCJ-02
+        <input type="radio" name="coordType" value="bd">BD-09
+        <input type="radio" name="coordType" value="direct">Direct
       </form>
+      <label><input type="checkbox" name="clickEvent">Get coord on click</label>
+      <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
       <p>天地图 WGS-84</p>
       <div id="amapDiv" style="width: 250px; height: 250px;"></div>
@@ -334,6 +336,7 @@ var baseurl = a_perm.href
 let tmap, amap, bmap;
 let gpsHandler;
 let tmapMarker, amapMarker, bmapMarker;
+let tmapEvent;
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -417,6 +420,9 @@ function fill_output() {
     out[2].innerText = dRoundtrip.toExponential()
   }
   a_perm.href = baseurl + '?lat=' + incoords.lat + '&lon=' + incoords.lon // + '#output'
+
+  // let clickEvent = .checked;
+
   let wgs, gcj, bd;
   if (document.getElementById('map').coordType[0].checked) {
     wgs = incoords;
@@ -435,12 +441,14 @@ function fill_output() {
     gcj = incoords;
     bd = incoords;
   };
+
   tmap.panTo(new T.LngLat(wgs.lon, wgs.lat));
   tmapMarker.setLngLat(new T.LngLat(wgs.lon, wgs.lat));
   amap.panTo(new AMap.LngLat(gcj.lon, gcj.lat));
   amapMarker.setPosition(new AMap.LngLat(gcj.lon, gcj.lat));
   bmap.panTo(new BMap.Point(bd.lon, bd.lat));
   bmapMarker.setPosition(new BMap.Point(bd.lon, bd.lat));
+
   return false
 }
 
