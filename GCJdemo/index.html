@@ -345,6 +345,14 @@ const tmapClick = (e) => {
   document.getElementById('map').coordType[0].checked = true;
   fill_output();
 };
+const amapClick = (e) => {
+  inputs.lat.value = e.lnglat.getLat().toString();
+  inputs.lon.value = e.lnglat.getLng().toString();
+  [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
+  [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
+  document.getElementById('map').coordType[1].checked = true;
+  fill_output();
+};
 function fill_output() {
   // Edge shit
   a_perm = a_perm || document.getElementById('permalink')
@@ -432,9 +440,11 @@ function fill_output() {
   let clickEvent = document.getElementsByName('clickEvent')[0].checked;
   if (clickEvent && !eventHandler) {
     tmap.addEventListener('click', tmapClick);
+    amap.on('click', amapClick);
     eventHandler = true;
   } else if (!clickEvent && eventHandler) {
     tmap.removeEventListener('click', tmapClick);
+    amap.off('click', amapClick);
     eventHandler = undefined;
   };
 
