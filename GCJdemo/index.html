@@ -432,6 +432,7 @@ function fill_output() {
   let clickEvent = document.getElementsByName('clickEvent')[0].checked;
   if (clickEvent && !eventHandler) {
     tmap.addEventListener('click', tmapClick);
+    eventHandler = true;
   } else if (!clickEvent && eventHandler) {
     tmap.removeEventListener('click', tmapClick);
     eventHandler = undefined;
