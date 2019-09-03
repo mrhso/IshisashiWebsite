@@ -150,12 +150,11 @@ tbody td:nth-child(n+2) {
 
       <h2>Map</h2>
       <form id="map">
-        <input type="radio" name="coordType" value="wgs" checked=true>WGS-84
-        <input type="radio" name="coordType" value="gcj">GCJ-02
-        <input type="radio" name="coordType" value="bd">BD-09
-        <input type="radio" name="coordType" value="direct">Direct
+        <input type="radio" name="coordType" value="wgs" checked=true onclick="return fill_output() && false">WGS-84
+        <input type="radio" name="coordType" value="gcj" onclick="return fill_output() && false">GCJ-02
+        <input type="radio" name="coordType" value="bd" onclick="return fill_output() && false">BD-09
+        <input type="radio" name="coordType" value="direct" onclick="return fill_output() && false">Direct
       </form>
-      <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
       <p>天地图 WGS-84</p>
       <div id="amapDiv" style="width: 250px; height: 250px;"></div>
