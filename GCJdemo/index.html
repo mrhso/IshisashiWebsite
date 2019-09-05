@@ -447,7 +447,7 @@ function fill_output() {
   }
   a_perm.href = baseurl + '?lat=' + incoords.lat + '&lon=' + incoords.lon // + '#output'
 
-  let clickEvent = document.getElementsByName('clickEvent')[0].checked;
+  let clickEvent = document.getElementById('map').clickEvent.checked;
   if (clickEvent && !eventHandler) {
     tmap.addEventListener('click', tmapClick);
     amap.on('click', amapClick);
