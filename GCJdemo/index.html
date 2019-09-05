@@ -120,10 +120,10 @@ tbody td:nth-child(n+2) {
               <input type="number" name="slon" min="0" max="69" value="0" step=any>″
               <select name="hlon"><option>E</option><option>W</option></select>.</ul>
         <li><label>Accuracy:</label><ul id="accuracy">
-          <li><label><input type="checkbox" name="bored" checked=true>Bored</label>
+          <li><label>Bored</label> <input type="checkbox" name="bored" checked=true>
           <li><label>Epsilon</label> <input type="number" name="eps" value="1e-5">
           <li><label>Max times</label> <input type="number" name="maxTimes" value="10"></ul>
-        <li><label><input type="checkbox" name="gps">GPS</label></ul>
+        <li><label>GPS</label> <input type="checkbox" name="gps"></ul>
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
       <script src="IshisashiMap.js"></script>
@@ -150,12 +150,12 @@ tbody td:nth-child(n+2) {
 
       <h2>Map</h2>
       <form id="map">
-        <input type="radio" name="coordType" value="wgs" checked=true>WGS-84
-        <input type="radio" name="coordType" value="gcj">GCJ-02
-        <input type="radio" name="coordType" value="bd">BD-09
-        <input type="radio" name="coordType" value="direct">Direct
+        <input type="radio" name="coordType" value="wgs" checked=true><label>WGS-84</label>
+        <input type="radio" name="coordType" value="gcj"><label>GCJ-02</label>
+        <input type="radio" name="coordType" value="bd"><label>BD-09</label>
+        <input type="radio" name="coordType" value="direct"><label>Direct</label>
       </form>
-      <label><input type="checkbox" name="clickEvent">Get coord on click</label>
+      <input type="checkbox" name="clickEvent"><label>Get coord on click</label>
       <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
       <p>天地图 WGS-84</p>
