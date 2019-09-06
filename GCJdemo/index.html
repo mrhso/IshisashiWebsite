@@ -156,7 +156,11 @@ tbody td:nth-child(n+2) {
           <li><label>GCJ-02</label> <input type="radio" name="coordType" value="gcj">
           <li><label>BD-09</label> <input type="radio" name="coordType" value="bd">
           <li><label>Direct</label> <input type="radio" name="coordType" value="direct"></ul>
-        <li><label>Get coord on click</label> <input type="checkbox" name="clickEvent"></ul>
+        <li><label>Get coord on click</label> <input type="checkbox" name="clickEvent">
+        <li><label>Map type:</label><ul>
+          <li><label>Normal</label> <input type="radio" name="mapType" value="normal" checked=true>
+          <li><label>Satellite</label> <input type="radio" name="mapType" value="satellite">
+          <li><label>Hybrid</label> <input type="radio" name="mapType" value="hybrid"></ul></ul>
       </form>
       <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
@@ -458,6 +462,14 @@ function fill_output() {
     amap.off('click', amapClick);
     bmap.removeEventListener('click', bmapClick);
     eventHandler = undefined;
+  };
+
+  if (document.getElementById('map').mapType[0].checked) {
+    bmap.setMapType(BMAP_NORMAL_MAP);
+  } else if (document.getElementById('map').mapType[1].checked) {
+    bmap.setMapType(BMAP_SATELLITE_MAP);
+  } else if (document.getElementById('map').mapType[2].checked) {
+    bmap.setMapType(BMAP_HYBRID_MAP);
   };
 
   let wgs, gcj, bd;
