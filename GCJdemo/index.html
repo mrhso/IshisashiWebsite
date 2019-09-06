@@ -465,10 +465,13 @@ function fill_output() {
   };
 
   if (document.getElementById('map').mapType[0].checked) {
+    tmap.setMapType(TMAP_NORMAL_MAP);
     bmap.setMapType(BMAP_NORMAL_MAP);
   } else if (document.getElementById('map').mapType[1].checked) {
+    tmap.setMapType(TMAP_SATELLITE_MAP);
     bmap.setMapType(BMAP_SATELLITE_MAP);
   } else if (document.getElementById('map').mapType[2].checked) {
+    tmap.setMapType(TMAP_HYBRID_MAP);
     bmap.setMapType(BMAP_HYBRID_MAP);
   };
 
