@@ -343,6 +343,7 @@ let tmap, amap, bmap;
 let gpsHandler;
 let tmapMarker, amapMarker, bmapMarker;
 let eventHandler;
+let mapType;
 const tmapClick = (e) => {
   inputs.lat.value = e.lnglat.getLat().toString();
   inputs.lon.value = e.lnglat.getLng().toString();
@@ -464,15 +465,18 @@ function fill_output() {
     eventHandler = undefined;
   };
 
-  if (document.getElementById('map').mapType[0].checked) {
+  if (document.getElementById('map').mapType[0].checked && mapType !== 0) {
     tmap.setMapType(TMAP_NORMAL_MAP);
     bmap.setMapType(BMAP_NORMAL_MAP);
-  } else if (document.getElementById('map').mapType[1].checked) {
+    mapType = 0;
+  } else if (document.getElementById('map').mapType[1].checked && mapType !== 1) {
     tmap.setMapType(TMAP_SATELLITE_MAP);
     bmap.setMapType(BMAP_SATELLITE_MAP);
-  } else if (document.getElementById('map').mapType[2].checked) {
+    mapType = 1;
+  } else if (document.getElementById('map').mapType[2].checked && mapType !== 2) {
     tmap.setMapType(TMAP_HYBRID_MAP);
     bmap.setMapType(BMAP_HYBRID_MAP);
+    mapType = 2;
   };
 
   let wgs, gcj, bd;
@@ -547,6 +551,7 @@ function __from_query() {
   bmap.centerAndZoom(new BMap.Point(+inputs.lon.value, +inputs.lat.value), 13);
   bmapMarker = new BMap.Marker(new BMap.Point(+inputs.lon.value, +inputs.lat.value));
   bmap.addOverlay(bmapMarker);
+  mapType = 0;
   return fill_output()
 }
 
