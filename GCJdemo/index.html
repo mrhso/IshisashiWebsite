@@ -388,6 +388,7 @@ function fill_output() {
       inputs.lon.value = position.coords.longitude.toString();
       [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
       [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
+      document.getElementById('map').coordType[0].checked = true;
       fill_output();
     }, _ => {}, { enableHighAccuracy: true });
   } else if (!gps && gpsHandler) {
@@ -554,6 +555,7 @@ function __from_query() {
   bmap.centerAndZoom(new BMap.Point(+inputs.lon.value, +inputs.lat.value), 13);
   bmapMarker = new BMap.Marker(new BMap.Point(+inputs.lon.value, +inputs.lat.value));
   bmap.addOverlay(bmapMarker);
+  bmap.enableScrollWheelZoom();
   mapType = 0;
   return fill_output()
 }
