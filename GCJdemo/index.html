@@ -349,7 +349,9 @@ const tmapClick = (e) => {
   inputs.lon.value = e.lnglat.getLng().toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[0].checked = true;
+  if (!document.getElementById('map').coordType[3].checked) {
+    document.getElementById('map').coordType[0].checked = true;
+  };
   fill_output();
 };
 const amapClick = (e) => {
@@ -357,7 +359,9 @@ const amapClick = (e) => {
   inputs.lon.value = e.lnglat.getLng().toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[1].checked = true;
+  if (!document.getElementById('map').coordType[3].checked) {
+    document.getElementById('map').coordType[1].checked = true;
+  };
   fill_output();
 };
 const bmapClick = (e) => {
@@ -365,7 +369,9 @@ const bmapClick = (e) => {
   inputs.lon.value = e.point.lng.toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[2].checked = true;
+  if (!document.getElementById('map').coordType[3].checked) {
+    document.getElementById('map').coordType[2].checked = true;
+  };
   fill_output();
 };
 function fill_output() {
@@ -388,7 +394,9 @@ function fill_output() {
       inputs.lon.value = position.coords.longitude.toString();
       [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
       [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-      document.getElementById('map').coordType[0].checked = true;
+      if (!document.getElementById('map').coordType[3].checked) {
+        document.getElementById('map').coordType[0].checked = true;
+      };
       fill_output();
     }, _ => {}, { enableHighAccuracy: true });
   } else if (!gps && gpsHandler) {
