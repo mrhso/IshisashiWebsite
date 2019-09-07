@@ -467,14 +467,17 @@ function fill_output() {
 
   if (document.getElementById('map').mapType[0].checked && mapType !== 0) {
     tmap.setMapType(TMAP_NORMAL_MAP);
+    amap.setLayers([new AMap.TileLayer()]);
     bmap.setMapType(BMAP_NORMAL_MAP);
     mapType = 0;
   } else if (document.getElementById('map').mapType[1].checked && mapType !== 1) {
     tmap.setMapType(TMAP_SATELLITE_MAP);
+    amap.setLayers([new AMap.TileLayer.Satellite()]);
     bmap.setMapType(BMAP_SATELLITE_MAP);
     mapType = 1;
   } else if (document.getElementById('map').mapType[2].checked && mapType !== 2) {
     tmap.setMapType(TMAP_HYBRID_MAP);
+    amap.setLayers([new AMap.TileLayer.Satellite(), new AMap.TileLayer.RoadNet()]);
     bmap.setMapType(BMAP_HYBRID_MAP);
     mapType = 2;
   };
