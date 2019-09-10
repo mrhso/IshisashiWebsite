@@ -151,6 +151,12 @@ tbody td:nth-child(n+2) {
       <h2>Map</h2>
       <form id="map">
         <ul>
+        <li><label>Region:</label><ul>
+          <li><label>Chinese mainland</label> <input type="radio" name="region" value="cn" checked=true>
+          <li><label>HKSAR<br>Macao</label> <input type="radio" name="region" value="hkmo">
+          <li><label>Taiwan</label> <input type="radio" name="region" value="tw">
+          <li><label>Penghu<br>Kinmen<br>Lienchiang (ROC)</label> <input type="radio" name="region" value="pkm">
+          <li><label>Outside China</label> <input type="radio" name="region" value="other"></ul>
         <li><label>Coord type:</label><ul>
           <li><label>WGS-84</label> <input type="radio" name="coordType" value="wgs" checked=true>
           <li><label>GCJ-02</label> <input type="radio" name="coordType" value="gcj">
