@@ -359,6 +359,36 @@ const getCoordType = (map) => {
     } else if (map === 'bmap') {
       return 2;
     };
+  // HKSAR / Macao
+  } else if (document.getElementById('map').region[1].checked) {
+    if (map === 'tmap') {
+      return 0;
+    } else if (map === 'amap') {
+      return 1;
+    } else if (map === 'bmap') {
+      return 2;
+    };
+  // Taiwan
+  } else if (document.getElementById('map').region[2].checked) {
+    if (map === 'tmap') {
+      return 0;
+    } else if (map === 'amap') {
+      return 0;
+    } else if (map === 'bmap') {
+      return 2;
+    };
+  // Penghu / Kinmen / Lienchiang (ROC)
+  } else if (document.getElementById('map').region[3].checked) {
+    if (map === 'tmap') {
+      return 0;
+    } else if (map === 'amap') {
+      return 1;
+    } else if (map === 'bmap') {
+      return 2;
+    };
+  // Outside China
+  } else if (document.getElementById('map').region[4].checked) {
+    return 0;
   };
 };
 const tmapClick = (e) => {
@@ -366,7 +396,7 @@ const tmapClick = (e) => {
   inputs.lon.value = e.lnglat.getLng().toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[0].checked = true;
+  document.getElementById('map').coordType[getCoordType('tmap')].checked = true;
   fill_output();
 };
 const amapClick = (e) => {
@@ -374,14 +404,14 @@ const amapClick = (e) => {
   inputs.lon.value = e.lnglat.getLng().toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[1].checked = true;
+  document.getElementById('map').coordType[getCoordType('amap')].checked = true;
 };
 const bmapClick = (e) => {
   inputs.lat.value = e.point.lat.toString();
   inputs.lon.value = e.point.lng.toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[2].checked = true;
+  document.getElementById('map').coordType[getCoordType('bmap')].checked = true;
   fill_output();
 };
 function fill_output() {
@@ -514,22 +544,17 @@ function fill_output() {
     bd = incoords;
   };
 
-  const coordType2name = (num) => {
-    if (num === 0) {
-      return 'wgs';
-    } else if (num === 1) {
-      return 'gcj';
-    } else if (num === 2) {
-      return 'bd';
-    };
-  };
+  let coordTypes = [wgs, gcj, bd];
+  let tmapCoord = coordTypes[getCoordType('tmap')];
+  let amapCoord = coordTypes[getCoordType('amap')];
+  let bmapCoord = coordTypes[getCoordType('bmap')];
 
-  tmap.panTo(new T.LngLat(wgs.lon, wgs.lat));
-  tmapMarker.setLngLat(new T.LngLat(wgs.lon, wgs.lat));
-  amap.panTo(new AMap.LngLat(gcj.lon, gcj.lat));
-  amapMarker.setPosition(new AMap.LngLat(gcj.lon, gcj.lat));
-  bmap.panTo(new BMap.Point(bd.lon, bd.lat));
-  bmapMarker.setPosition(new BMap.Point(bd.lon, bd.lat));
+  tmap.panTo(new T.LngLat(tmapCoord.lon, tmapCoord.lat));
+  tmapMarker.setLngLat(new T.LngLat(tmapCoord.lon, tmapCoord.lat));
+  amap.panTo(new AMap.LngLat(amapCoord.lon, amapCoord.lat));
+  amapMarker.setPosition(new AMap.LngLat(amapCoord.lon, amapCoord.lat));
+  bmap.panTo(new BMap.Point(bmapCoord.lon, bmapCoord.lat));
+  bmapMarker.setPosition(new BMap.Point(bmapCoord.lon, bmapCoord.lat));
 
   return false
 }
