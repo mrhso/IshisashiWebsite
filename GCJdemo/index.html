@@ -349,6 +349,18 @@ let gpsHandler;
 let tmapMarker, amapMarker, bmapMarker;
 let eventHandler;
 let mapType;
+const getCoordType = (map) => {
+  // Chinese mainland
+  if (document.getElementById('map').region[0].checked) {
+    if (map === 'tmap') {
+      return 0;
+    } else if (map === 'amap') {
+      return 1;
+    } else if (map === 'bmap') {
+      return 2;
+    };
+  };
+};
 const tmapClick = (e) => {
   inputs.lat.value = e.lnglat.getLat().toString();
   inputs.lon.value = e.lnglat.getLng().toString();
@@ -500,6 +512,16 @@ function fill_output() {
     wgs = { lat: delta.bd_wgs[0], lon: delta.bd_wgs[1] };
     gcj = { lat: delta.bd_gcj[0], lon: delta.bd_gcj[1] };
     bd = incoords;
+  };
+
+  const coordType2name = (num) => {
+    if (num === 0) {
+      return 'wgs';
+    } else if (num === 1) {
+      return 'gcj';
+    } else if (num === 2) {
+      return 'bd';
+    };
   };
 
   tmap.panTo(new T.LngLat(wgs.lon, wgs.lat));
