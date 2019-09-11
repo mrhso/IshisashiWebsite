@@ -405,6 +405,7 @@ const amapClick = (e) => {
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
   document.getElementById('map').coordType[getCoordType('amap')].checked = true;
+  fill_output();
 };
 const bmapClick = (e) => {
   inputs.lat.value = e.point.lat.toString();
