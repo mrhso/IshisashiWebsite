@@ -373,7 +373,11 @@ const getCoordType = (map) => {
     if (map === 'tmap') {
       return 0;
     } else if (map === 'amap') {
-      return 0;
+      if (document.getElementById('map').mapType[0].checked) {
+        return 0;
+      } else if (document.getElementById('map').mapType[1].checked || document.getElementById('map').mapType[2].checked) {
+        return 1;
+      };
     } else if (map === 'bmap') {
       return 2;
     };
