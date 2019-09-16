@@ -2827,7 +2827,7 @@ function InitMusic()
         let bgm = bgmList[Math.floor(Math.random() * bgmList.length)];
         console.log(`BGM: ${bgm}`);
         Music = new Howl({
-            src: [`../../bgm/${bgm}`],
+            src: [`../bgm/${bgm}`],
             autoplay: false,
             loop: false,
             onload: function(){
