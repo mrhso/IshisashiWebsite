@@ -256,7 +256,7 @@ var coordBack = {
 	'-lon': 'W',
 }
 
-const round = (num) => Math.sign(num) * Math.round(Math.abs(num));
+const round = (num, pow = 0) => Math.sign(num) * Math.round(Math.abs(num) * Number('1e' + pow)) / Number('1e' + pow);
 
 function dmsToDec(d, m, s, hemisphere = 'N', type = '') {
 	if (type !== '') {
@@ -264,7 +264,7 @@ function dmsToDec(d, m, s, hemisphere = 'N', type = '') {
 			throw new RangeError('' + hemisphere + ' ' + type)
 		}
 	}
-	return coordInfo[hemisphere][0] * round(((+d) + (+m)/60 + (+s)/3600)*1e8)/1e8
+	return coordInfo[hemisphere][0] * round((+d) + (+m)/60 + (+s)/3600, 8)
 }
 
 function decToDms(dec, type) {
@@ -274,7 +274,7 @@ function decToDms(dec, type) {
 	dec *= sign
 	var d = Math.floor(dec)
 	var m = Math.floor((dec-d)*60)
-	var s = round((dec-d-m/60)*3600*1e4)/1e4
+	var s = round((dec-d-m/60)*3600, 4)
 	
 	return [d, m, s, hemi]
 }
@@ -455,8 +455,8 @@ function fill_output() {
   console.log(incoords)
 
   var coordToHtml = function(c) {
-    var lat = (round(c.lat * 1e8) / 1e8).toFixed(8)
-    var lon = (round(c.lon * 1e8) / 1e8).toFixed(8)
+    var lat = round(c.lat, 8).toFixed(8)
+    var lon = round(c.lon, 8).toFixed(8)
     var ret = '(' + lat + ', ' + lon + ')'
     var relinked = relink(lat, lon, document.referrer)
     if (relinked) {
