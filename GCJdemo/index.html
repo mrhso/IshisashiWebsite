@@ -497,7 +497,7 @@ function fill_output() {
     var get = delta[fnames[i]]
     var out = Array.from(row.childNodes).slice(1)
     
-    var res = { lat: get[0], lon: get[1] }
+    var res = get[0]
     var dObfs = get[2]
     var dRoundtrip = get[3]
     out[0].innerHTML = coordToHtml(res)
