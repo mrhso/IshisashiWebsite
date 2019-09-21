@@ -256,7 +256,7 @@ var coordBack = {
 	'-lon': 'W',
 }
 
-const round = (num, pow = 0) => Math.sign(num) * Math.round(Math.abs(num) * Number('1e' + pow)) / Number('1e' + pow);
+const round = (num, pow = 0) => Math.sign(num) * Math.round(Math.abs(num) * Number(`1e${pow}`)) / Number(`1e${pow}`);
 
 function dmsToDec(d, m, s, hemisphere = 'N', type = '') {
 	if (type !== '') {
