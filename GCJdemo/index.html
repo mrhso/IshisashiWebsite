@@ -539,15 +539,15 @@ function fill_output() {
   let wgs, gcj, bd;
   if (document.getElementById('map').coordType[0].checked) {
     wgs = incoords;
-    gcj = { lat: delta.wgs_gcj[0], lon: delta.wgs_gcj[1] };
-    bd = { lat: delta.wgs_bd[0], lon: delta.wgs_bd[1] };
+    gcj = delta.wgs_gcj[0];
+    bd = delta.wgs_bd[0];
   } else if (document.getElementById('map').coordType[1].checked) {
-    wgs = { lat: delta.gcj_wgs[0], lon: delta.gcj_wgs[1] };
+    wgs = delta.gcj_wgs[0];
     gcj = incoords;
-    bd = { lat: delta.gcj_bd[0], lon: delta.gcj_bd[1] };
+    bd = delta.gcj_bd[0];
   } else if (document.getElementById('map').coordType[2].checked) {
-    wgs = { lat: delta.bd_wgs[0], lon: delta.bd_wgs[1] };
-    gcj = { lat: delta.bd_gcj[0], lon: delta.bd_gcj[1] };
+    wgs = delta.bd_wgs[0];
+    gcj = delta.bd_gcj[0];
     bd = incoords;
   };
 
