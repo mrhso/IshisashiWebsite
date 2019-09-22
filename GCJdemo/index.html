@@ -538,17 +538,17 @@ function fill_output() {
 
   let wgs, gcj, bd;
   if (document.getElementById('map').coordType[0].checked) {
-    wgs = incoords;
+    wgs = delta.raw[0];
     gcj = delta.wgs_gcj[0];
     bd = delta.wgs_bd[0];
   } else if (document.getElementById('map').coordType[1].checked) {
     wgs = delta.gcj_wgs[0];
-    gcj = incoords;
+    gcj = delta.raw[0];
     bd = delta.gcj_bd[0];
   } else if (document.getElementById('map').coordType[2].checked) {
     wgs = delta.bd_wgs[0];
     gcj = delta.bd_gcj[0];
-    bd = incoords;
+    bd = delta.raw[0];
   };
 
   let coordTypes = [wgs, gcj, bd];
