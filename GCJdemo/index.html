@@ -493,7 +493,7 @@ function fill_output() {
   };
   let eps = +inputs.eps.value;
   let maxTimes = +inputs.maxTimes.value;
-  let roundPow = inputs.roundPowBoolean && +roundPowNumber;
+  let roundPow = inputs.roundPowBoolean.checked && +roundPowNumber.value;
   let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes, roundPow);
   for (var i in fnames) {
     var row = document.getElementById(i)
