@@ -123,7 +123,8 @@ tbody td:nth-child(n+2) {
           <li><label>Bored</label> <input type="checkbox" name="bored" checked=true>
           <li><label>Epsilon</label> <input type="number" name="eps" value="2.220446049250313e-16">
           <li><label>Max times</label> <input type="number" name="maxTimes" value="15">
-          <li><label>Round</label> <input type="checkbox" name="roundPowBoolean"> <input type="number" name="roundPowNumber" value="7"></ul>
+          <li><label>Input round</label> <input type="checkbox" name="inputRoundBoolean"> <input type="number" name="inputRoundNumber" value="7">
+          <li><label>Output round</label> <input type="checkbox" name="outputRoundBoolean"> <input type="number" name="outputRoundNumber" value="8"></ul>
         <li><label>GPS</label> <input type="checkbox" name="gps"></ul>
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
@@ -493,8 +494,9 @@ function fill_output() {
   };
   let eps = +inputs.eps.value;
   let maxTimes = +inputs.maxTimes.value;
-  let roundPow = inputs.roundPowBoolean.checked && +inputs.roundPowNumber.value;
-  let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes, roundPow);
+  let inputRound = inputs.inputRoundBoolean.checked && +inputs.inputRoundNumber.value;
+  let outputRound = inputs.outputRoundBoolean.checked && +inputs.outputRoundNumber.value;
+  let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes, inputRound, outputRound);
   for (var i in fnames) {
     var row = document.getElementById(i)
     var get = delta[fnames[i]]
