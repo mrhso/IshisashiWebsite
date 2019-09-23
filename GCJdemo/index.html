@@ -122,7 +122,8 @@ tbody td:nth-child(n+2) {
         <li><label>Accuracy:</label><ul id="accuracy">
           <li><label>Bored</label> <input type="checkbox" name="bored" checked=true>
           <li><label>Epsilon</label> <input type="number" name="eps" value="2.220446049250313e-16">
-          <li><label>Max times</label> <input type="number" name="maxTimes" value="15"></ul>
+          <li><label>Max times</label> <input type="number" name="maxTimes" value="15">
+          <li><label>Round</label> <input type="checkbox" name="roundPowBoolean"> <input type="number" name="roundPowNumber" value="7"></ul>
         <li><label>GPS</label> <input type="checkbox" name="gps"></ul>
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
@@ -256,7 +257,8 @@ var coordBack = {
 	'-lon': 'W',
 }
 
-const round = (num, pow = 0) => Math.sign(num) * Math.round(Math.abs(num) * Number(`1e${pow}`)) / Number(`1e${pow}`);
+const isNumber = (arg) => Object.prototype.toString.call(arg) === '[object Number]';
+const round = (num, pow) => isNumber(pow) ? Math.sign(num) * Math.round(Math.abs(num) * Number(`1e${pow}`)) / Number(`1e${pow}`) : num;
 
 function dmsToDec(d, m, s, hemisphere = 'N', type = '') {
 	if (type !== '') {
@@ -491,7 +493,8 @@ function fill_output() {
   };
   let eps = +inputs.eps.value;
   let maxTimes = +inputs.maxTimes.value;
-  let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes);
+  let roundPow = inputs.roundPowBoolean && +roundPowNumber;
+  let delta = IshisashiMap.deltaTest(incoords, bored, eps, maxTimes, roundPow);
   for (var i in fnames) {
     var row = document.getElementById(i)
     var get = delta[fnames[i]]
