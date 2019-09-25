@@ -120,12 +120,12 @@ tbody td:nth-child(n+2) {
               <input type="number" name="slon" min="0" max="69" value="0" step=any>″
               <select name="hlon"><option>E</option><option>W</option></select>.</ul>
         <li><label>Accuracy:</label><ul id="accuracy">
-          <li><label>Bored</label> <input type="checkbox" name="bored" checked=true>
+          <li><input type="checkbox" name="bored" checked=true> <label>Bored</label>
           <li><label>Epsilon</label> <input type="number" name="eps" value="2.220446049250313e-16">
           <li><label>Max times</label> <input type="number" name="maxTimes" value="20">
-          <li><label>Input round</label> <input type="checkbox" name="inputRoundBoolean"> <input type="number" name="inputRoundNumber" value="7">
-          <li><label>Output round</label> <input type="checkbox" name="outputRoundBoolean"> <input type="number" name="outputRoundNumber" value="8"></ul>
-        <li><label>GPS</label> <input type="checkbox" name="gps"></ul>
+          <li><input type="checkbox" name="inputRoundBoolean"> <label>Input round</label> <input type="number" name="inputRoundNumber" value="7">
+          <li><input type="checkbox" name="outputRoundBoolean"> <label>Output round</label> <input type="number" name="outputRoundNumber" value="8"></ul>
+        <li><input type="checkbox" name="gps"> <label>GPS</label></ul>
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
       <script src="IshisashiMap.js"></script>
@@ -154,20 +154,20 @@ tbody td:nth-child(n+2) {
       <form id="map">
         <ul>
         <li><label>Region:</label><ul>
-          <li><label>Chinese mainland</label> <input type="radio" name="region" value="cn" checked=true>
-          <li><label>HKSAR / Macao</label> <input type="radio" name="region" value="hkmo">
-          <li><label>Taiwan</label> <input type="radio" name="region" value="tw">
-          <li><label>Penghu / Kinmen / Lienchiang (ROC)</label> <input type="radio" name="region" value="pkm">
-          <li><label>Outside China</label> <input type="radio" name="region" value="other"></ul>
+          <li><input type="radio" name="region" value="cn" checked=true> <label>Chinese mainland</label>
+          <li><input type="radio" name="region" value="hkmo"> <label>HKSAR / Macao</label>
+          <li><input type="radio" name="region" value="tw"> <label>Taiwan</label>
+          <li><input type="radio" name="region" value="pkm"> <label>Penghu / Kinmen / Lienchiang (ROC)</label>
+          <li><input type="radio" name="region" value="other"> <label>Outside China</label></ul>
         <li><label>Coord type:</label><ul>
-          <li><label>WGS-84</label> <input type="radio" name="coordType" value="wgs" checked=true>
-          <li><label>GCJ-02</label> <input type="radio" name="coordType" value="gcj">
-          <li><label>BD-09</label> <input type="radio" name="coordType" value="bd"></ul>
-        <li><label>Get coord on click</label> <input type="checkbox" name="clickEvent">
+          <li><input type="radio" name="coordType" value="wgs" checked=true> <label>WGS-84</label>
+          <li><input type="radio" name="coordType" value="gcj"> <label>GCJ-02</label>
+          <li><input type="radio" name="coordType" value="bd"> <label>BD-09</label></ul>
+        <li><input type="checkbox" name="clickEvent"> <label>Get coord on click</label>
         <li><label>Map type:</label><ul>
-          <li><label>Normal</label> <input type="radio" name="mapType" value="normal" checked=true>
-          <li><label>Satellite</label> <input type="radio" name="mapType" value="satellite">
-          <li><label>Hybrid</label> <input type="radio" name="mapType" value="hybrid"></ul></ul>
+          <li><input type="radio" name="mapType" value="normal" checked=true> <label>Normal</label>
+          <li><input type="radio" name="mapType" value="satellite"> <label>Satellite</label>
+          <li><input type="radio" name="mapType" value="hybrid"> <label>Hybrid</label></ul></ul>
       </form>
       <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
