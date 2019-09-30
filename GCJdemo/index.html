@@ -159,11 +159,11 @@ tbody td:nth-child(n+2) {
           <li><input type="radio" name="region" value="tw"> <label>Taiwan</label>
           <li><input type="radio" name="region" value="pkm"> <label>Penghu / Kinmen / Lienchiang (ROC)</label>
           <li><input type="radio" name="region" value="other"> <label>Outside China</label></ul>
-        <li><label>Coord type:</label><ul>
-          <li><input type="radio" name="coordType" value="wgs" checked=true> <label>WGS-84</label>
-          <li><input type="radio" name="coordType" value="gcj"> <label>GCJ-02</label>
-          <li><input type="radio" name="coordType" value="bd"> <label>BD-09</label></ul>
-        <li><input type="checkbox" name="clickEvent"> <label>Get coord on click</label>
+        <li><label>Coords type:</label><ul>
+          <li><input type="radio" name="coordsType" value="wgs" checked=true> <label>WGS-84</label>
+          <li><input type="radio" name="coordsType" value="gcj"> <label>GCJ-02</label>
+          <li><input type="radio" name="coordsType" value="bd"> <label>BD-09</label></ul>
+        <li><input type="checkbox" name="clickEvent"> <label>Get coords on click</label>
         <li><label>Map type:</label><ul>
           <li><input type="radio" name="mapType" value="normal" checked=true> <label>Normal</label>
           <li><input type="radio" name="mapType" value="satellite"> <label>Satellite</label>
@@ -357,7 +357,7 @@ let gpsHandler;
 let tmapMarker, amapMarker, bmapMarker;
 let eventHandler;
 let mapType;
-const getCoordType = (map) => {
+const getCoordsType = (map) => {
   // Chinese mainland
   if (document.getElementById('map').region[0].checked) {
     if (map === 'tmap') {
@@ -408,7 +408,7 @@ const tmapClick = (e) => {
   inputs.lon.value = e.lnglat.getLng().toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[getCoordType('tmap')].checked = true;
+  document.getElementById('map').coordsType[getCoordsType('tmap')].checked = true;
   fill_output();
 };
 const amapClick = (e) => {
@@ -416,7 +416,7 @@ const amapClick = (e) => {
   inputs.lon.value = e.lnglat.getLng().toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[getCoordType('amap')].checked = true;
+  document.getElementById('map').coordsType[getCoordsType('amap')].checked = true;
   fill_output();
 };
 const bmapClick = (e) => {
@@ -424,7 +424,7 @@ const bmapClick = (e) => {
   inputs.lon.value = e.point.lng.toString();
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-  document.getElementById('map').coordType[getCoordType('bmap')].checked = true;
+  document.getElementById('map').coordsType[getCoordsType('bmap')].checked = true;
   fill_output();
 };
 function fill_output() {
@@ -447,7 +447,7 @@ function fill_output() {
       inputs.lon.value = position.coords.longitude.toString();
       [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
       [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
-      document.getElementById('map').coordType[0].checked = true;
+      document.getElementById('map').coordsType[0].checked = true;
       fill_output();
     }, _ => {}, { enableHighAccuracy: true });
   } else if (!gps && gpsHandler) {
@@ -545,31 +545,31 @@ function fill_output() {
   };
 
   let wgs, gcj, bd;
-  if (document.getElementById('map').coordType[0].checked) {
+  if (document.getElementById('map').coordsType[0].checked) {
     wgs = delta.raw[0];
     gcj = delta.wgs_gcj[0];
     bd = delta.wgs_bd[0];
-  } else if (document.getElementById('map').coordType[1].checked) {
+  } else if (document.getElementById('map').coordsType[1].checked) {
     wgs = delta.gcj_wgs[0];
     gcj = delta.raw[0];
     bd = delta.gcj_bd[0];
-  } else if (document.getElementById('map').coordType[2].checked) {
+  } else if (document.getElementById('map').coordsType[2].checked) {
     wgs = delta.bd_wgs[0];
     gcj = delta.bd_gcj[0];
     bd = delta.raw[0];
   };
 
-  let coordTypes = [wgs, gcj, bd];
-  let tmapCoord = coordTypes[getCoordType('tmap')];
-  let amapCoord = coordTypes[getCoordType('amap')];
-  let bmapCoord = coordTypes[getCoordType('bmap')];
+  let coordsTypes = [wgs, gcj, bd];
+  let tmapCoords = coordsTypes[getCoordsType('tmap')];
+  let amapCoords = coordsTypes[getCoordsType('amap')];
+  let bmapCoords = coordsTypes[getCoordsType('bmap')];
 
-  tmap.panTo(new T.LngLat(tmapCoord.lon, tmapCoord.lat));
-  tmapMarker.setLngLat(new T.LngLat(tmapCoord.lon, tmapCoord.lat));
-  amap.panTo(new AMap.LngLat(amapCoord.lon, amapCoord.lat));
-  amapMarker.setPosition(new AMap.LngLat(amapCoord.lon, amapCoord.lat));
-  bmap.panTo(new BMap.Point(bmapCoord.lon, bmapCoord.lat));
-  bmapMarker.setPosition(new BMap.Point(bmapCoord.lon, bmapCoord.lat));
+  tmap.panTo(new T.LngLat(tmapCoords.lon, tmapCoords.lat));
+  tmapMarker.setLngLat(new T.LngLat(tmapCoords.lon, tmapCoords.lat));
+  amap.panTo(new AMap.LngLat(amapCoords.lon, amapCoords.lat));
+  amapMarker.setPosition(new AMap.LngLat(amapCoords.lon, amapCoords.lat));
+  bmap.panTo(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
+  bmapMarker.setPosition(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
 
   return false
 }
