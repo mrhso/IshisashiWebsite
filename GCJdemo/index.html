@@ -133,6 +133,7 @@ tbody td:nth-child(n+2) {
       <script src="https://api.tianditu.gov.cn/api?v=4.0&tk=31f1da09a075fbfb835aec24c5618ee6"></script>
       <script src="https://webapi.amap.com/maps?v=1.4.15&key=45d1c9aca0b67cdfb982018bf14d211b"></script>
       <script src="https://api.map.baidu.com/api?v=3.0&ak=dIYjmuWbi4cxhLichsDyr80lTrQ3WGyU"></script>
+      <script src="https://map.qq.com/api/gljs?v=1.exp&key=IJSBZ-GPCC5-NE6IB-QK2MR-EVOH7-KSF3T"></script>
       
       <h2>Results</h2>
       <table id="output">
@@ -176,6 +177,8 @@ tbody td:nth-child(n+2) {
       <p>高德地图 GCJ-02</p>
       <div id="bmapDiv" style="width: 300px; height: 300px;"></div>
       <p>百度地图 BD-09</p>
+      <div id="qmapDiv" style="width: 250px; height: 250px;"></div>
+      <p>腾讯地图 GCJ-02</p>
     </section></article>
     <section id="notes">
       <h2>Notes</h2>
@@ -352,9 +355,9 @@ for (let i of Array.from(inputs.querySelectorAll('#dms-in input, #dms-in select'
 // handler..
 var a_perm = document.getElementById('permalink')
 var baseurl = a_perm.href
-let tmap, amap, bmap;
+let tmap, amap, bmap, qmap;
 let gpsHandler;
-let tmapMarker, amapMarker, bmapMarker;
+let tmapMarker, amapMarker, bmapMarker, qmapMarker;
 let eventHandler;
 let mapType;
 const getCoordsType = (map) => {
@@ -570,6 +573,8 @@ function fill_output() {
   amapMarker.setPosition(new AMap.LngLat(amapCoords.lon, amapCoords.lat));
   bmap.panTo(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
   bmapMarker.setPosition(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
+  qmap.panTo(new TMap.LatLng(amapCoords.lat, amapCoords.lon));
+  qmapMarker.updateGeometries([{ 'id': '1', 'position': new TMap.LatLng(amapCoords.lat, amapCoords.lon) }]);
 
   return false
 }
@@ -613,11 +618,13 @@ function __from_query() {
   amap = new AMap.Map('amapDiv', { zoom: 12, center: new AMap.LngLat(+inputs.lon.value, +inputs.lat.value) });
   amapMarker = new AMap.Marker({ position: new AMap.LngLat(+inputs.lon.value, +inputs.lat.value) });
   amap.add(amapMarker);
-  bmap = new BMap.Map("bmapDiv");
+  bmap = new BMap.Map('bmapDiv');
   bmap.centerAndZoom(new BMap.Point(+inputs.lon.value, +inputs.lat.value), 13);
   bmapMarker = new BMap.Marker(new BMap.Point(+inputs.lon.value, +inputs.lat.value));
   bmap.addOverlay(bmapMarker);
   bmap.enableScrollWheelZoom();
+  qmap = new TMap.Map(document.getElementById('qmapDiv'), { center: new TMap.LatLng(+inputs.lat.value, +inputs.lon.value), zoom: 12 });
+  qmapMarker = new TMap.MultiMarker({ map: qmap, geometries: [{ 'id': '1', 'styleId': 'marker', 'position': new TMap.LatLng(+inputs.lat.value, +inputs.lon.value), 'properties': { 'title': 'marker' }}]});
   mapType = 0;
   return fill_output()
 }
