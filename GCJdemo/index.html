@@ -133,7 +133,7 @@ tbody td:nth-child(n+2) {
       <script src="https://api.tianditu.gov.cn/api?v=4.0&tk=31f1da09a075fbfb835aec24c5618ee6"></script>
       <script src="https://webapi.amap.com/maps?v=1.4.15&key=45d1c9aca0b67cdfb982018bf14d211b"></script>
       <script src="https://api.map.baidu.com/api?v=3.0&ak=dIYjmuWbi4cxhLichsDyr80lTrQ3WGyU"></script>
-      <script src="https://map.qq.com/api/gljs?v=1.exp&key=IJSBZ-GPCC5-NE6IB-QK2MR-EVOH7-KSF3T"></script>
+      <script src="https://map.qq.com/api/js?v=2.exp&key=IJSBZ-GPCC5-NE6IB-QK2MR-EVOH7-KSF3T"></script>
       
       <h2>Results</h2>
       <table id="output">
@@ -358,7 +358,7 @@ var baseurl = a_perm.href
 let tmap, amap, bmap, qmap;
 let gpsHandler;
 let tmapMarker, amapMarker, bmapMarker, qmapMarker;
-let eventHandler;
+let eventHandler, qmapEvent;
 let mapType;
 const getCoordsType = (map) => {
   // Chinese mainland
@@ -428,6 +428,14 @@ const bmapClick = (e) => {
   [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
   [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
   document.getElementById('map').coordsType[getCoordsType('bmap')].checked = true;
+  fill_output();
+};
+const qmapClick = (e) => {
+  inputs.lat.value = e.latLng.getLat().toString();
+  inputs.lon.value = e.latLng.getLng().toString();
+  [inputs.dlat.value, inputs.mlat.value, inputs.slat.value, inputs.hlat.value] = decToDms(+inputs.lat.value, 'lat');
+  [inputs.dlon.value, inputs.mlon.value, inputs.slon.value, inputs.hlon.value] = decToDms(+inputs.lon.value, 'lon');
+  document.getElementById('map').coordsType[getCoordsType('amap')].checked = true;
   fill_output();
 };
 function fill_output() {
@@ -522,11 +530,14 @@ function fill_output() {
     tmap.addEventListener('click', tmapClick);
     amap.on('click', amapClick);
     bmap.addEventListener('click', bmapClick);
+    qmapEvent = qq.maps.event.addListener(qmap, 'click', qmapClick);
     eventHandler = true;
   } else if (!clickEvent && eventHandler) {
     tmap.removeEventListener('click', tmapClick);
     amap.off('click', amapClick);
     bmap.removeEventListener('click', bmapClick);
+    qq.maps.event.removeListener(qmapEvent);
+    qmapEvent = undefined;
     eventHandler = undefined;
   };
 
@@ -534,16 +545,19 @@ function fill_output() {
     tmap.setMapType(TMAP_NORMAL_MAP);
     amap.setLayers([new AMap.TileLayer()]);
     bmap.setMapType(BMAP_NORMAL_MAP);
+    qmap.setMapTypeId(qq.maps.MapTypeId.ROADMAP);
     mapType = 0;
   } else if (document.getElementById('map').mapType[1].checked && mapType !== 1) {
     tmap.setMapType(TMAP_SATELLITE_MAP);
     amap.setLayers([new AMap.TileLayer.Satellite()]);
     bmap.setMapType(BMAP_SATELLITE_MAP);
+    qmap.setMapTypeId(qq.maps.MapTypeId.SATELLITE);
     mapType = 1;
   } else if (document.getElementById('map').mapType[2].checked && mapType !== 2) {
     tmap.setMapType(TMAP_HYBRID_MAP);
     amap.setLayers([new AMap.TileLayer.Satellite(), new AMap.TileLayer.RoadNet()]);
     bmap.setMapType(BMAP_HYBRID_MAP);
+    qmap.setMapTypeId(qq.maps.MapTypeId.HYBRID);
     mapType = 2;
   };
 
@@ -573,8 +587,8 @@ function fill_output() {
   amapMarker.setPosition(new AMap.LngLat(amapCoords.lon, amapCoords.lat));
   bmap.panTo(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
   bmapMarker.setPosition(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
-  qmap.panTo(new TMap.LatLng(amapCoords.lat, amapCoords.lon));
-  qmapMarker.updateGeometries([{ 'id': '1', 'position': new TMap.LatLng(amapCoords.lat, amapCoords.lon) }]);
+  qmap.panTo(new qq.maps.LatLng(amapCoords.lat, amapCoords.lon));
+  qmapMarker.setPosition(new qq.maps.LatLng(amapCoords.lat, amapCoords.lon));
 
   return false
 }
@@ -623,8 +637,8 @@ function __from_query() {
   bmapMarker = new BMap.Marker(new BMap.Point(+inputs.lon.value, +inputs.lat.value));
   bmap.addOverlay(bmapMarker);
   bmap.enableScrollWheelZoom();
-  qmap = new TMap.Map(document.getElementById('qmapDiv'), { center: new TMap.LatLng(+inputs.lat.value, +inputs.lon.value), zoom: 12 });
-  qmapMarker = new TMap.MultiMarker({ map: qmap, geometries: [{ 'id': '1', 'styleId': 'marker', 'position': new TMap.LatLng(+inputs.lat.value, +inputs.lon.value), 'properties': { 'title': 'marker' }}]});
+  qmap = new qq.maps.Map('qmapDiv', { center: new qq.maps.LatLng(+inputs.lat.value, +inputs.lon.value), zoom: 12 });
+  qmapMarker = new qq.maps.Marker({ position: new qq.maps.LatLng(+inputs.lat.value, +inputs.lon.value), map: qmap });
   mapType = 0;
   return fill_output()
 }
