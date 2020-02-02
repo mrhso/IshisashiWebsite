@@ -45,17 +45,17 @@
 ### WAVE 相对 MIDI
 |曲名|档案名|原调|变调|变化|
 |-|-|-|-|-|
-|稀翁玉　〜 Fairy Dance|kog_00||||
-|天鵞絨少女戦　〜 Velvet Battle|kog_01||||
-|Castle Explorer -in the Sky-|kog_02||||
-|オルフェの詩　〜 Pseudoclassic|kog_03||||
-|新幻想　〜 New Fantasy|kog_04||||
-|オルレアンの聖騎士|kog_05||||
-|My Maid, Sweet Maid|kog_06||||
-|桜花之恋塚　〜 Flower of Japan|kog_07||||
-|乙女戦士　〜 Heart of Valkyrie|kog_08||||
-|エニグマティックドール　〜 God Knows|kog_09||||
-|ジングル|kog_sj||||
+|稀翁玉　〜 Fairy Dance|kog_00|||-5|
+|天鵞絨少女戦　〜 Velvet Battle|kog_01|||+2|
+|Castle Explorer -in the Sky-|kog_02|||-7|
+|オルフェの詩　〜 Pseudoclassic|kog_03|||-1|
+|新幻想　〜 New Fantasy|kog_04|||+4|
+|オルレアンの聖騎士|kog_05|||-4|
+|My Maid, Sweet Maid|kog_06|||-2|
+|桜花之恋塚　〜 Flower of Japan|kog_07|||+1|
+|乙女戦士　〜 Heart of Valkyrie|kog_08|||+4|
+|エニグマティックドール　〜 God Knows|kog_09|||+2|
+|ジングル|kog_sj|||0|
 
 ## 東方紅魔郷
 ### WAVE 相对 MIDI
@@ -108,24 +108,24 @@
 ### WAVE 相对 MIDI
 |曲名|档案名|原调|变调|变化|
 |-|-|-|-|-|
-|永夜抄　〜 Eastern Night.|01||||
-|幻視の夜　〜 Ghostly Eyes|00||||
-|蠢々秋月　〜 Mooned Insect|03||||
-|夜雀の歌声　〜 Night Bird|04||||
-|もう歌しか聞こえない|05||||
-|懐かしき東方の血　〜 Old World|06||||
-|プレインエイジア|07||||
-|永夜の報い　〜 Imperishable Night|08||||
-|少女綺想曲　〜 Dream Battle|09||||
-|恋色マスタースパーク|10||||
-|シンデレラケージ　〜 Kagome-Kagome|11||||
-|狂気の瞳　〜 Invisible Full Moon|12||||
-|ヴォヤージュ1969|13||||
-|千年幻想郷　〜 History of the Moon|14||||
-|竹取飛翔　〜 Lunatic Princess|15||||
-|ヴォヤージュ1970|13b||||
-|エクステンドアッシュ　〜 蓬莱人|18||||
-|月まで届け、不死の煙|19||||
-|月見草|16||||
-|Eternal Dream　〜 幽玄の槭樹|17||||
-|東方妖怪小町|20||||
+|永夜抄　〜 Eastern Night.|th08_01||||
+|幻視の夜　〜 Ghostly Eyes|th08_00||||
+|蠢々秋月　〜 Mooned Insect|th08_03||||
+|夜雀の歌声　〜 Night Bird|th08_04||||
+|もう歌しか聞こえない|th08_05||||
+|懐かしき東方の血　〜 Old World|th08_06||||
+|プレインエイジア|th08_07||||
+|永夜の報い　〜 Imperishable Night|th08_08||||
+|少女綺想曲　〜 Dream Battle|th08_09||||
+|恋色マスタースパーク|th08_10||||
+|シンデレラケージ　〜 Kagome-Kagome|th08_11||||
+|狂気の瞳　〜 Invisible Full Moon|th08_12||||
+|ヴォヤージュ1969|th08_13||||
+|千年幻想郷　〜 History of the Moon|th08_14||||
+|竹取飛翔　〜 Lunatic Princess|th08_15||||
+|ヴォヤージュ1970|th08_13b||||
+|エクステンドアッシュ　〜 蓬莱人|th08_18||||
+|月まで届け、不死の煙|th08_19||||
+|月見草|th08_16||||
+|Eternal Dream　〜 幽玄の槭樹|th08_17||||
+|東方妖怪小町|th08_20||||
