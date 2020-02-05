@@ -108,24 +108,24 @@
 ### WAVE 相对 MIDI
 |曲名|档案名|原调|变调|变化|
 |-|-|-|-|-|
-|永夜抄　〜 Eastern Night.|th08_01||||
-|幻視の夜　〜 Ghostly Eyes|th08_00||||
-|蠢々秋月　〜 Mooned Insect|th08_03||||
-|夜雀の歌声　〜 Night Bird|th08_04||||
-|もう歌しか聞こえない|th08_05||||
-|懐かしき東方の血　〜 Old World|th08_06||||
-|プレインエイジア|th08_07||||
-|永夜の報い　〜 Imperishable Night|th08_08||||
-|少女綺想曲　〜 Dream Battle|th08_09||||
-|恋色マスタースパーク|th08_10||||
-|シンデレラケージ　〜 Kagome-Kagome|th08_11||||
-|狂気の瞳　〜 Invisible Full Moon|th08_12||||
-|ヴォヤージュ1969|th08_13||||
-|千年幻想郷　〜 History of the Moon|th08_14||||
-|竹取飛翔　〜 Lunatic Princess|th08_15||||
-|ヴォヤージュ1970|th08_13b||||
-|エクステンドアッシュ　〜 蓬莱人|th08_18||||
-|月まで届け、不死の煙|th08_19||||
-|月見草|th08_16||||
-|Eternal Dream　〜 幽玄の槭樹|th08_17||||
-|東方妖怪小町|th08_20||||
+|永夜抄　〜 Eastern Night.|th08_01|||+1|
+|幻視の夜　〜 Ghostly Eyes|th08_00|||0|
+|蠢々秋月　〜 Mooned Insect|th08_03|||0|
+|夜雀の歌声　〜 Night Bird|th08_04|||0|
+|もう歌しか聞こえない|th08_05|||0|
+|懐かしき東方の血　〜 Old World|th08_06|||0|
+|プレインエイジア|th08_07|||0|
+|永夜の報い　〜 Imperishable Night|th08_08|||0|
+|少女綺想曲　〜 Dream Battle|th08_09|||0|
+|恋色マスタースパーク|th08_10|||0|
+|シンデレラケージ　〜 Kagome-Kagome|th08_11|||0|
+|狂気の瞳　〜 Invisible Full Moon|th08_12|||0|
+|ヴォヤージュ1969|th08_13|||0|
+|千年幻想郷　〜 History of the Moon|th08_14|||0|
+|竹取飛翔　〜 Lunatic Princess|th08_15|||0|
+|ヴォヤージュ1970|th08_13b|||+2|
+|エクステンドアッシュ　〜 蓬莱人|th08_18|||0|
+|月まで届け、不死の煙|th08_19|||+1|
+|月見草|th08_16|||0|
+|Eternal Dream　〜 幽玄の槭樹|th08_17|||0|
+|東方妖怪小町|th08_20|||0|
