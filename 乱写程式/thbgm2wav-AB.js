@@ -1,4 +1,6 @@
 // 那么这就是分为两组档案的版本了
+'use strict';
+
 const fs = require('fs');
 const path = require('path');
 
