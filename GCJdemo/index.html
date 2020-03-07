@@ -265,8 +265,7 @@ var coordBack = {
 	'-lon': 'W',
 }
 
-const isNumber = (arg) => Object.prototype.toString.call(arg) === '[object Number]';
-const round = (num, pow) => isNumber(pow) ? Math.sign(num) * Math.round(Math.abs(num) * Number(`1e${pow}`)) / Number(`1e${pow}`) : num;
+const round = (num, pow) => Math.sign(num) * Math.round(Math.abs(num) * Number(`1e${pow}`)) / Number(`1e${pow}`);
 
 function dmsToDec(d, m, s, hemisphere = 'N', type = '') {
 	if (type !== '') {
