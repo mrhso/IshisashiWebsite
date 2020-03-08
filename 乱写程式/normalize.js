@@ -5,7 +5,7 @@
 
 const fs = require('fs');
 
-let files = ['th07_07.wav'];
+let files = ['th06_01.wav', 'th06_02.wav', 'th06_03.wav', 'th06_04.wav', 'th06_05.wav', 'th06_06.wav', 'th06_07.wav', 'th06_08.wav', 'th06_09.wav', 'th06_10.wav', 'th06_11.wav', 'th06_12.wav', 'th06_13.wav', 'th06_14.wav', 'th06_15.wav', 'th06_16.wav', 'th06_17.wav'];
 
 // 电平扫描
 let max = -Infinity;
