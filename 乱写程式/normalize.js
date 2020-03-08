@@ -1,11 +1,11 @@
 // 将所有档案作为一个整体标准化
-// 这个脚本仅能处理 32-bit float、档头为 44 位元组、没有 metadata 的档案
+// 这个脚本仅能处理 32-bit float、档头为 44 位元组的档案
 // 也不会考虑 max 或 min 为 0 的情况
 'use strict';
 
 const fs = require('fs');
 
-let files = ['th06_01.wav', 'th06_02.wav', 'th06_03.wav', 'th06_04.wav', 'th06_05.wav', 'th06_06.wav', 'th06_07.wav', 'th06_08.wav', 'th06_09.wav', 'th06_10.wav', 'th06_11.wav', 'th06_12.wav', 'th06_13.wav', 'th06_14.wav', 'th06_15.wav', 'th06_16.wav', 'th06_17.wav'];
+let files = ['th07_07.wav'];
 
 // 电平扫描
 let max = -Infinity;
@@ -13,7 +13,8 @@ let min = Infinity;
 for (let file of files) {
     let data = fs.readFileSync(file);
     let offset = 44;
-    while (offset < data.length) {
+    let length = data.readUInt32LE(40) + 44;
+    while (offset < length) {
         let get = data.readFloatLE(offset);
         if (get > max) {
             max = get;
@@ -51,7 +52,8 @@ let mlt = Math.min(getMlt(max), getMlt(min));
 for (let file of files) {
     let data = fs.readFileSync(file);
     let offset = 44;
-    while (offset < data.length) {
+    let length = data.readUInt32LE(40) + 44;
+    while (offset < length) {
         let get = data.readFloatLE(offset);
         data.writeFloatLE(get * mlt, offset);
         offset += 4;

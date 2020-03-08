@@ -11,9 +11,9 @@ for (let file of files) {
     let end = pos.readUInt32LE(4) * 4;
     let wav = fs.readFileSync(`${file}.wav`);
     let header = wav.slice(0, 44);
-    let length = header.readUInt32LE(40);
-    let data = wav.slice(44, length + 44);
-    let meta = wav.slice(length + 44, wav.length);
+    let length = header.readUInt32LE(40) + 44;
+    let data = wav.slice(44, length);
+    let meta = wav.slice(length, wav.length);
 
     let pcm0 = data.slice(0, loop);
     let header0 = Buffer.from(header);
