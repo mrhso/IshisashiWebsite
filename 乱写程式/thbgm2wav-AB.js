@@ -13,6 +13,7 @@ while (offset < fmt.length) {
     let file = pcmFmt.slice(0, 16).toString().split('\0')[0];
     if (file) {
         let start = pcmFmt.readUInt32LE(16);
+        let preload = pcmFmt.readUInt32LE(20);
         // 这里就要用到了
         let loop = pcmFmt.readUInt32LE(24);
         let length = pcmFmt.readUInt32LE(28);

@@ -13,7 +13,9 @@ while (offset < fmt.length) {
     if (file) {
         // 起始偏移
         let start = pcmFmt.readUInt32LE(16);
-        // 后面 4 位元组希腊奶
+        // 预加载所分配 RAM 区域之大小
+        // 原则上不少于整首曲的大小
+        let preload = pcmFmt.readUInt32LE(20);
         // 循环点，但是这个版本并不会用到
         let loop = pcmFmt.readUInt32LE(24);
         // 长度
