@@ -17,7 +17,7 @@ while (offset < fmt.length) {
         // 预加载所分配 RAM 区域之大小
         // 原则上不少于整首曲的大小
         let preload = pcmFmt.readUInt32LE(20);
-        // 循环点，但是这个版本并不会用到
+        // 循环点
         let loop = pcmFmt.readUInt32LE(24);
         // 长度
         let length = pcmFmt.readUInt32LE(28);
@@ -29,6 +29,14 @@ while (offset < fmt.length) {
         wav.data = pcm;
         wav = writeWAV(wav);
         fs.writeFileSync(file, wav);
+
+        let wavFmt = parseFmt(wav['fmt ']);
+        let channels = wavFmt.nChannels;
+        let bps = wavFmt.wBitsPerSample / 8;
+        let pos = Buffer.alloc(8);
+        pos.writeUInt32LE(loop / (channels * bps));
+        pos.writeUInt32LE(length / (channels * bps), 4);
+        fs.writeFileSync(`${file.substring(0, file.length - path.extname(file).length)}-1.pos`, pos);
     };
     offset += 52;
 };

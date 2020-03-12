@@ -21,8 +21,8 @@ for (let file of files) {
     let bps = wavFmt.wBitsPerSample / 8;
 
     let pos = fs.readFileSync(`${file}.pos`);
-    let loop = pos.readUInt32LE() * channels * bps;
-    let length = pos.readUInt32LE(4) * channels * bps;
+    let loop = pos.readUInt32LE() * (channels * bps);
+    let length = pos.readUInt32LE(4) * (channels * bps);
     // 不知道要多大，就按曲长判断了
     let preload = length;
     let data = wav.data.slice(0, length);

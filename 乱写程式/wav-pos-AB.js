@@ -13,8 +13,8 @@ for (let file of files) {
     // 每个采样所占字节数
     let bps = fmt.wBitsPerSample / 8;
     // *.pos 里记录的是采样数，乘以声道数与每个采样所占字节数之积得到字节数
-    let loop = pos.readUInt32LE() * channels * bps;
-    let end = pos.readUInt32LE(4) * channels * bps;
+    let loop = pos.readUInt32LE() * (channels * bps);
+    let end = pos.readUInt32LE(4) * (channels * bps);
     let data = wav.data;
 
     let pcm0 = data.slice(0, loop);
