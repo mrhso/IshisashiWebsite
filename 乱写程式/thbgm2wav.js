@@ -1,7 +1,8 @@
 'use strict';
 
 const fs = require('fs');
-const { writeWAV } = require('./wavHandler.js');
+const path = require('path');
+const { writeWAV, parseFmt } = require('./wavHandler.js');
 
 let dat = fs.readFileSync('thbgm.dat');
 let fmt = fs.readFileSync('thbgm.fmt');
@@ -26,17 +27,18 @@ while (offset < fmt.length) {
         // 注意「fmt」后有空格
         let wav = { order: ['fmt ', 'data'] };
         wav['fmt '] = pcmFmt.slice(32, 48);
+        // 后面会用到
+        let wavFmt = parseFmt(wav['fmt ']);
         wav.data = pcm;
         wav = writeWAV(wav);
         fs.writeFileSync(file, wav);
 
-        let wavFmt = parseFmt(wav['fmt ']);
         let channels = wavFmt.nChannels;
         let bps = wavFmt.wBitsPerSample / 8;
         let pos = Buffer.alloc(8);
         pos.writeUInt32LE(loop / (channels * bps));
         pos.writeUInt32LE(length / (channels * bps), 4);
-        fs.writeFileSync(`${file.substring(0, file.length - path.extname(file).length)}-1.pos`, pos);
+        fs.writeFileSync(`${file.substring(0, file.length - path.extname(file).length)}.pos`, pos);
     };
     offset += 52;
 };
