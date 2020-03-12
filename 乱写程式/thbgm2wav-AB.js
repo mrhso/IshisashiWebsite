@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { writeWAV } = require('./wavHandler.js');
 
 let dat = fs.readFileSync('thbgm.dat');
 let fmt = fs.readFileSync('thbgm.fmt');
@@ -19,27 +20,17 @@ while (offset < fmt.length) {
         let length = pcmFmt.readUInt32LE(28);
 
         let pcm0 = dat.slice(start, start + loop);
-        let header0 = Buffer.alloc(44);
-        header0.write('RIFF', 0);
-        header0.writeUInt32LE(loop + 36, 4);
-        header0.write('WAVEfmt ', 8);
-        header0.writeUInt32LE(16, 16);
-        pcmFmt.copy(header0, 20, 32, 48);
-        header0.write('data', 36);
-        header0.writeUInt32LE(loop, 40);
-        let wav0 = Buffer.concat([header0, pcm0]);
+        let wav0 = { order: ['fmt ', 'data'] };
+        wav0['fmt '] = pcmFmt.slice(32, 48);
+        wav0.data = pcm0;
+        wav0 = writeWAV(wav0);
         fs.writeFileSync(`${file.substring(0, file.length - path.extname(file).length)}-0${path.extname(file)}`, wav0);
 
         let pcm1 = dat.slice(start + loop, start + length);
-        let header1 = Buffer.alloc(44);
-        header1.write('RIFF', 0);
-        header1.writeUInt32LE(length - loop + 36, 4);
-        header1.write('WAVEfmt ', 8);
-        header1.writeUInt32LE(16, 16);
-        pcmFmt.copy(header1, 20, 32, 48);
-        header1.write('data', 36);
-        header1.writeUInt32LE(length - loop, 40);
-        let wav1 = Buffer.concat([header1, pcm1]);
+        let wav1 = { order: ['fmt ', 'data'] };
+        wav1['fmt '] = pcmFmt.slice(32, 48);
+        wav1.data = pcm1;
+        wav1 = writeWAV(wav1);
         fs.writeFileSync(`${file.substring(0, file.length - path.extname(file).length)}-1${path.extname(file)}`, wav1);
     };
     offset += 52;

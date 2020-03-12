@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const { writeWAV } = require('./wavHandler.js');
 
 let dat = fs.readFileSync('thbgm.dat');
 let fmt = fs.readFileSync('thbgm.fmt');
@@ -22,18 +23,11 @@ while (offset < fmt.length) {
         let length = pcmFmt.readUInt32LE(28);
 
         let pcm = dat.slice(start, start + length);
-        let header = Buffer.alloc(44);
-        header.write('RIFF', 0);
-        // 44 - 8 = 36
-        header.writeUInt32LE(length + 36, 4);
         // 注意「fmt」后有空格
-        header.write('WAVEfmt ', 8);
-        // PCM 信息占 16 位元组
-        header.writeUInt32LE(16, 16);
-        pcmFmt.copy(header, 20, 32, 48);
-        header.write('data', 36);
-        header.writeUInt32LE(length, 40);
-        let wav = Buffer.concat([header, pcm]);
+        let wav = { order: ['fmt ', 'data'] };
+        wav['fmt '] = pcmFmt.slice(32, 48);
+        wav.data = pcm;
+        wav = writeWAV(wav);
         fs.writeFileSync(file, wav);
     };
     offset += 52;
