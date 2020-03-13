@@ -1,21 +1,21 @@
 // 将所有档案作为一个整体标准化
-// 这个脚本仅能处理 32-bit float PCM
+// 这个脚本仅能处理 32-bit 浮点 PCM
 // 也不会考虑 max 或 min 为 0 的情况
 'use strict';
 
 const fs = require('fs');
 const { parseWAV, parseFmt, writeWAV } = require('./wavHandler.js');
 
-let files = ['th06_01.wav', 'th06_02.wav', 'th06_03.wav', 'th06_04.wav', 'th06_05.wav', 'th06_06.wav', 'th06_07.wav', 'th06_08.wav', 'th06_09.wav', 'th06_10.wav', 'th06_11.wav', 'th06_12.wav', 'th06_13.wav', 'th06_14.wav', 'th06_15.wav', 'th06_16.wav', 'th06_17.wav'];
+let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
 
 // 电平扫描
 let max = -Infinity;
 let min = Infinity;
 for (let file of files) {
-    let wav = parseWAV(fs.readFileSync(file));
+    let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     if (!((fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32) || (fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71'))) {
-        throw '档案非 32-bit float PCM';
+        throw `${file}.wav: 档案非 32-bit 浮点 PCM`;
     };
     let data = wav.data;
     let offset = 0;
@@ -55,7 +55,7 @@ let mlt = Math.min(getMlt(max), getMlt(min));
 
 // 现在就是暴力计算了
 for (let file of files) {
-    let wav = parseWAV(fs.readFileSync(file));
+    let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let data = wav.data;
     let offset = 0;
     while (offset < data.length) {
@@ -64,5 +64,5 @@ for (let file of files) {
         offset += 4;
     };
     wav = writeWAV(wav);
-    fs.writeFileSync(file, wav);
+    fs.writeFileSync(`${file}-normalized.wav`, wav);
 };
