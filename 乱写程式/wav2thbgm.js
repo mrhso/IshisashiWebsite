@@ -17,11 +17,11 @@ for (let file of files) {
 
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let wavFmt = parseFmt(wav['fmt ']);
-    let bps = wavFmt.nChannels * wavFmt.wBitsPerSample / 8;
+    let block = wavFmt.nBlockAlign;
 
     let pos = fs.readFileSync(`${file}.pos`);
-    let loop = pos.readUInt32LE() * bps;
-    let length = pos.readUInt32LE(4) * bps;
+    let loop = pos.readUInt32LE() * block;
+    let length = pos.readUInt32LE(4) * block;
     // 不知道要多大，就按曲长判断了
     let preload = length;
     let data = wav.data.slice(0, length);

@@ -33,10 +33,10 @@ while (offset < fmt.length) {
         wav = writeWAV(wav);
         fs.writeFileSync(file, wav);
 
-        let bps = wavFmt.nChannels * wavFmt.wBitsPerSample / 8;
+        let block = wavFmt.nBlockAlign;
         let pos = Buffer.alloc(8);
-        pos.writeUInt32LE(loop / bps);
-        pos.writeUInt32LE(length / bps, 4);
+        pos.writeUInt32LE(loop / block);
+        pos.writeUInt32LE(length / block, 4);
         fs.writeFileSync(`${file.substring(0, file.length - path.extname(file).length)}.pos`, pos);
     };
     offset += 52;

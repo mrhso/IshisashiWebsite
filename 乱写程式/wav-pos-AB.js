@@ -9,11 +9,9 @@ for (let file of files) {
     let pos = fs.readFileSync(`${file}.pos`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
-    // 声道数与单声道单采样所占字节数之积
-    let bps = fmt.nChannels * fmt.wBitsPerSample / 8;
-    // *.pos 里记录的是时间意义上的采样数，不考虑声道，可以认为是将同时间多个声道的采样看作一个点
-    let loop = pos.readUInt32LE() * bps;
-    let end = pos.readUInt32LE(4) * bps;
+    let block = fmt.nBlockAlign;
+    let loop = pos.readUInt32LE() * block;
+    let end = pos.readUInt32LE(4) * block;
     let data = wav.data;
 
     let pcm0 = data.slice(0, loop);
