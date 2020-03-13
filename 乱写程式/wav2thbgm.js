@@ -4,7 +4,7 @@ const fs = require('fs');
 const { parseWAV, parseFmt } = require('./wavHandler.js');
 
 let files = ['th07_01', 'th07_02', 'th07_03', 'th07_04', 'th07_05', 'th07_06', 'th07_07', 'th07_08', 'th07_09', 'th07_10', 'th07_11', 'th07_12', 'th07_13', 'th07_13b', 'th07_14', 'th07_15', 'th07_16', 'th07_17', 'th07_18', 'th07_19'];
-// 档头视版本具体而定，这里以妖妖梦为例
+// 档头具体视版本而定，这里以妖妖梦为例
 let header = Buffer.from([0x5A, 0x57, 0x41, 0x56, 0x01, 0x00, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]);
 let fmt = [];
 let dat = [header];
@@ -17,12 +17,11 @@ for (let file of files) {
 
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let wavFmt = parseFmt(wav['fmt ']);
-    let channels = wavFmt.nChannels;
-    let bps = wavFmt.wBitsPerSample / 8;
+    let bps = wavFmt.nChannels * wavFmt.wBitsPerSample / 8;
 
     let pos = fs.readFileSync(`${file}.pos`);
-    let loop = pos.readUInt32LE() * (channels * bps);
-    let length = pos.readUInt32LE(4) * (channels * bps);
+    let loop = pos.readUInt32LE() * bps;
+    let length = pos.readUInt32LE(4) * bps;
     // 不知道要多大，就按曲长判断了
     let preload = length;
     let data = wav.data.slice(0, length);
