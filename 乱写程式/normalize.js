@@ -63,7 +63,6 @@ for (let file of files) {
         data.writeFloatLE(get * mlt, offset);
         offset += 4;
     };
-    wav.data = data;
     wav = writeWAV(wav);
     fs.writeFileSync(file, wav);
 };
