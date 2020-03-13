@@ -91,7 +91,7 @@ const writeFmt = (obj) => {
     fmt.writeUInt16LE(obj.nBlockAlign, 12);
     fmt.writeUInt16LE(obj.wBitsPerSample, 14);
     let cbSize = obj.cbSize;
-    if (cbSize) {
+    if (cbSize !== undefined) {
         let cbSizeBuf = Buffer.alloc(2);
         cbSizeBuf.writeUInt16LE(cbSize);
         let extra = Buffer.alloc(cbSize);
