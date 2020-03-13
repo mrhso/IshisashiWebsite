@@ -14,7 +14,7 @@ let min = Infinity;
 for (let file of files) {
     let wav = parseWAV(fs.readFileSync(file));
     let fmt = parseFmt(wav['fmt ']);
-    if (fmt.wFormatTag !== 3 && fmt.wFormatTag !== 65534 || fmt.wBitsPerSample !== 32) {
+    if (!((fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32) || (fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32))) {
         throw '档案非 32-bit float PCM';
     };
     let data = wav.data;
