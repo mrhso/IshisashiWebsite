@@ -39,10 +39,22 @@ const parseFmt = (buf) => {
     fmt.nAvgBytesPerSec = buf.readUInt32LE(8);
     fmt.nBlockAlign = buf.readUInt16LE(12);
     fmt.wBitsPerSample = buf.readUInt16LE(14);
-    if (buf.length > 16) {
-        fmt.cbSize = buf.readUInt16LE(16);
-        // 额外信息我就懒得处理了 www
-        fmt.extra = buf.slice(18, fmt.cbSize + 18);
+    if (buf.length >= 18) {
+        let cbSize = buf.readUInt16LE(16);
+        fmt.cbSize = cbSize;
+        fmt.extra = {};
+        if (cbSize >= 22) {
+            let extra = buf.slice(18, cbSize + 18);
+            let samples = extra.slice(0, cbSize - 20);
+            let offset = 0;
+            let union = ['wValidBitsPerSample', 'wSamplesPerBlock', 'wReserved'];
+            while (offset < samples.length) {
+                fmt.extra[union[offset / 2]] = samples.readUInt16LE(offset);
+                offset += 2;
+            };
+            fmt.extra.dwChannelMask = extra.readUInt32LE(cbSize - 20);
+            fmt.extra.subFormat = extra.slice(cbSize - 16, cbSize).toString('hex');
+        };
     };
     return fmt;
 };
@@ -78,10 +90,24 @@ const writeFmt = (obj) => {
     fmt.writeUInt32LE(obj.nAvgBytesPerSec, 8);
     fmt.writeUInt16LE(obj.nBlockAlign, 12);
     fmt.writeUInt16LE(obj.wBitsPerSample, 14);
-    if (obj.cbSize) {
+    let cbSize = obj.cbSize;
+    if (cbSize) {
         let cbSizeBuf = Buffer.alloc(2);
-        cbSizeBuf.writeUInt16LE(obj.cbSize);
-        fmt = Buffer.concat([fmt, cbSizeBuf, obj.extra]);
+        cbSizeBuf.writeUInt16LE(cbSize);
+        let extra = Buffer.alloc(cbSize);
+        if (cbSize >= 22) {
+            let offset = 0;
+            let union = ['wValidBitsPerSample', 'wSamplesPerBlock', 'wReserved'];
+            for (let sample of union) {
+                if (obj.extra[sample] !== undefined) {
+                    extra.writeUInt16LE(obj.extra[sample], offset);
+                    offset += 2;
+                };
+            };
+            extra.writeUInt32LE(obj.extra.dwChannelMask, offset);
+            Buffer.from(obj.extra.subFormat, 'hex').copy(extra, offset + 4, 0, 16);
+        };
+        fmt = Buffer.concat([fmt, cbSizeBuf, extra]);
     };
     return fmt;
 };
