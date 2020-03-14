@@ -5,20 +5,20 @@
 const fs = require('fs');
 const { parseWAV, parseFmt, writeWAV, writeFmt } = require('./wavHandler.js');
 
-let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
+let files = ['unari00'];
 
 for (let file of files) {
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     let depth;
 
-    if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 8 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 8 && fmt.extra.wValidBitsPerSample === 8 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
+    if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 8 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 8 && fmt.extra.wValidBitsPerSample === 8 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 8;
-    } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 16 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 16 && fmt.extra.wValidBitsPerSample === 16 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 16 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 16 && fmt.extra.wValidBitsPerSample === 16 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 16;
-    } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 24 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 24 && fmt.extra.wValidBitsPerSample === 24 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 24 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 24 && fmt.extra.wValidBitsPerSample === 24 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 24;
-    } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 32;
     } else {
         throw `${file}.wav: 不支援的档案`;
