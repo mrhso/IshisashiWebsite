@@ -1,4 +1,4 @@
-// 这个脚本输入为 32-bit 浮点 PCM，输出为 24-bit 定点 PCM
+// 这个脚本输入为浮点 PCM，输出为 24-bit 定点 PCM
 // 有需要可以自行改动
 'use strict';
 
@@ -27,8 +27,13 @@ const roundTiesToEven = (num) => {
 for (let file of files) {
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
-    if (!((fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32) || (fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71'))) {
-        throw `${file}.wav: 档案非 32-bit 浮点 PCM`;
+    let depth;
+    if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+        depth = 32;
+    } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 64 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 64 && fmt.extra.wValidBitsPerSample === 64 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+        depth = 64;
+    } else {
+        throw `${file}.wav: 不支援的档案`;
     };
 
     delete fmt.cbSize;
@@ -39,24 +44,52 @@ for (let file of files) {
     fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
 
     let data = wav.data;
-    let dataFixed = Buffer.alloc(data.length / 4 * 3);
+    let dataFixed;
+
+    if (depth === 32) {
+        dataFixed = Buffer.alloc(data.length / 4 * 3);
+    } else if (depth === 64) {
+        dataFixed = Buffer.alloc(data.length / 8 * 3);
+    };
+
     let offset = 0;
+    let offsetFixed = 0;
     let warnPos;
     let warnNeg;
-    while (offset < data.length) {
-        let num = data.readFloatLE(offset);
-        let numFixed = roundTiesToEven(num * 8388608);
-        // 削波
-        if (numFixed > 8388607) {
-            numFixed = 8388607;
-            warnPos = true;
-        } else if (numFixed < -8388608) {
-            numFixed = -8388608;
-            warnNeg = true;
+
+    if (depth === 32) {
+        while (offset < data.length) {
+            let num = data.readFloatLE(offset);
+            let numFixed = roundTiesToEven(num * 8388608);
+            // 削波
+            if (numFixed > 8388607) {
+                numFixed = 8388607;
+                warnPos = true;
+            } else if (numFixed < -8388608) {
+                numFixed = -8388608;
+                warnNeg = true;
+            };
+            dataFixed.writeIntLE(numFixed, offsetFixed, 3);
+            offset += 4;
+            offsetFixed += 3;
         };
-        dataFixed.writeIntLE(numFixed, offset / 4 * 3, 3);
-        offset += 4;
+    } else if (depth === 64) {
+        while (offset < data.length) {
+            let num = data.readDoubleLE(offset);
+            let numFixed = roundTiesToEven(num * 8388608);
+            if (numFixed > 8388607) {
+                numFixed = 8388607;
+                warnPos = true;
+            } else if (numFixed < -8388608) {
+                numFixed = -8388608;
+                warnNeg = true;
+            };
+            dataFixed.writeIntLE(numFixed, offsetFixed, 3);
+            offset += 8;
+            offsetFixed += 3;
+        };
     };
+
     if (warnPos) {
         console.warn(`${file}.wav: 发生正削波`);
     };

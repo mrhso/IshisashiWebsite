@@ -1,5 +1,5 @@
 // 将所有档案作为一个整体标准化
-// 这个脚本仅能处理 32-bit 浮点 PCM
+// 这个脚本仅能处理浮点 PCM
 // 也不会考虑 max 或 min 为 0 的情况
 'use strict';
 
@@ -14,20 +14,38 @@ let min = Infinity;
 for (let file of files) {
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
-    if (!((fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32) || (fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71'))) {
-        throw `${file}.wav: 档案非 32-bit 浮点 PCM`;
+    let depth;
+    if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+        depth = 32;
+    } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 64 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 64 && fmt.extra.wValidBitsPerSample === 64 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+        depth = 64;
+    } else {
+        throw `${file}.wav: 不支援的档案`;
     };
     let data = wav.data;
     let offset = 0;
-    while (offset < data.length) {
-        let get = data.readFloatLE(offset);
-        if (get > max) {
-            max = get;
+    if (depth === 32) {
+        while (offset < data.length) {
+            let get = data.readFloatLE(offset);
+            if (get > max) {
+                max = get;
+            };
+            if (get < min) {
+                min = get;
+            };
+            offset += 4;
         };
-        if (get < min) {
-            min = get;
+    } else if (depth === 64) {
+        while (offset < data.length) {
+            let get = data.readDoubleLE(offset);
+            if (get > max) {
+                max = get;
+            };
+            if (get < min) {
+                min = get;
+            };
+            offset += 8;
         };
-        offset += 4;
     };
 };
 
@@ -39,8 +57,9 @@ const getMlt = (num) => {
     let sign = Math.sign(num);
     // 为了防止正负倒错，比率只能是正数
     let abs = Math.abs(num);
-    // 实际上这样的操作精度是没问题的，因为 JS 内部精度是 64-bit float
-    // 虽然说 x / y 和 x * (1 / y) 因为精度问题不会相等，但因为计算全程使用 64-bit float，降到 32-bit float 就是相等的了
+    // 实际上这样的操作精度对 32-bit 浮点是没问题的，因为 JS 内部精度是 64-bit 浮点
+    // 虽然说 x / y 和 x * (1 / y) 因为精度问题不会相等，但因为计算全程使用 64-bit 浮点，降到 32-bit 浮点就是相等的了
+    // 64-bit 浮点倒是有问题，不过这么高的位数一般也只用于内部处理，甚至只是从 32-bit 浮点转换而来的中间档案
     if (sign === 1) {
         return 32767 / 32768 / abs;
     } else if (sign === -1) {
@@ -56,13 +75,32 @@ let mlt = Math.min(getMlt(max), getMlt(min));
 // 现在就是暴力计算了
 for (let file of files) {
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
+    let fmt = parseFmt(wav['fmt ']);
+    let depth;
+
+    if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+        depth = 32;
+    } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 64 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 64 && fmt.extra.wValidBitsPerSample === 64 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
+        depth = 64;
+    };
+
     let data = wav.data;
     let offset = 0;
-    while (offset < data.length) {
-        let get = data.readFloatLE(offset);
-        data.writeFloatLE(get * mlt, offset);
-        offset += 4;
+
+    if (depth === 32) {
+        while (offset < data.length) {
+            let get = data.readFloatLE(offset);
+            data.writeFloatLE(get * mlt, offset);
+            offset += 4;
+        };
+    } else if (depth === 64) {
+        while (offset < data.length) {
+            let get = data.readDoubleLE(offset);
+            data.writeFloatLE(get * mlt, offset);
+            offset += 8;
+        };
     };
+
     wav = writeWAV(wav);
     fs.writeFileSync(`${file}-normalized.wav`, wav);
 };
