@@ -43,6 +43,10 @@ const parseFmt = (buf) => {
         let cbSize = buf.readUInt16LE(16);
         fmt.cbSize = cbSize;
         fmt.extra = {};
+        if (cbSize + 18 !== buf.length) {
+            cbSize = buf.length - 18;
+            console.warn('发现错误的 cbSize，已重置');
+        };
         if (cbSize >= 22) {
             let extra = buf.slice(18, cbSize + 18);
             let samples = extra.slice(0, cbSize - 20);
