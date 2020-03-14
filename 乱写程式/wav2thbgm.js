@@ -11,6 +11,7 @@ let dat = [header];
 let offset = header.length;
 
 for (let file of files) {
+    console.log(`${file}.wav`);
     let pcmFmt = Buffer.alloc(52);
     pcmFmt.write(`${file}.wav`);
     pcmFmt.writeUInt32LE(offset, 16);

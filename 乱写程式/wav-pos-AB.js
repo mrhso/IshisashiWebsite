@@ -6,6 +6,7 @@ let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', '
 const { parseWAV, parseFmt, writeWAV } = require('./wavHandler.js');
 
 for (let file of files) {
+    console.log(`${file}.wav`);
     let pos = fs.readFileSync(`${file}.pos`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);

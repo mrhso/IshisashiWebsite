@@ -8,6 +8,7 @@ const { parseWAV, parseFmt, writeWAV, writeFmt } = require('./wavHandler.js');
 let files = ['unari00'];
 
 for (let file of files) {
+    console.log(`${file}.wav`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     let depth;
@@ -21,7 +22,7 @@ for (let file of files) {
     } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 32;
     } else {
-        throw `${file}.wav: 不支援的档案`;
+        throw '不支援的档案';
     };
 
     delete fmt.cbSize;

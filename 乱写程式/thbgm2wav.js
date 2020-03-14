@@ -13,6 +13,7 @@ while (offset < fmt.length) {
     // 档案名
     let file = pcmFmt.slice(0, 16).toString().split('\0')[0];
     if (file) {
+        console.log(file);
         // 起始偏移
         let start = pcmFmt.readUInt32LE(16);
         // 预加载所分配 RAM 区域之大小

@@ -25,6 +25,7 @@ const roundTiesToEven = (num) => {
 };
 
 for (let file of files) {
+    console.log(`${file}.wav`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     let depth;
@@ -33,7 +34,7 @@ for (let file of files) {
     } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 64 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 64 && fmt.extra.wValidBitsPerSample === 64 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
         depth = 64;
     } else {
-        throw `${file}.wav: 不支援的档案`;
+        throw '不支援的档案';
     };
 
     delete fmt.cbSize;
@@ -91,10 +92,10 @@ for (let file of files) {
     };
 
     if (warnPos) {
-        console.warn(`${file}.wav: 发生正削波`);
+        console.warn('发生正削波');
     };
     if (warnNeg) {
-        console.warn(`${file}.wav: 发生负削波`);
+        console.warn('发生负削波');
     };
 
     wav['fmt '] = writeFmt(fmt);

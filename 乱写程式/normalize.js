@@ -8,10 +8,12 @@ const { parseWAV, parseFmt, writeWAV } = require('./wavHandler.js');
 
 let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
 
-// 电平扫描
+console.log('扫描电平');
+// 扫描电平
 let max = -Infinity;
 let min = Infinity;
 for (let file of files) {
+    console.log(`${file}.wav`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     let depth;
@@ -21,7 +23,7 @@ for (let file of files) {
     } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 64 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 64 && fmt.extra.wValidBitsPerSample === 64 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
         depth = 64;
     } else {
-        throw `${file}.wav: 不支援的档案`;
+        throw '不支援的档案';
     };
 
     let data = wav.data;
@@ -75,8 +77,10 @@ const getMlt = (num) => {
 // 为了防止削波当然只能取最小值
 let mlt = Math.min(getMlt(max), getMlt(min));
 
+console.log('标准化');
 // 现在就是暴力计算了
 for (let file of files) {
+    console.log(`${file}.wav`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     let depth;
