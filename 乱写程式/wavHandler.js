@@ -5,6 +5,10 @@ const parseChunks = (buf) => {
     let chunks = { order: [] };
     let offset = 0;
     while (offset < buf.length) {
+        if (buf.length - offset < 8) {
+            console.warn('fileSize 异常');
+            break;
+        };
         let chunkID = buf.slice(offset, offset + 4).toString();
         offset += 4;
         let chunkSize = buf.readUInt32LE(offset);
@@ -13,10 +17,6 @@ const parseChunks = (buf) => {
         offset += chunkSize;
         chunks[chunkID] = data;
         chunks.order.push(chunkID);
-        if (0 < buf.length - offset && buf.length - offset < 8) {
-            console.warn('fileSize 异常');
-            break;
-        };
     };
     return chunks;
 };
