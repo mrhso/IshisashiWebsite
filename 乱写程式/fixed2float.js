@@ -13,13 +13,13 @@ for (let file of files) {
     let fmt = parseFmt(wav['fmt ']);
     let depth;
 
-    if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 8 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 8 && fmt.extra.wValidBitsPerSample === 8 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
+    if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 8 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 8 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 8;
-    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 16 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 16 && fmt.extra.wValidBitsPerSample === 16 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
+    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 16 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 16 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 16;
-    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 24 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 24 && fmt.extra.wValidBitsPerSample === 24 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
+    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 24 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 24 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 24;
-    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
+    } else if (fmt.wFormatTag === 1 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.subFormat === '0100000000001000800000aa00389b71') {
         depth = 32;
     } else {
         throw '不支援的档案';
