@@ -15,6 +15,7 @@ for (let file of files) {
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
     let depth;
+
     if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 32 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 32 && fmt.extra.wValidBitsPerSample === 32 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
         depth = 32;
     } else if (fmt.wFormatTag === 3 && fmt.wBitsPerSample === 64 || fmt.wFormatTag === 65534 && fmt.wBitsPerSample === 64 && fmt.extra.wValidBitsPerSample === 64 && fmt.extra.subFormat === '0300000000001000800000aa00389b71') {
@@ -22,8 +23,10 @@ for (let file of files) {
     } else {
         throw `${file}.wav: 不支援的档案`;
     };
+
     let data = wav.data;
     let offset = 0;
+
     if (depth === 32) {
         while (offset < data.length) {
             let get = data.readFloatLE(offset);
@@ -96,7 +99,7 @@ for (let file of files) {
     } else if (depth === 64) {
         while (offset < data.length) {
             let get = data.readDoubleLE(offset);
-            data.writeFloatLE(get * mlt, offset);
+            data.writeDoubleLE(get * mlt, offset);
             offset += 8;
         };
     };
