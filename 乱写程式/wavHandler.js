@@ -13,7 +13,7 @@ const parseChunks = (buf) => {
         offset += chunkSize;
         chunks[chunkID] = data;
         chunks.order.push(chunkID);
-        if (buf.length - offset < 8) {
+        if (0 < buf.length - offset && buf.length - offset < 8) {
             console.warn('fileSize 异常');
             break;
         };
