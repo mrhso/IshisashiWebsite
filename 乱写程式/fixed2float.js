@@ -38,7 +38,7 @@ for (let file of files) {
     if (depth === 8) {
         dataFloat = Buffer.alloc(data.length * 4);
     } else if (depth === 16) {
-        dataFloat = Buffer.alloc(data.length / 2 * 4);
+        dataFloat = Buffer.alloc(data.length * 2);
     } else if (depth === 24) {
         dataFloat = Buffer.alloc(data.length / 3 * 4);
     } else if (depth === 32) {
