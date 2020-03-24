@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BV 号跋扈　～ Who done it!</title>
+</head>
+
+<body>
+<input type="text" id="av"><button onclick="return av() && false">AV 号转 BV 号</button>
+<input type="text" id="bv"><button onclick="return bv() && false">BV 号转 AV 号</button>
+<p id="result">结果：</p>
+<p>别问我为何这么丑，我一写 JS 的不是写 HTML 的。这叫日　式　风　格（大嘘）</p>
+
+<script>
+'use strict';
+
+const table = [...'fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF'];
+const s = [11, 10, 3, 8, 4, 6];
+const xor = 177451812;
+const add = 8728348608;
+
+const av2bv = (av) => {
+    let num = NaN;
+    if (Object.prototype.toString.call(av) === '[object Number]') {
+        num = av;
+    } else if (Object.prototype.toString.call(av) === '[object String]') {
+        num = parseInt(av.replace(/[^0-9]/gu, ''));
+    };
+
+    num = (num ^ xor) + add;
+    let result = [...'BV1  4 1 7  '];
+    let i = 0;
+    while (i < 6) {
+        // 这里改写差点犯了运算符优先级的坑
+        // 果然 Python 也不是特别熟练
+        // 说起来 ** 按照传统语法应该写成 Math.pow()，但是我个人更喜欢 ** 一些
+        result[s[i]] = table[Math.floor(num / 58 ** i) % 58];
+        i += 1;
+    };
+    return result.join('');
+};
+
+const bv2av = (bv) => {
+    let str = '';
+    if (bv.length === 12) {
+        str = bv;
+    } else if (bv.length === 10) {
+        str = `BV${bv}`;
+    // 根据官方 API，BV 号开头的 BV1 其实可以省略
+    // 不过单独省略个 B 又不行（
+    } else if (bv.length === 9) {
+        str = `BV1${bv}`;
+    };
+
+    let result = 0;
+    let i = 0;
+    while (i < 6) {
+        result += table.indexOf(str[s[i]]) * 58 ** i;
+        i += 1;
+    };
+    return `av${(result - add) ^ xor}`;
+};
+
+const av = () => {
+    document.getElementById('result').innerText = `结果：${av2bv(document.getElementById('av').value)}`;
+};
+
+const bv = () => {
+    document.getElementById('result').innerText = `结果：${bv2av(document.getElementById('bv').value)}`;
+};
+</script>
+</body>
+</html>
