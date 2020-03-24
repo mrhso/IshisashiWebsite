@@ -10,11 +10,11 @@ const add = 8728348608;
 const av2bv = (av) => {
     let num = NaN;
     if (Object.prototype.toString.call(av) === '[object Number]') {
-        num = av;
+        num = parseInt(av);
     } else if (Object.prototype.toString.call(av) === '[object String]') {
         num = parseInt(av.replace(/[^0-9]/gu, ''));
     };
-    if (isNaN(num)) {
+    if (isNaN(num) || num <= 0) {
         throw '¿你在想桃子？';
     };
 
@@ -42,6 +42,9 @@ const bv2av = (bv) => {
     } else if (bv.length === 9) {
         str = `BV1${bv}`;
     } else {
+        throw '¿你在想桃子？';
+    };
+    if (!str.match(/[Bb][Vv][fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF]{10}/gu)) {
         throw '¿你在想桃子？';
     };
 
