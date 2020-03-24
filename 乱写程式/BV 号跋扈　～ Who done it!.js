@@ -38,6 +38,8 @@ const bv2av = (bv) => {
     // 不过单独省略个 B 又不行（
     } else if (bv.length === 9) {
         str = `BV1${bv}`;
+    } else {
+        throw '¿你在想桃子？';
     };
 
     let result = 0;
@@ -46,7 +48,7 @@ const bv2av = (bv) => {
         result += table.indexOf(str[s[i]]) * 58 ** i;
         i += 1;
     };
-    return `av${(result - add) ^ xor}`;
+    return `av${result - add ^ xor}`;
 };
 
 module.exports = {
