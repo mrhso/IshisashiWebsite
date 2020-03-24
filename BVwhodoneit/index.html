@@ -76,11 +76,21 @@ const bv2av = (bv) => {
 };
 
 const av = () => {
-    document.getElementById('result').innerText = `结果：${av2bv(document.getElementById('av').value)}`;
+    let result = av2bv(document.getElementById('av').value);
+    if (result !== '¿你在想桃子？') {
+        document.getElementById('result').innerHTML = `结果：<a href="https://www.bilibili.com/video/${result}">${result}</a>`;
+    } else {
+        document.getElementById('result').innerHTML = `结果：${result}`;
+    };
 };
 
 const bv = () => {
-    document.getElementById('result').innerText = `结果：${bv2av(document.getElementById('bv').value)}`;
+    let result = bv2av(document.getElementById('bv').value);
+    if (result !== '¿你在想桃子？') {
+        document.getElementById('result').innerHTML = `结果：<a href="https://www.bilibili.com/video/${result}">${result}</a>`;
+    } else {
+        document.getElementById('result').innerHTML = `结果：${result}`;
+    };
 };
 </script>
 </body>
