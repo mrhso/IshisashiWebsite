@@ -14,6 +14,9 @@ const av2bv = (av) => {
     } else if (Object.prototype.toString.call(av) === '[object String]') {
         num = parseInt(av.replace(/[^0-9]/gu, ''));
     };
+    if (isNaN(num)) {
+        throw '¿你在想桃子？';
+    };
 
     num = (num ^ xor) + add;
     let result = [...'BV1  4 1 7  '];
