@@ -7,7 +7,7 @@ const { parseWAV, parseFmt, writeWAV, writeFmt } = require('./wavHandler.js');
 
 let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
 
-// 四舍六入五除双
+// 四舍六入五成双
 // 这是 IEEE 754 的默认舍入方式
 const roundTiesToEven = (num) => {
     if (num % 0.5 === 0) {
