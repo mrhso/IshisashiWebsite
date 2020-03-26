@@ -2,44 +2,12 @@
 
 其中「变化」一栏中「+X」代表升高 X 个半音，「-X」代表降低 X 个半音，「0」代表无变调。
 
-## 東方封魔録
-### FM 相对 MIDI
+## 秋霜玉'99
+### 东方幻想的音乐相对原版
 |曲名|档案名|原调|变调|变化|
 |-|-|-|-|-|
-|東方封魔録　〜浄土曼荼羅|OP||||
-|博麗　〜Eastern Wind|STAGE0||||
-|End of Daylight|STAGE1||||
-|幻夢界|STAGE2||||
-|ひもろぎ、むらさきにもえ|STAGE3||||
-|東方封魔録　〜幽幻乱舞|STAGE4||||
-|She's in a temper!!|BOSS1||||
-|やみのちから|BOSS4||||
-|死を賭して|BOSS2||||
-|恋色マジック|BOSS3||||
-|Complete Darkness|MIMA||||
-|遠野の森|END1||||
-|Wonderland|ENDING||||
-|エキストララブ|STAGE5||||
-|戦車娘のみるゆめ|BOSS5||||
-
-### CD 相对 FM
-|曲名|档案名|原调|变调|变化|
-|-|-|-|-|-|
-|東方封魔録　〜浄土曼荼羅|OP||||
-|博麗　〜Eastern Wind|STAGE0||||
-|End of Daylight|STAGE1||||
-|幻夢界|STAGE2||||
-|ひもろぎ、むらさきにもえ|STAGE3||||
-|東方封魔録　〜幽幻乱舞|STAGE4||||
-|She's in a temper!!|BOSS1||||
-|やみのちから|BOSS4||||
-|死を賭して|BOSS2||||
-|恋色マジック|BOSS3||||
-|Complete Darkness|MIMA||||
-|遠野の森|END1||||
-|Wonderland|ENDING||||
-|エキストララブ|STAGE5||||
-|戦車娘のみるゆめ|BOSS5||||
+|Plastic Space|sh01p_00|||-2|
+|Inventive City|sh01p_02|||-2|
 
 ## 稀翁玉
 ### WAVE 相对 MIDI
