@@ -2,14 +2,12 @@
 'use strict';
 
 const parseDAT = (buf) => {
-    let output = {};
     let magic = buf.slice(0, 4).toString();
     if (magic !== 'PBG\u{001A}') {
         throw '档案非秋霜玉 DAT';
     };
-    // 魔数后面的四个位元组并不清楚
-    let unknown = buf.readUInt32LE(4);
-    output.unknown = unknown;
+    // 整个 DAT 的校验码
+    let checksumAll = buf.readUInt32LE(4);
     let count = buf.readUInt32LE(8);
     let fileInfo = buf.slice(12, count * 12 + 12);
     let chunks = [];
@@ -23,13 +21,12 @@ const parseDAT = (buf) => {
         let end = offset + 8 === fileInfo.length ? buf.length : fileInfo.readUInt32LE(offset + 12);
         chunk.data = buf.slice(start, end);
         offset += 4;
-        // 校验码应当在写入时计算
+        // 单个档案的校验码
         let checksum = fileInfo.readUInt32LE(offset);
         offset += 4;
         chunks.push(chunk);
     };
-    output.chunks = chunks;
-    return output;
+    return chunks;
 };
 
 const getChecksum = (buf) => {
@@ -40,19 +37,18 @@ const getChecksum = (buf) => {
     return checksum;
 };
 
-const writeDAT = (obj) => {
+const writeDAT = (arr) => {
     let output = [Buffer.from('PBG\u{001A}')];
-    let unknown = Buffer.alloc(4);
-    unknown.writeUInt32LE(obj.unknown);
-    output.push(unknown);
+    let checksumAll = Buffer.alloc(4);
+    output.push(checksumAll);
     let count = Buffer.alloc(4);
-    count.writeUInt32LE(obj.chunks.length);
+    count.writeUInt32LE(arr.length);
     output.push(count);
-    let fileInfo = Buffer.alloc(obj.chunks.length * 12);
+    let fileInfo = Buffer.alloc(arr.length * 12);
     let chunks = [];
-    let start = obj.chunks.length * 12 + 12;
+    let start = arr.length * 12 + 12;
     let offset = 0;
-    for (let chunk of obj.chunks) {
+    for (let chunk of arr) {
         fileInfo.writeUInt32LE(chunk.size, offset);
         offset += 4;
         fileInfo.writeUInt32LE(start, offset);
@@ -63,6 +59,14 @@ const writeDAT = (obj) => {
         fileInfo.writeUInt32LE(checksum, offset);
         offset += 4;
     };
+    // 你以为完了？不，还没有
+    offset = 0;
+    let csAll = 0;
+    while (offset < fileInfo.length) {
+        csAll += fileInfo.readUInt32LE(offset);
+        offset += 4;
+    };
+    checksumAll.writeUInt32LE(csAll);
     output = Buffer.concat([...output, fileInfo, ...chunks]);
     return output;
 };
