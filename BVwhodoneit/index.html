@@ -93,17 +93,17 @@ const bv = () => {
     };
 };
 
-document.getElementById('av').addEventListener('keydown', function(event) {
+document.getElementById('av').addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
         av();
     };
-})
+});
 
-document.getElementById('bv').addEventListener('keydown', function(event) {
+document.getElementById('bv').addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
         bv();
     };
-})
+});
 </script>
 </body>
 </html>
