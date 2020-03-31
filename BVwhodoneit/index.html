@@ -92,6 +92,18 @@ const bv = () => {
         document.getElementById('result').innerHTML = `结果：${result}`;
     };
 };
+
+document.getElementById('av').addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        av();
+    };
+})
+
+document.getElementById('bv').addEventListener('keydown', function(event) {
+    if (event.keyCode === 13) {
+        bv();
+    };
+})
 </script>
 </body>
 </html>
