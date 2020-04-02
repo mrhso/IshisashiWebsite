@@ -68,7 +68,7 @@ files.forEach((file, index) => {
 del.reverse();
 for (let index of del) {
     files.splice(index, 1);
-    mlt.splice(index, 1);
+    mlts.splice(index, 1);
 };
 
 console.log('定点化');
