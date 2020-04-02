@@ -95,21 +95,21 @@ files.forEach((file, index) => {
     wav['fmt '] = writeFmt(fmt);
     wav.data = dataFixed;
     wav = writeWAV(wav);
-    fs.writeFileSync(`${file}-fixed.wav`, wav);
+    fs.writeFileSync(`temp${index}-fixed.wav`, wav);
 });
 
 console.log('重采样');
 files.forEach((file, index) => {
     console.log(`${file}.wav`);
-    child_process.execSync(`${sox} "${file}-fixed.wav" "${file}-sox.wav" --no-dither rate -v -b ${bandwidth} ${rate}`);
-    fs.unlinkSync(`${file}-fixed.wav`);
+    child_process.execSync(`${sox} temp${index}-fixed.wav temp${index}-sox.wav --no-dither rate -v -b ${bandwidth} ${rate}`);
+    fs.unlinkSync(`temp${index}-fixed.wav`);
 });
 
 console.log('浮点化');
 files.forEach((file, index) => {
     console.log(`${file}.wav`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
-    let wavSoX = parseWAV(fs.readFileSync(`${file}-sox.wav`));
+    let wavSoX = parseWAV(fs.readFileSync(`temp${index}-sox.wav`));
     let fmt = parseFmt(wav['fmt ']);
 
     fmt.nSamplesPerSec = rate;
@@ -134,5 +134,5 @@ files.forEach((file, index) => {
     wav.data = dataFloat;
     wav = writeWAV(wav);
     fs.writeFileSync(`${file}-resampled.wav`, wav);
-    fs.unlinkSync(`${file}-sox.wav`);
+    fs.unlinkSync(`temp${index}-sox.wav`);
 });
