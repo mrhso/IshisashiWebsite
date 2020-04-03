@@ -32,6 +32,33 @@ const readInts = (str, count, offset = 0) => {
     return [arr, offset];
 };
 
+const writeInt = (num) => {
+    let str = '';
+    let bytes;
+    if (0 <= num && num <= 255) {
+        str += '00';
+        let buf = Buffer.alloc(1);
+        buf.writeUInt8(num);
+        str += buf2bin(buf);
+    } else if (256 <= num && num <= 65535) {
+        str += '01';
+        let buf = Buffer.alloc(2);
+        buf.writeUInt16BE(num);
+        str += buf2bin(buf);
+    } else if (65536 <= num && num <= 16777215) {
+        str += '10';
+        let buf = Buffer.alloc(3);
+        buf.writeUIntBE(num, 0, 3);
+        str += buf2bin(buf);
+    } else if (16777216 <= num && num <= 4294967295) {
+        str += '11';
+        let buf = Buffer.alloc(4);
+        buf.writeUInt32BE(num);
+        str += buf2bin(buf);
+    };
+    return str;
+};
+
 const getChecksum = (buf) => {
     let checksum = 0;
     for (let b of buf) {
@@ -78,7 +105,6 @@ const parseDAT = (buf) => {
         let { unknown1, unknown2, checksum, start, size, name } = value;
         let end = index + 1 === count ? tableOffset : tmp[index + 1].start;
         let data = buf.slice(start, end);
-        chunk.data = data;
         if (getChecksum(data) !== checksum) {
             throw '校验未通过';
         };
@@ -89,6 +115,39 @@ const parseDAT = (buf) => {
     return chunks;
 };
 
+const writeDAT = (arr) => {
+    let magic = Buffer.from('PBG3');
+
+    let fileInfo = '';
+    let chunks = [];
+    let start = 13;
+    let offset = 0;
+    for (let chunk of arr) {
+        fileInfo += writeInt(chunk.unknown1);
+        fileInfo += writeInt(chunk.unknown2);
+        let checksum = getChecksum(chunk.data);
+        fileInfo += writeInt(checksum);
+        fileInfo += writeInt(start);
+        chunks.push(chunk.data);
+        start += chunk.data.length;
+        fileInfo += writeInt(chunk.size);
+        fileInfo += buf2bin(Buffer.from(`${chunk.name}\0`));
+    };
+    let infoLen = Math.ceil(fileInfo.length / 8) * 8;
+    fileInfo = bin2buf(`${fileInfo}0000000`.slice(0, infoLen));
+
+    let header = '';
+    header += writeInt(arr.length);
+    header += writeInt(start);
+    let headerLen = Math.ceil(header.length / 8) * 8;
+    header = bin2buf(`${header}0000000`.slice(0, headerLen));
+
+    let output = Buffer.concat([magic, header, Buffer.alloc(9 - header.length), ...chunks, fileInfo]);
+
+    return output;
+};
+
 module.exports = {
     parseDAT,
+    writeDAT,
 };
