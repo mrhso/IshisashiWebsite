@@ -56,7 +56,6 @@ const parseDAT = (buf) => {
     while (index < count) {
         let unknown1, unknown2, checksum, start, size;
         [[unknown1, unknown2, checksum, start, size], offset] = readInts(table, 5, offset);
-        let chunk = {unknown1, unknown2, checksum, start, size};
         let name = '';
         while (offset < table.length) {
             let str = table.slice(offset, offset + 8);
@@ -68,7 +67,8 @@ const parseDAT = (buf) => {
                 offset += 8;
             };
         };
-        chunk.name = bin2buf(name).toString();
+        name = bin2buf(name).toString();
+        let chunk = { unknown1, unknown2, checksum, start, size, name };
         tmp.push(chunk);
         index += 1;
     };
@@ -76,13 +76,13 @@ const parseDAT = (buf) => {
     let chunks = [];
     tmp.forEach((value, index) => {
         let { unknown1, unknown2, checksum, start, size, name } = value;
-        let chunk = { unknown1, unknown2, size, name };
         let end = index + 1 === count ? tableOffset : tmp[index + 1].start;
         let data = buf.slice(start, end);
         chunk.data = data;
         if (getChecksum(data) !== checksum) {
             throw '校验未通过';
         };
+        let chunk = { unknown1, unknown2, size, name, data };
         chunks.push(chunk);
     });
 

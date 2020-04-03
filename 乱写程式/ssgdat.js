@@ -36,14 +36,11 @@ const parseDAT = (buf) => {
     let chunks = [];
     let offset = 0;
     while (offset < fileInfo.length) {
-        let chunk = {};
         let size = fileInfo.readUInt32LE(offset);
-        chunk.size = size;
         offset += 4;
         let start = fileInfo.readUInt32LE(offset);
         let end = offset + 8 === fileInfo.length ? buf.length : fileInfo.readUInt32LE(offset + 12);
         let data = buf.slice(start, end);
-        chunk.data = data;
         offset += 4;
         // 单个档案的校验码
         let checksum = fileInfo.readUInt32LE(offset);
@@ -51,6 +48,7 @@ const parseDAT = (buf) => {
             throw '校验未通过';
         };
         offset += 4;
+        let chunk = { size, data };
         chunks.push(chunk);
     };
 
