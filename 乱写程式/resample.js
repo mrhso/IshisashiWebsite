@@ -61,7 +61,7 @@ files.forEach((file, index) => {
         offset += 4;
     };
 
-    let mlt = 1500000000 / Math.max(Math.abs(max), Math.abs(min));
+    let mlt = 536870912 / Math.max(Math.abs(max), Math.abs(min));
     mlts[index] = mlt;
 });
 
