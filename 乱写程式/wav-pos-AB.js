@@ -10,6 +10,17 @@ for (let file of files) {
     let pos = fs.readFileSync(`${file}.pos`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
+
+    if (!(fmt.wFormatTag === 1 || fmt.wFormatTag === 65534 && fmt.extra.subFormat === '0100000000001000800000aa00389b71' || fmt.wFormatTag === 3 || fmt.wFormatTag === 65534 && fmt.extra.subFormat === '0300000000001000800000aa00389b71')) {
+        throw '不支援的档案';
+    };
+
+    delete wav.fact;
+    let fact = wav.order.indexOf('fact');
+    if (fact > -1) {
+        wav.order.splice(fact, 1);
+    };
+
     let block = fmt.nBlockAlign;
     let loop = pos.readUInt32LE() * block;
     let end = pos.readUInt32LE(4) * block;
