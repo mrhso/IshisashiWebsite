@@ -44,6 +44,11 @@ for (let file of files) {
     fmt.wBitsPerSample = 24;
     fmt.nBlockAlign = fmt.nChannels * fmt.wBitsPerSample / 8;
     fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
+    delete wav.fact;
+    let fact = wav.order.indexOf('fact');
+    if (fact > -1) {
+        wav.order.splice(fact, 1);
+    };
 
     let data = wav.data;
     let dataFixed;

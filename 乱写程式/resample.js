@@ -83,6 +83,11 @@ files.forEach((file, index) => {
     fmt.wBitsPerSample = 32;
     fmt.nBlockAlign = fmt.nChannels * fmt.wBitsPerSample / 8;
     fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
+    delete wav.fact;
+    let fact = wav.order.indexOf('fact');
+    if (fact > -1) {
+        wav.order.splice(fact, 1);
+    };
 
     let data = wav.data;
     let dataFixed = Buffer.alloc(data.length);
@@ -121,6 +126,11 @@ files.forEach((file, index) => {
 
     fmt.nSamplesPerSec = rate;
     fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
+    delete wav.fact;
+    let fact = wav.order.indexOf('fact');
+    if (fact > -1) {
+        wav.order.splice(fact, 1);
+    };
 
     let data = wavSoX.data;
     let dataFloat = Buffer.alloc(data.length);

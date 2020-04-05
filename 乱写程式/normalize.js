@@ -91,6 +91,12 @@ for (let file of files) {
         depth = 64;
     };
 
+    delete wav.fact;
+    let fact = wav.order.indexOf('fact');
+    if (fact > -1) {
+        wav.order.splice(fact, 1);
+    };
+
     let data = wav.data;
     let offset = 0;
 
