@@ -1,4 +1,5 @@
 // PBG3 DAT 解析
+'use strict';
 
 const buf2bin = (buf) => {
     let str = '';
