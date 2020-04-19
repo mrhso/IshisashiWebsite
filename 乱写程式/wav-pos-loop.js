@@ -40,5 +40,5 @@ for (let file of files) {
 
     wav.data = data;
     wav = writeWAV(wav);
-    fs.writeFileSync(`${file}-loop.wav`, wav1);
+    fs.writeFileSync(`${file}-loop.wav`, wav);
 };
