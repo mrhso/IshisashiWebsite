@@ -3,6 +3,8 @@
 const fs = require('fs');
 const { parseWAV, parseFmt, writeWAV } = require('./wavHandler.js');
 
+let count = 3;
+
 let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
 
 for (let file of files) {
@@ -24,17 +26,19 @@ for (let file of files) {
     let block = fmt.nBlockAlign;
     let loop = pos.readUInt32LE() * block;
     let end = pos.readUInt32LE(4) * block;
-    let data = wav.data;
 
-    let data0 = data.slice(0, loop);
-    let wav0 = { ...wav };
-    wav0.data = data0;
-    wav0 = writeWAV(wav0);
-    fs.writeFileSync(`${file}-0.wav`, wav0);
+    let data0 = wav.data.slice(0, loop);
+    let data1 = wav.data.slice(loop, end);
+    let data = [data0];
 
-    let data1 = data.slice(loop, end);
-    let wav1 = { ...wav };
-    wav1.data = data1;
-    wav1 = writeWAV(wav1);
-    fs.writeFileSync(`${file}-1.wav`, wav1);
+    let index = 0;
+    while (index < count) {
+        data.push(data1);
+        index += 1;
+    };
+    data = Buffer.concat(data);
+
+    wav.data = data;
+    wav = writeWAV(wav);
+    fs.writeFileSync(`${file}-loop.wav`, wav1);
 };
