@@ -2823,7 +2823,7 @@ function InitMusic()
     if(Music === undefined){
         Howler.usingWebAudio = true;
         // BGM 列表，随机抽取
-        let bgmList = ['Bad Apple!!.m4a', '禁じざるをえない遊戯.m4a', '死を賭して.m4a', 'かわいい悪魔　～ Innocence.m4a', '幽夢　～ Inanimate Dream（未使用バージョン）.m4a', 'Romantic Children.m4a', 'プラスチックマインド.m4a', '魔鏡.m4a'];
+        let bgmList = ['Bad Apple!!.m4a', '禁じざるをえない遊戯.m4a', '死を賭して.m4a', 'かわいい悪魔　〜 Innocence.m4a', '幽夢　〜 Inanimate Dream（未使用バージョン）.m4a', 'Romantic Children.m4a', 'プラスチックマインド.m4a', '魔鏡.m4a'];
         let bgm = bgmList[Math.floor(Math.random() * bgmList.length)];
         console.log(`BGM: ${bgm}`);
         Music = new Howl({

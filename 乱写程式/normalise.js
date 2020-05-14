@@ -115,5 +115,5 @@ for (let file of files) {
     };
 
     wav = writeWAV(wav);
-    fs.writeFileSync(`${file}-normalized.wav`, wav);
+    fs.writeFileSync(`${file}-normalised.wav`, wav);
 };
