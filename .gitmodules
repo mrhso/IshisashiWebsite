@@ -1,0 +1,3 @@
+[submodule "乱写程式/node-soxr"]
+	path = 乱写程式/node-soxr
+	url = https://github.com/distopik/node-soxr.git
