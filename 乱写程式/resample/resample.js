@@ -4,7 +4,7 @@
 
 const fs = require('fs');
 const child_process = require('child_process');
-const { parseWAV, parseFmt, writeWAV, writeFmt } = require('./wavHandler.js');
+const { parseWAV, parseFmt, writeWAV, writeFmt } = require('../wavHandler.js');
 
 let sox = 'sox';
 let rate = 48000;
