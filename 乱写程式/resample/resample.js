@@ -1,36 +1,102 @@
-// 暴力调用 SoX 重采样
-// 因为是自用的糟粕所以只支援 32-bit 浮点 PCM
 'use strict';
 
 const fs = require('fs');
-const child_process = require('child_process');
 const { parseWAV, parseFmt, writeWAV, writeFmt } = require('../wavHandler.js');
+const ffi = require('ffi-napi');
+const ref = require('ref-napi');
+const StructType = require('ref-struct-di')(ref);
+const ArrayType = require('ref-array-di')(ref);
 
-let sox = 'sox';
+let api = 'soxr.dll';
 let rate = 48000;
-let bandwidth = 99.98;
 
-let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
-let mlts = [];
+let files = ['th07_13b'];
 let del = [];
 
-const roundTiesToEven = (num) => {
-    if (num % 0.5 === 0) {
-        let sign = Math.sign(num);
-        let abs = Math.abs(num);
-        let trunc = Math.floor(abs);
-        if (trunc % 2 === 0) {
-            return -sign * Math.round(-abs);
-        } else {
-            return sign * Math.round(abs);
-        };
-    } else {
-        return Math.round(num);
-    };
-};
+const soxr_quality_spec_t = StructType({
+    precision: ref.types.double,
+    phase_response: ref.types.double,
+    passband_end: ref.types.double,
+    stopband_begin: ref.types.double,
+    e: ref.refType(ref.types.void),
+    flags: ref.types.ulong,
+});
 
-console.log('扫描电平');
-files.forEach((file, index) => {
+const soxr_io_spec_t = StructType({
+    itype: ref.types.int,
+    otype: ref.types.int,
+    scale: ref.types.double,
+    e: ref.refType(ref.types.void),
+    flags: ref.types.ulong,
+});
+
+const soxr_runtime_spec_t = StructType({
+    log2_min_dft_size: ref.types.uint,
+    log2_large_dft_size: ref.types.uint,
+    coef_size_kbytes: ref.types.uint,
+    num_threads: ref.types.uint,
+    e: ref.refType(ref.types.void),
+    flags: ref.types.ulong,
+});
+
+const soxr_error_t = ref.refType(ref.types.char);
+const soxr_input_fn_t = ffi.Function(ref.refType(ref.types.size_t), [ref.refType(ref.types.void), ref.refType(ref.refType(ref.types.void)), ref.types.size_t]);
+const resampler_shared_t = ref.refType(ref.types.void);
+const resampler_t = ref.refType(ref.types.void);
+const control_block_t = ArrayType(ffi.Function(ref.refType(ref.types.void), [ref.types.void]), 10);
+const deinterleave_t = ffi.Function(ref.refType(ref.types.void), [ref.refType(ref.refType(ref.types.void)), ref.types.int, ref.refType(ref.refType(ref.types.void)), ref.types.size_t, ref.types.uint]);
+const interleave_t = ffi.Function(ref.refType(ref.types.void), [ref.types.int, ref.refType(ref.refType(ref.types.void)), ref.refType(ref.refType(ref.types.void)), ref.types.size_t, ref.types.uint, ref.refType(ref.types.long)]);
+
+const soxr_t = ref.refType(StructType({
+    num_channels: ref.types.uint,
+    io_ratio: ref.types.double,
+    error: soxr_error_t,
+    q_spec: soxr_quality_spec_t,
+    io_spec: soxr_io_spec_t,
+    runtime_spec: soxr_runtime_spec_t,
+    input_fn_state: ref.refType(ref.types.void),
+    input_fn: soxr_input_fn_t,
+    max_ilen: ref.types.size_t,
+    shared: resampler_shared_t,
+    resamples: ref.refType(resampler_t),
+    control_block: control_block_t,
+    deinterleave: deinterleave_t,
+    interleave: interleave_t,
+    channel_ptrs: ref.refType(ref.refType(ref.types.void)),
+    clips: ref.types.size_t,
+    seed: ref.types.ulong,
+    flushing: ref.types.int,
+}));
+
+const soxr = ffi.Library(api, {
+    soxr_quality_spec: [soxr_quality_spec_t, [ref.types.ulong, ref.types.ulong]],
+    soxr_io_spec: [soxr_io_spec_t, [ref.types.int, ref.types.int]],
+    soxr_runtime_spec: [soxr_runtime_spec_t, [ref.types.uint]],
+    soxr_create: [soxr_t, [ref.types.double, ref.types.double, ref.types.uint, ref.refType(soxr_error_t), ref.refType(soxr_io_spec_t), ref.refType(soxr_quality_spec_t), ref.refType(soxr_runtime_spec_t)]],
+    soxr_set_input_fn: [soxr_error_t, [soxr_t, soxr_input_fn_t, ref.refType(ref.types.void), ref.types.size_t]],
+    soxr_engine: [ref.refType(ref.types.char), [soxr_t]],
+    soxr_output: [ref.types.size_t, [soxr_t, ref.refType(ref.types.void), ref.types.size_t]],
+});
+
+// SOXR_32_BITQ
+let q_spec = soxr.soxr_quality_spec(7, 0);
+// 32-bit 浮点
+let io_spec = soxr.soxr_io_spec(0, 0);
+// 单线程
+let runtime_spec = soxr.soxr_runtime_spec(1);
+let error = ref.alloc(soxr_error_t).deref();
+
+const input_context_t = StructType({
+    ibuf: ref.refType(ref.types.void),
+    isize: ref.types.size_t,
+});
+
+const input_fn = ffi.Callback(ref.types.size_t, [ref.refType(input_context_t), ref.refType(ref.refType(ref.types.void)), ref.types.size_t], (p, buf, len) => {
+    buf = p.deref().ibuf;
+    return len;
+});
+
+for (let file of files) {
     console.log(`${file}.wav`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
     let fmt = parseFmt(wav['fmt ']);
@@ -40,49 +106,10 @@ files.forEach((file, index) => {
     };
 
     if (fmt.nSamplesPerSec === rate) {
-        del.push(index);
         console.log('采样率不变，已排除');
-        return;
+        continue;
     };
 
-    let data = wav.data;
-    let max = -Infinity;
-    let min = Infinity;
-    let offset = 0;
-
-    while (offset < data.length) {
-        let get = data.readFloatLE(offset);
-        if (get > max) {
-            max = get;
-        };
-        if (get < min) {
-            min = get;
-        };
-        offset += 4;
-    };
-
-    let mlt = 536870912 / Math.max(Math.abs(max), Math.abs(min));
-    mlts[index] = mlt;
-});
-
-del.reverse();
-for (let index of del) {
-    files.splice(index, 1);
-    mlts.splice(index, 1);
-};
-
-console.log('定点化');
-files.forEach((file, index) => {
-    console.log(`${file}.wav`);
-    let wav = parseWAV(fs.readFileSync(`${file}.wav`));
-    let fmt = parseFmt(wav['fmt ']);
-
-    delete fmt.cbSize;
-    delete fmt.extra;
-    fmt.wFormatTag = 1;
-    fmt.wBitsPerSample = 32;
-    fmt.nBlockAlign = fmt.nChannels * fmt.wBitsPerSample / 8;
-    fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
     delete wav.fact;
     let fact = wav.order.indexOf('fact');
     if (fact > -1) {
@@ -90,66 +117,25 @@ files.forEach((file, index) => {
     };
 
     let data = wav.data;
-    let dataFixed = Buffer.alloc(data.length);
+    let dataResampled = Buffer.alloc(Math.round(data.length / fmt.nBlockAlign * rate / fmt.nSamplesPerSec) * fmt.nBlockAlign);
+    let ibuf = data.ref();
+    let obuf = dataResampled.ref();
+    ibuf.type = ref.refType(ref.types.void);
+    obuf.type = ref.refType(ref.types.void);
 
-    let offset = 0;
-    let offsetFixed = 0;
-    let mlt = mlts[index];
-
-    while (offset < data.length) {
-        let num = data.readFloatLE(offset);
-        let numFixed = roundTiesToEven(num * mlt);
-        dataFixed.writeInt32LE(numFixed, offsetFixed);
-        offset += 4;
-        offsetFixed += 4;
-    };
-
-    wav['fmt '] = writeFmt(fmt);
-    wav.data = dataFixed;
-    wav = writeWAV(wav);
-    fs.writeFileSync(`temp${index}-fixed.wav`, wav);
-});
-
-console.log('重采样');
-files.forEach((file, index) => {
-    console.log(`${file}.wav`);
-    child_process.execSync(`${sox} temp${index}-fixed.wav temp${index}-sox.wav --no-dither rate -v -b ${bandwidth} ${rate}`);
-    fs.unlinkSync(`temp${index}-fixed.wav`);
-});
-
-console.log('浮点化');
-files.forEach((file, index) => {
-    console.log(`${file}.wav`);
-    let wav = parseWAV(fs.readFileSync(`${file}.wav`));
-    let wavSoX = parseWAV(fs.readFileSync(`temp${index}-sox.wav`));
-    let fmt = parseFmt(wav['fmt ']);
+    let icontext = ref.alloc(input_context_t).deref();
+    let resampler = soxr.soxr_create(fmt.nSamplesPerSec, rate, fmt.nChannels, error.ref(), io_spec.ref(), q_spec.ref(), runtime_spec.ref());
+    icontext.ibuf = ibuf;
+    icontext.isize = fmt.nBlockAlign;
+    soxr.soxr_set_input_fn(resampler, input_fn, icontext.ref(), data.length / fmt.nBlockAlign);
+    let engine = soxr.soxr_engine(resampler);
+    // 到这一步会因为不明原因退出，有待解决
+    let odone = soxr.soxr_output(resampler, obuf, dataResampled.length / fmt.nBlockAlign);
 
     fmt.nSamplesPerSec = rate;
     fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
-    delete wav.fact;
-    let fact = wav.order.indexOf('fact');
-    if (fact > -1) {
-        wav.order.splice(fact, 1);
-    };
-
-    let data = wavSoX.data;
-    let dataFloat = Buffer.alloc(data.length);
-
-    let offset = 0;
-    let offsetFloat = 0;
-    let mlt = mlts[index];
-
-    while (offset < data.length) {
-        let num = data.readInt32LE(offset);
-        let numFloat = num / mlt;
-        dataFloat.writeFloatLE(numFloat, offsetFloat);
-        offset += 4;
-        offsetFloat += 4;
-    };
-
     wav['fmt '] = writeFmt(fmt);
-    wav.data = dataFloat;
+
     wav = writeWAV(wav);
-    fs.writeFileSync(`${file}-resampled.wav`, wav);
-    fs.unlinkSync(`temp${index}-sox.wav`);
-});
+    // fs.writeFileSync(`${file}-resampled.wav`, wav);
+};
