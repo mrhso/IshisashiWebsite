@@ -6,7 +6,6 @@
 // @author       Ishisashi
 // @match        *://www.2-class.com/competition
 // @match        *://2-class.com/competition
-// @match        https://www.2-class.com/courses/exams/837
 // @grant        none
 // ==/UserScript==
 
@@ -460,6 +459,6 @@
         await sleep(1000);
         offset += 1;
     };
-    await sleep(Math.random() * 5000);
+    await sleep(500 + Math.random() * 5000);
     next();
 })();
