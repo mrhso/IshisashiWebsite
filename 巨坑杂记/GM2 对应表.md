@@ -1,5 +1,5 @@
 ## SC-8850
-SC-8850 的 GM2 模式中，鼓组安排与 Native 完全不同。尽管如此，本表还是填上了 SC-8850 Map 下的鼓组。
+SC-8850 的 GM2 模式中，鼓组安排与 Native 完全不同。尽管如此，本表还是填上了 SC-88 Pro Map 下的鼓组。
 
 |GM2 PC|GM2 MSB|GM2 LSB|GM2 Name|Native PC|Native MSB|Native LSB|Native Name|
 |-|-|-|-|-|-|-|-|
@@ -260,14 +260,14 @@ SC-8850 的 GM2 模式中，鼓组安排与 Native 完全不同。尽管如此�
 |128|121|2|Lasergun|128|2|4|Lasergun|
 |128|121|3|Explosion|128|3|4|Explosion|
 |1|120|0|STANDARD Set|1|0|3|STANDARD 1|
-|9|120|0|ROOM Set|9|0|4|ROOM|
-|17|120|0|POWER Set|17|0|4|POWER|
-|25|120|0|ELECTRONIC Set|25|0|4|ELECTRONIC|
-|26|120|0|ANALOG Set|26|0|4|TR-808|
-|33|120|0|JAZZ Set|33|0|4|JAZZ|
-|41|120|0|BRUSH Set|41|0|4|BRUSH|
-|49|120|0|ORCHESTRA Set|49|0|4|ORCHESTRA|
-|57|120|0|SFX Set|57|0|4|SFX|
+|9|120|0|ROOM Set|9|0|3|ROOM|
+|17|120|0|POWER Set|17|0|3|POWER|
+|25|120|0|ELECTRONIC Set|25|0|3|ELECTRONIC|
+|26|120|0|ANALOG Set|26|0|3|TR-808|
+|33|120|0|JAZZ Set|33|0|3|JAZZ|
+|41|120|0|BRUSH Set|41|0|3|BRUSH|
+|49|120|0|ORCHESTRA Set|49|0|3|ORCHESTRA|
+|57|120|0|SFX Set|57|0|3|SFX|
 
 ### 鼓组映射
 #### STANDARD Set
