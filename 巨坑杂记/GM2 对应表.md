@@ -1,5 +1,5 @@
 ## SC-8850
-SC-8850 的 GM2 模式中，鼓点安排与 Native 完全不同。尽管如此，本表还是填上了 SC-8850 Map 下的鼓点。
+SC-8850 的 GM2 模式中，鼓组安排与 Native 完全不同。尽管如此，本表还是填上了 SC-8850 Map 下的鼓组。
 
 |GM2 PC|GM2 MSB|GM2 LSB|GM2 Name|Native PC|Native MSB|Native LSB|Native Name|
 |-|-|-|-|-|-|-|-|
