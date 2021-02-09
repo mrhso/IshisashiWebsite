@@ -269,6 +269,17 @@ SC-8850 的 GM2 模式中，鼓点安排与 Native 完全不同。尽管如此�
 |49|120|0|ORCHESTRA Set|49|0|4|ORCHESTRA|
 |57|120|0|SFX Set|57|0|4|SFX|
 
+### 鼓组映射
+#### STANDARD Set
+#### ROOM Set
+#### POWER Set
+#### ELECTRONIC Set
+#### ANALOG Set
+#### JAZZ Set
+#### BRUSH Set
+#### ORCHESTRA Set
+#### SFX Set
+
 ## SD-90
 ### Classic Set
 |GM2 PC|GM2 MSB|GM2 LSB|GM2 Name|Native PC|Native MSB|Native LSB|Native Name|
