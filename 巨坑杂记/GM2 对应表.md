@@ -1,6 +1,8 @@
 ## SC-8850
 SC-8850 的 GM2 模式中，鼓组安排与 Native 完全不同。尽管如此，本表还是填上了 SC-88 Pro Map 下的鼓组。
 
+本表纯靠人工听辨，可能存在大量错误。
+
 |GM2 PC|GM2 MSB|GM2 LSB|GM2 Name|Native PC|Native MSB|Native LSB|Native Name|
 |-|-|-|-|-|-|-|-|
 |1|121|0|Acoustic Grand Piano|1|0|4|Piano 1|
