@@ -102,7 +102,7 @@ SC-8850 的 GM2 模式中，鼓组安排与 Native 完全不同。尽管如此�
 |41|121|1|Violin (slow attack)|41|8|4|Slow Violin|
 |42|121|0|Viola|42|0|4|Viola :|
 |43|121|0|Cello|43|0|4|Cello :|
-|44|121|0|Contrabass|44|0|4|Contrabass|
+|44|121|0|Contrabass|44|0|3|Contrabass|
 |45|121|0|Tremolo Strings|45|0|4|Tremolo Str|
 |46|121|0|Pizzicato Strings|46|0|4|PizzicatoStr|
 |47|121|0|Orchestral Harp|47|0|4|Harp|
