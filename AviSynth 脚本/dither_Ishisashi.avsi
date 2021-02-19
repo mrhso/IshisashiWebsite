@@ -240,7 +240,7 @@ Function Dither_convert_yuv_to_rgb (clip src, string "matrix", bool "interlaced"
 	y = (vers < 2.60) ? last : last.ConvertToY8 ()
 
 	# Chroma: first, find the right chroma shift to apply when resizing
-	# the planes. Interlaced contents adds a bit of complexity
+	# the planes. Interlaced contents adds a bit of complexity…
 	chr  = (src.GetParity ()) ? AssumeTFF () : AssumeBFF ()
 	chr  = (interlaced) ? chr.SeparateFields () : chr
 	idiv = (interlaced) ? 2 : 1

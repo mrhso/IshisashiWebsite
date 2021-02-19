@@ -136,7 +136,7 @@
 ###         - 4		2-bit dither, strong
 ###         - 5		2-bit dither, stronger
 ###         - 6		Serpentine Floyd-Steinberg error diffusion + noise. Well-balanced algorithm.
-###         - 7		Stucki error diffusion + noise. Looks °∞sharp°± and preserve light edges and details well.
+###         - 7		Stucki error diffusion + noise. Looks ‚Äúsharp‚Äù and preserve light edges and details well.
 ###         - 8		Atkinson error diffusion + noise. Generates distinct patterns but keeps clean the flat areas.
 ### interp  - use gradient smoothing if output is a non 16-bit clip,
 ###         - explaination and strength defined in SmoothAdjust,
@@ -179,7 +179,7 @@
 ###         - 4		2-bit dither, strong
 ###         - 5		2-bit dither, stronger
 ###         - 6		Serpentine Floyd-Steinberg error diffusion + noise. Well-balanced algorithm.
-###         - 7		Stucki error diffusion + noise. Looks °∞sharp°± and preserve light edges and details well.
+###         - 7		Stucki error diffusion + noise. Looks ‚Äúsharp‚Äù and preserve light edges and details well.
 ###         - 8		Atkinson error diffusion + noise. Generates distinct patterns but keeps clean the flat areas.
 ### interp  - use gradient smoothing if defined "pp" and output is a non 16-bit clip,
 ###         - explaination and strength defined in SmoothAdjust,
