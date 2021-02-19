@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #	High bitdepth tools for Avisynth (Ishisashi mod)
-#       v1.27.2
+#       v1.28.0
 #	Author: Firesledge, Ishisashi
 #
 #	See the documentation for the function description.
@@ -782,8 +782,8 @@ Function Dither_resize16nr (clip src, int width, int height,
 
 	Assert (width > 0 && height > 0, "Dither_resize16nr: width and height must be > 0.")
 
-	sr_h  = Float (width ) / Float (src.width () )
-	sr_v  = Float (height) / Float (src.height ())
+	sr_h  = Float (width ) / Float (src.width ()     )
+	sr_v  = Float (height) / Float (src.height () / 2)
 	sr_up =       Dither_max (sr_h, sr_v)
 	sr_dw = 1.0 / Dither_min (sr_h, sr_v)
 	sr    = Dither_max (sr_up, sr_dw)
