@@ -1,7 +1,7 @@
 # Ishisashi 制作的 AviSynth 快捷脚本
-# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)、[SmoothAdjust](https://forum.doom9.org/showthread.php?t=154971)、[MaskTool2](https://github.com/pinterf/masktools/releases)
+# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)、[SmoothAdjust](https://forum.doom9.org/showthread.php?t=154971)、[MaskTool2](https://github.com/pinterf/masktools/releases)、[Zs_RF_Shared](https://github.com/realfinder/AVS-Stuff/blob/Community/avs%202.5%20and%20up/Zs_RF_Shared.avsi)
 # 直接依赖的依赖自己去找，QQQXX
-# 实际使用中已能通过 IsAVSPlus 自动判断来为 AVS+ 优化
+# 实际使用中已能通过 IsAvsPlus 自动判断来为 AVS+ 优化
 # 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」
 
 Function RGB2YUV(clip input, string "matrix", bool "tv_range", bool "lsb", string "output", int "dither", float "kr", float "kg", float "kb")
@@ -71,7 +71,7 @@ Function YUV2RGB32(clip input, string "matrix", bool "tv_range", bool "lsb", flo
 # 将 C16 逆向，即是说把交织（Interleaved）转为层叠（Stacked）
 Function unC16(clip input)
 {
-    return IsAVSPlus() ? input.ConvertFromDoubleWidth().ConvertToStacked()
+    return IsAvsPlus() ? input.ConvertFromDoubleWidth().ConvertToStacked()
     \                  : input.f3kdb(Y=0, Cb=0, Cr=0, grainY=0, grainC=0, keep_tv_range=False, input_mode=2, output_mode=1)
 }
 
@@ -219,16 +219,9 @@ Function nnedi3_YV24(clip input, bool "tv_range", string "cplace", bool "lsb_in"
 # 用途主要是让 ConvertToStacked/ConvertToDoubleWidth 顺利进行，因为这俩函数必须要 16-bit 输入，所以为了能让输入、输出都为 10-bit，就写了这个
 Function Force16(clip input)
 {
-    Assert(IsAVSPlus(), "AviSynth+ only!")
+    Assert(IsAvsPlus(), "AviSynth+ only!")
 
     return input.ConvertBits(bits=16, truerange=False)
-}
-
-# 判断 AviSynth+ 与否
-Function IsAVSPlus()
-{
-    sVer = LCase(VersionString)
-    return (FindStr(sVer, "avisynth+") > 0) || (FindStr(sVer, "avisynthplus") > 0)
 }
 
 # 将 RGB48YV12 转换为 RGB48Y
@@ -239,11 +232,11 @@ Function RGB48YV12ToRGB48Y(clip input)
     width  = Width(input)
     height = Height(input)
 
-    Y = IsAVSPlus() ? input.ExtractY()
+    Y = IsAvsPlus() ? input.ExtractY()
     \               : input.ConvertToY8() # 提取出 Y 通道，并存储为 Y8
-    U = IsAVSPlus() ? input.ExtractU()
+    U = IsAvsPlus() ? input.ExtractU()
     \               : input.UToY8()       # 提取出 U 通道，并存储为 Y8
-    V = IsAVSPlus() ? input.ExtractV()
+    V = IsAvsPlus() ? input.ExtractV()
     \               : input.VToY8()       # 提取出 V 通道，并存储为 Y8
 
     StackVertical(U, V).SeparateFields()
@@ -289,7 +282,7 @@ Function RGB48Stacked(clip input)
     G = input.SelectEvery(3, 1) # 提取出 G 通道
     B = input.SelectEvery(3, 2) # 提取出 B 通道
 
-    return IsAVSPlus() ? CombinePlanes(R, G, B, "RGB").Planar2Interleaved()
+    return IsAvsPlus() ? CombinePlanes(R, G, B, "RGB").Planar2Interleaved()
     \                  : MergeRGB(R, G, B, pixel_type="RGB24")
 }
 
@@ -297,14 +290,14 @@ Function RGB48Stacked(clip input)
 # 同样没什么技术含量
 Function RGB24YV24(clip input)
 {
-    R = IsAVSPlus() ? input.ExtractR()
+    R = IsAvsPlus() ? input.ExtractR()
     \               : input.ShowRed(pixel_type="Y8")   # 提取出 R 通道
-    G = IsAVSPlus() ? input.ExtractG()
+    G = IsAvsPlus() ? input.ExtractG()
     \               : input.ShowGreen(pixel_type="Y8") # 提取出 G 通道
-    B = IsAVSPlus() ? input.ExtractB()
+    B = IsAvsPlus() ? input.ExtractB()
     \               : input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道
 
-    return IsAVSPlus() ? CombinePlanes(R, G, B, "YUV")
+    return IsAvsPlus() ? CombinePlanes(R, G, B, "YUV")
     \                  : YToUV(G, B, R)
 }
 
@@ -312,25 +305,25 @@ Function RGB24YV24(clip input)
 # 啊啊还是没什么技术含量
 Function YV24RGB24(clip input)
 {
-    Y = IsAVSPlus() ? input.ExtractY()
+    Y = IsAvsPlus() ? input.ExtractY()
     \               : input.ConvertToY8() # 提取出 Y 通道
-    U = IsAVSPlus() ? input.ExtractU()
+    U = IsAvsPlus() ? input.ExtractU()
     \               : input.UToY8()       # 提取出 U 通道
-    V = IsAVSPlus() ? input.ExtractV()
+    V = IsAvsPlus() ? input.ExtractV()
     \               : input.VToY8()       # 提取出 V 通道
 
-    return IsAVSPlus() ? CombinePlanes(Y, U, V, "RGB").Planar2Interleaved()
+    return IsAvsPlus() ? CombinePlanes(Y, U, V, "RGB").Planar2Interleaved()
     \                  : MergeRGB(Y, U, V, pixel_type="RGB24")
 }
 
 # 当然是把 Hack 的 RGB48 Stack 转回那种 RGB48Y 啊
 Function unRGB48Stacked(clip input)
 {
-    R = IsAVSPlus() ? input.ExtractR()
+    R = IsAvsPlus() ? input.ExtractR()
     \               : input.ShowRed(pixel_type="Y8")   # 提取出 R 通道
-    G = IsAVSPlus() ? input.ExtractG()
+    G = IsAvsPlus() ? input.ExtractG()
     \               : input.ShowGreen(pixel_type="Y8") # 提取出 G 通道
-    B = IsAVSPlus() ? input.ExtractB()
+    B = IsAvsPlus() ? input.ExtractB()
     \               : input.ShowBlue(pixel_type="Y8")  # 提取出 B 通道
 
     return Interleave(R, G, B)
@@ -340,7 +333,7 @@ Function unRGB48Stacked(clip input)
 # 那么就使用这种伪装成 YUV 的方法吧
 Function RGB48(clip input)
 {
-    Assert(IsAVSPlus(), "AviSynth+ only!")
+    Assert(IsAvsPlus(), "AviSynth+ only!")
 
     R = input.SelectEvery(3, 0) # 提取出 R 通道
     G = input.SelectEvery(3, 1) # 提取出 G 通道
@@ -359,7 +352,7 @@ Function RGB48(clip input)
 # 把 AviSynth+ RGB48 转到 RGB48Y 去
 Function unRGB48(clip input)
 {
-    Assert(IsAVSPlus(), "AviSynth+ only!")
+    Assert(IsAvsPlus(), "AviSynth+ only!")
 
     R = input.ExtractR() # 提取出 R 通道
     G = input.ExtractG() # 提取出 G 通道
@@ -451,13 +444,13 @@ Function FixPC98(clip input, bool "unshift")
 
     input_rgb32 = input.ConvertToRGB32()
 
-    R = IsAVSPlus() ? input_rgb32.ExtractR()
+    R = IsAvsPlus() ? input_rgb32.ExtractR()
     \               : input_rgb32.ShowRed(pixel_type="Y8")
-    G = IsAVSPlus() ? input_rgb32.ExtractG()
+    G = IsAvsPlus() ? input_rgb32.ExtractG()
     \               : input_rgb32.ShowGreen(pixel_type="Y8")
-    B = IsAVSPlus() ? input_rgb32.ExtractB()
+    B = IsAvsPlus() ? input_rgb32.ExtractB()
     \               : input_rgb32.ShowBlue(pixel_type="Y8")
-    A = IsAVSPlus() ? input_rgb32.ExtractA()
+    A = IsAvsPlus() ? input_rgb32.ExtractA()
     \               : input_rgb32.ShowAlpha(pixel_type="Y8")
 
     R = unshift ? R.mt_lut("x 16 /")
@@ -471,6 +464,6 @@ Function FixPC98(clip input, bool "unshift")
     G = G.mt_lut("x 17 *")
     B = B.mt_lut("x 17 *")
 
-    return IsAVSPlus() ? CombinePlanes(R, G, B, A, "RGBA").Planar2Interleaved()
+    return IsAvsPlus() ? CombinePlanes(R, G, B, A, "RGBA").Planar2Interleaved()
     \                  : MergeARGB(A, R, G, B)
 }
