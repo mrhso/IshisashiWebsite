@@ -437,7 +437,6 @@ Function iSmoothCurve16(clip input, string "Ycurve", string "Ucurve", string "Vc
 
 # 修复调色板处理错误的 PC-98 图像
 # 主要有两种情况，一种是在 4-bit RGB 未做任何处理（导致图像相当暗），另一种是暴力左移 4 位（图像显得较暗）
-# 另外 AviSynth+ 的 Expr 存在严重的精度问题（136 / 16 = 8.5，然后得到的结果是 8），故不采用
 Function FixPC98(clip input, bool "unshift")
 {
     unshift = Default(unshift, False)
@@ -453,16 +452,22 @@ Function FixPC98(clip input, bool "unshift")
     A = IsAvsPlus() ? input_rgb32.ExtractA()
     \               : input_rgb32.ShowAlpha(pixel_type="Y8")
 
-    R = unshift ? R.mt_lut("x 16 /")
+    R = unshift ? IsAvsPlus() ? R.Expr("x 16 /")
+    \                         : R.mt_lut("x 16 /")
     \           : R
-    G = unshift ? G.mt_lut("x 16 /")
+    G = unshift ? IsAvsPlus() ? G.Expr("x 16 /")
+    \                         : G.mt_lut("x 16 /")
     \           : G
-    B = unshift ? B.mt_lut("x 16 /")
+    B = unshift ? IsAvsPlus() ? B.Expr("x 16 /")
+    \                         : B.mt_lut("x 16 /")
     \           : B
 
-    R = R.mt_lut("x 17 *")
-    G = G.mt_lut("x 17 *")
-    B = B.mt_lut("x 17 *")
+    R = IsAvsPlus() ? R.Expr("x 17 *")
+    \               : R.mt_lut("x 17 *")
+    G = IsAvsPlus() ? G.Expr("x 17 *")
+    \               : G.mt_lut("x 17 *")
+    B = IsAvsPlus() ? B.Expr("x 17 *")
+    \               : B.mt_lut("x 17 *")
 
     return IsAvsPlus() ? CombinePlanes(R, G, B, A, "RGBA").Planar2Interleaved()
     \                  : MergeARGB(A, R, G, B)
