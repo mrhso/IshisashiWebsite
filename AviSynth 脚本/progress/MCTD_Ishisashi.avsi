@@ -807,10 +807,10 @@ Assert( m4 ? true : false, chr(10) + "This is not a MOD4 clip! Please use crop()
 p = defined(p)                   ? p.pointresize(xn,yn,-xf/2,-yf/2,xn,yn)
 \ : (sigma==0)                   ? i
 \ : (sigma<0)                    ? i.dfttest(sstring="0.0:"+string(-sigma*4./3.)+" 0.2:"+string(-sigma*9./3.)+" 1.0:"+string(-sigma*15./3.),tbsize=(bt%2==0)?bt+1:bt,u=chroma,v=chroma,quiet=true,dither=fixband?round(-sigma/11.):0)
-\ : (GPU==false&&fixband==false) ? i.sneo_FFT3D(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt)
+\ : (GPU==false&&fixband==false) ? i.sneo_FFT3D(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt,ncpu=ncpu)
 \ : (GPU==true &&fixband==false) ? i.FFT3Dgpu(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,plane=chroma?4:0,bt=bt,precision=precision)
-\ : (GPU==false&&fixband==true ) ? sisavs26 ? i.sneo_FFT3D(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt).gradfun2db3(thr=1.0+sigma*0.05)
-\ :                                           i.sneo_FFT3D(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt).gradfun2db(thr=1.0+sigma*0.05)
+\ : (GPU==false&&fixband==true ) ? sisavs26 ? i.sneo_FFT3D(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt,ncpu=ncpu).gradfun2db3(thr=1.0+sigma*0.05)
+\ :                                           i.sneo_FFT3D(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt,ncpu=ncpu).gradfun2db(thr=1.0+sigma*0.05)
 \ :                                sisavs26 ? i.FFT3Dgpu(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,plane=chroma?4:0,bt=bt,precision=precision).gradfun2db3(thr=1.0+sigma*0.05)
 \ :                                           i.FFT3Dgpu(sigma=sigma*0.8,sigma2=sigma*0.6,sigma3=sigma*0.4,sigma4=sigma*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,plane=chroma?4:0,bt=bt,precision=precision).gradfun2db(thr=1.0+sigma*0.05)
 
