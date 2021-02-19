@@ -936,7 +936,6 @@ b6v = !refine || (radius<6) ? b6v
 
    sm = Defined(cnr) ? Eval("c."+cnr)
    \  : c.svsTTempSmooth(radius,255,255,1,1,strength=radius+1,pfclip=SAD_m,fp=false,scthresh=99.9)
-# 此处 Merged
    sm = sm.SelectEvery(1+radius*2,radius)
    
    return sm
@@ -1121,11 +1120,11 @@ smL  = !twopass               ? smL                          :
 post_abs = Abs(post)
 smP = (post==0)    ? smL
 \   : Defined(ppnr)? Eval("smL."+ppnr)
-\   : (GPU==false) ? smL.FFT3Dfilter(sigma=post_abs*0.8,sigma2=post_abs*0.6,sigma3=post_abs*0.4,sigma4=post_abs*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,plane=chroma?4:0,bt=bt,ncpu=ncpu)
+\   : (GPU==false) ? smL.sneo_FFT3D(sigma=post_abs*0.8,sigma2=post_abs*0.6,sigma3=post_abs*0.4,sigma4=post_abs*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,u=chroma?3:2,v=chroma?3:2,bt=bt,ncpu=ncpu)
 \   :                smL.FFT3Dgpu(sigma=post_abs*0.8,sigma2=post_abs*0.6,sigma3=post_abs*0.4,sigma4=post_abs*0.2,bw=bwbh,bh=bwbh,ow=owoh,oh=owoh,plane=chroma?4:0,bt=bt,precision=precision)
 smP = (post==0)        ? smP
 \   : ( fixband==false || post<0 ) ? smP
-\   :                                mt_makediff(smL,mt_makediff(smL,smP,U=chr31,V=chr31).gradfun2DB(thr=1.0+post*0.5),U=chr31,V=chr31)
+\   :                                mt_makediff(smL,sisavs26 ? mt_makediff(smL,smP,U=chr31,V=chr31).gradfun2DB3(thr=1.0+post*0.5) : mt_makediff(smL,smP,U=chr31,V=chr31).gradfun2DB(thr=1.0+post*0.5),U=chr31,V=chr31)
 
 
 ### POST-PROCESSING
@@ -1140,6 +1139,7 @@ smP = (post==0)        ? smP
    \                 bool "chroma", string "settings", bool "useMMask",
    \                 clip "f1v", clip "b1v", clip "f1c", clip "b1c", bool "internal" )
    {
+   sisavs26 = !(VersionNumber() < 2.60)
    ### SETTINGS
    settings     = Default(settings, "low")
    settings_num =  -1
@@ -1217,7 +1217,7 @@ smP = (post==0)        ? smP
 
 
    ### WARNING
-   Assert(isYV12(denoised) == True ? true : false, chr(10) + "This is not an YV12 clip ! Please convert color space to YV12 before using MCTD_PP()" + chr(10))
+   sisavs26 ? nop() : Assert(isYV12(denoised) == True ? true : false, chr(10) + "This is not an YV12 clip ! Please convert color space to YV12 before using MCTD_PP()" + chr(10))
 
    w = denoised.width()
    h = denoised.height()
@@ -1297,7 +1297,7 @@ smP = (post==0)        ? smP
    \   : (method==1)      ? cAA.Spline36resize(xn,yn,0.5,-0.5,xn*2,yn*2)
    \   :                    cAA.Lanczos4resize(xn,yn,0.5,-0.5,xn*2,yn*2)
    cAA = (aaF!="internal") ? Eval("smB."+aaF) : cAA
-   mA  = (AA==true) ? smB.mt_edge("prewitt",0,255,0,0,V=1,U=1).mt_lut("x "+string(AAthr)+" <= 0 x 1.4 ^ ?",U=1,V=1).removegrain(4,-1).mt_inflate(U=1,V=1) : NOP()
+   mA  = (AA==true) ? sisavs26 ? smB.mt_edge("prewitt",0,255,0,0,V=1,U=1).mt_lut("x "+string(AAthr)+" scalef <= 0 x 1.4 ^ ?", clamp_float=true, use_expr=2,U=1,V=1).removegrain(4,-1).mt_inflate(U=1,V=1) : smB.mt_edge("prewitt",0,255,0,0,V=1,U=1).mt_lut("x "+string(AAthr)+" <= 0 x 1.4 ^ ?",U=1,V=1).removegrain(4,-1).mt_inflate(U=1,V=1) : NOP()
    smA = (AA==true) ? mt_merge(smB,cAA,mA,luma=chroma?true:false,U=chr31,V=chr31) : NOP()
 
    aaD1    = (AA==true&&reduc!=-1) ? mt_makediff(smB, smA, U=1, V=1) : NOP()
@@ -1318,8 +1318,8 @@ smP = (post==0)        ? smP
 
 
    ### MASKING
-   mM = (sharp==true||enhance==true||stabilize==true) ? mt_average(SAD_f1m,SAD_b1m,U=1,V=1).mt_lut(expr="x 1.6 ^",U=1,V=1) : NOP()
-   mE = (sharp==true||enhance==true||stabilize==true) ? mt_edge(smE,"prewitt",0,255,0,0,V=1,U=1).mt_lut(expr="x 1.8 ^",U=1,V=1).removegrain(4,-1).mt_inflate(U=1,V=1) : NOP()
+   mM = (sharp==true||enhance==true||stabilize==true) ? sisavs26 ? mt_average(SAD_f1m,SAD_b1m,U=1,V=1).mt_lut(expr="x 1.6 ^", use_expr=2,U=1,V=1) : mt_average(SAD_f1m,SAD_b1m,U=1,V=1).mt_lut(expr="x 1.6 ^",U=1,V=1) : NOP()
+   mE = (sharp==true||enhance==true||stabilize==true) ? sisavs26 ? mt_edge(smE,"prewitt",0,255,0,0,V=1,U=1).mt_lut(expr="x 1.8 ^", use_expr=2,U=1,V=1).removegrain(4,-1).mt_inflate(U=1,V=1) : mt_edge(smE,"prewitt",0,255,0,0,V=1,U=1).mt_lut(expr="x 1.8 ^",U=1,V=1).removegrain(4,-1).mt_inflate(U=1,V=1) : NOP()
    mL = (sharp==true||enhance==true||stabilize==true) ? mt_logic(mM.invert(),mE,"min",U=1,V=1).removegrain(20,-1) : NOP()
    mF = (sharp==true||enhance==true||stabilize==true) ? mt_logic(mM,mE,"max",U=1,V=1).removegrain(20,-1) : NOP()
    mR = (sharp==true||enhance==true||stabilize==true) ? mE.removegrain(20,-1) : NOP()
@@ -1345,7 +1345,7 @@ smP = (post==0)        ? smP
 
    ### STABILIZING & ENHANCING
    TTc = (stabilize==true) ? (stF!="internal") ? Eval("sL."+stF)
-   \   :                     sL.TTempSmoothF(maxr=maxr, lthresh=lthresh, cthresh=cthresh, strength=TTstr)
+   \   :                     sL.svsTTempSmoothF(maxr=maxr, lthresh=lthresh, cthresh=cthresh, strength=TTstr)
    \   :                     sL
    GFc = (enhance==true) ? (dbF!="internal") ? Eval("TTc."+dbF)
    \   :                   TTc.GradFun2DBmod(thr=GFthr,thrC=chroma?GFthr:1.0,mode=0,str=AGstr,strC=0.0,temp=temp,adapt=bias,mask=false,show=false)
@@ -1374,7 +1374,7 @@ PP = pp ? MCTD_PP( smP, i,
 
 
 ### OUTPUT
-o = ((i.height) * 2 == PP.height) ? PP.MCPP_crop16(xf/2,yf/2,-xf/2,-yf/2) : PP.crop(xf/2,yf/2,-xf/2,-yf/2)
+o = ((i.height) * 2 == PP.height) ? PP.MCPP_crop16(xf/2,yf/2,-xf/2,-yf/2,align=true) : PP.crop(xf/2,yf/2,-xf/2,-yf/2,align=true)
 o = (interlaced==true) ? o.weave() : o
 
 p1nr = Defined(p1nr) ? p1nr : "internal"
@@ -1403,8 +1403,8 @@ ppnr = Defined(ppnr) ? ppnr : "internal"
    \         IsClip(ssource) ? True    :
    \                           False
 
-   i  = i.crop(xf/2,yf/2,-xf/2,-yf/2)
-   p  = p.crop(xf/2,yf/2,-xf/2,-yf/2)
+   i  = i.crop(xf/2,yf/2,-xf/2,-yf/2,align=true)
+   p  = p.crop(xf/2,yf/2,-xf/2,-yf/2,align=true)
    cW = screenW/2
    cH = screenH/2
    iW = i.width()
@@ -1417,9 +1417,9 @@ ppnr = Defined(ppnr) ? ppnr : "internal"
    p = p.spline36resize(iR,cH)
    o = o.spline36resize(iR,cH)
 
-   i = (iC>0) ? i.crop(iC,0,-iC,0) : i
-   p = (iC>0) ? p.crop(iC,0,-iC,0) : p
-   o = (iC>0) ? o.crop(iC,0,-iC,0) : o
+   i = (iC>0) ? i.crop(iC,0,-iC,0,align=true) : i
+   p = (iC>0) ? p.crop(iC,0,-iC,0,align=true) : p
+   o = (iC>0) ? o.crop(iC,0,-iC,0,align=true) : o
 
    i = (iC<0) ? i.addborders(-iC,0,-iC,0) : i
    p = (iC<0) ? p.addborders(-iC,0,-iC,0) : p
