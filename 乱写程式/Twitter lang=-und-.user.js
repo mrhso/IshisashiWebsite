@@ -14,7 +14,7 @@
     let observer = new MutationObserver(() => {
         let tweets = document.querySelectorAll('article');
         for (let tweet of tweets) {
-            let divs = tweet.querySelectorAll('.css-901oao.r-16dba41.r-ad9z0x.r-bcqeeo.r-bnwqim.r-qvutc0');
+            let divs = tweet.querySelectorAll('.css-901oao.r-16dba41.r-bcqeeo.r-bnwqim.r-qvutc0');
             for (let div of divs) {
                 if (div.classList[2] !== 'r-1qd0xha') {
                     div.classList.replace(div.classList[2], 'r-1qd0xha');
