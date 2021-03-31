@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>等差分纬线多圆锥投影（伪）</title>
+    </head>
+    <body>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <script src="https://unpkg.com/topojson@3"></script>
+        <script>
+            let svg = d3.select('body').append('svg').attr('width', 114514).attr('height', 114514);
+            let projection = d3.geoProjection((lon, lat) => {
+                let phi = (180 / Math.PI) * lat;
+                let x0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;
+                let xn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;
+                let yn = Math.sqrt(49.5 ** 2 - 1.625 * xn ** 2) + 0.5;
+                let rho = (yn ** 2 + (xn - x0) ** 2) / (2 * (xn - x0));
+                let deltaPi = Math.asin(yn / rho);
+                let b = 1.1;
+                let c = 0.02893726;
+                let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;
+                let x = x0 === 0 ? 0 : x0 + rho * (1 - Math.cos(delta));
+                let y = x === 0 ? yn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);
+                return [y, x];
+            }).scale(10).rotate([-150, 0, 0]).translate([960, 960]);
+            let path = d3.geoPath().projection(projection);
+            let graticule = d3.geoGraticule10();
+            let outline = { type: 'Sphere' };
+            d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then((world) => {
+                svg.append('path').datum(graticule).attr('class', 'graticule').attr('d', path).attr('stroke', '#808080').attr('fill', 'none');
+                svg.append('path').datum(topojson.feature(world, world.objects.land)).attr('class', 'land').attr('d', path);
+                svg.append('path').datum(outline).attr('class', 'outline').attr('d', path).attr('stroke', '#000000').attr('fill', 'none');
+            });
+        </script>
+    </body>
+</html>
