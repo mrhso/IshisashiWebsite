@@ -11,17 +11,17 @@
             let svg = d3.select('body').append('svg').attr('width', 954).attr('height', 600);
             let projection = d3.geoProjection((lon, lat) => {
                 let phi = (180 / Math.PI) * lat;
-                let x0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;
-                let xn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;
-                let yn = Math.sqrt(49.5 ** 2 - 1.625 * xn ** 2) + 0.5;
-                let rho = (yn ** 2 + (xn - x0) ** 2) / (2 * (xn - x0));
-                let deltaPi = Math.asin(yn / rho);
                 let b = 1.1;
                 let c = 0.02893726;
+                let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;
+                let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;
+                let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;
+                let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));
+                let deltaPi = Math.asin(xn / rho);
                 let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;
-                let x = x0 === 0 ? 0 : x0 + rho * (1 - Math.cos(delta));
-                let y = x === 0 ? yn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);
-                return [y, x];
+                let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));
+                let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);
+                return [x, y];
             }).rotate([-150, 0, 0]);
             let path = d3.geoPath(projection);
             let graticule = d3.geoGraticule10();
