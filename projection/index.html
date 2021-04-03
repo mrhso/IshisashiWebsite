@@ -9,6 +9,7 @@
         <script src="https://unpkg.com/topojson@3"></script>
         <script>
             let svg = d3.select('body').append('svg').attr('width', 954).attr('height', 600);
+            // 郝晓光《经纬跨越四百年》附录 1
             let projection = d3.geoProjection((lon, lat) => {
                 let phi = (180 / Math.PI) * lat;
                 let b = 1.1;
@@ -18,6 +19,7 @@
                 let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;
                 let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));
                 let deltaPi = Math.asin(xn / rho);
+                // 加上绝对值以使左右对称
                 let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;
                 let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));
                 let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);
