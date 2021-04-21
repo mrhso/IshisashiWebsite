@@ -11,8 +11,16 @@ const parseChunks = (buf) => {
         offset += 4;
         let data = buf.slice(offset, offset + chunkSize);
         offset += chunkSize;
-        chunks[chunkID] = data;
-        chunks.order.push(chunkID);
+        if (chunkID === 'LIST') {
+            if (!chunks.LIST) {
+                chunks.LIST = [];
+                chunks.order.push('LIST');
+            };
+            chunks.LIST.push(data);
+        } else {
+            chunks[chunkID] = data;
+            chunks.order.push(chunkID);
+        };
         if (chunkSize % 2 === 1) {
             offset += 1;
         };
@@ -70,14 +78,28 @@ const writeChunks = (obj) => {
     let chunks = [];
     for (let chunk of obj.order) {
         let chunkID = chunk;
-        let chunkSize = obj[chunk].length;
-        let data = obj[chunk];
-        let buf = Buffer.alloc(8);
-        buf.write(chunkID);
-        buf.writeUInt32LE(chunkSize, 4);
-        chunks.push(buf, data);
-        if (chunkSize % 2 === 1) {
-            chunks.push(Buffer.alloc(1));
+        if (chunkID === 'LIST') {
+            for (let chunk of obj.LIST) {
+                let chunkSize = chunk.length;
+                let data = chunk;
+                let buf = Buffer.alloc(8);
+                buf.write(chunkID);
+                buf.writeUInt32LE(chunkSize, 4);
+                chunks.push(buf, data);
+                if (chunkSize % 2 === 1) {
+                    chunks.push(Buffer.alloc(1));
+                };
+            };
+        } else {
+            let chunkSize = obj[chunk].length;
+            let data = obj[chunk];
+            let buf = Buffer.alloc(8);
+            buf.write(chunkID);
+            buf.writeUInt32LE(chunkSize, 4);
+            chunks.push(buf, data);
+            if (chunkSize % 2 === 1) {
+                chunks.push(Buffer.alloc(1));
+            };
         };
     };
     return Buffer.concat(chunks);
