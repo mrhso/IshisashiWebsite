@@ -12,13 +12,7 @@ for (let file of files) {
 
     let loop = wav['cue '].readUInt32LE(24);
     let adtl;
-    for (let data of wav.LIST) {
-        if (data.slice(0, 4).toString() === 'adtl') {
-            adtl = data;
-            break;
-        };
-    };
-    let end = loop + adtl.readUInt32LE(16);
+    let end = loop + wav.LISTadtl.readUInt32LE(16);
 
     let pos = Buffer.alloc(8);
     pos.writeUInt32LE(loop);
