@@ -10,7 +10,7 @@ for (let file of files) {
     console.log(`${file}.pos`);
     let wav = parseWAV(fs.readFileSync(`${file}.wav`));
 
-    let loop = wav['cue '].readUInt32LE(24);
+    let loop = wav['cue '].readUInt32LE(8);
     let adtl;
     let end = loop + wav.LISTadtl.readUInt32LE(16);
 
