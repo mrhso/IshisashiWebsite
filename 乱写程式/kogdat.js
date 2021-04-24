@@ -35,7 +35,6 @@ const readInts = (str, count, offset = 0) => {
 
 const writeInt = (num) => {
     let str = '';
-    let bytes;
     if (0 <= num && num <= 255) {
         str += '00';
         let buf = Buffer.alloc(1);
@@ -75,6 +74,7 @@ const parseDAT = (buf) => {
     };
 
     // 考虑到档头最多 100 位元，就不读整个档案了
+    // 实际上未满 13 位元组会在后面补 0
     let [[count, tableOffset]] = readInts(buf2bin(buf.slice(4, 13)), 2);
     let table = buf2bin(buf.slice(tableOffset, buf.length));
 
