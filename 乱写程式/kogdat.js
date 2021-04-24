@@ -122,7 +122,6 @@ const writeDAT = (arr) => {
     let fileInfo = '';
     let chunks = [];
     let start = 13;
-    let offset = 0;
     for (let chunk of arr) {
         fileInfo += writeInt(chunk.unknown1);
         fileInfo += writeInt(chunk.unknown2);

@@ -63,15 +63,15 @@ const writeDAT = (arr) => {
     count.writeUInt32LE(arr.length);
     output.push(count);
     let fileInfo = Buffer.alloc(arr.length * 12);
+    output.push(fileInfo);
 
-    let chunks = [];
     let start = arr.length * 12 + 12;
     let offset = 0;
     for (let chunk of arr) {
         fileInfo.writeUInt32LE(chunk.size, offset);
         offset += 4;
         fileInfo.writeUInt32LE(start, offset);
-        chunks.push(chunk.data);
+        output.push(chunk.data);
         start += chunk.data.length;
         offset += 4;
         let checksum = getChecksum(chunk.data);
@@ -80,7 +80,7 @@ const writeDAT = (arr) => {
     };
 
     checksumAll.writeUInt32LE(getChecksumAll(fileInfo));
-    output = Buffer.concat([...output, fileInfo, ...chunks]);
+    output = Buffer.concat(output);
 
     return output;
 };
