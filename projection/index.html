@@ -13,11 +13,17 @@
                 <li><label>Width</label> <input type="number" id="width" value="954"></li>
                 <li><label>Height</label> <input type="number" id="height" value="600"></li>
                 <li><label>Projection</label> <textarea id="projection" rows="10" cols="100"></textarea></li>
+                <li><label>Preset</label> <select id="preset">
+                    <option value="east">系列世界地图（东半球）</option>
+                    <option value="west">系列世界地图（西半球）</option>
+                    <option value="north">系列世界地图（北半球）</option>
+                    <option value="south">系列世界地图（南半球）</option>
+                </select>
+</li>
             </ul>
             <button onclick="return reload() && false">Reload</button>
         </form>
         <script>
-            document.getElementById('projection').value = '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    return [x, y];\n}).rotate([-150, 0, 0]);';
             let svg = d3.select('body').append('svg');
             let graticule = d3.geoGraticule10();
             let outline = { type: 'Sphere' };
@@ -34,6 +40,17 @@
                 svg.append('path').datum(graticule).attr('class', 'graticule').attr('d', path).attr('stroke', '#808080').attr('clip-path', 'url(#clip)').attr('fill', 'none');
                 svg.append('path').datum(topojson.feature(world, world.objects.land)).attr('class', 'land').attr('clip-path', 'url(#clip)').attr('d', path);
                 svg.append('path').datum(outline).attr('class', 'outline').attr('d', path).attr('stroke', '#000000').attr('fill', 'none');
+            };
+            let presets = {
+                east: '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    // 裁切一下\n    if (Math.abs(y) > 31.29) {\n        y = Math.sign(y) * 31.29;\n    };\n    return [x, y];\n}).rotate([-150, 0, 0]);',
+                west: '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    // 裁切一下\n    if (Math.abs(y) > 31.29) {\n        y = Math.sign(y) * 31.29;\n    };\n    return [x, y];\n});',
+                north: '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    // 裁切一下\n    if (Math.abs(y) > 31.29) {\n        y = Math.sign(y) * 31.29;\n    };\n    return [x, y];\n}).rotate([-150, -120, 90]);',
+                south: '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    // 裁切一下\n    if (Math.abs(y) > 31.29) {\n        y = Math.sign(y) * 31.29;\n    };\n    return [x, y];\n}).rotate([105, 165, 90]).angle([90]);',
+            };
+            document.getElementById('projection').value = presets.east;
+            document.getElementById('preset').onchange = () => {
+                document.getElementById('projection').value = presets[document.getElementById('preset').value];
+                reload();
             };
             d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then((json) => {
                 world = json;
