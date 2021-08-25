@@ -39,7 +39,7 @@ const parseTrack = (buf) => {
         } else if (type4 === 0xA) {
             event.event = buf.slice(offset, offset + 3);
             offset += 3;
-        // Control Change
+        // Control Change / Channel Mode Messages
         } else if (type4 === 0xB) {
             event.event = buf.slice(offset, offset + 3);
             offset += 3;
@@ -153,6 +153,19 @@ const writeTrack = (arr) => {
     return Buffer.concat(events);
 };
 
+const writeTracks = (arr) => {
+    let tracks = [];
+    for (let track of arr) {
+        let magic = Buffer.alloc(4);
+        magic.write('MTrk');
+        let trackSize = Buffer.alloc(4);
+        let buf = writeTrack(track);
+        trackSize.writeUInt32BE(buf.length);
+        tracks.push(magic, trackSize, buf);
+    };
+    return Buffer.concat(tracks);
+};
+
 const writeSMF = (obj) => {
     let magic = Buffer.alloc(4);
     magic.write('MThd');
@@ -178,16 +191,7 @@ const writeSMF = (obj) => {
     };
     header = Buffer.concat(header);
     headerSize.writeUInt32BE(header.length);
-    let tracks = [];
-    for (let track of obj.tracks) {
-        let magic = Buffer.alloc(4);
-        magic.write('MTrk');
-        let trackSize = Buffer.alloc(4);
-        let buf = writeTrack(track);
-        trackSize.writeUInt32BE(buf.length);
-        tracks.push(magic, trackSize, buf);
-    };
-    tracks = Buffer.concat(tracks);
+    let tracks = writeTracks(obj.tracks);
     return Buffer.concat([magic, headerSize, header, tracks]);
 };
 
