@@ -8,13 +8,13 @@
 
 安装必备的软件包，这次安装「https_dns_proxy」：
 
-![](https://img.vim-cn.com/c9/7195c7de398c9d85f0b352325dd21c4b7a74ab.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/c97195c7de398c9d85f0b352325dd21c4b7a74ab.png)
 
 同时我建议安装 dnsmasq-full，并去除 dnsmasq。
 
 接下来编辑 /etc/config/https_dns_proxy，因为默认是 Google DNS，那当然不行。
 
-![](https://img.vim-cn.com/28/1f557fbcc1612cfea38cc763a8bdad4dd340c4.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/281f557fbcc1612cfea38cc763a8bdad4dd340c4.png)
 
 将 url_prefix 修改为「https://cloudflare-dns.com/dns-query?ct=application/dns-json&」。
 
@@ -24,12 +24,12 @@
 
 但是运营商给的 DNS 肯定也有污染啊，所以要把运营商的 DNS 干掉。
 
-![](https://img.vim-cn.com/c9/ac364466df8adf4b9f2abb52f193c4dd7da489.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/c9ac364466df8adf4b9f2abb52f193c4dd7da489.png)
 
 这里别勾选了罢。（激寒）
 
 好了，运营商的 DNS 也干掉了，重启路由器。
 
-![](https://img.vim-cn.com/6d/e7fbf6c771d9f8737f00f8be9aa48cbcad6e63.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/6de7fbf6c771d9f8737f00f8be9aa48cbcad6e63.png)
 
 Yattaze！

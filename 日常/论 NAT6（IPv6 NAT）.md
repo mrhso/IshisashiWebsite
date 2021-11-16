@@ -18,17 +18,17 @@ opkg install kmod-ipt-nat6
 
 或者在 LuCI 拉取软件源，然后查找 kmod-ipt-nat6 安装：
 
-![](https://img.vim-cn.com/13/f92a22124d0ecbb556c2dab4b4861ad90b3afc.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/13f92a22124d0ecbb556c2dab4b4861ad90b3afc.png)
 
 非常地简单。（大嘘）
 
 然后我们要注意，如果 LAN 的地址段属于 ULA，那么 OpenWrt 便不会公布网关，所以需要勾选：
 
-![](https://img.vim-cn.com/f0/0fec0dfb0bb1d6c7aa2eca3e8a23ae5622fcb8.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/f00fec0dfb0bb1d6c7aa2eca3e8a23ae5622fcb8.png)
 
 那么如何开启 NAT6 呢？在防火墙的自定义规则加如下：
 
-![](https://img.vim-cn.com/f7/3ed466cbc46e91dd4b46d0bbe6783dc970ef71.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/f73ed466cbc46e91dd4b46d0bbe6783dc970ef71.png)
 
 ```
 # 定义 IPv6 WAN 接口名（Linux）
@@ -39,7 +39,7 @@ ip6tables -t nat -A POSTROUTING -o $iface_linux -j MASQUERADE
 
 其中 iface_linux 便是：
 
-![](https://img.vim-cn.com/85/24a418f6bb9b221e43e6686fda5b643ac2d025.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/8524a418f6bb9b221e43e6686fda5b643ac2d025.png)
 
 こ↑こ↓。按下「重启防火墙」保存。
 
@@ -63,15 +63,15 @@ logger -t IPv6 "Add IPv6 default route."
 
 iface_linux 已经讲过了，但是 iface_uci 又没讲过。其实：
 
-![](https://img.vim-cn.com/a1/f96c89a7e60b660c95987cda206caac87f66ba.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/a1f96c89a7e60b660c95987cda206caac87f66ba.png)
 
 但是泽个东西 LuCI 在显示的时候全部转成了大写，就会踩到大小写民感的雷。
 
-![](https://img.vim-cn.com/ec/7ef60fc2179e937976eebcfeb3ba569e2a01b4.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/ec7ef60fc2179e937976eebcfeb3ba569e2a01b4.png)
 
 然后看看地址栏。
 
-![](https://img.vim-cn.com/d8/5cba7e1299b09271f2bb171eaad071969f1d10.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/d85cba7e1299b09271f2bb171eaad071969f1d10.png)
 
 嗯，所以是小写的「wan」。那么上面的脚本为什么写「wan_6」？
 
@@ -79,13 +79,13 @@ iface_linux 已经讲过了，但是 iface_uci 又没讲过。其实：
 
 然后重启路由器，不出意外的话 NAT6 就成功了：
 
-![](https://img.vim-cn.com/46/83e0f269320f8fb259f92ae81bec872248914d.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/4683e0f269320f8fb259f92ae81bec872248914d.png)
 
-![](https://img.vim-cn.com/60/12fd6b60bf09691d243a15cefdf15b80460629.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/6012fd6b60bf09691d243a15cefdf15b80460629.png)
 
-![](https://img.vim-cn.com/73/9ea7a59d6507e12a432e5047d6561dfdc0cc10.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/739ea7a59d6507e12a432e5047d6561dfdc0cc10.png)
 
-![](https://img.vim-cn.com/23/060853ac45cff4101aa3c532a42afbf3086fe2.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/23060853ac45cff4101aa3c532a42afbf3086fe2.png)
 
 （由此还能看出电信的 IPv6 还跑到了 CERNET（教育网）……其实三大运营商的 IPv6 差不多都是）
 
@@ -96,17 +96,17 @@ iface_linux 已经讲过了，但是 iface_uci 又没讲过。其实：
 
 但是这个地址也不能乱设，不然冲突了就不好了。所以我们从 [IANA 的 IPv6 分配表](https://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml)选一个没被用的地址。
 
-![](https://img.vim-cn.com/20/817d04362c06bdcff4f90d0f8c5f34f50b5e5a.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/20817d04362c06bdcff4f90d0f8c5f34f50b5e5a.png)
 
 这个有 Note 的区块我们也不方便用，因为应该是有了用途的。那么我们可以瞄一个无 Note 的区块。
 
-![](https://img.vim-cn.com/2b/eaa729f6ec3cd8dabd9b5909f6f49809ca025d.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/2beaa729f6ec3cd8dabd9b5909f6f49809ca025d.png)
 
 这块可以有！
 
 事实上 [OpenWrt 的帮助文档](https://openwrt.org/docs/guide-user/network/ipv6/ipv6.nat6)便是这么用的：
 
-![](https://img.vim-cn.com/ec/6d4288411f93213b2f18914bc6fce14c8fb13b.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/ec6d4288411f93213b2f18914bc6fce14c8fb13b.png)
 
 （按：d000::/4 显然属于 c000::/3 的一部分）
 
@@ -125,11 +125,11 @@ iface_linux 已经讲过了，但是 iface_uci 又没讲过。其实：
 
 其实单是对比 RC2 和 RC1，LuCI 也有了明显变动。
 
-![](https://img.vim-cn.com/12/c53d5b324bf2b172b71997b9da1599e1ff72be.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/12c53d5b324bf2b172b71997b9da1599e1ff72be.png)
 
 而且 RC2 引入的 LuCI 版本已经明确显示了虚拟的 PPPoE IPv6 接口。
 
-![](https://img.vim-cn.com/2f/229879d2a11e38995a5f7875715a52b0539f09.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/2f229879d2a11e38995a5f7875715a52b0539f09.png)
 
 注意「协议：虚拟动态接口（DHCPv6 客户端）」这一点。这无疑为我们对虚拟接口的判断提供了便利。
 

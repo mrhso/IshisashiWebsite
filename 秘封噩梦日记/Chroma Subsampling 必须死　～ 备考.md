@@ -10,9 +10,9 @@
 
 「バカ部OP（错误打开方式）.avs」代表直接用切割后的 Y 与 UV 合并后 Upscale（拉升）到 YV24，「バカ部OP.avs」代表把 UV Upscale 再与源 Y 合并。
 
-![](https://img.vim-cn.com/8e/eb644847c5a7b83caabf5258e73cd496c7d59f.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/8eeb644847c5a7b83caabf5258e73cd496c7d59f.png)
 
-![](https://img.vim-cn.com/ac/5ef959aab80e12664e6102c919f7d698abd153.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/ac5ef959aab80e12664e6102c919f7d698abd153.png)
 
 当然为了照顾非彩虹眼人士呢，就放大到了 400%。
 
@@ -27,9 +27,9 @@
 ### 为何不把 UV 直接拉升？
 因为真的会有问题。
 
-![](https://img.vim-cn.com/cd/b7f2b40c8a83109bc83797b3643d8d59b95712.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/cdb7f2b40c8a83109bc83797b3643d8d59b95712.png)
 
-![](https://img.vim-cn.com/2e/7adeb91d8d943f8946246137e6e23f67a7a5e3.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/2e7adeb91d8d943f8946246137e6e23f67a7a5e3.png)
 
 那么我们要解释一下 Chroma Subsampling 到底是怎么做的。
 
@@ -47,6 +47,6 @@
 
 「mawen1250」大佬曾经画过一张处理 Left Align 的图，可以看一下。
 
-![](https://img.vim-cn.com/5c/5363e266fe264f6a827d841ced62b520d8a820.png)
+![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/5c5363e266fe264f6a827d841ced62b520d8a820.png)
 
 啊反正我是给看晕了。
