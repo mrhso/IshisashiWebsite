@@ -5,7 +5,7 @@ CRC32 以解密 ROM 为准。
 若两列 CRC32 一致，说明未见有反烧录措施。
 
 |No-Intro|ADVANsCEne|DS-Scene|序列号|CRC32（原 ROM）|CRC32（打补丁后）|存档类型（No-Intro）|存档类型（ADVANsCEne）|存档类型（DS-Scene）|注释|
-|-|-|-|-|-|-|-|-|-|
+|-|-|-|-|-|-|-|-|-|-|
 |0186|0186|0186|NTR-AGYJ-JPN|1C725545|1C725545|Flash 262144|Flash - 2 Mbit|EEPROM 64kb|DS-Scene 之存档类型有误|
 |0626|0626|0626|NTR-A2GJ-JPN|40BECDC8|40BECDC8|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb||
 |0993|0993|0993|NTR-AGCJ-JPN|34721814|34721814|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb||
