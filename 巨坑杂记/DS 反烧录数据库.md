@@ -16,3 +16,4 @@ CRC32 以解密 ROM 为准。
 |5047|5045|5047|NTR-BCKJ-JPN|C23CC13D|CEA2970E|EEPROM 8192|Eeprom - 64 kbit|Unknown|Bad Dump<br>Soul Trip 汉化组汉化|
 |5047|5045|5047|NTR-BCKJ-JPN|88356669||EEPROM 8192|Eeprom - 64 kbit|Unknown|信息不明的汉化版，出现于 RetroGameFan 的反烧录数据库<br>未能找到该 ROM|
 |[6654](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=6654)|[6650](https://www.advanscene.com/html/Releases/dbrelds.php?id=6931)|N/A|NTR-AGCJ-JPN|2CC173D8|2CC173D8|EEPROM 65536|Eeprom - 512 kbit|N/A||
+|[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|[e081](https://www.advanscene.com/html/Releases/dbrelds.php?id=5698)|[XXXX](http://www.ds-scene.net/?s=viewtopic&nid=10419)|NTR-NTRJ-JPN|47E4D309|47E4D309||None|N/A|Demo|
