@@ -26,6 +26,7 @@
     m1.delete();
     callback("CC(=O)Oc1ccccc1C(=O)O");
   });
+  let status = 0;
   function form_to_details(details) {
     var controls = ["addAtomIndices", "addBondIndices", "explicitMethyl", "addStereoAnnotation"];
     for (i in controls) {
@@ -79,10 +80,11 @@
       }
     }
     mol.delete();
+    status = 0;
   }
   function sma_callback(text) {
     var qmol = RDKitModule.get_qmol(text);
-    var mol = RDKitModule.get_mol(document.getElementById("smiles_input").value);
+    var mol = status === 0 ? RDKitModule.get_mol(document.getElementById("smiles_input").value) : RDKitModule.get_mol_from_inchi(document.getElementById('inchi_input').value);
     if (mol.is_valid() && qmol.is_valid()) {
       var mdetails = mol.get_substruct_match(qmol);
       var match = JSON.parse(mdetails);
@@ -110,15 +112,19 @@
   function option_changed(cb) {
     var smi = document.getElementById('smiles_input').value;
     var sma = document.getElementById('smarts_input').value;
+    let inchi = document.getElementById('inchi_input').value;
     if (sma) {
       sma_callback(sma);
-    } else {
+    } else if (status === 0) {
       callback(smi, false);
-    }
+    } else {
+      inchi_callback(inchi, false);
+    };
   }
   function abbreviation_option_changed(cb) {
     var smi = document.getElementById('smiles_input').value;
-    var mol = RDKitModule.get_mol(smi);
+    let inchi = document.getElementById('inchi_input').value;
+    var mol = status === 0 ? RDKitModule.get_mol(smi) : RDKitModule.get_mol_from_inchi(inchi);
     if(document.getElementById('useAbbreviations').checked){
       var useLinkers = document.getElementById('useLinkers').checked;
       var maxCoverage = +(document.getElementById('maxCoverage').value);
@@ -141,6 +147,7 @@
       };
     };
     mol.delete();
+    status = 1;
   };
 </script>
 
