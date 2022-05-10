@@ -66,6 +66,8 @@
       draw(mol);
       var ob = document.getElementById("can_smiles");
       ob.outerHTML = "<div id='can_smiles'>" + mol.get_smiles() + "</div>";
+      let obinchi = document.getElementById('can_inchi');
+      obinchi.outerHTML = `<div id='can_inchi'>${mol.get_inchi()}</div>`;
       if (update_descrs) {
         var descrs = JSON.parse(mol.get_descriptors());
         var db = document.getElementById("descrs");
@@ -124,6 +126,22 @@
     }
     draw(mol);
   }
+  const inchi_callback = (text, update_descrs) => {
+    let mol = RDKitModule.get_mol_from_inchi(text);
+    if (mol.is_valid()) {
+      draw(mol);
+      let ob = document.getElementById('can_smiles');
+      ob.outerHTML = `<div id='can_smiles'>${mol.get_smiles()}</div>`;
+      let obinchi = document.getElementById('can_inchi');
+      obinchi.outerHTML = `<div id='can_inchi'>${mol.get_inchi()}</div>`;
+      if (update_descrs) {
+        let descrs = JSON.parse(mol.get_descriptors());
+        let db = document.getElementById('descrs');
+        db.outerHTML = `<div id='descrs'><b>AMW:</b> ${descrs.amw}<br /><b>MolLogP:</b> ${descrs.CrippenClogP}<br /><b>MFP2:</b> ${mol.get_morgan_fp(2, 128)}</div>`;
+      };
+    };
+    mol.delete();
+  };
 </script>
 
 <body>
@@ -132,10 +150,12 @@
     <div id="molecule">
       <div id="drawing"></div>
       <div id="can_smiles"></div>
+      <div id="can_inchi"></div>
     </div>
     <br>
     SMILES: <input id="smiles_input" type="text" value="CC(=O)Oc1ccccc1C(=O)O" onkeyup="callback(this.value,true)">
     SMARTS: <input id="smarts_input" type="text" value="" onkeyup="sma_callback(this.value)">
+    InChI: <input id="inchi_input" type="text" value="" onkeyup="inchi_callback(this.value, true)">
 
     <br>
     <h2>Computed values</h2>
