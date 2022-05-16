@@ -63,10 +63,10 @@
   }
   function callback(text, update_descrs) {
     var mol = RDKitModule.get_mol(text);
-    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
-      mol = RDKitModule.get_canonical_tautomer(mol);
-    };
     if (mol.is_valid()) {
+      if (document.getElementById('canonicalTautomer').checked) {
+        mol = RDKitModule.get_canonical_tautomer(mol);
+      };
       draw(mol);
       var ob = document.getElementById("can_smiles");
       ob.outerHTML = "<div id='can_smiles'>" + mol.get_smiles() + "</div>";
@@ -88,10 +88,10 @@
   function sma_callback(text) {
     var qmol = RDKitModule.get_qmol(text);
     var mol = status === 0 ? RDKitModule.get_mol(document.getElementById("smiles_input").value) : RDKitModule.get_mol_from_inchi(document.getElementById('inchi_input').value);
-    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
-      mol = RDKitModule.get_canonical_tautomer(mol);
-    };
     if (mol.is_valid() && qmol.is_valid()) {
+      if (document.getElementById('canonicalTautomer').checked) {
+        mol = RDKitModule.get_canonical_tautomer(mol);
+      };
       var mdetails = mol.get_substruct_match(qmol);
       var match = JSON.parse(mdetails);
       if (match.atoms && match.atoms.length) draw_with_highlights(mol, match);
@@ -105,10 +105,10 @@
     }
     var qmol = RDKitModule.get_mol(text);
     var mol = RDKitModule.get_mol(document.getElementById("smiles_input").value);
-    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
-      mol = RDKitModule.get_canonical_tautomer(mol);
-    };
     if (mol.is_valid() && qmol.is_valid()) {
+      if (document.getElementById('canonicalTautomer').checked) {
+        mol = RDKitModule.get_canonical_tautomer(mol);
+      };
       var mdetails = mol.get_substruct_match(qmol);
       var match = JSON.parse(mdetails);
       var useCoordgen = document.getElementById("useCoordgen").checked;
@@ -134,7 +134,7 @@
     var smi = document.getElementById('smiles_input').value;
     let inchi = document.getElementById('inchi_input').value;
     var mol = status === 0 ? RDKitModule.get_mol(smi) : RDKitModule.get_mol_from_inchi(inchi);
-    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
+    if (document.getElementById('canonicalTautomer').checked) {
       mol = RDKitModule.get_canonical_tautomer(mol);
     };
     if(document.getElementById('useAbbreviations').checked){
@@ -146,10 +146,10 @@
   }
   const inchi_callback = (text, update_descrs) => {
     let mol = RDKitModule.get_mol_from_inchi(text);
-    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
-      mol = RDKitModule.get_canonical_tautomer(mol);
-    };
     if (mol.is_valid()) {
+      if (document.getElementById('canonicalTautomer').checked) {
+        mol = RDKitModule.get_canonical_tautomer(mol);
+      };
       draw(mol);
       let ob = document.getElementById('can_smiles');
       ob.outerHTML = `<div id='can_smiles'>${mol.get_smiles()}</div>`;
