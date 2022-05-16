@@ -63,6 +63,9 @@
   }
   function callback(text, update_descrs) {
     var mol = RDKitModule.get_mol(text);
+    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
+      mol = RDKitModule.get_canonical_tautomer(mol);
+    };
     if (mol.is_valid()) {
       draw(mol);
       var ob = document.getElementById("can_smiles");
@@ -85,6 +88,9 @@
   function sma_callback(text) {
     var qmol = RDKitModule.get_qmol(text);
     var mol = status === 0 ? RDKitModule.get_mol(document.getElementById("smiles_input").value) : RDKitModule.get_mol_from_inchi(document.getElementById('inchi_input').value);
+    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
+      mol = RDKitModule.get_canonical_tautomer(mol);
+    };
     if (mol.is_valid() && qmol.is_valid()) {
       var mdetails = mol.get_substruct_match(qmol);
       var match = JSON.parse(mdetails);
@@ -99,6 +105,9 @@
     }
     var qmol = RDKitModule.get_mol(text);
     var mol = RDKitModule.get_mol(document.getElementById("smiles_input").value);
+    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
+      mol = RDKitModule.get_canonical_tautomer(mol);
+    };
     if (mol.is_valid() && qmol.is_valid()) {
       var mdetails = mol.get_substruct_match(qmol);
       var match = JSON.parse(mdetails);
@@ -125,6 +134,9 @@
     var smi = document.getElementById('smiles_input').value;
     let inchi = document.getElementById('inchi_input').value;
     var mol = status === 0 ? RDKitModule.get_mol(smi) : RDKitModule.get_mol_from_inchi(inchi);
+    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
+      mol = RDKitModule.get_canonical_tautomer(mol);
+    };
     if(document.getElementById('useAbbreviations').checked){
       var useLinkers = document.getElementById('useLinkers').checked;
       var maxCoverage = +(document.getElementById('maxCoverage').value);
@@ -134,6 +146,9 @@
   }
   const inchi_callback = (text, update_descrs) => {
     let mol = RDKitModule.get_mol_from_inchi(text);
+    if (mol.is_valid() && document.getElementById('canonicalTautomer').checked) {
+      mol = RDKitModule.get_canonical_tautomer(mol);
+    };
     if (mol.is_valid()) {
       draw(mol);
       let ob = document.getElementById('can_smiles');
@@ -185,6 +200,9 @@
       <br />
       <input type="checkbox" id="kekulize" name="kekulize" onclick="option_changed(this);" checked=true>
       <label for="kekulize">kekulize</label>
+      <br />
+      <input type="checkbox" id="canonicalTautomer" name="canonicalTautomer" onclick="option_changed(this);">
+      <label for="canonicalTautomer">canonicalTautomer</label>
       <br />
       <input type="text" id="legend" onkeyup="option_changed(this);"><label for="legend">legend</label>
       <input type="text" id="legendFontSize" onkeyup="option_changed(this);"><label
