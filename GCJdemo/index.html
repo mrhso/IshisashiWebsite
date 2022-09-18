@@ -158,8 +158,8 @@ tbody td:nth-child(n+2) {
           <li><input type="radio" name="region" value="cn" checked=true> <label>Chinese mainland</label>
           <li><input type="radio" name="region" value="hkmo"> <label>HKSAR / Macao</label>
           <li><input type="radio" name="region" value="tw"> <label>Taiwan</label>
-          <li><input type="radio" name="region" value="ph"> <label>Penghu</label>
-          <li><input type="radio" name="region" value="km"> <label>Kinmen / Lienchiang (ROC)</label>
+          <li><input type="radio" name="region" value="ph"> <label>Penghu / Lienchiang (ROC)</label>
+          <li><input type="radio" name="region" value="km"> <label>Kinmen</label>
           <li><input type="radio" name="region" value="other"> <label>Other</label></ul>
         <li><label>Coords type:</label><ul>
           <li><input type="radio" name="coordsType" value="wgs" checked=true> <label>WGS-84</label>
@@ -402,7 +402,7 @@ const getCoordsType = (map) => {
         return 1;
       };
     };
-  // Penghu
+  // Penghu / Lienchiang (ROC)
   } else if (document.getElementById('map').region[3].checked) {
     if (map === 'tmap') {
       return 0;
@@ -417,7 +417,7 @@ const getCoordsType = (map) => {
         return 1;
       };
     };
-  // Kinmen / Lienchiang (ROC)
+  // Kinmen
   } else if (document.getElementById('map').region[4].checked) {
     if (map === 'tmap') {
       return 0;
