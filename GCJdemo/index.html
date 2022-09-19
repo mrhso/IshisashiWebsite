@@ -173,13 +173,13 @@ tbody td:nth-child(n+2) {
       </form>
       <button onclick="return fill_output() && false">Screw that!</button>
       <div id="tmapDiv" style="width: 250px; height: 250px;"></div>
-      <p>天地图 WGS-84</p>
+      <p id="tmapText">天地图 WGS-84</p>
       <div id="amapDiv" style="width: 250px; height: 250px;"></div>
-      <p>高德地图 GCJ-02</p>
+      <p id="amapText">高德地图 GCJ-02</p>
       <div id="bmapDiv" style="width: 300px; height: 300px;"></div>
-      <p>百度地图 BD-09</p>
+      <p id="bmapText">百度地图 BD-09</p>
       <div id="qmapDiv" style="width: 250px; height: 250px;"></div>
-      <p>腾讯地图 GCJ-02</p>
+      <p id="qmapText">腾讯地图 GCJ-02</p>
     </section></article>
     <section id="notes">
       <h2>Notes</h2>
@@ -617,6 +617,12 @@ function fill_output() {
   bmapMarker.setPosition(new BMap.Point(bmapCoords.lon, bmapCoords.lat));
   qmap.panTo(new qq.maps.LatLng(qmapCoords.lat, qmapCoords.lon));
   qmapMarker.setPosition(new qq.maps.LatLng(qmapCoords.lat, qmapCoords.lon));
+
+  let coordsTypeNames = ['WGS-84', 'GCJ-02', 'BD-09'];
+  document.getElementById('tmapText').innerText = `天地图 ${coordsTypeNames[getCoordsType('tmap')]}`;
+  document.getElementById('amapText').innerText = `高德地图 ${coordsTypeNames[getCoordsType('amap')]}`;
+  document.getElementById('bmapText').innerText = `百度地图 ${coordsTypeNames[getCoordsType('bmap')]}`;
+  document.getElementById('qmapText').innerText = `腾讯地图 ${coordsTypeNames[getCoordsType('qmap')]}`;
 
   return false
 }
