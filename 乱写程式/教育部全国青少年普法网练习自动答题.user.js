@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         教育部全国青少年普法网练习自动答题
 // @namespace    https://github.com/mrhso
-// @version      0.114514
+// @version      0.1919810
 // @description  非常谔谔，非常野蛮
 // @author       Ishisashi
-// @match        *://static.qspfw.com/xf2020/learn-practice.html?*
+// @match        *://static.qspfw.moe.gov.cn/xf2022/learn-practice.html?*
 // @grant        none
 // ==/UserScript==
 
@@ -21,7 +21,7 @@
     const answer = () => {
         let done = false;
         for (let [question, answer] of questions) {
-            let input = document.getElementsByClassName('exam_question')[0].innerHTML;
+            let input = document.getElementsByClassName('exam_question')[0].children[0].innerHTML;
             if (input === question) {
                 let length = document.getElementsByClassName('item ').length;
                 let option = 0;
@@ -42,10 +42,10 @@
 
     await sleep(10);
     let offset = 0;
-    while (offset < 30) {
+    while (offset < 5) {
         answer();
         await sleep(10);
-        offset === 29 ? nextExam() : nextQuestion();
+        offset === 4 ? nextExam() : nextQuestion();
         await sleep(10);
         offset += 1;
     };
