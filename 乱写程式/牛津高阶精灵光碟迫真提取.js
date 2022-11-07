@@ -33,8 +33,8 @@ const main = async () => {
             let html = '<link rel="stylesheet" type="text/css" href="css/oa_genie_style.css" />\r\n' + data
             .replace(/\r\n/gu, '\n').replace(/\r/gu, '\n').replace(/\n/gu, '\r\n')
             .match(/<body.*?>\r\n(.*)\r\n<\/body>/su)[1]
-            .replace(/<a href="#" on[cC]lick="window\.external\.viewmode\('[Ss]hort'\)"><img src="viewshort\.gif" border="0">/gu, '')
-            .replace(/<a href="#" on[cC]lick="window\.external\.playaudio\('(.*?)'\)">/gu, (_, name) => {
+            .replace(/<a href="#" on[Cc]lick="window\.external\.viewmode\('[Ss]hort'\)"><img src="viewshort\.gif" border="0">/gu, '')
+            .replace(/<a href="#" on[Cc]lick="window\.external\.playaudio\('(.*?)'\)">/gu, (_, name) => {
                 name = name.replace(/.*\//gu, '');
                 return `<a href="sound://audio/${name}">`;
             })
