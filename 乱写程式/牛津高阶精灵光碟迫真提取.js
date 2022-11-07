@@ -20,9 +20,8 @@ const main = async () => {
         for (let { ID, RootUID, FN, HW, POS, Data, DataShort } of rows) {
             let data = Data.toString();
             if (parseInt(RootUID) % 2 === 0) {
-                let offset = 0;
-                while (offset < drm.length) {
-                    data = data.replace(new RegExp(drm[offset][0], 'gu'), drm[offset][1]);
+                for (let [from, to] of drm) {
+                    data = data.replace(new RegExp(from, 'gu'), to);
                     offset += 1;
                 };
             };
