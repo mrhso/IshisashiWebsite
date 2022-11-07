@@ -22,7 +22,6 @@ const main = async () => {
             if (parseInt(RootUID) % 2 === 0) {
                 for (let [from, to] of drm) {
                     data = data.replace(new RegExp(from, 'gu'), to);
-                    offset += 1;
                 };
             };
             // 龟头球：犬科动物的一种构造
