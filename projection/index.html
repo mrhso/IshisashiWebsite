@@ -26,10 +26,40 @@
         </form>
         <script>
             'use strict';
+
             let svg = d3.select('body').append('svg');
-            let graticule = d3.geoGraticule10();
             let outline = { type: 'Sphere' };
+            let graticule = d3.geoGraticule10();
             let world;
+
+            // 修正曲线定向
+            // https://observablehq.com/@fil/normalize-winding
+            const normalizeWindingInPlace = (p) => {
+                const g = p.geometry || p;
+                if (p.type === 'FeatureCollection') {
+                    p.features = p.features.map(normalizeWindingInPlace);
+                } else if (p.type === 'GeometryCollection') {
+                    p.geometries = p.geometries.map(normalizeWindingInPlace);
+                } else if (g.type === 'MultiPolygon') {
+                    g.coordinates = g.coordinates.map((poly) =>
+                        poly.map((ring, i) =>
+                            (i > 0) ^
+                            (d3.geoArea({ type: 'Polygon', coordinates: [ring] }) > 2 * Math.PI)
+                                ? ring.reverse()
+                                : ring
+                        )
+                    );
+                } else if (g.type === 'Polygon') {
+                    g.coordinates = g.coordinates.map((ring, i) =>
+                        (i > 0) ^
+                        (d3.geoArea({ type: 'Polygon', coordinates: [ring] }) > 2 * Math.PI)
+                            ? ring.reverse()
+                            : ring
+                    );
+                };
+                return p;
+            };
+
             const reload = () => {
                 let projection = eval(document.getElementById('projection').value);
                 let path = d3.geoPath(projection);
@@ -41,9 +71,10 @@
                 defs.append('path').datum(outline).attr('id', 'outline').attr('d', path);
                 defs.append('clipPath').attr('id', 'clip').append('use').attr('xlink:href', '#outline');
                 svg.append('path').datum(graticule).attr('id', 'graticule').attr('d', path).attr('clip-path', 'url(#clip)').attr('stroke', '#808080').attr('fill', 'none');
-                svg.append('path').datum(topojson.feature(world, world.objects.land)).attr('id', 'land').attr('d', path).attr('clip-path', 'url(#clip)');
+                svg.append('path').datum(normalizeWindingInPlace(topojson.feature(world, world.objects.land))).attr('id', 'land').attr('d', path).attr('clip-path', 'url(#clip)');
                 svg.append('use').attr('xlink:href', '#outline').attr('stroke', '#000000').attr('fill', 'none');
             };
+
             let presets = {
                 east: '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    // 裁切一下\n    // 不过这样的实现还不够完美\n    if (Math.abs(y) > 31.397650750870312) {\n        y = Math.sign(y) * 31.397650750870312;\n    };\n    return [x, y];\n}).rotate([-150, 0, 0]);',
                 west: '// 郝晓光《经纬跨越四百年》附录 1\nd3.geoProjection((lon, lat) => {\n    let phi = (180 / Math.PI) * lat;\n    let b = 1.1;\n    let c = 0.02893726;\n    let y0 = (1.1068 * phi + 0.000005 * phi ** 3) / 3.3;\n    let yn = 0.505942 * phi - 2.447552e-5 * phi ** 3 + 1.164925e-9 * phi ** 5;\n    let xn = Math.sqrt(2450.25 - 1.625 * yn ** 2) + 0.5;\n    let rho = (xn ** 2 + (yn - y0) ** 2) / (2 * (yn - y0));\n    let deltaPi = Math.asin(xn / rho);\n    // 加上绝对值以使左右对称\n    let delta = deltaPi * b * (1 - c * Math.abs(lon)) * lon / Math.PI;\n    let y = lat === 0 ? 0 : y0 + rho * (1 - Math.cos(delta));\n    let x = lat === 0 ? xn * b * (1 - c * Math.abs(lon)) * lon / Math.PI : rho * Math.sin(delta);\n    // 裁切一下\n    // 不过这样的实现还不够完美\n    if (Math.abs(y) > 31.397650750870312) {\n        y = Math.sign(y) * 31.397650750870312;\n    };\n    return [x, y];\n});',
@@ -52,11 +83,13 @@
                 // TODO
                 // std: '',
             };
+
             document.getElementById('projection').value = presets.east;
             document.getElementById('preset').onchange = () => {
                 document.getElementById('projection').value = presets[document.getElementById('preset').value];
                 reload();
             };
+
             d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then((json) => {
                 world = json;
                 reload();
