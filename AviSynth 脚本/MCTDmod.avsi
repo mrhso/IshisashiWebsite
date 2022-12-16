@@ -2,9 +2,9 @@
 ###                                                                                                                     ###
 ###                                     Motion-Compensated Temporal Denoise: MCTD()                                     ###
 ###                                                                                                                     ###
-###                                      v1.4.20 by "LaTo INV.", mod4.2 by 06_taro                                      ###
+###                                      v1.4.20 by "LaTo INV.", mod4.2 by 06_taro  mod4.3 by AmjadSONY                 ###
 ###                                                                                                                     ###
-###                                                    09 Feb 2013                                                      ###
+###                                                    08 may 2013                                                      ###
 ###                                                                                                                     ###
 ###########################################################################################################################
 ###
@@ -212,7 +212,7 @@
 ### |             - "high"                                                                          |
 ### |             - "very high"                                                                     |
 ### | useMMask : Enable motion mask for sharp/stabilize/enhance along with edge mask [default=true] |
-### | pp       : Enable MCTD_PP for post-processing [default=true]                                  |
+### | pp       : Enable MCTDmod_PP for post-processing [default=true]                                  |
 ### +-----------------------------------------------------------------------------------------------+
 ###
 ###
@@ -330,7 +330,7 @@
 ### MCTD's Post Processor :
 ### ------------------------------------
 ###
-### USAGE: MCTD_PP( denoised, source,
+### USAGE: MCTDmod_PP( denoised, source,
 ###                 sharp, adapt, strength, SHmode, SHmethod, Slimit, Sovershoot, Tlimit, Tovershoot, ssource, shF,
 ###                 protect, cutoff, threshold, maxdiff,
 ###                 AA, useEEDI2, reduc, maxd, AAthr, method, aaF,
@@ -349,13 +349,15 @@
 ### "Sharp" & "Protect" options need 2 inputs:
 ### EX: source=last
 ###     denoised=source.FFT3Dfilter()
-###     MCTD_PP(denoised,source,...)
+###     MCTDmod_PP(denoised,source,...)
 ### The others only need "denoised".
 ###
 ###
 ###
 ### CHANGELOG:
 ### ----------
+###
+### v1.4.20 mod4.3: fix ""I don't know what "refine" means"" When the MCTemporalDenoise and MCTD in auto-load folder
 ###
 ### v1.4.20 mod4.2: fix documents and code comments of pMode
 ###
@@ -380,17 +382,17 @@
 ### v1.4.20 mod3.5: now accept negative value of post as sigma ( was only used to define whether fixband is used on post-denoise, and must be used with custom "ppnr" )
 ###                 added "useMMask" in MCTD to turn motion mask on/off for sharpen/stabilize/enhance
 ###
-### v1.4.20 mod3.4: fully supported Y/U/V in -65535~5 of MCPP_merge16_8, although MCTD_PP only needs value of 1/3
+### v1.4.20 mod3.4: fully supported Y/U/V in -65535~5 of MCPP_merge16_8, although MCTDmod_PP only needs value of 1/3
 ###
 ### v1.4.20 mod3.3: added "stF" to allow custom stabilizing filter
 ###
 ### v1.4.20 mod3.2: made lthresh/cthresh changeable
 ###
-### v1.4.20 mod3.1: added "useMMask" in MCTD_PP to turn motion mask on/off for sharpen/stabilize/enhance
+### v1.4.20 mod3.1: added "useMMask" in MCTDmod_PP to turn motion mask on/off for sharpen/stabilize/enhance
 ###                 changed the type of "sigma" from int to float
 ###
 ### v1.4.20 mod3: fixed scene change frames not being filtered correctly with sharp/stabilize/enhance
-###               added "pp" in MCTD to turn all post-processing in MCTD_PP off
+###               added "pp" in MCTD to turn all post-processing in MCTDmod_PP off
 ###               supported stacked 16-bit output for custom "dbF" ( mainly implemented by SAPikachu )
 ###
 ### v1.4.20 mod2: removed deblock mod16 warnings when deblock=true, pad and crop internally
@@ -566,7 +568,7 @@ settings_num = (settings == "high")      ? 3 : settings_num
 settings_num = (settings == "very high") ? 4 : settings_num
 Assert(settings_num >=0 ? true : false, chr(10) + "These settings do not exist !" + chr(10))
 
-   function MCTD_Defaults(clip clp, int "settings_num", string "setting")
+   function MCTDmod_Defaults(clip clp, int "settings_num", string "setting")
    {
    HD = (clp.width > 1024 || clp.height > 576) ? true : false
 
@@ -664,97 +666,97 @@ Assert(settings_num >=0 ? true : false, chr(10) + "These settings do not exist !
    return Eval(setting)
    }
 
-radius      = default(radius,       MCTD_Defaults( i, settings_num, "radius"      ) )
-sigma       = default(sigma,        MCTD_Defaults( i, settings_num, "sigma"       ) )
-twopass     = default(twopass,      MCTD_Defaults( i, settings_num, "twopass"     ) )
-useTTmpSm   = default(useTTmpSm,    MCTD_Defaults( i, settings_num, "useTTmpSm"   ) )
-limit       = default(limit,        MCTD_Defaults( i, settings_num, "limit"       ) )
+radius      = default(radius,       MCTDmod_Defaults( i, settings_num, "radius"      ) )
+sigma       = default(sigma,        MCTDmod_Defaults( i, settings_num, "sigma"       ) )
+twopass     = default(twopass,      MCTDmod_Defaults( i, settings_num, "twopass"     ) )
+useTTmpSm   = default(useTTmpSm,    MCTDmod_Defaults( i, settings_num, "useTTmpSm"   ) )
+limit       = default(limit,        MCTDmod_Defaults( i, settings_num, "limit"       ) )
 limitC      = default(limitC,       limit                                           )
-limit2      = default(limit2,       MCTD_Defaults( i, settings_num, "limit2"      ) )
+limit2      = default(limit2,       MCTDmod_Defaults( i, settings_num, "limit2"      ) )
 limitC2     = default(limitC2,      limit2                                          )
-post        = default(post,         MCTD_Defaults( i, settings_num, "post"        ) )
-chroma      = default(chroma,       MCTD_Defaults( i, settings_num, "chroma"      ) )
-interlaced  = default(interlaced,   MCTD_Defaults( i, settings_num, "interlaced"  ) )
-refine      = default(refine,       MCTD_Defaults( i, settings_num, "refine"      ) )
-pMode       = default(pMode,        MCTD_Defaults( i, settings_num, "pMode"       ) )
+post        = default(post,         MCTDmod_Defaults( i, settings_num, "post"        ) )
+chroma      = default(chroma,       MCTDmod_Defaults( i, settings_num, "chroma"      ) )
+interlaced  = default(interlaced,   MCTDmod_Defaults( i, settings_num, "interlaced"  ) )
+refine      = default(refine,       MCTDmod_Defaults( i, settings_num, "refine"      ) )
+pMode       = default(pMode,        MCTDmod_Defaults( i, settings_num, "pMode"       ) )
 
-sharp       = default(sharp,        MCTD_Defaults( i, settings_num, "sharp"       ) )
-adapt       = default(adapt,        MCTD_Defaults( i, settings_num, "adapt"       ) )
-strength    = default(strength,     MCTD_Defaults( i, settings_num, "strength"    ) )
-SHmode      = default(SHmode,       MCTD_Defaults( i, settings_num, "SHmode"      ) )
-SHmethod    = default(SHmethod,     MCTD_Defaults( i, settings_num, "SHmethod"    ) )
-Slimit      = default(Slimit,       MCTD_Defaults( i, settings_num, "Slimit"      ) )
-Sovershoot  = default(Sovershoot,   MCTD_Defaults( i, settings_num, "Sovershoot"  ) )
-Tlimit      = default(Tlimit,       MCTD_Defaults( i, settings_num, "Tlimit"      ) )
-Tovershoot  = default(Tovershoot,   MCTD_Defaults( i, settings_num, "Tovershoot"  ) )
-ssource     = default(ssource,      MCTD_Defaults( i, settings_num, "ssource"     ) )
-shF         = default(shF,          MCTD_Defaults( i, settings_num, "shF"         ) )
+sharp       = default(sharp,        MCTDmod_Defaults( i, settings_num, "sharp"       ) )
+adapt       = default(adapt,        MCTDmod_Defaults( i, settings_num, "adapt"       ) )
+strength    = default(strength,     MCTDmod_Defaults( i, settings_num, "strength"    ) )
+SHmode      = default(SHmode,       MCTDmod_Defaults( i, settings_num, "SHmode"      ) )
+SHmethod    = default(SHmethod,     MCTDmod_Defaults( i, settings_num, "SHmethod"    ) )
+Slimit      = default(Slimit,       MCTDmod_Defaults( i, settings_num, "Slimit"      ) )
+Sovershoot  = default(Sovershoot,   MCTDmod_Defaults( i, settings_num, "Sovershoot"  ) )
+Tlimit      = default(Tlimit,       MCTDmod_Defaults( i, settings_num, "Tlimit"      ) )
+Tovershoot  = default(Tovershoot,   MCTDmod_Defaults( i, settings_num, "Tovershoot"  ) )
+ssource     = default(ssource,      MCTDmod_Defaults( i, settings_num, "ssource"     ) )
+shF         = default(shF,          MCTDmod_Defaults( i, settings_num, "shF"         ) )
 
-protect     = default(protect,      MCTD_Defaults( i, settings_num, "protect"     ) )
-cutoff      = default(cutoff,       MCTD_Defaults( i, settings_num, "cutoff"      ) )
-threshold   = default(threshold,    MCTD_Defaults( i, settings_num, "threshold"   ) )
-maxdiff     = default(maxdiff,      MCTD_Defaults( i, settings_num, "maxdiff"     ) )
+protect     = default(protect,      MCTDmod_Defaults( i, settings_num, "protect"     ) )
+cutoff      = default(cutoff,       MCTDmod_Defaults( i, settings_num, "cutoff"      ) )
+threshold   = default(threshold,    MCTDmod_Defaults( i, settings_num, "threshold"   ) )
+maxdiff     = default(maxdiff,      MCTDmod_Defaults( i, settings_num, "maxdiff"     ) )
 
-AA          = default(AA,           MCTD_Defaults( i, settings_num, "AA"          ) )
-useEEDI2    = default(useEEDI2,     MCTD_Defaults( i, settings_num, "useEEDI2"    ) )
-reduc       = default(reduc,        MCTD_Defaults( i, settings_num, "reduc"       ) )
-maxd        = default(maxd,         MCTD_Defaults( i, settings_num, "maxd"        ) )
-AAthr       = default(AAthr,        MCTD_Defaults( i, settings_num, "AAthr"       ) )
-method      = default(method,       MCTD_Defaults( i, settings_num, "method"      ) )
-aaF         = default(aaF,          MCTD_Defaults( i, settings_num, "aaF"         ) )
+AA          = default(AA,           MCTDmod_Defaults( i, settings_num, "AA"          ) )
+useEEDI2    = default(useEEDI2,     MCTDmod_Defaults( i, settings_num, "useEEDI2"    ) )
+reduc       = default(reduc,        MCTDmod_Defaults( i, settings_num, "reduc"       ) )
+maxd        = default(maxd,         MCTDmod_Defaults( i, settings_num, "maxd"        ) )
+AAthr       = default(AAthr,        MCTDmod_Defaults( i, settings_num, "AAthr"       ) )
+method      = default(method,       MCTDmod_Defaults( i, settings_num, "method"      ) )
+aaF         = default(aaF,          MCTDmod_Defaults( i, settings_num, "aaF"         ) )
 
-deblock     = default(deblock,      MCTD_Defaults( i, settings_num, "deblock"     ) )
-useQED      = default(useQED,       MCTD_Defaults( i, settings_num, "useQED"      ) )
-quant1      = default(quant1,       MCTD_Defaults( i, settings_num, "quant1"      ) )
-quant2      = default(quant2,       MCTD_Defaults( i, settings_num, "quant2"      ) )
+deblock     = default(deblock,      MCTDmod_Defaults( i, settings_num, "deblock"     ) )
+useQED      = default(useQED,       MCTDmod_Defaults( i, settings_num, "useQED"      ) )
+quant1      = default(quant1,       MCTDmod_Defaults( i, settings_num, "quant1"      ) )
+quant2      = default(quant2,       MCTDmod_Defaults( i, settings_num, "quant2"      ) )
 
-edgeclean   = default(edgeclean,    MCTD_Defaults( i, settings_num, "edgeclean"   ) )
-ECrad       = default(ECrad,        MCTD_Defaults( i, settings_num, "ECrad"       ) )
-ECthr       = default(ECthr,        MCTD_Defaults( i, settings_num, "ECthr"       ) )
-ECmode      = default(ECmode,       MCTD_Defaults( i, settings_num, "ECmode"      ) )
+edgeclean   = default(edgeclean,    MCTDmod_Defaults( i, settings_num, "edgeclean"   ) )
+ECrad       = default(ECrad,        MCTDmod_Defaults( i, settings_num, "ECrad"       ) )
+ECthr       = default(ECthr,        MCTDmod_Defaults( i, settings_num, "ECthr"       ) )
+ECmode      = default(ECmode,       MCTDmod_Defaults( i, settings_num, "ECmode"      ) )
 
-stabilize   = default(stabilize,    MCTD_Defaults( i, settings_num, "stabilize"   ) )
-maxr        = default(maxr,         MCTD_Defaults( i, settings_num, "maxr"        ) )
-lthresh     = default(lthresh,      MCTD_Defaults( i, settings_num, "lthresh"     ) )
-cthresh     = default(cthresh,      MCTD_Defaults( i, settings_num, "cthresh"     ) )
-TTstr       = default(TTstr,        MCTD_Defaults( i, settings_num, "TTstr"       ) )
-stF         = default(stF,          MCTD_Defaults( i, settings_num, "stF"         ) )
+stabilize   = default(stabilize,    MCTDmod_Defaults( i, settings_num, "stabilize"   ) )
+maxr        = default(maxr,         MCTDmod_Defaults( i, settings_num, "maxr"        ) )
+lthresh     = default(lthresh,      MCTDmod_Defaults( i, settings_num, "lthresh"     ) )
+cthresh     = default(cthresh,      MCTDmod_Defaults( i, settings_num, "cthresh"     ) )
+TTstr       = default(TTstr,        MCTDmod_Defaults( i, settings_num, "TTstr"       ) )
+stF         = default(stF,          MCTDmod_Defaults( i, settings_num, "stF"         ) )
 
-enhance     = default(enhance,      MCTD_Defaults( i, settings_num, "enhance"     ) )
-GFthr       = default(GFthr,        MCTD_Defaults( i, settings_num, "GFthr"       ) )
-AGstr       = default(AGstr,        MCTD_Defaults( i, settings_num, "AGstr"       ) )
-bias        = default(bias,         MCTD_Defaults( i, settings_num, "bias"        ) )
-temp        = default(temp,         MCTD_Defaults( i, settings_num, "temp"        ) )
-dbF         = default(dbF,          MCTD_Defaults( i, settings_num, "dbF"         ) )
+enhance     = default(enhance,      MCTDmod_Defaults( i, settings_num, "enhance"     ) )
+GFthr       = default(GFthr,        MCTDmod_Defaults( i, settings_num, "GFthr"       ) )
+AGstr       = default(AGstr,        MCTDmod_Defaults( i, settings_num, "AGstr"       ) )
+bias        = default(bias,         MCTDmod_Defaults( i, settings_num, "bias"        ) )
+temp        = default(temp,         MCTDmod_Defaults( i, settings_num, "temp"        ) )
+dbF         = default(dbF,          MCTDmod_Defaults( i, settings_num, "dbF"         ) )
 
-bwbh        = default(bwbh,         MCTD_Defaults( i, settings_num, "bwbh"        ) )
-owoh        = default(owoh,         MCTD_Defaults( i, settings_num, "owoh"        ) )
-blksize     = default(blksize,      MCTD_Defaults( i, settings_num, "blksize"     ) )
-overlap     = default(overlap,      MCTD_Defaults( i, settings_num, "overlap"     ) )
+bwbh        = default(bwbh,         MCTDmod_Defaults( i, settings_num, "bwbh"        ) )
+owoh        = default(owoh,         MCTDmod_Defaults( i, settings_num, "owoh"        ) )
+blksize     = default(blksize,      MCTDmod_Defaults( i, settings_num, "blksize"     ) )
+overlap     = default(overlap,      MCTDmod_Defaults( i, settings_num, "overlap"     ) )
 
-GPU         = default(GPU,          MCTD_Defaults( i, settings_num, "GPU"         ) )
-fixband     = default(fixband,      MCTD_Defaults( i, settings_num, "fixband"     ) )
-bt          = default(bt,           MCTD_Defaults( i, settings_num, "bt"          ) )
-ncpu        = default(ncpu,         MCTD_Defaults( i, settings_num, "ncpu"        ) )
-precision   = default(precision,    MCTD_Defaults( i, settings_num, "precision"   ) )
+GPU         = default(GPU,          MCTDmod_Defaults( i, settings_num, "GPU"         ) )
+fixband     = default(fixband,      MCTDmod_Defaults( i, settings_num, "fixband"     ) )
+bt          = default(bt,           MCTDmod_Defaults( i, settings_num, "bt"          ) )
+ncpu        = default(ncpu,         MCTDmod_Defaults( i, settings_num, "ncpu"        ) )
+precision   = default(precision,    MCTDmod_Defaults( i, settings_num, "precision"   ) )
 
-thSAD       = default(thSAD,        MCTD_Defaults( i, settings_num, "thSAD"       ) )
-thSAD2      = default(thSAD2,       MCTD_Defaults( i, settings_num, "thSAD2"      ) )
-thSCD1      = default(thSCD1,       MCTD_Defaults( i, settings_num, "thSCD1"      ) )
-thSCD2      = default(thSCD2,       MCTD_Defaults( i, settings_num, "thSCD2"      ) )
+thSAD       = default(thSAD,        MCTDmod_Defaults( i, settings_num, "thSAD"       ) )
+thSAD2      = default(thSAD2,       MCTDmod_Defaults( i, settings_num, "thSAD2"      ) )
+thSCD1      = default(thSCD1,       MCTDmod_Defaults( i, settings_num, "thSCD1"      ) )
+thSCD2      = default(thSCD2,       MCTDmod_Defaults( i, settings_num, "thSCD2"      ) )
 
-truemotion  = default(truemotion,   MCTD_Defaults( i, settings_num, "truemotion"  ) )
-MVglobal    = default(MVglobal,     MCTD_Defaults( i, settings_num, "MVglobal"    ) )
-pel         = default(pel,          MCTD_Defaults( i, settings_num, "pel"         ) )
-pelsearch   = default(pelsearch,    MCTD_Defaults( i, settings_num, "pelsearch"   ) )
-search      = default(search,       MCTD_Defaults( i, settings_num, "search"      ) )
-searchparam = default(searchparam,  MCTD_Defaults( i, settings_num, "searchparam" ) )
-MVsharp     = default(MVsharp,      MCTD_Defaults( i, settings_num, "MVsharp"     ) )
-DCT         = default(DCT,          MCTD_Defaults( i, settings_num, "DCT"         ) )
+truemotion  = default(truemotion,   MCTDmod_Defaults( i, settings_num, "truemotion"  ) )
+MVglobal    = default(MVglobal,     MCTDmod_Defaults( i, settings_num, "MVglobal"    ) )
+pel         = default(pel,          MCTDmod_Defaults( i, settings_num, "pel"         ) )
+pelsearch   = default(pelsearch,    MCTDmod_Defaults( i, settings_num, "pelsearch"   ) )
+search      = default(search,       MCTDmod_Defaults( i, settings_num, "search"      ) )
+searchparam = default(searchparam,  MCTDmod_Defaults( i, settings_num, "searchparam" ) )
+MVsharp     = default(MVsharp,      MCTDmod_Defaults( i, settings_num, "MVsharp"     ) )
+DCT         = default(DCT,          MCTDmod_Defaults( i, settings_num, "DCT"         ) )
 
-show        = default(show,         MCTD_Defaults( i, settings_num, "show"        ) )
-screenW     = default(screenW,      MCTD_Defaults( i, settings_num, "screenW"     ) )
-screenH     = default(screenH,      MCTD_Defaults( i, settings_num, "screenH"     ) )
+show        = default(show,         MCTDmod_Defaults( i, settings_num, "show"        ) )
+screenW     = default(screenW,      MCTDmod_Defaults( i, settings_num, "screenW"     ) )
+screenH     = default(screenH,      MCTDmod_Defaults( i, settings_num, "screenH"     ) )
 
 show_p      = defined(p) ? "external" : "internal"
 
@@ -882,7 +884,7 @@ b5v = !refine || (radius<5) ? b5v
 b6v = !refine || (radius<6) ? b6v
 \   :                         rMVS.MRecalculate(b6v, truemotion=truemotion, blksize=rfn_blksize, overlap=rfn_overlap, search=search, searchparam=searchparam, DCT=DCT, thSAD=rfn_thSAD, chroma=chroma)
 
-   function MCTD_CTM(clip "i", clip "iMVS", clip "SAD_f1m", clip "SAD_b1m", clip "f1c", clip "b1c",
+   function MCTDmod_CTM(clip "i", clip "iMVS", clip "SAD_f1m", clip "SAD_b1m", clip "f1c", clip "b1c",
    \                 clip "f1v", clip "f2v", clip "f3v", clip "f4v", clip "f5v", clip "f6v", clip "b1v", clip "b2v", clip "b3v", clip "b4v", clip "b5v", clip "b6v",
    \                 int "radius", bool "chroma", int "thSAD", int "thSCD1", int "thSCD2", string "cnr")
    {
@@ -934,7 +936,7 @@ b6v = !refine || (radius<6) ? b6v
    return sm
    }
 
-   function MCTD_MVD(clip "i", clip "iMVS",
+   function MCTDmod_MVD(clip "i", clip "iMVS",
    \                 clip "f1v", clip "f2v", clip "f3v", clip "f4v", clip "f5v", clip "f6v", clip "b1v", clip "b2v", clip "b3v", clip "b4v", clip "b5v", clip "b6v",
    \                 int "radius", bool "chroma", int "thSAD", int "thSCD1", int "thSCD2")
    {
@@ -980,13 +982,13 @@ b1c     = d.MCompensate(dMVS, b1v, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2)
 
 
 ### DENOISING: FIRST PASS
-sm = ( Defined(p1nr) ) ? MCTD_CTM(i=d, iMVS=dMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
+sm = ( Defined(p1nr) ) ? MCTDmod_CTM(i=d, iMVS=dMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
 \                                 f1v=f1v, f2v=f2v, f3v=f3v, f4v=f4v, f5v=f5v, f6v=f6v, b1v=b1v, b2v=b2v, b3v=b3v, b4v=b4v, b5v=b5v, b6v=b6v,
 \                                 radius=radius, chroma=chroma, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2, cnr=p1nr)
-\  : (useTTmpSm==true) ? MCTD_CTM(i=d, iMVS=dMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
+\  : (useTTmpSm==true) ? MCTDmod_CTM(i=d, iMVS=dMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
 \                                 f1v=f1v, f2v=f2v, f3v=f3v, f4v=f4v, f5v=f5v, f6v=f6v, b1v=b1v, b2v=b2v, b3v=b3v, b4v=b4v, b5v=b5v, b6v=b6v,
 \                                 radius=radius, chroma=chroma, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2)
-\  :                     MCTD_MVD(i=d, iMVS=dMVS,
+\  :                     MCTDmod_MVD(i=d, iMVS=dMVS,
 \                                 f1v=f1v, f2v=f2v, f3v=f3v, f4v=f4v, f5v=f5v, f6v=f6v, b1v=b1v, b2v=b2v, b3v=b3v, b4v=b4v, b5v=b5v, b6v=b6v,
 \                                 radius=radius, chroma=chroma, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2)
 
@@ -1072,13 +1074,13 @@ f1c     = !twopass ? f1c     : smL.MCompensate(smLMVS, f1v, thSAD=thSAD, thSCD1=
 b1c     = !twopass ? b1c     : smL.MCompensate(smLMVS, b1v, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2)
 
 sm = (twopass==false)  ? sm
-\  : ( Defined(p2nr) ) ? MCTD_CTM(i=smL, iMVS=smLMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
+\  : ( Defined(p2nr) ) ? MCTDmod_CTM(i=smL, iMVS=smLMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
 \                                 f1v=f1v, f2v=f2v, f3v=f3v, f4v=f4v, f5v=f5v, f6v=f6v, b1v=b1v, b2v=b2v, b3v=b3v, b4v=b4v, b5v=b5v, b6v=b6v,
 \                                 radius=radius, chroma=chroma, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2, cnr=p2nr)
-\  : (useTTmpSm==true) ? MCTD_CTM(i=smL, iMVS=smLMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
+\  : (useTTmpSm==true) ? MCTDmod_CTM(i=smL, iMVS=smLMVS, SAD_f1m=SAD_f1m, SAD_b1m=SAD_b1m, f1c=f1c, b1c=b1c,
 \                                 f1v=f1v, f2v=f2v, f3v=f3v, f4v=f4v, f5v=f5v, f6v=f6v, b1v=b1v, b2v=b2v, b3v=b3v, b4v=b4v, b5v=b5v, b6v=b6v,
 \                                 radius=radius, chroma=chroma, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2)
-\  :                     MCTD_MVD(i=smL, iMVS=smLMVS,
+\  :                     MCTDmod_MVD(i=smL, iMVS=smLMVS,
 \                                 f1v=f1v, f2v=f2v, f3v=f3v, f4v=f4v, f5v=f5v, f6v=f6v, b1v=b1v, b2v=b2v, b3v=b3v, b4v=b4v, b5v=b5v, b6v=b6v,
 \                                 radius=radius, chroma=chroma, thSAD=thSAD, thSCD1=thSCD1, thSCD2=thSCD2)
 
@@ -1121,7 +1123,7 @@ smP = (post==0)        ? smP
 
 
 ### POST-PROCESSING
-   function MCTD_PP( clip denoised, clip "source",
+   function MCTDmod_PP( clip denoised, clip "source",
    \                 bool "sharp", bool "adapt", int "strength", int "SHmode", int "SHmethod", int "Slimit", int "Sovershoot", bool "Tlimit", int "Tovershoot", val "ssource", string "shF",
    \                 bool "protect", int "cutoff", int "threshold", int "maxdiff",
    \                 bool "AA", bool "useEEDI2", float "reduc", int "maxd", int "AAthr", int "method", string "aaF",
@@ -1143,55 +1145,55 @@ smP = (post==0)        ? smP
    Assert(settings_num >=0 ? true : false, chr(10) + "These settings do not exist !" + chr(10))
 
    sharp       = default(sharp,        false                                                  )
-   adapt       = default(adapt,        MCTD_Defaults( denoised, settings_num, "adapt"       ) )
-   strength    = default(strength,     MCTD_Defaults( denoised, settings_num, "strength"    ) )
-   SHmode      = default(SHmode,       MCTD_Defaults( denoised, settings_num, "SHmode"      ) )
-   SHmethod    = default(SHmethod,     MCTD_Defaults( denoised, settings_num, "SHmethod"    ) )
-   Slimit      = default(Slimit,       MCTD_Defaults( denoised, settings_num, "Slimit"      ) )
-   Sovershoot  = default(Sovershoot,   MCTD_Defaults( denoised, settings_num, "Sovershoot"  ) )
-   Tlimit      = default(Tlimit,       MCTD_Defaults( denoised, settings_num, "Tlimit"      ) )
-   Tovershoot  = default(Tovershoot,   MCTD_Defaults( denoised, settings_num, "Tovershoot"  ) )
-   ssource     = default(ssource,      MCTD_Defaults( denoised, settings_num, "ssource"     ) )
-   shF         = default(shF,          MCTD_Defaults( denoised, settings_num, "shF"         ) )
+   adapt       = default(adapt,        MCTDmod_Defaults( denoised, settings_num, "adapt"       ) )
+   strength    = default(strength,     MCTDmod_Defaults( denoised, settings_num, "strength"    ) )
+   SHmode      = default(SHmode,       MCTDmod_Defaults( denoised, settings_num, "SHmode"      ) )
+   SHmethod    = default(SHmethod,     MCTDmod_Defaults( denoised, settings_num, "SHmethod"    ) )
+   Slimit      = default(Slimit,       MCTDmod_Defaults( denoised, settings_num, "Slimit"      ) )
+   Sovershoot  = default(Sovershoot,   MCTDmod_Defaults( denoised, settings_num, "Sovershoot"  ) )
+   Tlimit      = default(Tlimit,       MCTDmod_Defaults( denoised, settings_num, "Tlimit"      ) )
+   Tovershoot  = default(Tovershoot,   MCTDmod_Defaults( denoised, settings_num, "Tovershoot"  ) )
+   ssource     = default(ssource,      MCTDmod_Defaults( denoised, settings_num, "ssource"     ) )
+   shF         = default(shF,          MCTDmod_Defaults( denoised, settings_num, "shF"         ) )
 
    protect     = default(protect,      false                                                  )
-   cutoff      = default(cutoff,       MCTD_Defaults( denoised, settings_num, "cutoff"      ) )
-   threshold   = default(threshold,    MCTD_Defaults( denoised, settings_num, "threshold"   ) )
-   maxdiff     = default(maxdiff,      MCTD_Defaults( denoised, settings_num, "maxdiff"     ) )
+   cutoff      = default(cutoff,       MCTDmod_Defaults( denoised, settings_num, "cutoff"      ) )
+   threshold   = default(threshold,    MCTDmod_Defaults( denoised, settings_num, "threshold"   ) )
+   maxdiff     = default(maxdiff,      MCTDmod_Defaults( denoised, settings_num, "maxdiff"     ) )
 
    AA          = default(AA,           false                                                  )
-   useEEDI2    = default(useEEDI2,     MCTD_Defaults( denoised, settings_num, "useEEDI2"    ) )
-   reduc       = default(reduc,        MCTD_Defaults( denoised, settings_num, "reduc"       ) )
-   maxd        = default(maxd,         MCTD_Defaults( denoised, settings_num, "maxd"        ) )
-   AAthr       = default(AAthr,        MCTD_Defaults( denoised, settings_num, "AAthr"       ) )
-   method      = default(method,       MCTD_Defaults( denoised, settings_num, "method"      ) )
-   aaF         = default(aaF,          MCTD_Defaults( denoised, settings_num, "aaF"         ) )
+   useEEDI2    = default(useEEDI2,     MCTDmod_Defaults( denoised, settings_num, "useEEDI2"    ) )
+   reduc       = default(reduc,        MCTDmod_Defaults( denoised, settings_num, "reduc"       ) )
+   maxd        = default(maxd,         MCTDmod_Defaults( denoised, settings_num, "maxd"        ) )
+   AAthr       = default(AAthr,        MCTDmod_Defaults( denoised, settings_num, "AAthr"       ) )
+   method      = default(method,       MCTDmod_Defaults( denoised, settings_num, "method"      ) )
+   aaF         = default(aaF,          MCTDmod_Defaults( denoised, settings_num, "aaF"         ) )
 
    deblock     = default(deblock,      false                                                  )
-   useQED      = default(useQED,       MCTD_Defaults( denoised, settings_num, "useQED"      ) )
-   quant1      = default(quant1,       MCTD_Defaults( denoised, settings_num, "quant1"      ) )
-   quant2      = default(quant2,       MCTD_Defaults( denoised, settings_num, "quant2"      ) )
+   useQED      = default(useQED,       MCTDmod_Defaults( denoised, settings_num, "useQED"      ) )
+   quant1      = default(quant1,       MCTDmod_Defaults( denoised, settings_num, "quant1"      ) )
+   quant2      = default(quant2,       MCTDmod_Defaults( denoised, settings_num, "quant2"      ) )
 
    edgeclean   = default(edgeclean,    false                                                  )
-   ECrad       = default(ECrad,        MCTD_Defaults( denoised, settings_num, "ECrad"       ) )
-   ECthr       = default(ECthr,        MCTD_Defaults( denoised, settings_num, "ECthr"       ) )
-   ECmode      = default(ECmode,       MCTD_Defaults( denoised, settings_num, "ECmode"      ) )
+   ECrad       = default(ECrad,        MCTDmod_Defaults( denoised, settings_num, "ECrad"       ) )
+   ECthr       = default(ECthr,        MCTDmod_Defaults( denoised, settings_num, "ECthr"       ) )
+   ECmode      = default(ECmode,       MCTDmod_Defaults( denoised, settings_num, "ECmode"      ) )
 
    stabilize   = default(stabilize,    false                                                  )
-   maxr        = default(maxr,         MCTD_Defaults( denoised, settings_num, "maxr"        ) )
-   lthresh     = default(lthresh,      MCTD_Defaults( denoised, settings_num, "lthresh"     ) )
-   cthresh     = default(cthresh,      MCTD_Defaults( denoised, settings_num, "cthresh"     ) )
-   TTstr       = default(TTstr,        MCTD_Defaults( denoised, settings_num, "TTstr"       ) )
-   stF         = default(stF,          MCTD_Defaults( denoised, settings_num, "stF"         ) )
+   maxr        = default(maxr,         MCTDmod_Defaults( denoised, settings_num, "maxr"        ) )
+   lthresh     = default(lthresh,      MCTDmod_Defaults( denoised, settings_num, "lthresh"     ) )
+   cthresh     = default(cthresh,      MCTDmod_Defaults( denoised, settings_num, "cthresh"     ) )
+   TTstr       = default(TTstr,        MCTDmod_Defaults( denoised, settings_num, "TTstr"       ) )
+   stF         = default(stF,          MCTDmod_Defaults( denoised, settings_num, "stF"         ) )
 
    enhance     = default(enhance,      false                                                  )
-   GFthr       = default(GFthr,        MCTD_Defaults( denoised, settings_num, "GFthr"       ) )
-   AGstr       = default(AGstr,        MCTD_Defaults( denoised, settings_num, "AGstr"       ) )
-   bias        = default(bias,         MCTD_Defaults( denoised, settings_num, "bias"        ) )
-   temp        = default(temp,         MCTD_Defaults( denoised, settings_num, "temp"        ) )
-   dbF         = default(dbF,          MCTD_Defaults( denoised, settings_num, "dbF"         ) )
+   GFthr       = default(GFthr,        MCTDmod_Defaults( denoised, settings_num, "GFthr"       ) )
+   AGstr       = default(AGstr,        MCTDmod_Defaults( denoised, settings_num, "AGstr"       ) )
+   bias        = default(bias,         MCTDmod_Defaults( denoised, settings_num, "bias"        ) )
+   temp        = default(temp,         MCTDmod_Defaults( denoised, settings_num, "temp"        ) )
+   dbF         = default(dbF,          MCTDmod_Defaults( denoised, settings_num, "dbF"         ) )
 
-   chroma      = default(chroma,       MCTD_Defaults( denoised, settings_num, "chroma"      ) )
+   chroma      = default(chroma,       MCTDmod_Defaults( denoised, settings_num, "chroma"      ) )
    useMMask    = default(useMMask,     true                                                   )
    internal    = default(internal,     false                                                  )
 
@@ -1205,32 +1207,32 @@ smP = (post==0)        ? smP
    Assert((ECrad>=1)                     ? true : false, chr(10) + "'ECrad' have not a correct value! [>=1]" + chr(10))
    Assert((ECthr>=0&&ECthr<=255)         ? true : false, chr(10) + "'ECthr' have not a correct value! [0,...,255]" + chr(10))
 
-   Assert((sharp==true||protect==true)&&defined(source)==false ? false : true, chr(10) + "Sharp & Protect need 'source' input in MCTD_PP !" + chr(10))
+   Assert((sharp==true||protect==true)&&defined(source)==false ? false : true, chr(10) + "Sharp & Protect need 'source' input in MCTDmod_PP !" + chr(10))
 
 
    ### WARNING
-   Assert(isYV12(denoised) == True ? true : false, chr(10) + "This is not an YV12 clip ! Please convert color space to YV12 before using MCTD_PP()" + chr(10))
+   Assert(isYV12(denoised) == True ? true : false, chr(10) + "This is not an YV12 clip ! Please convert color space to YV12 before using MCTDmod_PP()" + chr(10))
 
    w = denoised.width()
    h = denoised.height()
 
    m4 = (internal==true) ? true : ((int(w/4.0)*4==w)&&(int(h/4.0)*4==h)) ? true : false
-   Assert( m4 ? true : false, chr(10) + "This is not a MOD4 clip! Please use crop() or addborders() before using MCTD_PP()" + chr(10))
+   Assert( m4 ? true : false, chr(10) + "This is not a MOD4 clip! Please use crop() or addborders() before using MCTDmod_PP()" + chr(10))
 
    ### EXTERNAL
-   blksize     = MCTD_Defaults( denoised, settings_num, "blksize"     )
-   overlap     = MCTD_Defaults( denoised, settings_num, "overlap"     )
-   truemotion  = MCTD_Defaults( denoised, settings_num, "truemotion"  )
-   MVglobal    = MCTD_Defaults( denoised, settings_num, "MVglobal"    )
-   pel         = MCTD_Defaults( denoised, settings_num, "pel"         )
-   pelsearch   = MCTD_Defaults( denoised, settings_num, "pelsearch"   )
-   search      = MCTD_Defaults( denoised, settings_num, "search"      )
-   searchparam = MCTD_Defaults( denoised, settings_num, "searchparam" )
-   MVsharp     = MCTD_Defaults( denoised, settings_num, "MVsharp"     )
-   DCT         = MCTD_Defaults( denoised, settings_num, "DCT"         )
-   thSAD       = MCTD_Defaults( denoised, settings_num, "thSAD"       )
-   thSCD1      = MCTD_Defaults( denoised, settings_num, "thSCD1"      )
-   thSCD2      = MCTD_Defaults( denoised, settings_num, "thSCD2"      )
+   blksize     = MCTDmod_Defaults( denoised, settings_num, "blksize"     )
+   overlap     = MCTDmod_Defaults( denoised, settings_num, "overlap"     )
+   truemotion  = MCTDmod_Defaults( denoised, settings_num, "truemotion"  )
+   MVglobal    = MCTDmod_Defaults( denoised, settings_num, "MVglobal"    )
+   pel         = MCTDmod_Defaults( denoised, settings_num, "pel"         )
+   pelsearch   = MCTDmod_Defaults( denoised, settings_num, "pelsearch"   )
+   search      = MCTDmod_Defaults( denoised, settings_num, "search"      )
+   searchparam = MCTDmod_Defaults( denoised, settings_num, "searchparam" )
+   MVsharp     = MCTDmod_Defaults( denoised, settings_num, "MVsharp"     )
+   DCT         = MCTDmod_Defaults( denoised, settings_num, "DCT"         )
+   thSAD       = MCTDmod_Defaults( denoised, settings_num, "thSAD"       )
+   thSCD1      = MCTDmod_Defaults( denoised, settings_num, "thSCD1"      )
+   thSCD2      = MCTDmod_Defaults( denoised, settings_num, "thSCD2"      )
 
    denoisedMVS = (internal==true) ? denoised : denoised.MSuper(hpad=0,vpad=0,pel=pel,sharp=MVsharp,chroma=false)
    f1v         = (internal==true) ? f1v : MAnalyse(denoisedMVS, isb=false, delta=1, truemotion=truemotion, blksize=blksize, overlap=overlap, pelsearch=pelsearch, search=search, searchparam=searchparam, DCT=DCT, global=MVglobal, chroma=false)
@@ -1351,7 +1353,7 @@ smP = (post==0)        ? smP
    return PP
    }
 
-PP = pp ? MCTD_PP( smP, i,
+PP = pp ? MCTDmod_PP( smP, i,
    \               sharp, adapt, strength, SHmode, SHmethod, Slimit, Sovershoot, Tlimit, Tovershoot, ssource, shF,
    \               protect, cutoff, threshold, maxdiff,
    \               AA, useEEDI2, reduc, maxd, AAthr, method, aaF,
@@ -1374,7 +1376,7 @@ p2nr = Defined(p2nr) ? p2nr : "internal"
 ppnr = Defined(ppnr) ? ppnr : "internal"
 
 ### SHOW
-   function MCTD_Show( clip i, clip p, clip o, int "xf", int "yf", string "version", string "settings", string "show_p",
+   function MCTDmod_Show( clip i, clip p, clip o, int "xf", int "yf", string "version", string "settings", string "show_p",
    \                   int "radius", float "sigma", bool "twopass", bool "useTTmpSm", int "limit", int "limitC", int "limit2", int "limitC2", int "post", bool "chroma", bool "interlaced", bool "refine", int "pMode",
    \                   bool "sharp", bool "adapt", int "strength", int "SHmode", int "SHmethod", int "Slimit", int "Sovershoot", bool "Tlimit", int "Tovershoot", val "ssource", string "shF",
    \                   bool "protect", int "cutoff", int "threshold", int "maxdiff",
@@ -1529,7 +1531,7 @@ ppnr = Defined(ppnr) ? ppnr : "internal"
    return stackvertical(TOP,BOT)
    }
 
-o = (show==false) ? o : MCTD_Show(i,p,o,xf,yf,version,settings,show_p,
+o = (show==false) ? o : MCTDmod_Show(i,p,o,xf,yf,version,settings,show_p,
 \                                 radius,sigma,twopass,useTTmpSm,limit,limitC,limit2,limitC2,post,chroma,interlaced,refine,pMode,
 \                                 sharp,adapt,strength,SHmode,SHmethod,Slimit,Sovershoot,Tlimit,Tovershoot,ssource,shF,
 \                                 protect,cutoff,threshold,maxdiff,
