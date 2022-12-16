@@ -1,5 +1,5 @@
 # Ishisashi 制作的 AviSynth 快捷脚本
-# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)、[SmoothAdjust](https://forum.doom9.org/showthread.php?t=154971)、[MaskTool2](https://github.com/pinterf/masktools/releases)、[Zs_RF_Shared](https://github.com/realfinder/AVS-Stuff/blob/Community/avs%202.5%20and%20up/Zs_RF_Shared.avsi)
+# 直接依赖：[O16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1017)、[Dither tools (Ishisashi mod)](https://forum.doom9.org/showpost.php?p=1386559)、[nnedi3_resize16 (Ishisashi mod)](https://www.nmm-hd.org/newbbs/viewtopic.php?t=1117)、[flash3kyuu_deband](https://www.nmm-hd.org/newbbs/viewtopic.php?t=239)、[SmoothAdjust](https://forum.doom9.org/showthread.php?t=154971)、[MaskTools2](https://github.com/pinterf/masktools/releases)、[Zs_RF_Shared](https://github.com/realfinder/AVS-Stuff/blob/Community/avs%202.5%20and%20up/Zs_RF_Shared.avsi)
 # 直接依赖的依赖自己去找，QQQXX
 # 实际使用中已能通过 IsAvsPlus 自动判断来为 AVS+ 优化
 # 对 AviSynth 不可用而 AviSynth+ 可用的情况（如原生 High Bit-Depth），为简便，未标有「Plus」

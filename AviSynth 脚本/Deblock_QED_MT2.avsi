@@ -1,6 +1,6 @@
 # 2020.04.06 HBD
 
-# Changes 2008-08-18: (Didée)
+# Changes 2008-08-18: (DidÃ©e)
 # - Replaced the ugly stackXXX cascade with mt_LutSpa() (requires MaskTools v2.0a35)
 # - Changed Quant and Offset defaults to 24,28,2,4,4,8
 
