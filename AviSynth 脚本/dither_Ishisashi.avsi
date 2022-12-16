@@ -434,7 +434,7 @@ Function Dither_convert_rgb_to_yuv (clip src, clip "g", clip "b",
 	# Luma: nothing to do
 
 	# Chroma: first, find the right chroma shift to apply when resizing
-	# the planes Interlaced contents adds a bit of complexity
+	# the planes Interlaced contents adds a bit of complexity…
 
 	# We don't use the pixels of this clip, it just helps us to know
 	# the chroma plane size.
