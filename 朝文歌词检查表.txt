@@ -30,6 +30,7 @@
 아직은 말못해	아지근 말ː모태	A'ji'gŭn mal'mo'thae	A'ji'geun mal'mo'tae	A-ji-gŭn mal-mo-thae	ア-ジ-グン マ<ル>-モ-テ	A-ji-gŭn ma:l-mo-t'ae
 出（출）發（발）의 아침에	출바레 아치메	Chul'ba're a'chi'me	Chul'ba're a'chi'me	Ch'ul-ba-re a-ch'i-me	ツ<ル>-バ-レ ア-チ-メ	Ts'ul-ba-re a-ch'i-me
 우등불	우등뿔	U'dŭng'pul	U'deung'bul	U-dŭng-pul	ウ-ドゥン-プ<ル>	U-dŭng-ppul
+陽（양）山（산）道（도）	양산도	Yang'san'do	Yang-san-do	Yang-san-do	ヤン-サン-ド	Yang-san-do
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -411,3 +412,16 @@
 追（추）憶（억）속에 偉（위）勳（훈）속에 불타오르네	추억쏘게 위훈소게 불타오르네	Chu'ŏk'so'ge wi'hun'so'ge pul'ta'o'rŭ'ne	Chu'eok'so'ge wi'hun'so'ge bul'ta'o'reu'ne	Ch'u-ŏk-so-ge wi-hun-so-ge pul-t'a-o-rŭ-ne	ツ-オ<ク>-ソ-ゲ ウィ-ホゥン-ソ-ゲ プ<ル>-タ-オ-ル-ネ	Ts'u-ŏk-sso-ge wi-hun-so-ge pul-t'a-o-rŭ-ne
 우리가 가는 곳 그 어데나	우리가 가는 곧 그 어데나	U'ri'ga ka'nŭn kot kŭ ŏ'de'na	U'ri'ga ga'neun got geu eo'de'na	U-ri-ga ka-nŭn kot kŭ ŏ-de-na	ウ-リ-ガ カ-ヌン コッ ク オ-デ-ナ	U-ri-ga ka-nŭn kot kŭ ŏ-de-na
 우등불은 불타있으리	우등뿌른 불타이쓰리	U'dŭng'pu'rŭn pul'tha'i'ssŭ'ri	U'deung'bu'reun bul'ta'i'sseu'ri	U-dŭng-pu-rŭn pul-t'a-i-ssŭ-ri	ウ-ドゥン-プ-ルン プ<ル>-タ-イ-ッス-リ	U-dŭng-ppu-rŭn pul-t'a-i-ssŭ-ri
+에헤이에	에헤이에	E'he'i'e	E'he'i'e	E-he-i-e	エ-ヘ-イ-エ	E-he-i-e
+陽（양）德（덕）孟（맹）山（산） 흐르는 물은	양덩맹산 흐르는 무른	Yang'dŏng'maeng'san hŭ'rŭ'nŭn mu'rŭn	Yang'deong'maeng'san heu'reu'neun mu'reun	Yang-dŏng-maeng-san hŭ-rŭ-nŭn mu-rŭn	ヤン-ドン-メン-サン ホゥ-ル-ヌン ム-ルン	Yang-dŏng-maeng-san hŭ-rŭ-nŭn mu-rŭn
+淸（청）流（류）壁（벽）으로 감돌아든다	청뉴벼그로 감ː도라든다	Chŏng'ryu'byŏ'gŭ'ro kam'do'ra'dŭn'da	Cheong'nyu'byeo'geu'ro gam'do'ra'deun'da	Ch'ŏng-nyu-byŏ-gŭ-ro kam-do-ra-dŭn-da	ツォン-ニュ-ビョ-グ-ロ カ<ム>-ド-ラ-ドゥン-ダ	Ts'ŏng-nyu-byŏ-gŭ-ro ka:m-do-ra-dŭn-da
+에루화 좋구나 錦（금）繡（수）라 江（강）山（산）	에루화 조ː쿠나 금ː수라 강산	E'ru'hwa jo'khu'na kŭm'su'ra kang'san	E'ru'hwa jo'ku'na geum'su'ra gang'san	E-ru-hwa cho-k'u-na kŭm-su-ra kang-san	エ-ル-ワ ツォ-ク-ナ ク<ム>-ス-ラ カン-サン	E-ru-hwa tso:-k'u-na kŭ:m-su-ra kang-san
+실버들 실실이 봄빛이로다	실ː버들 실ː시리 봄삐치로다	Sil'bŏ'dŭl sil'si'ri pom'pi'chi'ro'da	Sil'beo'deul sil'si'ri bom'bi'chi'ro'da	Sil-bŏ-dŭl sil-si-ri pom-pi-ch'i-ro-da	シ<ル>-ボ-ドゥ<ル> シ<ル>-シ-リ ポ<ム>-ピ-チ-ロ-ダ	Shi:l-bŏ-dŭl shi:l-shi-ri pom-ppi-ch'i-ro-da
+쳐다보니 牡（모）丹（란）峰（봉）이요	쳐ː다보니 모란봉이요	Chyŏ'da'bo'ni mo'ran'bong-i'yo	Chyeo'da'bo'ni mo'ran'bong-i'yo	Ch'yŏ-da-bo-ni mo-ran-bong-i-yo	チョ-ダ-ボ-ニ モ-ラン-ボン-イ-ヨ	Ch'yŏ:-da-bo-ni mo-ran-bong-i-yo
+흘러서 감도니 綾（릉）羅（라）島（도）로다	흘러서 감ː도니 릉나도로다	Hŭl'rŏ'sŏ kam'do'ni rŭng'ra'do'ro'da	Heul'leo'seo gam'do'ni reung'na'do'ro'da	Hŭl-lŏ-sŏ kam-do-ni rŭng-na-do-ro-da	ホゥ<ル>-ロ-ソ カ<ム>-ド-ニ ルン-ナ-ド-ロ-ダ	Hŭl-rŏ-sŏ ka:m-do-ni rŭng-na-do-ro-da
+능수나 버들엔 꾀꼬리 울고	능수나 버드렌 꾀꼬리 울ː고	Nŭng'su'na pŏ'dŭ'ren kkoe'kko'ri ul'go	Neung'su'na beo'deu'ren kkoe'kko'ri ul'go	Nŭng-su-na pŏ-dŭ-ren kkoe-kko-ri ul-go	ヌン-ス-ナ ポ-ドゥ-レン クェ-ッコ-リ ウ<ル>-ゴ	Nŭng-su-na pŏ-dŭ-ren kkoe-kko-ri u:l-go
+꽃속의 나비는 雙（쌍）雙（쌍）이 춤이로다	꼳쏘게 나비는 쌍쌍이 추미로다	Kkot'so'ge na'bi'nŭn ssang'ssang-i chu'mi'ro'da	Kkot'so'ge na'bi'neun ssang'ssang-i chu'mi'ro'da	Kkos-so-ge na-bi-nŭn ssang-ssang-i ch'u-mi-ro-da	コッ-ソ-ゲ ナ-ビ-ヌン サン-サン-イ ツ-ミ-ロ-ダ	Kkot-sso-ge na-bi-nŭn ssang-ssang-i ts'u-mi-ro-da
+물어보자 네 어디 사니	무러보자 네 어디 사ː니	Mu'rŏ'bo'ja ne ŏ'di sa'ni	Mu'reo'bo'ja ne eo'di sa'ni	Mu-rŏ-bo-ja ne ŏ-di sa-ni	ム-ロ-ボ-ザ ネ オ-ディ サ-ニ	Mu-rŏ-bo-za ne ŏ-di sa:-ni
+이 江（강）邊（변） 좋아서 나 여기 산다	이 강변 조ː아서 나 여기 산ː다	I kang'byŏn jo'a'sŏ na yŏ'gi san'da	I gang'byeon jo'a'seo na yeo'gi san'da	I kang-byŏn cho-a-sŏ na yŏ-gi san-da	イ カン-ビョン ツォ-ア-ソ ナ ヨ-ギ サン-ダ	I kang-byŏn tso:-a-sŏ na yŏ-gi sa:n-da
+에루화 봄철아 가지를 말아	에루화 봄처라 가지를 마라	E'ru'hwa pom'chŏ'ra ka'ji'rŭl ma'ra	E'ru'hwa bom'cheo'ra ga'ji'reul ma'ra	E-ru-hwa pom-ch'ŏ-ra ka-ji-rŭl ma-ra	エ-ル-ワ ポ<ム>-ツォ-ラ カ-ジ-ル<ル> マ-ラ	E-ru-hwa pom-ts'ŏ-ra ka-ji-rŭl ma-ra
+아까운 靑（청）春（춘）이 다 지나간다	아까운 청추니 다ː 지나간다	A'kka'un chŏng'chu'ni ta ji'na'gan'da	A'kka'un cheong'chu'ni da ji'na'gan'da	A-kka-un ch'ŏng-ch'u-ni ta chi-na-gan-da	ア-ッカ-ウン ツォン-ツ-ニ タ チ-ナ-ガン-ダ	A-kka-un ts'ŏng-ts'u-ni ta: chi-na-gan-da
