@@ -32,7 +32,7 @@
 우등불	우등뿔	U'dŭng'pul	U'deung'bul	U-dŭng-pul	ウ-ドゥン-プ<ル>	U-dŭng-ppul
 陽（양）山（산）道（도）	양산도	Yang'san'do	Yang-san-do	Yang-san-do	ヤン-サン-ド	Yang-san-do
 聞（문）慶（경）고개	문경고개	Mun-gyŏng'go'gae	Mun-gyeong'go'gae	Mun'gyŏng-go-gae	ムン-ギョン-ゴ-ゲ	Mun-gyŏng-go-gae
-난니완[南（남）泥（니）灣（만）]
+난니완[南（남）泥（니）灣（만）]	난니완[남니만]	Nan'ni'wan[Nam'ni'man]	Nan'ni'wan[Nam'ni'man]	Nan-ni-wan[Nam-ni-man]	ナン-ニ-ワン[ナ<ム>-ニ-マン]	Nan-ni-wan[Nam-ni-man]
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -437,7 +437,7 @@
 이 나라의 幸（행）福（복）을 自（자）由（유）를 부르며	이 나라에 행ː보글 자유를 부르며	I na'ra-e haeng'bo'gŭl ja'yu'rŭl pu'rŭ'myŏ	I na'ra-e haeng'bo'geul ja'yu'reul bu'reu'myeo	I na-ra-ë haeng-bo-gŭl cha-yu-rŭl pu-rŭ-myŏ	イ ナ-ラ-エ ヘン-ボ-グ<ル> ツァ-ユ-ル<ル> プ-ル-ミョ	I na-ra-e hae:ng-bo-gŭl tsa-yu-rŭl pu-rŭ-myŏ
 쓰러지면서 피흘리면서	쓰러지면서 피흘리면서	Ssŭ'rŏ'ji'myŏn'sŏ phi'hŭl'ri'myŏn'sŏ	Sseu'reo'ji'myeon'seo pi'heul'li'myeon'seo	Ssŭ-rŏ-ji-myŏn-sŏ p'i-hŭl-li-myŏn-sŏ	ス-ロ-ジ-ミョン-ソ ピ-ホゥ<ル>-リ-ミョン-ソ	Ssŭ-rŏ-ji-myŏn-sŏ p'i-hŭl-ri-myŏn-sŏ
 높은 嶺（령） 險（험）한 길을 單（단）숨에 넘었다오	노픈 령 험ː한 기를 단수메 너먿따오	No'phŭn ryŏng hŏm'han ki'rŭl tan'su'me nŏ'mŏt-ta'o	No'peun ryeong heom'han gi'reul dan'su'me neo'meot'da'o	No-p'ŭn ryŏng hŏm-han ki-rŭl tan-su-me nŏ-mŏt-ta-o	ノ-プン リョン ホ-マン キ-ル<ル> タン-ス-メ ノ-モッ-タ-オ	No-p'ŭn ryŏng hŏ:m-han ki-rŭl tan-su-me nŏ-mŏt-tta-o
-꽃香（향）氣（기） 하늘 풍기네 즐겁게 노래부르네 노래하네
-여기는 난니완[南（남）泥（니）灣（만）] 난니완[南（남）泥（니）灣（만）] 좋은 곳 좋은 곳
-景（경）致（치）도 아름답구요 살기도 좋은 곳이라
-그 어데 가나 豊（풍）年（년）이라네
+꽃香（향）氣（기） 하늘 풍기네 즐겁게 노래부르네 노래하네	꼬턍기 하늘 풍기네 즐겁께 노래부르네 노래하네	Kko'thyang'gi ha'nŭl phung'gi'ne jŭl'gŏp'ke no'rae'bu'rŭ'ne no'rae'ha'ne	Kko'thyang'gi ha'neul pung'gi'ne jeul'geop'ge no'rae'bu'reu'ne no'rae'ha'ne	Kko-thyang-gi ha-nŭl p'ung-gi-ne chŭl-gŏp-ke no-rae-bu-rŭ-ne no-rae-ha-ne	コ-テァン-ギ ハ-ヌ<ル> プン-ギ-ネ ツ<ル>-ゴ<プ>-ケ ノ-レ-ブ-ル-ネ ノ-レ-ハ-ネ	Kko-t'yang-gi ha-nŭl p'ung-gi-ne tsŭl-gŏp-kke no-rae-bu-rŭ-ne no-rae-ha-ne
+여기는 난니완[南（남）泥（니）灣（만）] 난니완[南（남）泥（니）灣（만）] 좋은 곳 좋은 곳	여기는 난니완[남니만] 난니완[남니만] 조ː은 곧 조ː은 곧	Yŏ'gi'nŭn nan'ni'wan[nam'ni'man] nan'ni'wan[nam'ni'man] jo'ŭn kot jo'ŭn kot	Yeo'gi'neun nan'ni'wan[nam'ni'man] nan'ni'wan[nam'ni'man] jo-eun got jo-eun got	Yŏ-gi-nŭn nan-ni-wan[nam-ni-man] nan-ni-wan[nam-ni-man] cho-ŭn kot cho-ŭn kot	ヨ-ギ-ヌン ナン-ニ-ワン[ナ<ム>-ニ-マン] ナン-ニ-ワン[ナ<ム>-ニ-マン] ツォ-ウン コッ ツォ-ウン コッ	Yŏ-gi-nŭn nan-ni-wan[nam-ni-man] nan-ni-wan[nam-ni-man] tso:-ŭn kot tso:-ŭn kot
+景（경）致（치）도 아름답구요 살기도 좋은 곳이라	경치도 아름답꾸요 살ː기도 조ː은 고시라	Kyŏng'chi'do a'rŭm'dap'ku'yo sal'gi'do jo'ŭn ko'si'ra	Gyeong'chi'do a'reum'dap'gu'yo sal'gi'do jo-eun go'si'ra	Kyŏng-ch'i-do a-rŭm-dap-ku-yo sal-gi-do cho-ŭn ko-si-ra	キョン-チ-ド ア-ル<ム>-ダ<プ>-ク-ヨ サ<ル>-ギ-ド ツォ-ウン コ-シ-ラ	Kyŏng-ch'i-do a-rŭm-dap-kku-yo sa:l-gi-do tso:-ŭn ko-shi-ra
+그 어데 가나 豊（풍）年（년）이라네	그 어데 가나 풍녀니라네	Kŭ ŏ'de ka'na phung'nyŏ'ni'ra'ne	Geu eo'de ga'na pung'nyeo'ni'ra'ne	Kŭ ŏ-de ka-na p'ung-nyŏ-ni-ra-ne	ク オ-デ カ-ナ プン-ニョ-ニ-ラ-ネ	Kŭ ŏ-de ka-na p'ung-nyŏ-ni-ra-ne
