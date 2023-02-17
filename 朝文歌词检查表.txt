@@ -34,6 +34,7 @@
 聞（문）慶（경）고개	문경고개	Mun-gyŏng'go'gae	Mun-gyeong'go'gae	Mun'gyŏng-go-gae	ムン-ギョン-ゴ-ゲ	Mun-gyŏng-go-gae
 난니완[南（남）泥（니）灣（만）]	난니완[남니만]	Nan'ni'wan[Nam'ni'man]	Nan'ni'wan[Nam'ni'man]	Nan-ni-wan[Nam-ni-man]	ナン-ニ-ワン[ナ<ム>-ニ-マン]	Nan-ni-wan[Nam-ni-man]
 얼랑[二（이）郞（랑）]山（산）을 노래하네	얼랑[이ː랑]사늘 노래하네	Ŏl'rang[I'rang]sa'nŭl no'rae'ha'ne	Eol'lang[I'rang]sa'neul no'rae'ha'ne	Ŏl-lang[I-rang]sa-nŭl no-rae-ha-ne	オ<ル>-ラン[イ-ラン]サ-ヌ<ル> ノ-レ-ハ-ネ	Ŏl-rang[I:-rang]sa-nŭl no-rae-ha-ne
+그리운 江（강）南（남）	그리운 강남	Kŭ'ri'un kang'nam	Geu'ri'un gang'nam	Kŭ-ri-un kang-nam	ク-リ-ウン カン-ナ<ム>	Kŭ-ri-un kang-nam
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -460,3 +461,20 @@
 才（재）士（사）佳（가）人（인） 아까운분 몇몇이나 데려갔나	재사가인 아까운분 면며치나 데려간나	Jae'sa'ga'in a'kka'un'bun myŏn'myŏ'chi'na te'ryŏ'gan'na	Jae'sa'ga'in a'kka'un'bun myeon'myeo'chi'na de'ryeo'gan'na	Chae-sa-ga-in a-kka-un-bun myŏn-myŏ-ch'i-na te-ryŏ-gan-na	ツェ-サ-ガ-イン ア-ッカ-ウン-ブン ミョン-ミョ-チ-ナ テ-リョ-ガン-ナ	Tsae-sa-ga-in a-kka-un-bun myŏn-myŏ-ch'i-na te-ryŏ-gan-na
 에헤야 네가 眞（진）情（정） 마음을 통털어서	에헤야 네가 진정 마으믈 통터러서	E'he'ya ne'ga jin'jŏng ma'ŭ'mŭl thong'thŏ'rŏ'sŏ	E'he'ya ne'ga jin'jeong ma-eu'meul tong'teo'reo'seo	E-he-ya ne-ga chin-jŏng ma-ŭ-mŭl t'ong-t'ŏ-rŏ-sŏ	エ-ヘ-ヤ ネ-ガ チン-ゾン マ-ウ-ム<ル> トン-ト-ロ-ソ	E-he-ya ne-ga chin-zŏng ma-ŭ-mŭl t'ong-t'ŏ-rŏ-sŏ
 이 世（세）上（상） 쌓인 恨（한）을 두둥실 싣고서 가거라	이 세ː상 싸인 하ː늘 두둥실 싣ː꼬서 가거라	I se'sang ssa'in ha'nŭl tu'dung'sil sit'ko'sŏ ka'gŏ'ra	I se'sang ssa'in ha'neul du'dung'sil sit'go'seo ga'geo'ra	I se-sang ssa-in ha-nŭl tu-dung-sil sit-ko-sŏ ka-gŏ-ra	イ セ-サン サ-イン ハ-ヌ<ル> トゥ-ドゥン-シ<ル> シッ-コ-ソ カ-ゴ-ラ	I se:-sang ssa-in ha:-nŭl tu-dung-shil shi:t-kko-sŏ ka-gŏ-ra
+正（정）二（이）月（월） 다 가고 三（삼）月（월）이라네	정이월 다ː 가고 사뭐리라네	Jŏng-i'wŏl ta ka'go sa'mwŏ'ri'ra'ne	Jeong-i'wol da ga'go sa'mwo'ri'ra'ne	Chŏng-i-wŏl ta ka-go sa-mwŏ-ri-ra-ne	ツォン-イ-ウォ<ル> タ カ-ゴ サ-ムォ-リ-ラ-ネ	Tsŏng-i-wŏl ta: ka-go sa-mwŏ-ri-ra-ne
+江（강）南（남）갔던 제비가 돌아오며는	강남갇떤 제ː비가 도라오며는	Kang'nam'gat-tŏn je'bi'ga to'ra'o'myŏ'nŭn	Gang'nam'gat'deon je'bi'ga do'ra'o'myeo'neun	Kang-nam-gat-tŏn che-bi-ga to-ra-o-myŏ-nŭn	カン-ナ<ム>-ガッ-トン ツェ-ビ-ガ ト-ラ-オ-ミョ-ヌン	Kang-nam-gat-ttŏn tse:-bi-ga to-ra-o-myŏ-nŭn
+이 땅에도 또다시	이 땅에도 또다시	I ttang-e'do tto'da'si	I ttang-e'do tto'da'si	I ttang-e-do tto-da-si	イ タン-エ-ド ト-ダ-シ	I ttang-e-do tto-da-shi
+봄이 온다네	보미 온다네	Po'mi on'da'ne	Bo'mi on'da'ne	Po-mi on-da-ne	ポ-ミ オン-ダ-ネ	Po-mi on-da-ne
+아리랑 江（강）南（남）을 어서 가세	아리랑 강나믈 어서 가세	A'ri'rang kang'na'mŭl ŏ'sŏ ka'se	A'ri'rang gang'na'meul eo'seo ga'se	A-ri-rang kang-na-mŭl ŏ-sŏ ka-se	ア-リ-ラン カン-ナ-ム<ル> オ-ソ カ-セ	A-ri-rang kang-na-mŭl ŏ-sŏ ka-se
+하늘이 푸르면 나가 일하고	하느리 푸르면 나가 일ː하고	Ha'nŭ'ri phu'rŭ'myŏn na'ga il'ha'go	Ha'neu'ri pu'reu'myeon na'ga il'ha'go	Ha-nŭ-ri p'u-rŭ-myŏn na-ga ir-ha-go	ハ-ヌ-リ プ-ル-ミョン ナ-ガ イ-ラ-ゴ	Ha-nŭ-ri p'u-rŭ-myŏn na-ga i:l-ha-go
+별아래 모이면 노래부르니	벼ː라래 모이면 노래부르니	Pyŏ'ra'rae mo'i'myŏn no'rae'bu'rŭ'ni	Byeo'ra'rae mo'i'myeon no'rae'bu'reu'ni	Pyŏ-ra-rae mo-i-myŏn no-rae-bu-rŭ-ni	ピョ-ラ-レ モ-イ-ミョン ノ-レ-ブ-ル-ニ	Pyŏ:-ra-rae mo-i-myŏn no-rae-bu-rŭ-ni
+이 나라 이름이	이 나라 이르미	I na'ra i'rŭ'mi	I na'ra i'reu'mi	I na-ra i-rŭ-mi	イ ナ-ラ イ-ル-ミ	I na-ra i-rŭ-mi
+江（강）南（남）이라네	강나미라네	Kang'na'mi'ra'ne	Gang'na'mi'ra'ne	Kang-na-mi-ra-ne	カン-ナ-ミ-ラ-ネ	Kang-na-mi-ra-ne
+그리운 저 江（강）南（남） 두고 못감은	그리운 저 강남 두고 몯ː까믄	Kŭ'ri'un jŏ kang'nam tu'go mot'ka'mŭn	Geu'ri'un jeo gang'nam du'go mot'ga'meun	Kŭ-ri-un chŏ kang-nam tu-go mot-ka-mŭn	ク-リ-ウン ツォ カン-ナ<ム> トゥ-ゴ モッ-カ-ムン	Kŭ-ri-un tsŏ kang-nam tu-go mo:t-kka-mŭn
+三（삼）千（천）里（리） 물길이 어려움인가	삼철리 물끼리 어려우민가	Sam'chŏl'ri mul'ki'ri ŏ'ryŏ'u'min-ga	Sam'cheol'li mul'gi'ri eo'ryeo'u'min-ga	Sam-ch'ŏl-li mul-ki-ri ŏ-ryŏ-u-min'ga	サ<ム>-ツォ<ル>-リ ム<ル>-キ-リ オ-リョ-ウ-ミン-ガ	Sam-ts'ŏl-ri mul-kki-ri ŏ-ryŏ-u-min-ga
+이 발목 傷（상）한지	이 발목 상한지	I pal'mok sang'han'ji	I bal'mok sang'han'ji	I pal-mok sang-han-ji	イ パ<ル>-モ<ク> サン-ハン-ジ	I pal-mok sang-han-ji
+오램이라네	오래미라네	O'rae'mi'ra'ne	O'rae'mi'ra'ne	O-rae-mi-ra-ne	オ-レ-ミ-ラ-ネ	O-rae-mi-ra-ne
+그리운 저 江（강）南（남） 건너가려면	그리운 저 강남 건ː너가려면	Kŭ'ri'un jŏ kang'nam kŏn'nŏ'ga'ryŏ'myŏn	Geu'ri'un jeo gang'nam geon'neo'ga'ryeo'myeon	Kŭ-ri-un chŏ kang-nam kŏn-nŏ-ga-ryŏ-myŏn	ク-リ-ウン ツォ カン-ナ<ム> コン-ノ-ガ-リョ-ミョン	Kŭ-ri-un tsŏ kang-nam kŏ:n-nŏ-ga-ryŏ-myŏn
+제비떼 뭉치듯 서로 뭉치세	제ː비떼 뭉치듣 서로 뭉치세	Che'bi'tte mung'chi'dŭt sŏ'ro mung'chi'se	Je'bi'tte mung'chi'deut seo'ro mung'chi'se	Che-bi-tte mung-ch'i-dŭt sŏ-ro mung-ch'i-se	ツェ-ビ-ッテ ムン-チ-ドゥッ ソ-ロ ムン-チ-セ	Tse:-bi-tte mung-ch'i-dŭt sŏ-ro mung-ch'i-se
+傷（상）해도 발이니	상해도 바리니	Sang'hae'do pa'ri'ni	Sang'hae'do ba'ri'ni	Sang-hae-do pa-ri-ni	サン-ヘ-ド パ-リ-ニ	Sang-hae-do pa-ri-ni
+가면 간다네	가면 간다네	Ka'myŏn kan'da'ne	Ga'myeon gan'da'ne	Ka-myŏn kan-da-ne	カ-ミョン カン-ダ-ネ	Ka-myŏn kan-da-ne
