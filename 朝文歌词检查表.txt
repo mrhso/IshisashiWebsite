@@ -36,6 +36,7 @@
 얼랑[二（이）郞（랑）]山（산）을 노래하네	얼랑[이ː랑]사늘 노래하네	Ŏl'rang[I'rang]sa'nŭl no'rae'ha'ne	Eol'lang[I'rang]sa'neul no'rae'ha'ne	Ŏl-lang[I-rang]sa-nŭl no-rae-ha-ne	オ<ル>-ラン[イ-ラン]サ-ヌ<ル> ノ-レ-ハ-ネ	Ŏl-rang[I:-rang]sa-nŭl no-rae-ha-ne
 그리운 江（강）南（남）	그리운 강남	Kŭ'ri'un kang'nam	Geu'ri'un gang'nam	Kŭ-ri-un kang-nam	ク-リ-ウン カン-ナ<ム>	Kŭ-ri-un kang-nam
 運（운）命（명）의 갈림길	운ː명에 갈림낄	Un'myŏng-e kal'rim'kil	Un'myeong-e gal'lim'gil	Un-myŏng-e kal-lim-kil		ウン-ミョン-エ カ<ル>-リ<ム>-キ<ル>	U:n-myŏng-e kal-rim-kkil
+龍（룡）岡（강）기나리
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -487,3 +488,13 @@
 나라를 찾는다고 내 한生（생）을 바쳤건만	나라를 찬는다고 내 한생을 바쳗껀만	Na'ra'rŭl chan'nŭn'da'go nae han'saeng-ŭl pa'chyŏt'kŏn'man	Na'ra'reul chan'neun'da'go nae han'saeng-eul ba'chyeot'geon'man	Na-ra-rŭl ch'an-nŭn-da-go nae han-saeng-ŭl pa-ch'yŏt-kŏn-man	ナ-ラ-ル<ル> ツァン-ヌン-ダ-ゴ ネ ハン-セン-ウ<ル> パ-チョッ-コン-マン	Na-ra-rŭl ts'an-nŭn-da-go nae han-saeng-ŭl pa-ch'yŏt-kkŏn-man
 萬（만）里（리）蒼（창）空（공） 둘러봐도 세운 뜻이 무어냐	말ː리창공 둘러봐도 세운 뜨시 무어냐	Mal'ri'chang'gong tul'rŏ'bwa'do se'un ttŭ'si mu'ŏ'nya	Mal'li'chang'gong dul'leo'bwa'do se-un tteu'si mu'eo'nya	Mal-li-ch'ang-gong tul-lŏ-bwa-do se-un ttŭ-si mu-ŏ-nya	マ<ル>-リ-ツァン-ゴン トゥ<ル>-ロ-ブァ-ド セ-ウン トゥ-シ ム-オ-ニャ	Ma:l-ri-ts'ang-gong tul-rŏ-bwa-do se-un ttŭ-shi mu-ŏ-nya
 故（고）國（국）山（산）川（천） 맑은 물에 흐린 넋을 씻으리	고ː국싼천 말근 무레 흐린 넉쓸 씨스리	Ko'guk'san'chŏn mal'gŭn mu're hŭ'rin nŏk'sŭl ssi'sŭ'ri	Go'guk'san'cheon mal'geun mu're heu'rin neok'seul ssi'seu'ri	Ko-guk-san-ch'ŏn mal-gŭn mu-re hŭ-rin nŏk-sŭl ssi-sŭ-ri	コ-グ<ク>-サン-ツォン マ<ル>-グン ム-レ ホゥ-リン ノ<ク>-ス<ル> シ-ス-リ	Ko:-guk-ssan-ts'ŏn mal-gŭn mu-re hŭ-rin nŏk-ssŭl sshi-sŭ-ri
+軟（연）粉（분）紅（홍）저고리 藍（람）깃소매
+너 입기 좋구 나 보기 좋드라
+얼씨구 절씨구 지화자 좋구나
+沃（옥）土（토）벌田（전）野（야）에 豊（풍）年（년）새 날구
+우리네 살림엔 웃음꽃 피누나
+한줌두줌 모를 내니
+노래소리가 저절로 나누나
+來（래）日（일）도 모레도 우리 김매는데
+건너마을 젊은이들 김매러 오려마
+김매러 오려마
