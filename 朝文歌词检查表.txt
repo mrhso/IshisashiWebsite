@@ -44,6 +44,7 @@
 祖（조）國（국）은 永（영）遠（원）히 記（기）憶（억）하리라	조구근 영ː원히 기어카리라	Jo'gu'gŭn yŏng'wŏn'hi ki'ŏ'kha'ri'ra	Jo'gu'geun yeong-won'hi gi'eo'ka'ri'ra	Cho-gu-gŭn yŏng-wŏn-hi ki-ŏ-kha-ri-ra	ツォ-グ-グン ヨン-ウォ-ニ キ-オ-カ-リ-ラ	Tso-gu-gŭn yŏ:ng-wŏn-hi ki-ŏ-k'a-ri-ra
 우리 자랑 이만저만 아니라오	우리 자랑 이만저만 아니라오	U'ri ja'rang i'man'jŏ'man a'ni'ra'o	U'ri ja'rang i'man'jeo'man a'ni'ra'o	U-ri cha-rang i-man-jŏ-man a-ni-ra-o	ウ-リ ツァ-ラン イ-マン-ゾ-マン ア-ニ-ラ-オ	U-ri tsa-rang i-man-zŏ-man a-ni-ra-o
 西（서）道（도）아리랑	서도아리랑	Sŏ'do'a'ri'rang	Seo'do'a'ri'rang	Sŏ-do-a-ri-rang	ソ-ド-ア-リ-ラン	Sŏ-do-a-ri-rang
+山（산）川（천）歌（가）	산천가	San'chŏn-ga	San'cheon-ga	San-ch'ŏn'ga	サン-ツォン-ガ	San-ts'ŏn-ga
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -587,3 +588,24 @@
 어깨넘어서 춤을 추네	어깨너머서 추믈 추네	Ŏ'kkae'nŏ'mŏ'sŏ chu'mŭl chu'ne	Eo'kkae'neo'meo'seo chu'meul chu'ne	Ŏ-kkae-nŏ-mŏ-sŏ ch'u-mŭl ch'u-ne	オ-ッケ-ノ-モ-ソ ツ-ム<ル> ツ-ネ	Ŏ-kkae-nŏ-mŏ-sŏ ts'u-mŭl ts'u-ne
 靑（청）紗（사）초籠（롱）에 불밝혀라	청사초롱에 불발켜라	Chŏng'sa'cho'rong-e pul'bal'khyŏ'ra	Cheong'sa'cho'rong-e bul'bal'kyeo'ra	Ch'ŏng-sa-ch'o-rong-e pul-bal-khyŏ-ra	ツォン-サ-ツォ-ロン-エ プ<ル>-バ<ル>-キョ-ラ	Ts'ŏng-sa-ts'o-rong-e pul-bal-k'yŏ-ra
 그립던 郞（랑）君（군）이 돌아오리	그립떤 랑구니 도라오리	Kŭ'rip'tŏn rang'gu'ni to'ra'o'ri	Geu'rip'deon rang'gu'ni do'ra'o'ri	Kŭ-rip-tŏn rang-gu-ni to-ra-o-ri	ク-リ<プ>-トン ラン-グ-ニ ト-ラ-オ-リ	Kŭ-rip-ttŏn rang-gu-ni to-ra-o-ri
+山（산）이 높고 물이 맑아	사니 놉꼬 무리 말가	Sa'ni nop'ko mu'ri mal'ga	Sa'ni nop'go mu'ri mal'ga	Sa-ni nop-ko mu-ri mal-ga	サ-ニ ノ<プ>-コ ム-リ マ<ル>-ガ	Sa-ni nop-kko mu-ri mal-ga
+絶（절）勝（승）景（경）槪（개） 이뤘느냐	절씅경개 이뤈느냐	Jŏl'sŭng'gyŏng'gae i'rwŏn'nŭ'nya	Jeol'seung'gyeong'gae i'rwon'neu'nya	Chŏl-ssŭng-gyŏng-gae i-rwŏn-nŭ-nya	ツォ<ル>-スン-ギョン-ゲ イ-ルォン-ヌ-ニャ	Tsŏl-ssŭng-gyŏng-gae i-rwŏn-nŭ-nya
+높은데는 밭이랑	노픈데는 반니랑	No'phŭn'de'nŭn pan'ni'rang	No'peun'de'neun ban'ni'rang	No-p'ŭn-de-nŭn pan-ni-rang	ノ-プン-デ-ヌン パン-ニ-ラン	No-p'ŭn-de-nŭn pan-ni-rang
+낮은데는 물논이라	나즌데는 물로니라	Na'jŭn'de'nŭn mul'ro'ni'ra	Na'jeun'de'neun mul'lo'ni'ra	Na-jŭn-de-nŭn mul-lo-ni-ra	ナ-ズン-デ-ヌン ム<ル>-ロ-ニ-ラ	Na-zŭn-de-nŭn mul-ro-ni-ra
+에헤에헤 에헤야	에헤에헤 에헤야	E'he'e'he e'he'ya	E'he'e'he e'he'ya	E-he-e-he e-he-ya	エ-ヘ-エ-ヘ エ-ヘ-ヤ	E-he-e-he e-he-ya
+응응응 어야	응응응 어야	Ŭng-ŭng-ŭng ŏ'ya	Eung-eung-eung eo'ya	Ŭng-ŭng-ŭng ŏ-ya	ウン-ウン-ウン オ-ヤ	Ŭng-ŭng-ŭng ŏ-ya
+어야라 지여라	어야라 지여라	Ŏ'ya'ra ji'yŏ'ra	Eo'ya'ra ji'yeo'ra	Ŏ-ya-ra chi-yŏ-ra	オ-ヤ-ラ チ-ヨ-ラ	Ŏ-ya-ra chi-yŏ-ra
+널과 내로구나	널과 내로구나	Nŏl'gwa nae'ro'gu'na	Neol'gwa nae'ro'gu'na	Nŏl-gwa nae-ro-gu-na	ノ<ル>-グァ ネ-ロ-グ-ナ	Nŏl-gwa nae-ro-gu-na
+아침이면 연장메고	아치미면 연장메고	A'chi'mi'myŏn yŏn'jang'me'go	A'chi'mi'myeon yeon'jang'me'go	A-ch'i-mi-myŏn yŏn-jang-me-go	ア-チ-ミ-ミョン ヨン-ザン-メ-ゴ	A-ch'i-mi-myŏn yŏn-zang-me-go
+논도 갈고 밭두나 갈아	논도 갈ː고 받뚜나 가라	Non'do kal'go pat-tu'na ka'ra	Non'do gal'go bat'du'na ga'ra	Non-do kal-go pat-tu-na ka-ra	ノン-ド カ<ル>-ゴ パッ-トゥ-ナ カ-ラ	Non-do ka:l-go pat-ttu-na ka-ra
+저녁이면 소잔등에	저녀기면 소잔등에	Jŏ'nyŏ'gi'myŏn so'jan'dŭng-e	Jeo'nyeo'gi'myeon so'jan'deung-e	Chŏ-nyŏ-gi-myŏn so-jan-dŭng-e	ツォ-ニョ-ギ-ミョン ソ-ザン-ドゥン-エ	Tsŏ-nyŏ-gi-myŏn so-zan-dŭng-e
+달빛싣고 돌아온다	달삗씯꼬 도라온다	Tal'pit'sit'ko to'ra'on'da	Dal'bit'sit'go do'ra'on'da	Tal-pis-sit-ko to-ra-on-da	タ<ル>-ピッ-シッ-コ ト-ラ-オン-ダ	Tal-ppit-sshit-kko to-ra-on-da
+얼씨구나 절씨구나	얼씨구나 절씨구나	Ŏl'ssi'gu'na jŏl'ssi'gu'na	Eol'ssi'gu'na jeol'ssi'gu'na	Ŏl-ssi-gu-na chŏl-ssi-gu-na	オ<ル>-シ-グ-ナ ツォ<ル>-シ-グ-ナ	Ŏl-sshi-gu-na tsŏl-sshi-gu-na
+내 사랑이로구나	내 사랑이로구나	Nae sa'rang-i'ro'gu'na	Nae sa'rang-i'ro'gu'na	Nae sa-rang-i-ro-gu-na	ネ サ-ラン-イ-ロ-グ-ナ	Nae sa-rang-i-ro-gu-na
+가을날 淸（청）明（명）하고	가을랄 청명하고	Ka'ŭl'ral chŏng'myŏng'ha'go	Ga-eul'lal cheong'myeong'ha'go	Ka-ŭl-lal ch'ŏng-myŏng-ha-go	カ-ウ<ル>-ラ<ル> ツォン-ミョン-ハ-ゴ	Ka-ŭl-ral ts'ŏng-myŏng-ha-go
+바람조차 시원한데	바람조차 시원한데	Pa'ram'jo'cha si'wŏn'han'de	Ba'ram'jo'cha si'won'han'de	Pa-ram-jo-ch'a si-wŏn-han-de	パ-ラ<ム>-ゾ-ツァ シ-ウォ-ナン-デ	Pa-ram-zo-ts'a shi-wŏn-han-de
+十（십）里（리）벌 金（금）波（파）萬（만）頃（경）	심니벌 금파만경	Sim'ri'bŏl kŭm'pha'man-gyŏng	Sim'ni'beol geum'pa'man-gyeong	Sim-ni-bŏl kŭm-p'a-man'gyŏng	シ<ム>-ニ-ボ<ル> ク<ム>-パ-マン-ギョン	Shim-ni-bŏl kŭm-p'a-man-gyŏng
+늠실늠실 춤을 춘다	늠실름실 추믈 춘다	Nŭm'sil'rŭm'sil chu'mŭl chun'da	Neum'sil'leum'sil chu'meul chun'da	Nŭm-sil-lŭm-sil ch'u-mŭl ch'un-da	ヌ<ム>-シ<ル>-ル<ム>-シ<ル> ツ-ム<ル> ツン-ダ	Nŭm-shil-rŭm-shil ts'u-mŭl ts'un-da
+얼씨구 좋다 절씨구나 좋아라	얼씨구 조ː타 절씨구나 조ː아라	Ŏl'ssi'gu jo'tha jŏl'ssi'gu'na jo'a'ra	Eol'ssi'gu jo'ta jeol'ssi'gu'na jo'a'ra	Ŏl-ssi-gu cho-t'a chŏl-ssi-gu-na cho-a-ra	オ<ル>-シ-グ ツォ-タ ツォ<ル>-シ-グ-ナ ツォ-ア-ラ	Ŏl-sshi-gu tso:-t'a tsŏl-sshi-gu-na tso:-a-ra
+錦（금）繡（수）라 第（제）一（일）江（강）山（산）	금ː수라 제ː일강산	Kŭm'su'ra je'il'gang'san	Geum'su'ra je'il'gang'san	Kŭm-su-ra che-il-gang-san	ク<ム>-ス-ラ ツェ-イ<ル>-ガン-サン	Kŭ:m-su-ra tse:-il-gang-san
+山（산）川（천）景（경）槪（개） 좋구나	산천경개 조ː쿠나	San'chŏn-gyŏng'gae jo'khu'na	San'cheon-gyeong'gae jo'ku'na	San-ch'ŏn'gyŏng-gae cho-k'u-na	サン-ツォン-ギョン-ゲ ツォ-ク-ナ	San-ts'ŏn-gyŏng-gae tso:-k'u-na
