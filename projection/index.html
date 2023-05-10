@@ -33,32 +33,204 @@
             let world;
 
             // 修正曲线定向
-            // https://observablehq.com/@fil/normalize-winding
-            const normalizeWindingInPlace = (p) => {
-                const g = p.geometry || p;
-                if (p.type === 'FeatureCollection') {
-                    p.features = p.features.map(normalizeWindingInPlace);
-                } else if (p.type === 'GeometryCollection') {
-                    p.geometries = p.geometries.map(normalizeWindingInPlace);
-                } else if (g.type === 'MultiPolygon') {
-                    g.coordinates = g.coordinates.map((poly) =>
-                        poly.map((ring, i) =>
-                            (i > 0) ^
-                            (d3.geoArea({ type: 'Polygon', coordinates: [ring] }) > 2 * Math.PI)
-                                ? ring.reverse()
-                                : ring
-                        )
-                    );
-                } else if (g.type === 'Polygon') {
-                    g.coordinates = g.coordinates.map((ring, i) =>
-                        (i > 0) ^
-                        (d3.geoArea({ type: 'Polygon', coordinates: [ring] }) > 2 * Math.PI)
-                            ? ring.reverse()
-                            : ring
-                    );
+            // https://observablehq.com/@fil/rewind
+            const rewind = (() => {
+                const geoRewindFeature = (feature, simple) =>
+                    geoProjectSimple(feature, geoRewindStream(simple));
+                const geoRewindProjection = (projection, simple) => {
+                    const { stream: normalize } = geoRewindStream(simple);
+                    return { stream: (s) => normalize(projection.stream(s)) };
                 };
-                return p;
-            };
+                function geoRewindStream(simple = true) {
+                    const { geoContains, geoArea } = d3;
+
+                    let ring, polygon;
+                    return d3.geoTransform({
+                        polygonStart() {
+                            this.stream.polygonStart();
+                            polygon = [];
+                        },
+                        lineStart() {
+                            if (polygon) polygon.push((ring = []));
+                            else this.stream.lineStart();
+                        },
+                        lineEnd() {
+                            if (!polygon) this.stream.lineEnd();
+                        },
+                        point(x, y) {
+                            if (polygon) ring.push([x, y]);
+                            else this.stream.point(x, y);
+                        },
+                        polygonEnd() {
+                            for (let [i, ring] of polygon.entries()) {
+                                ring.push(ring[0].slice());
+                                if (
+                                    i
+                                        ? // a hole must contain the first point of the polygon
+                                            !geoContains(
+                                                { type: 'Polygon', coordinates: [ring] },
+                                                polygon[0][0]
+                                            )
+                                        : polygon[1]
+                                        ? // the outer ring must contain the first point of its first hole (if any)
+                                            !geoContains(
+                                                { type: 'Polygon', coordinates: [ring] },
+                                                polygon[1][0]
+                                            )
+                                        : // a single ring polygon must be smaller than a hemisphere (optional)
+                                            simple &&
+                                            geoArea({ type: 'Polygon', coordinates: [ring] }) > 2 * Math.PI
+                                ) {
+                                    ring.reverse();
+                                };
+
+                                this.stream.lineStart();
+                                ring.pop();
+                                for (const [x, y] of ring) this.stream.point(x, y);
+                                this.stream.lineEnd();
+                            };
+                            this.stream.polygonEnd();
+                            polygon = null;
+                        }
+                    });
+                };
+                const geoProjectSimple = (() => {
+                    const { geoStream } = d3;
+
+                    function projectFeatureCollection(o, stream) {
+                        return { ...o, features: o.features.map((f) => projectFeature(f, stream)) };
+                    };
+
+                    function projectFeature(o, stream) {
+                        return { ...o, geometry: projectGeometry(o.geometry, stream) };
+                    };
+
+                    function projectGeometryCollection(o, stream) {
+                        return {
+                            ...o,
+                            geometries: o.geometries.map((o) => projectGeometry(o, stream))
+                        };
+                    };
+
+                    function projectGeometry(o, stream) {
+                        return !o
+                            ? null
+                            : o.type === 'GeometryCollection'
+                            ? projectGeometryCollection(o, stream)
+                            : o.type === 'Polygon' || o.type === 'MultiPolygon'
+                            ? projectPolygons(o, stream)
+                            : o;
+                    };
+
+                    function projectPolygons(o, stream) {
+                        let coordinates = [];
+                        let polygon, line;
+                        geoStream(
+                            o,
+                            stream({
+                                polygonStart() {
+                                    coordinates.push((polygon = []));
+                                },
+                                polygonEnd() {},
+                                lineStart() {
+                                    polygon.push((line = []));
+                                },
+                                lineEnd() {
+                                    line.push(line[0].slice());
+                                },
+                                point(x, y) {
+                                    line.push([x, y]);
+                                }
+                            })
+                        );
+                        if (o.type === 'Polygon') coordinates = coordinates[0];
+                        return { ...o, coordinates, rewind: true };
+                    };
+
+                    return function (object, projection) {
+                        const stream = projection.stream;
+                        let project;
+                        if (!stream) throw new Error('invalid projection');
+                        switch (object && object.type) {
+                            case 'Feature':
+                                project = projectFeature;
+                                break;
+                            case 'FeatureCollection':
+                                project = projectFeatureCollection;
+                                break;
+                            default:
+                                project = projectGeometry;
+                                break;
+                        };
+                        return project(object, stream);
+                    };
+                })();
+                // a simple duck test for projections and GeoJSON
+                return function rewind(duck, simple) {
+                    return duck?.stream
+                        ? geoRewindProjection(duck, simple)
+                        : duck?.type
+                        ? geoRewindFeature(duck, simple)
+                        : Array.isArray(duck)
+                        ? Array.from(duck, (d) => rewind(d, simple))
+                        : duck;
+                };
+            })();
+
+            // 多边形，但是在圆柱投影下
+            // https://observablehq.com/@fil/wgs84-resampling
+            const resample = (() => {
+                // by Mike Bostock -- https://github.com/d3/d3-geo-projection/issues/75
+                // Takes a sparse line string that assumes Cartesian interpolation in spherical
+                // coordinates and inserts interstitial points for greater accuracy when
+                // rendering with D3, which assumes spherical interpolation.
+                function resamplecoordinates(coordinates) {
+                    var i = 0,
+                            j = -1,
+                            n = coordinates.length,
+                            source = coordinates.slice(),
+                            p0, x0, y0,
+                            p1 = coordinates[0], x1 = p1[0], y1 = p1[1],
+                            dx, dy, d2,
+                            m2 = 10; // squared minimum angular distance
+                    while (++i < n) {
+                        p0 = p1, x0 = x1, y0 = y1;
+                        p1 = source[i], x1 = p1[0], y1 = p1[1];
+                        dx = x1 - x0, dy = y1 - y0, d2 = dx * dx + dy * dy;
+                        coordinates[++j] = p0;
+                        if (d2 > m2) for (var k = 1, m = Math.ceil(Math.sqrt(d2 / m2)); k < m; ++k) {
+                            coordinates[++j] = [x0 + dx * k / m, y0 + dy * k / m];
+                        };
+                    };
+                    coordinates[++j] = p1;
+                    coordinates.length = j + 1;
+                    return coordinates;
+                };
+                return function resample(obj) {
+                    obj = JSON.parse(JSON.stringify(obj)); // deep clone urk
+                    switch (obj.type) {
+                        case 'FeatureCollection':
+                            obj.features = obj.features.map(resample);
+                            break;
+                        case 'Feature':
+                            obj.geometry = resample(obj.geometry);
+                            break;
+                        case 'MultiPolygon':
+                            obj.coordinates = obj.coordinates.map(d => d.map(resamplecoordinates));
+                            break;
+                        case 'Polygon':
+                            obj.coordinates = obj.coordinates.map(resamplecoordinates);
+                            break;
+                        case 'MultiLineString':
+                            obj.coordinates = obj.coordinates.map(resamplecoordinates);
+                            break;
+                        case 'LineString':
+                            obj.coordinates = resamplecoordinates(obj.coordinates);
+                            break;
+                    };
+                    return obj;
+                };
+            })();
 
             const reload = () => {
                 let projection = eval(document.getElementById('projection').value);
@@ -71,7 +243,7 @@
                 defs.append('path').datum(outline).attr('id', 'outline').attr('d', path);
                 defs.append('clipPath').attr('id', 'clip').append('use').attr('xlink:href', '#outline');
                 svg.append('path').datum(graticule).attr('id', 'graticule').attr('d', path).attr('clip-path', 'url(#clip)').attr('stroke', '#808080').attr('fill', 'none');
-                svg.append('path').datum(normalizeWindingInPlace(topojson.feature(world, world.objects.land))).attr('id', 'land').attr('d', path).attr('clip-path', 'url(#clip)');
+                svg.append('path').datum(rewind(topojson.feature(world, world.objects.land))).attr('id', 'land').attr('d', path).attr('clip-path', 'url(#clip)');
                 svg.append('use').attr('xlink:href', '#outline').attr('stroke', '#000000').attr('fill', 'none');
             };
 
