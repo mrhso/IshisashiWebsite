@@ -20,7 +20,7 @@
         for (let script of scripts) {
             if (script.innerHTML.match(/MathJax\.Hub\.Config/u)) {
                 script.removeAttribute('type');
-                script.innerHTML = 'MathJax = {\n  tex: {\n    inlineMath: [[\'$\',\'$\'], [\'\\(\',\'\\)\']],\n    displayMath: [["$$","$$"],["\\[","\\]"]],\n    processEscapes: true\n  },\n  options: {\n    skipHtmlTags: [\'script\', \'noscript\', \'style\', \'textarea\', \'pre\', \'code\'],\n    ignoreHtmlClass: "container|files",\n    processHtmlClass: "markdown-body"\n  }\n};';
+                script.innerHTML = 'MathJax = {\n  tex: {\n    inlineMath: [[\'$\',\'$\'], [\'\\\\(\',\'\\\\)\']],\n    displayMath: [["$$","$$"],["\\\\[","\\\\]"]],\n    processEscapes: true\n  },\n  options: {\n    skipHtmlTags: [\'script\', \'noscript\', \'style\', \'textarea\', \'pre\', \'code\'],\n    ignoreHtmlClass: "container|files",\n    processHtmlClass: "markdown-body"\n  }\n};';
             };
             if (script.src.match(/https:\/\/cn-assets\.gitee\.com\/uploads\/resources\/MathJax-2\.7\.2\/MathJax\.js\?config=TeX-AMS-MML_HTMLorMML/u)) {
                 script.id = 'MathJax-script';
