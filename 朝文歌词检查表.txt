@@ -45,6 +45,7 @@
 우리 자랑 이만저만 아니라오	우리 자랑 이만저만 아니라오	U'ri ja'rang i'man'jŏ'man a'ni'ra'o	U'ri ja'rang i'man'jeo'man a'ni'ra'o	U-ri cha-rang i-man-jŏ-man a-ni-ra-o	ウ-リ ツァ-ラン イ-マン-ゾ-マン ア-ニ-ラ-オ	U-ri tsa-rang i-man-zŏ-man a-ni-ra-o
 西（서）道（도）아리랑	서도아리랑	Sŏ'do'a'ri'rang	Seo'do'a'ri'rang	Sŏ-do-a-ri-rang	ソ-ド-ア-リ-ラン	Sŏ-do-a-ri-rang
 山（산）川（천）歌（가）	산천가	San'chŏn-ga	San'cheon-ga	San-ch'ŏn'ga	サン-ツォン-ガ	San-ts'ŏn-ga
+故（고）鄕（향）하늘	고향하늘	Ko'hyang'ha'nŭl	Go'hyang'ha'neul	Ko-hyang-ha-nŭl	コ-ヒャン-ハ-ヌ<ル>	Ko-hyang-ha-nŭl
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -617,3 +618,9 @@
 山（산）을 넘어 바다건너 온 世（세）上（상） 끝까지 비쳐간다	사늘 너머 바다건너 온ː 세ː상 끋까지 비쳐간다	Sa'nŭl nŏ'mŏ pa'da'gŏn'nŏ on se'sang kkŭt'kka'ji pi'chyŏ'gan'da	Sa'neul neo'meo ba'da'geon'neo on se'sang kkeut'kka'ji bi'chyeo'gan'da	Sa-nŭl nŏ-mŏ pa-da-gŏn-nŏ on se-sang kkŭt-kka-ji pi-ch'yŏ-gan-da	サ-ヌ<ル> ノ-モ パ-ダ-ゴン-ノ オン セ-サン クッ-カ-ジ ピ-チョ-ガン-ダ	Sa-nŭl nŏ-mŏ pa-da-gŏn-nŏ o:n se:-sang kkŭt-kka-ji pi-ch'yŏ-gan-da
 얼씨구나 좋네	얼씨구나 존ː네	Ŏl'ssi'gu'na jon'ne	Eol'ssi'gu'na jon'ne	Ŏl-ssi-gu-na chon-ne	オ<ル>-シ-グ-ナ ツォン-ネ	Ŏl-sshi-gu-na tso:n-ne
 절씨구나 좋다	절씨구나 조ː타	Jŏl'ssi'gu'na jo'tha	Jeol'ssi'gu'na jo'ta	Chŏl-ssi-gu-na cho-t'a	ツォ<ル>-シ-グ-ナ ツォ-タ	Tsŏl-sshi-gu-na tso:-t'a
+푸른 山（산） 저너머로 멀리 보이는	푸른 산 저너머로 멀ː리 보이는	Phu'rŭn san jŏ'nŏ'mŏ'ro mŏl'ri po'i'nŭn	Pu'reun san jeo'neo'meo'ro meol'li bo'i'neun	P'u-rŭn san chŏ-nŏ-mŏ-ro mŏl-li po-i-nŭn	プ-ルン サン ツォ-ノ-モ-ロ モ<ル>-リ ポ-イ-ヌン	P'u-rŭn san tsŏ-nŏ-mŏ-ro mŏl:-ri po-i-nŭn
+새파란 故（고）鄕（향）하늘 그리운 하늘	새파란 고향하늘 그리운 하늘	Sae'pha'ran ko'hyang'ha'nŭl kŭ'ri'un ha'nŭl	Sae'pa'ran go'hyang'ha'neul geu'ri'un ha'neul	Sae-p'a-ran ko-hyang-ha-nŭl kŭ-ri-un ha-nŭl	セ-パ-ラン コ-ヒャン-ハ-ヌ<ル> ク-リ-ウン ハ-ヌ<ル>	Sae-p'a-ran ko-hyang-ha-nŭl kŭ-ri-un ha-nŭl
+언제나 故（고）鄕（향）집이 그리울제면	언ː제나 고향찌비 그리울쩨면	Ŏn'je'na ko'hyang'ji'bi kŭ'ri'ul'je'myŏn	Eon'je'na go'hyang'ji'bi geu'ri'ul'je'myeon	Ŏn-je-na ko-hyang-chi-bi kŭ-ri-ul-che-myŏn	オン-ゼ-ナ コ-ヒャン-チ-ビ ク-リ-ウ<ル>-ツェ-ミョン	Ŏn:-ze-na ko-hyang-tchi-bi kŭ-ri-ul-ttse-myŏn
+저 山（산）너머 하늘만 바라봅니다	저 산너머 하늘만 바라봄니다	Jŏ san'nŏ'mŏ ha'nŭl'man pa'ra'bom'ni'da	Jeo san'neo'meo ha'neul'man ba'ra'bom'ni'da	Chŏ san-nŏ-mŏ ha-nŭl-man pa-ra-bom-ni-da	ツォ サン-ノ-モ ハ-ヌ<ル>-マン パ-ラ-ボ<ム>-ニ-ダ	Tsŏ san-nŏ-mŏ ha-nŭl-man pa-ra-bom-ni-da
+情（정）다운 동무들과 시내가에서	정다운 동무들과 시ː내까에서	Jŏng'da'un tong'mu'dŭl'gwa si'nae'kka-e'sŏ	Jeong'da'un dong'mu'deul'gwa si'naet'ga-e'seo	Chŏng-da-un tong-mu-dŭl-gwa si-nae-kka-ë-sŏ	ツォン-ダ-ウン トン-ム-ドゥ<ル>-グァ シ-ネ-ッカ-エ-ソ	Tsŏng-da-un tong-mu-dŭl-gwa shi:-nae-kka-e-sŏ
+버들피리 불며불며 놀았습니다	버들피리 불ː며불ː며 노랃씀니다	Pŏ'dŭl'phi'ri pul'myŏ'bul'myŏ no'rat'sŭm'ni'da	Beo'deul'pi'ri bul'myeo'bul'myeo no'rat'seum'ni'da	Pŏ-dŭl-p'i-ri pul-myŏ-bul-myŏ no-ras-sŭm-ni-da	ポ-ドゥ<ル>-ピ-リ プ<ル>-ミョ-ブ<ル>-ミョ ノ-ラッ-ス<ム>-ニ-ダ	Pŏ-dŭl-p'i-ri pul:-myŏ-bul:-myŏ no-rat-ssŭm-ni-da
