@@ -33,9 +33,9 @@
 陽（양）山（산）道（도）	양산도	Yang'san'do	Yang-san-do	Yang-san-do	ヤン-サン-ド	Yang-san-do
 聞（문）慶（경）고개	문경고개	Mun-gyŏng'go'gae	Mun-gyeong'go'gae	Mun'gyŏng-go-gae	ムン-ギョン-ゴ-ゲ	Mun-gyŏng-go-gae
 난니완[南（남）泥（니）灣（만）]	난니완[남니만]	Nan'ni'wan[Nam'ni'man]	Nan'ni'wan[Nam'ni'man]	Nan-ni-wan[Nam-ni-man]	ナン-ニ-ワン[ナ<ム>-ニ-マン]	Nan-ni-wan[Nam-ni-man]
-얼랑[二（이）郞（랑）]山（산）을 노래하네	얼랑[이ː랑]사늘 노래하네	Ŏl'rang[I'rang]sa'nŭl no'rae'ha'ne	Eol'lang[I'rang]sa'neul no'rae'ha'ne	Ŏl-lang[I-rang]sa-nŭl no-rae-ha-ne	オ<ル>-ラン[イ-ラン]サ-ヌ<ル> ノ-レ-ハ-ネ	Ŏl-rang[I:-rang]sa-nŭl no-rae-ha-ne
+얼랑[二（이）郞（랑）]山（산）을 노래하네	얼랑[이ː랑]사늘 노래하네	Ŏl'rang[I'rang]'sa'nŭl no'rae'ha'ne	Eol'lang[I'rang]'sa'neul no'rae'ha'ne	Ŏl-lang[I-rang]-sa-nŭl no-rae-ha-ne	オ<ル>-ラン[イ-ラン]-サ-ヌ<ル> ノ-レ-ハ-ネ	Ŏl-rang[I:-rang]-sa-nŭl no-rae-ha-ne
 그리운 江（강）南（남）	그리운 강남	Kŭ'ri'un kang'nam	Geu'ri'un gang'nam	Kŭ-ri-un kang-nam	ク-リ-ウン カン-ナ<ム>	Kŭ-ri-un kang-nam
-運（운）命（명）의 갈림길	운ː명에 갈림낄	Un'myŏng-e kal'rim'kil	Un'myeong-e gal'lim'gil	Un-myŏng-e kal-lim-kil		ウン-ミョン-エ カ<ル>-リ<ム>-キ<ル>	U:n-myŏng-e kal-rim-kkil
+運（운）命（명）의 갈림길	운ː명에 갈림낄	Un'myŏng-e kal'rim'kil	Un'myeong-e gal'lim'gil	Un-myŏng-e kal-lim-kil	ウン-ミョン-エ カ<ル>-リ<ム>-キ<ル>	U:n-myŏng-e kal-rim-kkil
 龍（룡）岡（강）기나리	룡강기나리	Ryong'gang'gi'na'ri	Ryong'gang'gi'na'ri	Ryong-gang-gi-na-ri	リョン-ガン-ギ-ナ-リ	Ryong-gang-gi-na-ri
 牡（모）丹（란）峰（봉）	모란봉	Mo'ran'bong	Mo'ran'bong	Mo-ran-bong	モ-ラン-ボン	Mo-ran-bong
 平（평）北（북）寧（녕）邊（변）歌（가）	평붕녕변가	Phyŏng'bung'nyŏng'byŏn-ga	Pyeong'bung'nyeong'byeon-ga	P'yŏng-bung-nyŏng-byŏn'ga	ピョン-ブン-ニョン-ビョン-ガ	P'yŏng-bung-nyŏng-byŏn-ga
@@ -428,7 +428,7 @@
 노래속에 웃음속에 불타오르네	노래소게 우슴소게 불타오르네	No'rae'so'ge u'sŭm'so'ge pul'tha'o'rŭ'ne	No'rae'so'ge u'seum'so'ge bul'ta'o'reu'ne	No-rae-so-ge u-sŭm-so-ge pul-t'a-o-rŭ-ne	ノ-レ-ソ-ゲ ウ-ス<ム>-ソ-ゲ プ<ル>-タ-オ-ル-ネ	No-rae-so-ge u-sŭm-so-ge pul-t'a-o-rŭ-ne
 내 心（심）臟（장） 불탈 때 너도 불탄다	내 심장 불탈 때 너도 불탄다	Nae sim'jang pul'thal ttae nŏ'do pul'than'da	Nae sim'jang bul'tal ttae neo'do bul'tan'da	Nae sim-jang pul-t'al ttae nŏ-do pul-t'an-da	ネ シ<ム>-ザン プ<ル>-タ<ル> テ ノ-ド プ<ル>-タン-ダ	Nae shim-zang pul-t'al ttae nŏ-do pul-t'an-da
 黨（당）을 받든 우리 맘처럼	당을 받뜬 우리 맘ː처럼	Tang-ŭl pat-tŭn u'ri mam'chŏ'rŏm	Dang-eul bat'deun u'ri mam'cheo'reom	Tang-ŭl pat-tŭn u-ri mam-ch'ŏ-rŏm	タン-ウ<ル> パッ-トゥン ウ-リ マ<ム>-ツォ-ロ<ム>	Tang-ŭl pat-ttŭn u-ri ma:m-ts'ŏ-rŏm
-追（추）憶（억）속에 偉（위）勳（훈）속에 불타오르네	추억쏘게 위훈소게 불타오르네	Chu'ŏk'so'ge wi'hun'so'ge pul'ta'o'rŭ'ne	Chu'eok'so'ge wi'hun'so'ge bul'ta'o'reu'ne	Ch'u-ŏk-so-ge wi-hun-so-ge pul-t'a-o-rŭ-ne	ツ-オ<ク>-ソ-ゲ ウィ-ホゥン-ソ-ゲ プ<ル>-タ-オ-ル-ネ	Ts'u-ŏk-sso-ge wi-hun-so-ge pul-t'a-o-rŭ-ne
+追（추）憶（억）속에 偉（위）勳（훈）속에 불타오르네	추억쏘게 위훈소게 불타오르네	Chu'ŏk'so'ge wi'hun'so'ge pul'tha'o'rŭ'ne	Chu'eok'so'ge wi'hun'so'ge bul'ta'o'reu'ne	Ch'u-ŏk-so-ge wi-hun-so-ge pul-t'a-o-rŭ-ne	ツ-オ<ク>-ソ-ゲ ウィ-ホゥン-ソ-ゲ プ<ル>-タ-オ-ル-ネ	Ts'u-ŏk-sso-ge wi-hun-so-ge pul-t'a-o-rŭ-ne
 우리가 가는 곳 그 어데나	우리가 가는 곧 그 어데나	U'ri'ga ka'nŭn kot kŭ ŏ'de'na	U'ri'ga ga'neun got geu eo'de'na	U-ri-ga ka-nŭn kot kŭ ŏ-de-na	ウ-リ-ガ カ-ヌン コッ ク オ-デ-ナ	U-ri-ga ka-nŭn kot kŭ ŏ-de-na
 우등불은 불타있으리	우등뿌른 불타이쓰리	U'dŭng'pu'rŭn pul'tha'i'ssŭ'ri	U'deung'bu'reun bul'ta'i'sseu'ri	U-dŭng-pu-rŭn pul-t'a-i-ssŭ-ri	ウ-ドゥン-プ-ルン プ<ル>-タ-イ-ッス-リ	U-dŭng-ppu-rŭn pul-t'a-i-ssŭ-ri
 에헤이에	에헤이에	E'he'i'e	E'he'i'e	E-he-i-e	エ-ヘ-イ-エ	E-he-i-e
@@ -458,11 +458,11 @@
 여기는 난니완[南（남）泥（니）灣（만）] 난니완[南（남）泥（니）灣（만）] 좋은 곳 좋은 곳	여기는 난니완[남니만] 난니완[남니만] 조ː은 곧 조ː은 곧	Yŏ'gi'nŭn nan'ni'wan[nam'ni'man] nan'ni'wan[nam'ni'man] jo'ŭn kot jo'ŭn kot	Yeo'gi'neun nan'ni'wan[nam'ni'man] nan'ni'wan[nam'ni'man] jo-eun got jo-eun got	Yŏ-gi-nŭn nan-ni-wan[nam-ni-man] nan-ni-wan[nam-ni-man] cho-ŭn kot cho-ŭn kot	ヨ-ギ-ヌン ナン-ニ-ワン[ナ<ム>-ニ-マン] ナン-ニ-ワン[ナ<ム>-ニ-マン] ツォ-ウン コッ ツォ-ウン コッ	Yŏ-gi-nŭn nan-ni-wan[nam-ni-man] nan-ni-wan[nam-ni-man] tso:-ŭn kot tso:-ŭn kot
 景（경）致（치）도 아름답구요 살기도 좋은 곳이라	경치도 아름답꾸요 살ː기도 조ː은 고시라	Kyŏng'chi'do a'rŭm'dap'ku'yo sal'gi'do jo'ŭn ko'si'ra	Gyeong'chi'do a'reum'dap'gu'yo sal'gi'do jo-eun go'si'ra	Kyŏng-ch'i-do a-rŭm-dap-ku-yo sal-gi-do cho-ŭn ko-si-ra	キョン-チ-ド ア-ル<ム>-ダ<プ>-ク-ヨ サ<ル>-ギ-ド ツォ-ウン コ-シ-ラ	Kyŏng-ch'i-do a-rŭm-dap-kku-yo sa:l-gi-do tso:-ŭn ko-shi-ra
 그 어데 가나 豊（풍）年（년）이라네	그 어데 가나 풍녀니라네	Kŭ ŏ'de ka'na phung'nyŏ'ni'ra'ne	Geu eo'de ga'na pung'nyeo'ni'ra'ne	Kŭ ŏ-de ka-na p'ung-nyŏ-ni-ra-ne	ク オ-デ カ-ナ プン-ニョ-ニ-ラ-ネ	Kŭ ŏ-de ka-na p'ung-nyŏ-ni-ra-ne
-얼[二（이）] 야마 얼랑[二（이）郞（랑）]山（산）은 높고 또 높아라	얼[이ː] 야마 얼랑[이ː랑]사는 놉꼬 또 노파라	Ŏl[I] ya'ma ŏl'rang[i'rang]sa'nŭn nop'ko tto no'pha'ra	Eol[I] ya'ma eol'lang[i'rang]sa'neun nop'go tto no'pa'ra	Ŏl[I] ya-ma ŏl-lang[i-rang]sa-nŭn nop-ko tto no-p'a-ra	オ<ル>[イ] ヤ-マ オ<ル>-ラン[イ-ラン]サ-ヌン ノ<プ>-コ ト ノ-パ-ラ	Ŏl[I:] ya-ma ŏl-rang[i:-rang]sa-nŭn nop-kko tto no-p'a-ra
+얼[二（이）] 야마 얼랑[二（이）郞（랑）]山（산）은 높고 또 높아라	얼[이ː] 야마 얼랑[이ː랑]사는 놉꼬 또 노파라	Ŏl[I] ya'ma ŏl'rang[i'rang]'sa'nŭn nop'ko tto no'pha'ra	Eol[I] ya'ma eol'lang[i'rang]'sa'neun nop'go tto no'pa'ra	Ŏl[I] ya-ma ŏl-lang[i-rang]-sa-nŭn nop-ko tto no-p'a-ra	オ<ル>[イ] ヤ-マ オ<ル>-ラン[イ-ラン]-サ-ヌン ノ<プ>-コ ト ノ-パ-ラ	Ŏl[I:] ya-ma ŏl-rang[i:-rang]-sa-nŭn nop-kko tto no-p'a-ra
 어디를 봐도 거치른 山（산）과 바위들	어디를 봐ː도 거치른 산과 바위들	Ŏ'di'rŭl pwa'do kŏ'chi'rŭn san-gwa pa'wi'dŭl	Eo'di'reul bwa'do geo'chi'reun san-gwa ba'wi'deul	Ŏ-di-rŭl pwa-do kŏ-ch'i-rŭn san'gwa pa-wi-dŭl	オ-ディ-ル<ル> プァ-ド コ-チ-ルン サン-グァ パ-ウィ-ドゥ<ル>	Ŏ-di-rŭl pwa:-do kŏ-ch'i-rŭn san-gwa pa-wi-dŭl
 險（험）한 벼랑에 ■■■
 막아서고 ■■■■■■■
-얼[二（이）] 야마 얼랑[二（이）郞（랑）]山（산）이 아무리 높아도	얼[이ː] 야마 얼랑[이ː랑]사니 아ː무리 노파도	Ŏl[I] ya'ma ŏl'rang[i'rang]sa'ni a'mu'ri no'pha'do	Eol[I] ya'ma eol'lang[i'rang]sa'ni a'mu'ri no'pa'do	Ŏl[I] ya-ma ŏl-lang[i-rang]sa-ni a-mu-ri no-p'a-do	オ<ル>[イ] ヤ-マ オ<ル>-ラン[イ-ラン]サ-ニ ア-ム-リ ノ-パ-ド	Ŏl[I:] ya-ma ŏl-rang[i:-rang]sa-ni a:-mu-ri no-p'a-do
+얼[二（이）] 야마 얼랑[二（이）郞（랑）]山（산）이 아무리 높아도	얼[이ː] 야마 얼랑[이ː랑]사니 아ː무리 노파도	Ŏl[I] ya'ma ŏl'rang[i'rang]'sa'ni a'mu'ri no'pha'do	Eol[I] ya'ma eol'lang[i'rang]'sa'ni a'mu'ri no'pa'do	Ŏl[I] ya-ma ŏl-lang[i-rang]-sa-ni a-mu-ri no-p'a-do	オ<ル>[イ] ヤ-マ オ<ル>-ラン[イ-ラン]-サ-ニ ア-ム-リ ノ-パ-ド	Ŏl[I:] ya-ma ŏl-rang[i:-rang]-sa-ni a:-mu-ri no-p'a-do
 解（해）放（방）軍（군） 兵（병）士（사）들은	해ː방군 병사드른	Hae'bang'gun pyŏng'sa'dŭ'rŭn	Hae'bang'gun byeong'sa'deu'reun	Hae-bang-gun pyŏng-sa-dŭ-rŭn	ヘ-バン-グン ピョン-サ-ドゥ-ルン	Hae:-bang-gun pyŏng-sa-dŭ-rŭn
 ■■■ ■■■
 步（보）道（도）를 닦아 西（서）藏（장）에 가기라	보ː도를 다까 서장에 가기라	Po'do'rŭl ta'kka sŏ'jang-e ka'gi'ra	Bo'do'reul da'kka seo'jang-e ga'gi'ra	Po-do-rŭl ta-kka sŏ-jang-e ka-gi-ra	ポ-ド-ル<ル> タ-ッカ ソ-ザン-エ カ-ギ-ラ	Po:-do-rŭl ta-kka sŏ-zang-e ka-gi-ra
@@ -490,7 +490,7 @@
 이 발목 傷（상）한지	이 발목 상한지	I pal'mok sang'han'ji	I bal'mok sang'han'ji	I pal-mok sang-han-ji	イ パ<ル>-モ<ク> サン-ハン-ジ	I pal-mok sang-han-ji
 오램이라네	오래미라네	O'rae'mi'ra'ne	O'rae'mi'ra'ne	O-rae-mi-ra-ne	オ-レ-ミ-ラ-ネ	O-rae-mi-ra-ne
 그리운 저 江（강）南（남） 건너가려면	그리운 저 강남 건ː너가려면	Kŭ'ri'un jŏ kang'nam kŏn'nŏ'ga'ryŏ'myŏn	Geu'ri'un jeo gang'nam geon'neo'ga'ryeo'myeon	Kŭ-ri-un chŏ kang-nam kŏn-nŏ-ga-ryŏ-myŏn	ク-リ-ウン ツォ カン-ナ<ム> コン-ノ-ガ-リョ-ミョン	Kŭ-ri-un tsŏ kang-nam kŏ:n-nŏ-ga-ryŏ-myŏn
-제비떼 뭉치듯 서로 뭉치세	제ː비떼 뭉치듣 서로 뭉치세	Che'bi'tte mung'chi'dŭt sŏ'ro mung'chi'se	Je'bi'tte mung'chi'deut seo'ro mung'chi'se	Che-bi-tte mung-ch'i-dŭt sŏ-ro mung-ch'i-se	ツェ-ビ-ッテ ムン-チ-ドゥッ ソ-ロ ムン-チ-セ	Tse:-bi-tte mung-ch'i-dŭt sŏ-ro mung-ch'i-se
+제비떼 뭉치듯 서로 뭉치세	제ː비떼 뭉치듣 서로 뭉치세	Je'bi'tte mung'chi'dŭt sŏ'ro mung'chi'se	Je'bi'tte mung'chi'deut seo'ro mung'chi'se	Che-bi-tte mung-ch'i-dŭt sŏ-ro mung-ch'i-se	ツェ-ビ-ッテ ムン-チ-ドゥッ ソ-ロ ムン-チ-セ	Tse:-bi-tte mung-ch'i-dŭt sŏ-ro mung-ch'i-se
 傷（상）해도 발이니	상해도 바리니	Sang'hae'do pa'ri'ni	Sang'hae'do ba'ri'ni	Sang-hae-do pa-ri-ni	サン-ヘ-ド パ-リ-ニ	Sang-hae-do pa-ri-ni
 가면 간다네	가면 간다네	Ka'myŏn kan'da'ne	Ga'myeon gan'da'ne	Ka-myŏn kan-da-ne	カ-ミョン カン-ダ-ネ	Ka-myŏn kan-da-ne
 離（리）別（별）의 술盞（잔）에 내 心（심）事（사） 고였나	리ː벼레 술짜네 내 심사 고연나	Ri'byŏ're sul'ja'ne nae sim'sa ko'yŏn'na	Ri'byeo're sul'ja'ne nae sim'sa go'yeon'na	Ri-byŏ-re sul-cha-ne nae sim-sa ko-yŏn-na	リ-ビョ-レ ス<ル>-ツァ-ネ ネ シ<ム>-サ コ-ヨン-ナ	Ri:-byŏ-re sul-ttsa-ne nae shim-sa ko-yŏn-na
@@ -663,5 +663,5 @@
 忠（충）誠（성）으로 받들어가자 어머니 우리 黨（당）을	충성으로 받뜨러가자 어머니 우리 당을	Chung'sŏng-ŭ'ro pat-tŭ'rŏ'ga'ja ŏ'mŏ'ni u'ri tang-ŭl	Chung'seong-eu'ro bat'deu'reo'ga'ja eo'meo'ni u'ri dang-eul	Ch'ung-sŏng-ŭ-ro pat-tŭ-rŏ-ga-ja ŏ-mŏ-ni u-ri tang-ŭl	ツン-ソン-ウ-ロ パッ-トゥ-ロ-ガ-ザ オ-モ-ニ ウ-リ タン-ウ<ル>	Ts'ung-sŏng-ŭ-ro pat-ttŭ-rŏ-ga-za ŏ-mŏ-ni u-ri tang-ŭl
 恩（은）惠（혜）로운 黨（당）의 품에 자라난 우린 새世（세）代（대）	은헤로운 당에 푸메 자라난 우린 새세대	Ŭn'hye'ro'un tang-e phu'me ja'ra'nan u'rin sae'se'dae	Eun'hye'ro'un dang-e pu'me ja'ra'nan u'rin sae'se'dae	Ŭn-hye-ro-un tang-e p'u-me cha-ra-nan u-rin sae-se-dae	ウ-ネ-ロ-ウン タン-エ プ-メ ツァ-ラ-ナン ウ-リン セ-セ-デ	Ŭn-he-ro-un tang-e p'u-me tsa-ra-nan u-rin sae-se-dae
 暴（폭）風（풍）인다 두려우랴 피끓는 靑（청）春（춘）들아	폭풍인다 두려우랴 피끌른 청춘드라	Phok'phung-in'da tu'ryŏ'u'rya phi'kkŭl'rŭn chŏng'chun'dŭ'ra	Pok'pung-in'da du'ryeo'u'rya pi'kkeul'leun cheong'chun'deu'ra	P'ok-p'ung-in-da tu-ryŏ-u-rya p'i-kkŭl-lŭn ch'ŏng-ch'un-dŭ-ra	ポ<ク>-プン-イン-ダ トゥ-リョ-ウ-リャ ピ-ック<ル>-ルン ツォン-ツン-ドゥ-ラ	P'ok-p'ung-in-da tu-ryŏ-u-rya p'i-kkŭl-rŭn ts'ŏng-ts'un-dŭ-ra
-先（선）烈（렬）들이 피로 지킨 社（사）會（회）主（주）義（의） 내 祖（조）國（국）을	선녈드리 피로 지킨 사회주의 내 조구글	Sŏn'nyŏl'dŭ'ri phi'ro ji'khin sa'hoe'ju'ŭi nae jo'gu'gŭl	Seon'nyeol'deu'ri pi'ro ji'kin sa'hoe'ju'ui nae jo'gu'geul	Sŏn-nyŏl-dŭ-ri p'i-ro chi-k'in sa-hoe-ju-ŭi nae cho-gu-gŭl	ソン-ニョ<ル>-ドゥ-リ ピ-ロ チ-キン サ-ホェ-ズ-イ ネ ツォ-グ-グ<ル>	Sŏn-nyŏl-dŭ-ri p'i-ro chi-k'in sa-hoe-zu-ŭi nae tso-gu-gŭl
+先（선）烈（렬）들이 피로 지킨 社（사）會（회）主（주）義（의） 내 祖（조）國（국）을	선녈드리 피로 지킨 사회주의 내 조구글	Sŏn'ryŏl'dŭ'ri phi'ro ji'khin sa'hoe'ju'ŭi nae jo'gu'gŭl	Seon'nyeol'deu'ri pi'ro ji'kin sa'hoe'ju'ui nae jo'gu'geul	Sŏn-nyŏl-dŭ-ri p'i-ro chi-k'in sa-hoe-ju-ŭi nae cho-gu-gŭl	ソン-ニョ<ル>-ドゥ-リ ピ-ロ チ-キン サ-ホェ-ズ-イ ネ ツォ-グ-グ<ル>	Sŏn-nyŏl-dŭ-ri p'i-ro chi-k'in sa-hoe-zu-ŭi nae tso-gu-gŭl
 代（대）를 이어 지켜가자 피끓는 靑（청）春（춘）들아	대ː를 이어 지켜가자 피끌른 청춘드라	Tae'rŭl i'ŏ ji'khyŏ'ga'ja phi'kkŭl'rŭn chŏng'chun'dŭ'ra	Dae'reul i'eo ji'kyeo'ga'ja pi'kkeul'leun cheong'chun'deu'ra	Tae-rŭl i-ŏ chi-k'yŏ-ga-ja p'i-kkŭl-lŭn ch'ŏng-ch'un-dŭ-ra	テ-ル<ル> イ-オ チ-キョ-ガ-ザ ピ-ック<ル>-ルン ツォン-ツン-ドゥ-ラ	Tae:-rŭl i-ŏ chi-k'yŏ-ga-za p'i-kkŭl-rŭn ts'ŏng-ts'un-dŭ-ra
