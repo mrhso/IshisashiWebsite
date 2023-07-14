@@ -53,6 +53,10 @@
 우리를 보시라	우리를 보시라	U'ri'rŭl po'si'ra	U'ri'reul bo'si'ra	U-ri-rŭl po-si-ra	ウ-リ-ル<ル> ポ-シ-ラ	U-ri-rŭl po-shi-ra
 사랑 사랑 내 사랑	사랑 사랑 내 사랑	Sa'rang sa'rang nae sa'rang	Sa'rang sa'rang nae sa'rang	Sa-rang sa-rang nae sa-rang	サ-ラン サ-ラン ネ サ-ラン	Sa-rang sa-rang nae sa-rang
 들으시라 그날의 感（감）激（격）을	드르시라 그나레 감ː겨글	Tŭ'rŭ'si'ra kŭ'na're kam'gyŏ'gŭl	Deu'reu'si'ra geu'na're gam'gyeo'geul	Tŭ-rŭ-si-ra kŭ-na-re kam-gyŏ-gŭl	トゥ-ル-シ-ラ ク-ナ-レ カ<ム>-ギョ-グ<ル>	Tŭ-rŭ-shi-ra kŭ-na-re ka:m-gyŏ-gŭl
+나는 永（영）遠（원）히 그대의 아들	나는 영ː원히 그대에 아들	Na'nŭn yŏng'wŏn'hi kŭ'dae'e a'dŭl	Na'neun yeong-won'hi geu'dae'e a'deul	Na-nŭn yŏng-wŏn-hi kŭ-dae-e a-dŭl	ナ-ヌン ヨン-ウォ-ニ ク-デ-エ ア-ドゥ<ル>	Na-nŭn yŏ:ng-wŏn-hi kŭ-dae-e a-dŭl
+빛나라 正（정）日（일）峰（봉）	빈나라 정ː일봉	Pin'na'ra jŏng-il'bong	Bin'na'ra jeong-il'bong	Pin-na-ra chŏng-il-bong	ピン-ナ-ラ ツォン-イ<ル>-ボン	Pin-na-ra tsŏ:ng-il-bong
+生（생）이란 무엇인가	생이란 무어신가	Saeng-i'ran mu'ŏ'sin-ga	Saeng-i'ran mu'eo'sin-ga	Saeng-i-ran mu-ŏ-sin'ga	セン-イ-ラン ム-オ-シン-ガ	Saeng-i-ran mu-ŏ-shin-ga
+나의 사랑 나의 幸（행）福（복）	나에 사랑 나에 행ː복	Na-e sa'rang na-e haeng'bok	Na-e sa'rang na-e haeng'bok	Na-ë sa-rang na-ë haeng-bok	ナ-エ サ-ラン ナ-エ ヘン-ボ<ク>	Na-e sa-rang na-e hae:ng-bok
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -717,3 +721,74 @@
 그러면 간직되리 그대들 心（심）臟（장）에	그러면 간직뙤리 그대들 심장에	Kŭ'rŏ'myŏn kan'jik'toe'ri kŭ'dae'dŭl sim'jang-e	Geu'reo'myeon gan'jik'doe'ri geu'dae'deul sim'jang-e	Kŭ-rŏ-myŏn kan-jik-toe-ri kŭ-dae-dŭl sim-jang-e	ク-ロ-ミョン カン-ジ<ク>-トェ-リ ク-デ-ドゥ<ル> シ<ム>-ザン-エ	Kŭ-rŏ-myŏn kan-jik-ttoe-ri kŭ-dae-dŭl shim-zang-e
 抗（항）日（일）의 先（선）烈（렬）들이 더운피 다 바쳐	항ː이레 선녈드리 더운피 다ː 바쳐	Hang-i're sŏn'ryŏl'dŭ'ri tŏ'un'phi ta pa'chyŏ	Hang-i're seon'nyeol'deu'ri deo'un'pi da ba'chyeo	Hang-i-re sŏn-nyŏl-dŭ-ri tŏ-un-p'i ta pa-ch'yŏ	ハン-イ-レ ソン-ニョ<ル>-ドゥ-リ ト-ウン-ピ タ パ-チョ	Ha:ng-i-re sŏn-nyŏl-dŭ-ri tŏ-un-p'i ta: pa-ch'yŏ
 높이 부르던 忠（충）誠（성）의 그 노래가	노피 부르던 충성에 그 노래가	No'phi pu'rŭ'dŏn chung'sŏng-e kŭ no'rae'ga	No'pi bu'reu'deon chung'seong-e geu no'rae'ga	No-p'i pu-rŭ-dŏn ch'ung-sŏng-e kŭ no-rae-ga	ノ-ピ プ-ル-ドン ツン-ソン-エ ク ノ-レ-ガ	No-p'i pu-rŭ-dŏn ts'ung-sŏng-e kŭ no-rae-ga
+그대가 한그루 나무라며는	그대가 한그루 나무라며는	Kŭ'dae'ga han-gŭ'ru na'mu'ra'myŏ'nŭn	Geu'dae'ga han-geu'ru na'mu'ra'myeo'neun	Kŭ-dae-ga han'gŭ-ru na-mu-ra-myŏ-nŭn	ク-デ-ガ ハン-グ-ル ナ-ム-ラ-ミョ-ヌン	Kŭ-dae-ga han-gŭ-ru na-mu-ra-myŏ-nŭn
+이 몸은 아지에 피는 잎사귀	이 모믄 아지에 피는 입싸귀	I mo'mŭn a'ji'e phi'nŭn ip'sa'gwi	I mo'meun a'ji'e pi'neun ip'sa'gwi	I mo-mŭn a-ji-e p'i-nŭn ip-sa-gwi	イ モ-ムン ア-ジ-エ ピ-ヌン イ<プ>-サ-グィ	I mo-mŭn a-ji-e p'i-nŭn ip-ssa-gwi
+찬바람 불어와 떨어진대도	찬바람 부러와 떠러진대도	Chan'ba'ram pu'rŏ'wa ttŏ'rŏ'jin'dae'do	Chan'ba'ram bu'reo'wa tteo'reo'jin'dae'do	Ch'an-ba-ram pu-rŏ-wa ttŏ-rŏ-jin-dae-do	ツァン-バ-ラ<ム> プ-ロ-ワ ト-ロ-ジン-デ-ド	Ts'an-ba-ram pu-rŏ-wa ttŏ-rŏ-jin-dae-do
+흙이 되여 뿌리 덮어주리라	흘기 되여 뿌리 더퍼주리라	Hŭl'gi toe'yŏ ppu'ri tŏ'phŏ'ju'ri'ra	Heul'gi doe'yeo ppu'ri deo'peo'ju'ri'ra	Hŭl-gi toe-yŏ ppu-ri tŏ-p'ŏ-ju-ri-ra	ホゥ<ル>-ギ トェ-ヨ プ-リ ト-ポ-ズ-リ-ラ	Hŭl-gi toe-yŏ ppu-ri tŏ-p'ŏ-zu-ri-ra
+아 나의 祖（조）國（국）아	아 나에 조구가	A na-e jo'gu'ga	A na-e jo'gu'ga	A na-ë cho-gu-ga	ア ナ-エ ツォ-グ-ガ	A na-e tso-gu-ga
+그대가 크나큰 心（심）臟（장）이라면	그대가 크나큰 심장이라면	Kŭ'dae'ga khŭ'na'khŭn sim'jang-i'ra'myŏn	Geu'dae'ga keu'na'keun sim'jang-i'ra'myeon	Kŭ-dae-ga k'ŭ-na-k'ŭn sim-jang-i-ra-myŏn	ク-デ-ガ ク-ナ-クン シ<ム>-ザン-イ-ラ-ミョン	Kŭ-dae-ga k'ŭ-na-k'ŭn shim-zang-i-ra-myŏn
+이 몸은 그 품에 뛰는 피방울	이 모믄 그 푸메 뛰는 피빵울	I mo'mŭn kŭ phu'me ttwi'nŭn phi'ppang-ul	I mo'meun geu pu'me ttwi'neun pit'bang-ul	I mo-mŭn kŭ p'u-me ttwi-nŭn p'i-ppang-ul	イ モ-ムン ク プ-メ トィ-ヌン ピ-ッパン-ウ<ル>	I mo-mŭn kŭ p'u-me ttwi-nŭn p'i-ppang-ul
+마지막 한방울 다할 때까지	마지막 한방울 다ː할 때까지	Ma'ji'mak han'bang-ul ta'hal ttae'kka'ji	Ma'ji'mak han'bang-ul da'hal ttae'kka'ji	Ma-ji-mak han-bang-ul ta-hal ttae-kka-ji	マ-ジ-マ<ク> ハン-バン-ウ<ル> タ-ハ<ル> テ-ッカ-ジ	Ma-ji-mak han-bang-ul ta:-hal ttae-kka-ji
+높뛰는 鼓（고）動（동）을 더해주리라	놉뛰는 고동을 더해주리라	Nop'ttwi'nŭn ko'dong-ŭl tŏ'hae'ju'ri'ra	Nop'ttwi'neun go'dong-eul deo'hae'ju'ri'ra	Nop-ttwi-nŭn ko-dong-ŭl tŏ-hae-ju-ri-ra	ノ<プ>-トィ-ヌン コ-ドン-ウ<ル> ト-ヘ-ズ-リ-ラ	Nop-ttwi-nŭn ko-dong-ŭl tŏ-hae-zu-ri-ra
+恩（은）惠（혜）론 품속에 나서자라나	은헤론 품소게 나서자라나	Ŭn'hye'ron phum'so'ge na'sŏ'ja'ra'na	Eun'hye'ron pum'so'ge na'seo'ja'ra'na	Ŭn-hye-ron p'um-so-ge na-sŏ-ja-ra-na	ウ-ネ-ロン プ<ム>-ソ-ゲ ナ-ソ-ザ-ラ-ナ	Ŭn-he-ron p'um-so-ge na-sŏ-za-ra-na
+나 하나 幸（행）福（복）을 바라고 살랴	나 하나 행ː보글 바라고 살ː랴	Na ha'na haeng'bo'gŭl pa'ra'go sal'rya	Na ha'na haeng'bo'geul ba'ra'go sal'lya	Na ha-na haeng-bo-gŭl pa-ra-go sal-lya	ナ ハ-ナ ヘン-ボ-グ<ル> パ-ラ-ゴ サ<ル>-リャ	Na ha-na hae:ng-bo-gŭl pa-ra-go sa:l-rya
+靑（청）春（춘）의 그 나이 묻지를 말아	청추네 그 나이 묻ː찌를 마라	Chŏng'chu'ne kŭ na'i mut'ji'rŭl ma'ra	Cheong'chu'ne geu na'i mut'ji'reul ma'ra	Ch'ŏng-ch'u-ne kŭ na-i mut-chi-rŭl ma-ra	ツォン-ツ-ネ ク ナ-イ ムッ-チ-ル<ル> マ-ラ	Ts'ŏng-ts'u-ne kŭ na-i mu:t-tchi-rŭl ma-ra
+瞬（순）間（간）을 산대도 값있게 살리	순가늘 산ː대도 가빋께 살ː리	Sun-ga'nŭl san'dae'do ka'bit'ke sal'ri	Sun-ga'neul san'dae'do ga'bit'ge sal'li	Sun'ga-nŭl san-dae-do ka-bit-ke sal-li	スン-ガ-ヌ<ル> サン-デ-ド カ-ビッ-ケ サ<ル>-リ	Sun-ga-nŭl sa:n-dae-do ka-bit-kke sa:l-ri
+나는 永（영）遠（원）히 그대의 아들	나는 영ː원히 그대에 아들	Na'nŭn yŏng'wŏn'hi kŭ'dae'e a'dŭl	Na'neun yeong-won'hi geu'dae'e a'deul	Na-nŭn yŏng-wŏn-hi kŭ-dae-e a-dŭl	ナ-ヌン ヨン-ウォ-ニ ク-デ-エ ア-ドゥ<ル>	Na-nŭn yŏ:ng-wŏn-hi kŭ-dae-e a-dŭl
+그 언제나 보고싶어 찾는 곳	그 언ː제나 보고시퍼 찬는 곧	Kŭ ŏn'je'na po'go'si'phŏ chan'nŭn kot	Geu eon'je'na bo'go'si'peo chan'neun got	Kŭ ŏn-je-na po-go-si-p'ŏ ch'an-nŭn kot	ク オン-ゼ-ナ ポ-ゴ-シ-ポ ツァン-ヌン コッ	Kŭ ŏ:n-ze-na po-go-shi-p'ŏ ts'an-nŭn kot
+白（백）頭（두）密（밀）營（영）故（고）鄕（향）집을	백뚜미령고향찌블	Paek'tu'mi'ryŏng'go'hyang'ji'bŭl	Baek'du'mi'ryeong'go'hyang'ji'beul	Paek-tu-mi-ryŏng-go-hyang-chi-bŭl	ペ<ク>-トゥ-ミ-リョン-ゴ-ヒャン-チ-ブ<ル>	Paek-ttu-mi-ryŏng-go-hyang-tchi-bŭl
+所（소）重（중）히도 품에 안고 서있는	소ː중히도 푸메 안ː꼬 서인는	So'jung'hi'do phu'me an'ko sŏ'in'nŭn	So'jung'hi'do pu'me an-go seo'in'neun	So-jung-hi-do p'u-me an-ko sŏ-in-nŭn	ソ-ズン-ヒ-ド プ-メ アン-コ ソ-イン-ヌン	So:-zung-hi-do p'u-me a:n-kko sŏ-in-nŭn
+榮（영）光（광）넘친 봉우리여	영광넘친 봉우리여	Yŏng'gwang'nŏm'chin pong-u'ri'yŏ	Yeong'gwang'neom'chin bong-u'ri'yeo	Yŏng-gwang-nŏm-ch'in pong-u-ri-yŏ	ヨン-グァン-ノ<ム>-チン ポン-ウ-リ-ヨ	Yŏng-gwang-nŏm-ch'in pong-u-ri-yŏ
+아 正（정）日（일）峰（봉） 빛나라 그 이름	아 정ː일봉 빈나라 그 이름	A jŏng-il'bong pin'na'ra kŭ i'rŭm	A jeong-il'bong bin'na'ra geu i'reum	A chŏng-il-bong pin-na-ra kŭ i-rŭm	ア ツォン-イ<ル>-ボン ピン-ナ-ラ ク イ-ル<ム>	A tsŏ:ng-il-bong pin-na-ra kŭ i-rŭm
+嚮（향）導（도）의 별빛 어려있어	향ː도에 별ː삗 어려이써	Hyang'do-e pyŏl'pit ŏ'ryŏ'i'ssŏ	Hyang'do-e byeol'bit eo'ryeo'i'sseo	Hyang-do-ë pyŏl-pit ŏ-ryŏ-i-ssŏ	ヒャン-ド-エ ピョ<ル>-ピッ オ-リョ-イ-ッソ	Hya:ng-do-e pyŏ:l-ppit ŏ-ryŏ-i-ssŏ
+너의 모습 莊（장）嚴（엄）하여라	너에 모습 장엄하여라	Nŏ'e mo'sŭp jang-ŏm'ha'yŏ'ra	Neo-e mo'seup jang-eom'ha'yeo'ra	Nŏ-e mo-sŭp chang-ŏm-ha-yŏ-ra	ノ-エ モ-ス<プ> ツァン-オ-マ-ヨ-ラ	Nŏ-e mo-sŭp tsang-ŏm-ha-yŏ-ra
+밝은 앞날 그려보신 그 微（미）笑（소）	발근 암날 그ː려보신 그 미소	Pal'gŭn am'nal kŭ'ryŏ'bo'sin kŭ mi'so	Bal'geun am'nal geu'ryeo'bo'sin geu mi'so	Pal-gŭn am-nal kŭ-ryŏ-bo-sin kŭ mi-so	パ<ル>-グン ア<ム>-ナ<ル> ク-リョ-ボ-シン ク ミ-ソ	Pal-gŭn am-nal kŭ:-ryŏ-bo-shin kŭ mi-so
+푸른 숲에 비껴있고	푸른 수페 비껴읻꼬	Phu'rŭn su'phe pi'kkyŏ'it'ko	Pu'reun su'pe bi'kkyeo'it'go	P'u-rŭn su-p'e pi-kkyŏ-it-ko	プ-ルン ス-ペ ピ-ッキョ-イッ-コ	P'u-rŭn su-p'e pi-kkyŏ-it-kko
+將（장）帥（수）힘을 키우시던 그 자욱	장ː수히믈 키우시던 그 자욱	Jang'su'hi'mŭl khi'u'si'dŏn kŭ ja'uk	Jang'su'hi'meul ki'u'si'deon geu ja'uk	Chang-su-hi-mŭl k'i-u-si-dŏn kŭ cha-uk	ツァン-ス-ヒ-ム<ル> キ-ウ-シ-ドン ク ツァ-ウ<ク>	Tsa:ng-su-hi-mŭl k'i-u-shi-dŏn kŭ tsa-uk
+네 山（산）頂（정）에 어려있네	네 산정에 어려인네	Ne san'jŏng-e ŏ'ryŏ'in'ne	Ne san'jeong-e eo'ryeo'in'ne	Ne san-jŏng-e ŏ-ryŏ-in-ne	ネ サン-ゾン-エ オ-リョ-イン-ネ	Ne san-zŏng-e ŏ-ryŏ-in-ne
+白（백）頭（두）靈（령）峰（봉）의 맑은 精（정）氣（기）	백뚜령봉에 말근 정기	Paek'tu'ryŏng'bong-e mal'gŭn jŏng'gi	Baek'du'ryeong'bong-e mal'geun jeong'gi	Paek-tu-ryŏng-bong-e mal-gŭn chŏng-gi	ペ<ク>-トゥ-リョン-ボン-エ マ<ル>-グン ツォン-ギ	Paek-ttu-ryŏng-bong-e mal-gŭn tsŏng-gi
+네가 모두 지녔구나	네가 모두 지녇꾸나	Ne'ga mo'du ji'nyŏt'ku'na	Ne'ga mo'du ji'nyeot'gu'na	Ne-ga mo-du chi-nyŏt-ku-na	ネ-ガ モ-ドゥ チ-ニョッ-ク-ナ	Ne-ga mo-du chi-nyŏt-kku-na
+共（공）産（산）主（주）義（의） 붉은 노을 타오를	공ː산주의 불근 노을 타오를	Kong'san'ju'ŭi pul'gŭn no'ŭl tha'o'rŭl	Gong'san'ju'ui bul'geun no-eul ta'o'reul	Kong-san-ju-ŭi pul-gŭn no-ŭl t'a-o-rŭl	コン-サン-ズ-イ プ<ル>-グン ノ-ウ<ル> タ-オ-ル<ル>	Ko:ng-san-zu-ŭi pul-gŭn no-ŭl t'a-o-rŭl
+그 아침을 바라보며	그 아치믈 바라보며	Kŭ a'chi'mŭl pa'ra'bo'myŏ	Geu a'chi'meul ba'ra'bo'myeo	Kŭ a-ch'i-mŭl pa-ra-bo-myŏ	ク ア-チ-ム<ル> パ-ラ-ボ-ミョ	Kŭ a-ch'i-mŭl pa-ra-bo-myŏ
+모진 바람 몰아쳐도 한모습	모ː진 바람 모라쳐도 한모습	Mo'jin pa'ram mo'ra'chyŏ'do han'mo'sŭp	Mo'jin ba'ram mo'ra'chyeo'do han'mo'seup	Mo-jin pa-ram mo-ra-ch'yŏ-do han-mo-sŭp	モ-ジン パ-ラ<ム> モ-ラ-チョ-ド ハン-モ-ス<プ>	Mo:-jin pa-ram mo-ra-ch'yŏ-do han-mo-sŭp
+變（변）함없는 봉우리여	변ː하멈는 봉우리여	Pyŏn'ha'mŏm'nŭn pong-u'ri'yŏ	Byeon'ha'meom'neun bong-u'ri'yeo	Pyŏn-ha-mŏm-nŭn pong-u-ri-yŏ	ピョ-ナ-モ<ム>-ヌン ポン-ウ-リ-ヨ	Pyŏ:n-ha-mŏm-nŭn pong-u-ri-yŏ
+우리 人（인）民（민）의 마음속에	우리 인미네 마음소게	U'ri in'mi'ne ma'ŭm'so'ge	U'ri in'mi'ne ma-eum'so'ge	U-ri in-mi-ne ma-ŭm-so-ge	ウ-リ イン-ミ-ネ マ-ウ<ム>-ソ-ゲ	U-ri in-mi-ne ma-ŭm-so-ge
+永（영）遠（원）히 빛나리라	영ː원히 빈나리라	Yŏng'wŏn'hi pin'na'ri'ra	Yeong-won'hi bin'na'ri'ra	Yŏng-wŏn-hi pin-na-ri-ra	ヨン-ウォ-ニ ピン-ナ-リ-ラ	Yŏ:ng-wŏn-hi pin-na-ri-ra
+生（생）이란 무엇인가 누가 물으면	생이란 무어신가 누가 무르면	Saeng-i'ran mu'ŏ'sin-ga nu'ga mu'rŭ'myŏn	Saeng-i'ran mu'eo'sin-ga nu'ga mu'reu'myeon	Saeng-i-ran mu-ŏ-sin'ga nu-ga mu-rŭ-myŏn	セン-イ-ラン ム-オ-シン-ガ ヌ-ガ ム-ル-ミョン	Saeng-i-ran mu-ŏ-shin-ga nu-ga mu-rŭ-myŏn
+우리는 對（대）答（답）하리라	우리는 대ː다파리라	U'ri'nŭn tae'da'pha'ri'ra	U'ri'neun dae'da'pa'ri'ra	U-ri-nŭn tae-da-pha-ri-ra	ウ-リ-ヌン テ-ダ-パ-リ-ラ	U-ri-nŭn tae:-da-p'a-ri-ra
+마지막瞬（순）間（간）에 뒤돌아볼 때	마지막쑨가네 뒤ː도라볼 때	Ma'ji'mak'sun-ga'ne twi'do'ra'bol ttae	Ma'ji'mak'sun-ga'ne dwi'do'ra'bol ttae	Ma-ji-mak-sun'ga-ne twi-do-ra-bol ttae	マ-ジ-マ<ク>-スン-ガ-ネ トィ-ド-ラ-ボ<ル> テ	Ma-ji-mak-ssun-ga-ne twi:-do-ra-bol ttae
+웃으며 追（추）憶（억）할 지난날이라고	우ː스며 추어칼 지난나리라고	U'sŭ'myŏ chu'ŏ'khal ji'nan'na'ri'ra'go	U'seu'myeo chu'eo'kal ji'nan'na'ri'ra'go	U-sŭ-myŏ ch'u-ŏ-khal chi-nan-na-ri-ra-go	ウ-ス-ミョ ツ-オ-カ<ル> チ-ナン-ナ-リ-ラ-ゴ	U:-sŭ-myŏ ts'u-ŏ-k'al chi-nan-na-ri-ra-go
+시내물 모여서 江（강）을 이루듯	시ː낸물 모여서 강을 이루듣	Si'naen'mul mo'yŏ'sŏ kang-ŭl i'ru'dŭt	Si'naen'mul mo'yeo'seo gang-eul i'ru'deut	Si-naen-mul mo-yŏ-sŏ kang-ŭl i-ru-dŭt	シ-ネン-ム<ル> モ-ヨ-ソ カン-ウ<ル> イ-ル-ドゥッ	Shi:-naen-mul mo-yŏ-sŏ kang-ŭl i-ru-dŭt
+날들이 모여 生（생）을 이루리	날드리 모여 생을 이루리	Nal'dŭ'ri mo'yŏ saeng-ŭl i'ru'ri	Nal'deu'ri mo'yeo saeng-eul i'ru'ri	Nal-dŭ-ri mo-yŏ saeng-ŭl i-ru-ri	ナ<ル>-ドゥ-リ モ-ヨ セン-ウ<ル> イ-ル-リ	Nal-dŭ-ri mo-yŏ saeng-ŭl i-ru-ri
+그 生（생）이 짧은들 누가 탓하랴	그 생이 짤븐들 누가 타타랴	Kŭ saeng-i jjal'bŭn'dŭl nu'ga tha'tha'rya	Geu saeng-i jjal'beun'deul nu'ga ta'ta'rya	Kŭ saeng-i tchal-bŭn-dŭl nu-ga t'a-tha-rya	ク セン-イ ツァ<ル>-ブン-ドゥ<ル> ヌ-ガ タ-タ-リャ	Kŭ saeng-i ttsal-bŭn-dŭl nu-ga t'a-t'a-rya
+永（영）生（생）은 時（시）間（간）과 因（인）緣（연）없어라	영ː생은 시간과 이녀넙써라	Yŏng'saeng-ŭn si'gan-gwa i'nyŏ'nŏp'sŏ'ra	Yeong'saeng-eun si'gan-gwa i'nyeo'neop'seo'ra	Yŏng-saeng-ŭn si-gan'gwa i-nyŏ-nŏp-sŏ-ra	ヨン-セン-ウン シ-ガン-グァ イ-ニョ-ノ<プ>-ソ-ラ	Yŏ:ng-saeng-ŭn shi-gan-gwa i-nyŏ-nŏp-ssŏ-ra
+歲（세）月（월）이 간대도 잊을수 없는	세ː워리 간대도 이즐쑤 엄ː는	Se'wŏ'ri kan'dae'do i'jŭl'su ŏm'nŭn	Se'wo'ri gan'dae'do i'jeul'su eom'neun	Se-wŏ-ri kan-dae-do i-jŭl-ssu ŏm-nŭn	セ-ウォ-リ カン-デ-ド イ-ズ<ル>-ス オ<ム>-ヌン	Se:-wŏ-ri kan-dae-do i-zŭl-ssu ŏ:m-nŭn
+祖（조）國（국）에 바쳐진 瞬（순）間（간）이라고	조구게 바쳐진 순가니라고	Jo'gu'ge pa'chyŏ'jin sun-ga'ni'ra'go	Jo'gu'ge ba'chyeo'jin sun-ga'ni'ra'go	Cho-gu-ge pa-ch'yŏ-jin sun'ga-ni-ra-go	ツォ-グ-ゲ パ-チョ-ジン スン-ガ-ニ-ラ-ゴ	Tso-gu-ge pa-ch'yŏ-jin sun-ga-ni-ra-go
+고요한 아침에 이슬이 지듯	고요한 아치메 이스리 지듣	Ko'yo'han a'chi'me i'sŭ'ri ji'dŭt	Go'yo'han a'chi'me i'seu'ri ji'deut	Ko-yo-han a-ch'i-me i-sŭ-ri chi-dŭt	コ-ヨ-ハン ア-チ-メ イ-ス-リ チ-ドゥッ	Ko-yo-han a-ch'i-me i-sŭ-ri chi-dŭt
+한生（생）이 사라진대도	한생이 사라진대도	Han'saeng-i sa'ra'jin'dae'do	Han'saeng-i sa'ra'jin'dae'do	Han-saeng-i sa-ra-jin-dae-do	ハン-セン-イ サ-ラ-ジン-デ-ド	Han-saeng-i sa-ra-jin-dae-do
+어머니祖（조）國（국）은 記（기）憶（억）하리라	어머니조구근 기어카리라	Ŏ'mŏ'ni'jo'gu'gŭn ki'ŏ'kha'ri'ra	Eo'meo'ni'jo'gu'geun gi'eo'ka'ri'ra	Ŏ-mŏ-ni-jo-gu-gŭn ki-ŏ-kha-ri-ra	オ-モ-ニ-ゾ-グ-グン キ-オ-カ-リ-ラ	Ŏ-mŏ-ni-zo-gu-gŭn ki-ŏ-k'a-ri-ra
+그대의 이름과 걸어온 길을	그대에 이름과 거러온 기를	Kŭ'dae'e i'rŭm'gwa kŏ'rŏ'on ki'rŭl	Geu'dae'e i'reum'gwa geo'reo'on gi'reul	Kŭ-dae-e i-rŭm-gwa kŏ-rŏ-on ki-rŭl	ク-デ-エ イ-ル<ム>-グァ コ-ロ-オン キ-ル<ル>	Kŭ-dae-e i-rŭm-gwa kŏ-rŏ-on ki-rŭl
+사랑의 씨앗은 어데서	사랑에 씨아슨 어데서	Sa'rang-e ssi'a'sŭn ŏ'de'sŏ	Sa'rang-e ssi'a'seun eo'de'seo	Sa-rang-e ssi-a-sŭn ŏ-de-sŏ	サ-ラン-エ シ-ア-スン オ-デ-ソ	Sa-rang-e sshi-a-sŭn ŏ-de-sŏ
+움트고 꽃폈는가	움ː트고 꼳편는가	Um'thŭ'go kkot'phyŏn'nŭn-ga	Um'teu'go kkot'pyeon'neun-ga	Um-t'ŭ-go kkot-p'yŏn-nŭn'ga	ウ<ム>-トゥ-ゴ コッ-ピョン-ヌン-ガ	U:m-t'ŭ-go kkot-p'yŏn-nŭn-ga
+배움의 글소리 울리던	배우메 글쏘리 울리던	Pae'u'me kŭl'so'ri ul'ri'dŏn	Bae-u'me geul'so'ri ul'li'deon	Pae-u-me kŭl-sso-ri ul-li-dŏn	ペ-ウ-メ ク<ル>-ソ-リ ウ<ル>-リ-ドン	Pae-u-me kŭl-sso-ri ul-ri-dŏn
+窓（창）가에 싹텄던가	창까에 싹턷떤가	Chang'ka-e ssak'thŏt-tŏn-ga	Chang'ga-e ssak'teot'deon-ga	Ch'ang-ka-ë ssak-t'ŏt-tŏn'ga	ツァン-カ-エ サ<ク>-トッ-トン-ガ	Ts'ang-kka-e ssak-t'ŏt-ttŏn-ga
+火（화）線（선）千（천）里（리） 머나먼 길	화ː선철리 머ː나먼 길	Hwa'sŏn'chŏl'ri mŏ'na'mŏn kil	Hwa'seon'cheol'li meo'na'meon gil	Hwa-sŏn-ch'ŏl-li mŏ-na-mŏn kil	ホァ-ソン-ツォ<ル>-リ モ-ナ-モン キ<ル>	Hwa:-sŏn-ts'ŏl-ri mŏ:-na-mŏn kil
+試（시）鍊（련）의 고비 넘으며	시ː려네 고비 너므며	Si'ryŏ'ne ko'bi nŏ'mŭ'myŏ	Si'ryeo'ne go'bi neo'meu'myeo	Si-ryŏ-ne ko-bi nŏ-mŭ-myŏ	シ-リョ-ネ コ-ビ ノ-ム-ミョ	Shi:-ryŏ-ne ko-bi nŏ-mŭ-myŏ
+同（동）志（지）들 품에서 永（영）遠（원）한	동지들 푸메서 영ː원한	Tong'ji'dŭl phu'me'sŏ yŏng'wŏn'han	Dong'ji'deul pu'me'seo yeong-won'han	Tong-ji-dŭl p'u-me-sŏ yŏng-wŏn-han	トン-ジ-ドゥ<ル> プ-メ-ソ ヨン-ウォ-ナン	Tong-ji-dŭl p'u-me-sŏ yŏ:ng-wŏn-han
+나의 사랑 꽃폈네	나에 사랑 꼳편네	Na-e sa'rang kkot'phyŏn'ne	Na-e sa'rang kkot'pyeon'ne	Na-ë sa-rang kkot-p'yŏn-ne	ナ-エ サ-ラン コッ-ピョン-ネ	Na-e sa-rang kkot-p'yŏn-ne
+사랑은 이 가슴 태우는	사랑은 이 가슴 태우는	Sa'rang-ŭn i ka'sŭm thae'u'nŭn	Sa'rang-eun i ga'seum tae-u'neun	Sa-rang-ŭn i ka-sŭm t'ae-u-nŭn	サ-ラン-ウン イ カ-ス<ム> テ-ウ-ヌン	Sa-rang-ŭn i ka-sŭm t'ae-u-nŭn
+熱（열）情（정）의 불길인가	열쩡에 불끼린가	Yŏl'jŏng-e pul'ki'rin-ga	Yeol'jeong-e bul'gi'rin-ga	Yŏl-chŏng-e pul-ki-rin'ga	ヨ<ル>-ツォン-エ プ<ル>-キ-リン-ガ	Yŏl-ttsŏng-e pul-kki-rin-ga
+못잊을 追（추）憶（억）을 부르는	몬ː니즐 추어글 부르는	Mon'ni'jŭl chu'ŏ'gŭl pu'rŭ'nŭn	Mon'ni'jeul chu'eo'geul bu'reu'neun	Mon-ni-jŭl ch'u-ŏ-gŭl pu-rŭ-nŭn	モン-ニ-ズ<ル> ツ-オ-グ<ル> プ-ル-ヌン	Mo:n-ni-zŭl ts'u-ŏ-gŭl pu-rŭ-nŭn
+心（심）臟（장）의 노래인가	심장에 노래인가	Sim'jang-e no'rae'in-ga	Sim'jang-e no'rae'in-ga	Sim-jang-e no-rae-in'ga	シ<ム>-ザン-エ ノ-レ-イン-ガ	Shim-zang-e no-rae-in-ga
+기쁠 때도 나의 사랑	기쁠 때도 나에 사랑	Ki'ppŭl ttae'do na-e sa'rang	Gi'ppeul ttae'do na-e sa'rang	Ki-ppŭl ttae-do na-ë sa-rang	キ-ップ<ル> テ-ド ナ-エ サ-ラン	Ki-ppŭl ttae-do na-e sa-rang
+슬퍼도 나의 그 幸（행）福（복）	슬퍼도 나에 그 행ː복	Sŭl'phŏ'do na-e kŭ haeng'bok	Seul'peo'do na-e geu haeng'bok	Sŭl-p'ŏ-do na-ë kŭ haeng-bok	ス<ル>-ポ-ド ナ-エ ク ヘン-ボ<ク>	Sŭl-p'ŏ-do na-e kŭ hae:ng-bok
+祖（조）國（국）이 부르는 길에서	조구기 부르는 기레서	Jo'gu'gi pu'rŭ'nŭn ki're'sŏ	Jo'gu'gi bu'reu'neun gi're'seo	Cho-gu-gi pu-rŭ-nŭn ki-re-sŏ	ツォ-グ-ギ プ-ル-ヌン キ-レ-ソ	Tso-gu-gi pu-rŭ-nŭn ki-re-sŏ
+運（운）命（명）을 함께했네	운ː명을 함께핸네	Un'myŏng-ŭl ham'kke'haen'ne	Un'myeong-eul ham'kke'haen'ne	Un-myŏng-ŭl ham-kke-haen-ne	ウン-ミョン-ウ<ル> ハ<ム>-ケ-ヘン-ネ	U:n-myŏng-ŭl ham-kke-haen-ne
+따사론 해빛은 내 사랑	따사론 해삐츤 내 사랑	Tta'sa'ron hae'ppi'chŭn nae sa'rang	Tta'sa'ron haet'bi'cheun nae sa'rang	Tta-sa-ron hae-ppi-ch'ŭn nae sa-rang	タ-サ-ロン ヘ-ッピ-ツン ネ サ-ラン	Tta-sa-ron hae-ppi-ts'ŭn nae sa-rang
+내 幸（행）福（복） 지켜주고	내 행ː복 지켜주고	Nae haeng'bok ji'khyŏ'ju'go	Nae haeng'bok ji'kyeo'ju'go	Nae haeng-bok chi-k'yŏ-ju-go	ネ ヘン-ボ<ク> チ-キョ-ズ-ゴ	Nae hae:ng-bok chi-k'yŏ-zu-go
+恩（은）惠（혜）론 별빛은 언제나	은헤론 별ː삐츤 언제나	Ŭn'hye'ron pyŏl'pi'chŭn ŏn'je'na	Eun'hye'ron byeol'bi'cheun eon'je'na	Ŭn-hye-ron pyŏl-pi-ch'ŭn ŏn-je-na	ウ-ネ-ロン ピョ<ル>-ピ-ツン オン-ゼ-ナ	Ŭn-he-ron pyŏ:l-ppi-ts'ŭn ŏn-ze-na
+앞길을 밝혀주네	압끼를 발켜주네	Ap'ki'rŭl pal'khyŏ'ju'ne	Ap'gi'reul bal'kyeo'ju'ne	Ap-ki-rŭl pal-khyŏ-ju-ne	ア<プ>-キ-ル<ル> パ<ル>-キョ-ズ-ネ	Ap-kki-rŭl pal-k'yŏ-zu-ne
+生（생）死（사）運（운）命（명） 같이하여온	생사운명 가치하여온	Saeng'sa'un'myŏng ka'chi'ha'yŏ'on	Saeng'sa'un'myeong ga'chi'ha'yeo'on	Saeng-sa-un-myŏng ka-ch'i-ha-yŏ-on	セン-サ-ウン-ミョン カ-チ-ハ-ヨ-オン	Saeng-sa-un-myŏng ka-ch'i-ha-yŏ-on
+그 품에 나는 한戰（전）士（사）	그 푸메 나는 한전사	Kŭ phu'me na'nŭn han'jŏn'sa	Geu pu'me na'neun han'jeon'sa	Kŭ p'u-me na-nŭn han-jŏn-sa	ク プ-メ ナ-ヌン ハン-ゾン-サ	Kŭ p'u-me na-nŭn han-zŏn-sa
+한生（생）을 끝까지 따르리	한생을 끋까지 따르리	Han'saeng-ŭl kkŭt'kka'ji tta'rŭ'ri	Han'saeng-eul kkeut'kka'ji tta'reu'ri	Han-saeng-ŭl kkŭt-kka-ji tta-rŭ-ri	ハン-セン-ウ<ル> クッ-カ-ジ タ-ル-リ	Han-saeng-ŭl kkŭt-kka-ji tta-rŭ-ri
+永（영）遠（원）한 내 삶의 품	영ː원한 내 살ː메 품	Yŏng'wŏn'han nae sal'me phum	Yeong-won'han nae sal'me pum	Yŏng-wŏn-han nae sal-me p'um	ヨン-ウォ-ナン ネ サ<ル>-メ プ<ム>	Yŏ:ng-wŏn-han nae sa:l-me p'um
