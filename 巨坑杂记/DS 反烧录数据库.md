@@ -25,4 +25,5 @@ CRC32 以解密 ROM 为准。
 |[5532](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5532)|[5532](https://www.advanscene.com/html/Releases/dbrelds.php?id=5750)|[5533](http://www.ds-scene.net/?s=viewtopic&nid=10495)|NTR-BXOJ-JPN|04D1A557|19FE980E|EEPROM 65536|Eeprom - 512 kbit|Unknown||
 |[6654](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=6654)|[6650](https://www.advanscene.com/html/Releases/dbrelds.php?id=6931)|N/A|NTR-AGCJ-JPN|2CC173D8|2CC173D8|EEPROM 65536|Eeprom - 512 kbit|N/A||
 |[z159](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=z159)|[z086](https://www.advanscene.com/html/Releases/dbrelds.php?id=7207)|N/A|NTR-A49J-JPN|81D7298B|81D7298B||None|N/A|Demo|
-|[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|[e081](https://www.advanscene.com/html/Releases/dbrelds.php?id=5698)|[XXXX](http://www.ds-scene.net/?s=viewtopic&nid=10419)|NTR-NTRJ-JPN|47E4D309|47E4D309||None|N/A|Demo|
+|[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|e081|XXXX|NTR-NTRJ-JPN|4A8A60D2|4A8A60D2||None|N/A|Demo|
+|[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|[e081](https://www.advanscene.com/html/Releases/dbrelds.php?id=5698)|[XXXX](http://www.ds-scene.net/?s=viewtopic&nid=10419)|NTR-NTRJ-JPN|47E4D309|47E4D309||None|N/A|Hacked<br>Demo|
