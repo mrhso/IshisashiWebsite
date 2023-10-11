@@ -39,3 +39,14 @@ CRC32 以解密 ROM 为准。
 |[z368](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=z368)|N/A|N/A|NTR-ARKJ-JPN|C72D405C|C72D405C||N/A|N/A||
 |[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|e081|XXXX|NTR-NTRJ-JPN|4A8A60D2|4A8A60D2||None|N/A|Demo|
 |[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|[e081](https://www.advanscene.com/html/Releases/dbrelds.php?id=5698)|[XXXX](http://www.ds-scene.net/?s=viewtopic&nid=10419)|NTR-NTRJ-JPN|47E4D309|47E4D309||None|N/A|Hacked<br>Demo|
+
+### 附录：存档类型对照表
+|大小|No-Intro|ADVANsCEne|DS-Scene|
+|-|-|-|-|
+|512 B = 4 Kibit = 4096 bit|EEPROM 512|Eeprom - 4 kbit|EEPROM 4kb|
+|8 KiB = 64 Kibit = 8192 B = 65536 bit|EEPROM 8192|Eeprom - 64 kbit|EEPROM 64kb|
+|64 KiB = 512 Kibit = 65536 B = 524288 bit|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb|
+|256 KiB = 2 Mibit = 262144 B = 2097152 bit|Flash 262144|Flash - 2 Mbit|FLASH 2Mb|
+|512 KiB = 4 Mibit = 524288 B = 4194304 bit|Flash 524288|Flash - 4 Mbit|FLASH 4Mb|
+|1 MiB = 8 Mibit = 1048576 B = 8388608 bit|Flash 1048576|Flash - 8 Mbit|FLASH 8Mb|
+|8 MiB = 64 Mibit = 8388608 B = 67108864 bit|Flash 8388608|Flash - 64 Mbit|FLASH 64Mb|
