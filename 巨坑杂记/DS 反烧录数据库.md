@@ -6,7 +6,7 @@ CRC32 以解密 ROM 为准。
 
 |No-Intro|ADVANsCEne|DS-Scene|序列号|CRC32（原 ROM）|CRC32（打补丁后）|实测存档大小（字节）|存档类型（No-Intro）|存档类型（ADVANsCEne）|存档类型（DS-Scene）|注释|
 |-|-|-|-|-|-|-|-|-|-|-|
-|[0186](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=0186)|[0186](https://www.advanscene.com/html/Releases/dbrelds.php?id=0191)|[0186](http://www.ds-scene.net/?s=viewtopic&nid=206)|NTR-AGYJ-JPN|1C725545|1C725545|65536|Flash 262144|Flash - 2 Mbit|EEPROM 64kb|DS-Scene 之存档类型有误|
+|[0186](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=0186)|[0186](https://www.advanscene.com/html/Releases/dbrelds.php?id=0191)|[0186](http://www.ds-scene.net/?s=viewtopic&nid=206)|NTR-AGYJ-JPN|1C725545|1C725545|262144|Flash 262144|Flash - 2 Mbit|EEPROM 64kb|DS-Scene 之存档类型有误|
 |[0259](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=0259)|[0259](https://www.advanscene.com/html/Releases/dbrelds.php?id=0277)|[0259](http://www.ds-scene.net/?s=viewtopic&nid=282)|NTR-ARKJ-JPN|A2B1ED7B|A2B1ED7B|8192|EEPROM 8192|Eeprom - 64 kbit|EEPROM 64kb||
 |[0626](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=0626)|[0626](https://www.advanscene.com/html/Releases/dbrelds.php?id=0659)|[0626](http://www.ds-scene.net/?s=viewtopic&nid=1608)|NTR-A2GJ-JPN|40BECDC8|40BECDC8|65536|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb||
 |[0993](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=0993)|[0993](https://www.advanscene.com/html/Releases/dbrelds.php?id=1034)|[0993](http://www.ds-scene.net/?s=viewtopic&nid=2828)|NTR-AGCJ-JPN|34721814|34721814|65536|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb||
@@ -35,7 +35,7 @@ CRC32 以解密 ROM 为准。
 |[5532](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5532)|[5532](https://www.advanscene.com/html/Releases/dbrelds.php?id=5750)|[5533](http://www.ds-scene.net/?s=viewtopic&nid=10495)|NTR-BXOJ-JPN|04D1A557|19FE980E|65536|EEPROM 65536|Eeprom - 512 kbit|Unknown||
 |[6654](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=6654)|[6650](https://www.advanscene.com/html/Releases/dbrelds.php?id=6931)|N/A|NTR-AGCJ-JPN|2CC173D8|2CC173D8|65536|EEPROM 65536|Eeprom - 512 kbit|N/A||
 |[z159](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=z159)|[z086](https://www.advanscene.com/html/Releases/dbrelds.php?id=7207)|N/A|NTR-A49J-JPN|81D7298B|81D7298B|0||None|N/A|Demo|
-|[z239](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=z239)|N/A|N/A|NTR-CRUJ-JPN|088CEA8F|088CEA8F|8192||N/A|N/A||
+|[z239](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=z239)|N/A|N/A|NTR-CRUJ-JPN|088CEA8F|088CEA8F|262144||N/A|N/A||
 |[z368](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=z368)|N/A|N/A|NTR-ARKJ-JPN|C72D405C|C72D405C|8192||N/A|N/A||
 |[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|e081|XXXX|NTR-NTRJ-JPN|4A8A60D2|4A8A60D2|0||None|N/A|Demo|
 |[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|[e081](https://www.advanscene.com/html/Releases/dbrelds.php?id=5698)|[XXXX](http://www.ds-scene.net/?s=viewtopic&nid=10419)|NTR-NTRJ-JPN|47E4D309|47E4D309|0||None|N/A|Hacked<br>Demo|
