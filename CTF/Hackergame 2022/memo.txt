@@ -1,0 +1,139 @@
+a\[(\d+) \| (\d+.*)\] = (\d+)$
+a\[\1\] = \3\r\na\[\2\] = \3
+
+VSCode 的 flag 我并不是透过 VSCode 找到的，而是用 Notepad++ 搜寻。
+Rclone 倒是能猜到和 config 有关，然而我并没有用 Rclone，所以还得下……（
+为了搭 FTP 伺服器还下了个 FileZilla Server，发现也看不到密码。所以还是特地拿 Node.js 写了个 FTP Server。
+
+do=revisions 不行，do=diff 总行了。
+
+求 d 前先求出 t1。
+观察代码知 d、t1、t2、t3 各是 48×48、16×16×16、16×4×4、16×16×4×4 的张量。
+设 a、b、c、a'、b' 是 [0,16) 内的任意整数，i、k 是 [0,4) 内的任意整数。
+考虑到 t1.reshape(-1) 与 t3.reshape(-1) 相等，于是 t1(a,b,c)=t3(a',b',i,k) 的条件是 (a,b,c)=(a',b',4i+k)，从而 t1(a,b,4i+k)=t3(a,b,i,k)。
+另外有 t3(a,b,i,k)=∨[j=0…3](t2(a,i,j)∧t2(b,j,k))。
+设 I 是 16 阶单位矩阵，则 t2(a,i,k)=I(a',b) 的条件是 (a,4i+k)=(a',b)，故 t2(a,i,k)=I(a,4i+k)。
+综合以上分析得 t1(a,b,4i+k)=∨[j=0…3](I(a,4i+j)∧I(b,4j+k))。
+由单位矩阵的定义得 I(a,b)=[a=b]，从而 t1(a,b,4i+k)=∨[j=0…3]([a=4i+j]∧[b=4j+k])。
+然后就能算出 t1 中一切 1 的位置。
+注意到 j 与 j' 取 [0,4) 内两相异整数时总有 {(a,i)|a=4i+j}∩{(a,i)|a=4i+j'}={(b,k)|b=4j+k}∩{(b,k)|b=4j'+k}=∅，于是很易明了，t1 中 1 的个数为 |{{(a,i)|a=4i+j}×{(b,k)|b=4j+k}|j∈[0,4)∩Z}|=4×4×4=64。
+那么 t1 中有哪些元素是 1 呢？其实哪怕没有上面的分析，直接把代码改改跑一遍也能得到。
+0,0,0
+0,1,1
+0,2,2
+0,3,3
+1,4,0
+1,5,1
+1,6,2
+1,7,3
+2,8,0
+2,9,1
+2,10,2
+2,11,3
+3,12,0
+3,13,1
+3,14,2
+3,15,3
+4,0,4
+4,1,5
+4,2,6
+4,3,7
+5,4,4
+5,5,5
+5,6,6
+5,7,7
+6,8,4
+6,9,5
+6,10,6
+6,11,7
+7,12,4
+7,13,5
+7,14,6
+7,15,7
+8,0,8
+8,1,9
+8,2,10
+8,3,11
+9,4,8
+9,5,9
+9,6,10
+9,7,11
+10,8,8
+10,9,9
+10,10,10
+10,11,11
+11,12,8
+11,13,9
+11,14,10
+11,15,11
+12,0,12
+12,1,13
+12,2,14
+12,3,15
+13,4,12
+13,5,13
+13,6,14
+13,7,15
+14,8,12
+14,9,13
+14,10,14
+14,11,15
+15,12,12
+15,13,13
+15,14,14
+15,15,15
+构造的时候就想办法把和凑成这个样子。
+但是哑标求和是 48 次，所以还是比较棘手的，甚至感觉没法做到。
+直到被抢一血，我才发现 t1 后面还有 % 2……
+我是弱智，谢谢。
+——既然如此，不该加的再加一次不就抵消了吗？
+这使我想到了加法 mod 2 对应 XOR，进一步联想到乘法其实就对应 AND。
+d 与 t1 的关系便是 t1(a,b,c)=⊕[x=0…47](d(a,x)∧d(b+16,x)∧d(c+32,x))。
+于是凭着这种思路搜寻资料，搜到了 Stack Overflow 上的一个问题。
+https://stackoverflow.com/questions/68019736/solve-a-linear-matrix-equation-with-modulo-2
+下面的回答中提到了 CSP 求解器。恰好在开赛以前，我上公选逻辑课时遇到个算是 CSP 的习题——当时用了人肉列真值表的蠢方法；两天后我群就有人向我推荐 Z3，能在这里用到算是非常巧的事情。
+不过这次还是第一次用，姑且试试看。
+……不知过了多少个普朗克时间，262020.30 秒后还是按 Ctrl+C 停止了。根本跑不完嘛。
+
+http://202.38.93.111:10056/share?result=MTAwOjxpZnJhbWUgc3JjZG9jPSI8aHRtbD48aGVhZD48c2NyaXB0PnBhcmVudC5kb2N1bWVudC5xdWVyeVNlbGVjdG9yKCcjZ3JlZXRpbmcnKS5pbm5lckhUTUwgPSAnXHU2MEE4XHU1OTdEXHVGRjBDJyArIHBhcmVudC5kb2N1bWVudC5jb29raWUgKyAnXHVGRjAxJzs8L3NjcmlwdD48L2hlYWQ%2BPGJvZHk%2BPC9ib2R5PjwvaHRtbD4iPjwvaWZyYW1lPg%3D%3D
+iframe 出奇迹（
+
+把 sceneSDF 的 t5 删掉，用 Fiddler 狸猫换 JS 就行。
+
+制备基底：
+++++++++++xxxxxxxxxxxxxxx++xx+++xxxx+x+xxxxxxxxxxxxxxxxxx+++++++++++++xxxx+x+x+xxxxxxxxxxxx+xx+++x+x+x+x++x+xxxxxxxxxx+++++++++++++xxxx++xx+++xxxx+x+xxxxxxxxxxxxxxxxxx+++++++xxxxxxxxxxx+xx+++x+x+x+x++x+xxxxxxxx++xx+++xxxx+x+xxxxxxxx++++++++++++xxxxx+++xxxxx+xx+x+x+x+x+x+x+x+xx
+量子态：
+0101010000000001111111111111110000111010101010000000011111000000001111111111100000000011111111111111111111001010000000011111000000001111111111100000111110000011111111110010001111111111100000000000001111111111111010101001010101010101101001011010100101101010010100101010101010000
+测量基底：
+xxxxxxxxxxx+x+++x+x+xx++xx++xxxx++x+xx+++x+xxx++x+xxxx++xxx++x+x+x+x+xxxxx+xx+xxxx+++xxxxx+xx+x+xxx+++xxxxx+x+xx+x++xx+x+x+xxx+x++xxx+xxxxxxx++xx+++++xxxx++x+xxxxxx++++xx++x+++xx+x+++xxx++xx++xxxx+xxxx++x+++xxxxx+xx+x+xxx+x+++xxx+xxx++xxx+x++x+++xx+x+++x+xxx+x+xxxxxxxx++++xxx+
+安全密钥：
+001111111101001000001100001111111100001111111110011000001100001111100011110011111111001111100000111111000101010100101010001100001000001100
+
+'use strict';
+
+let a = '++++++++++xxxxxxxxxxxxxxx++xx+++xxxx+x+xxxxxxxxxxxxxxxxxx+++++++++++++xxxx+x+x+xxxxxxxxxxxx+xx+++x+x+x+x++x+xxxxxxxxxx+++++++++++++xxxx++xx+++xxxx+x+xxxxxxxxxxxxxxxxxx+++++++xxxxxxxxxxx+xx+++x+x+x+x++x+xxxxxxxx++xx+++xxxx+x+xxxxxxxx++++++++++++xxxxx+++xxxxx+xx+x+x+x+x+x+x+x+xx';
+let b = 'xxxxxxxxxxx+x+++x+x+xx++xx++xxxx++x+xx+++x+xxx++x+xxxx++xxx++x+x+x+x+xxxxx+xx+xxxx+++xxxxx+xx+x+xxx+++xxxxx+x+xx+x++xx+x+x+xxx+x++xxx+xxxxxxx++xx+++++xxxx++x+xxxxxx++++xx++x+++xx+x+++xxx++xx++xxxx+xxxx++x+++xxxxx+xx+x+xxx+x+++xxx+xxx++xxx+x++x+++xx+x+++x+xxx+x+xxxxxxxx++++xxx+';
+let c = '0101010000000001111111111111110000111010101010000000011111000000001111111111100000000011111111111111111111001010000000011111000000001111111111100000111110000011111111110010001111111111100000000000001111111111111010101001010101010101101001011010100101101010010100101010101010000';
+let d = '';
+let offset = 0;
+
+while (offset < c.length) {
+    if (a[offset] === b[offset]) {
+        d += c[offset];
+    };
+    offset += 1;
+};
+
+console.log(d);
+
+猜测栏留空然后 submit(); 即可。
+
+将 e 对 n! 求模逆元，然后游戏结束。
+但这玩意有 15 道题，手动复制粘贴导致 Timeout Killed 十万甚至九万次。
+——所以我也只能用 pyperclip 自动复制粘贴了（？）
+
+运行前获取一下时间戳，故意答错题目出数据。时间戳循环上加，对比运行数据得到种子。
+
+我压根就没打算运行慢慢找，而是先用 HxD 看一下有没有东西。注意到出现了 flag_machine.txt 的字样，猜测是写入文本，那就去 IDA 找对应的函数。
+于是我把退出事件的 jz loc_40146C 改成了 jz loc_401840，然后放手离开就行了。
+毕竟我压根就不熟 Windows API 嘛（
