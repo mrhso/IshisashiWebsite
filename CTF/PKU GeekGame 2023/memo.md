@@ -1023,6 +1023,7 @@ Nano 有一种智取的美，Hard 纯粹暴力。
 const Jimp = require('jimp');
 
 let blocks = ['008d4bbb.png', '010d1361.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '1e705384.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '31aa5509.png', '33fd7c9b.png', '34172d5e.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '43877307.png', '4a9be412.png', '4b6a235b.png', '4b7f2c8f.png', '54a873f5.png', '561ffd26.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e348659.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a73492e3.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c0ff63ff.png', 'c2fb5966.png', 'c4aa069a.png', 'c80f5d89.png', 'cc438036.png', 'd02ab635.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f3ddeb68.png', 'f845f0c9.png', 'fa154d23.png', 'fb96e606.png', 'fbcf5270.png', 'ff002042.png'];
+let done = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
 
 const main = async () => {
     let ref = await Jimp.read('ref1.png');
@@ -1033,199 +1034,112 @@ const main = async () => {
         blocksData.set(block, blk);
     };
 
-    let possible = new Map();
+    let blkCount = blocks.length;
+    while (true) {
+        let possible = new Map();
 
-    let bx = 0;
-    while (bx < 450) {
-        let by = 0;
+        let bx = 0;
+        while (bx < 450) {
+            let by = 0;
 
-        while (by < 450) {
-            for (let block of blocks) {
-                let blk = blocksData.get(block);
-                let psb = true;
+            while (by < 450) {
+                let crd = bx / 50 * 9 + by / 50;
+                if (done[crd]) {
+                    by += 50;
+                    continue;
+                };
 
-                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                    if (ref.bitmap.data[idx] !== 189) {
-                        for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                            if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
+                for (let block of blocks) {
+                    let blk = blocksData.get(block);
+                    let psb = true;
+
+                    for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                        if (ref.bitmap.data[idx] !== 189) {
+                            for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                                if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
+                                    psb = false;
+                                };
+                            };
+                        };
+                    };
+
+                    if (bx === 400 && by === 400) {
+                        // 右下角从左到右一定是白黑
+                        for (let { x, y, idx } of blk.scanIterator(30, 40, 1, 1)) {
+                            if (blk.bitmap.data[idx] !== 255) {
                                 psb = false;
                             };
+                        };
+                        for (let { x, y, idx } of blk.scanIterator(40, 40, 1, 1)) {
+                            if (blk.bitmap.data[idx] !== 0) {
+                                psb = false;
+                            };
+                        };
+
+                        // 它们上面的块一定同色
+                        for (let { x: x1, y: y1, idx: idx1 } of blk.scanIterator(30, 30, 1, 1)) {
+                            for (let { x: x2, y: y2, idx: idx2 } of blk.scanIterator(40, 30, 1, 1)) {
+                                if (blk.bitmap.data[idx1] !== blk.bitmap.data[idx2]) {
+                                    psb = false;
+                                };
+                            };
+                        };
+                    };
+
+                    if (psb) {
+                        if (possible.has(crd)) {
+                            possible.get(crd).push(block);
+                        } else {
+                            possible.set(crd, [block]);
                         };
                     };
                 };
 
-                if (psb) {
-                    let key = bx / 50 * 9 + by / 50;
-                    if (possible.has(key)) {
-                        possible.get(key).push(block);
-                    } else {
-                        possible.set(key, [block]);
+                by += 50;
+            };
+
+            bx += 50;
+        };
+
+        for (let [crd, possibleBlocks] of possible) {
+            if (possibleBlocks.length === 1) {
+                let bx = Math.floor(crd / 9) * 50;
+                let by = (crd % 9) * 50;
+                let blk = blocksData.get(possibleBlocks[0]);
+
+                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                    for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                        ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
+                        ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
+                        ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
+                        ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
                     };
                 };
-            };
 
-            by += 50;
+                blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+                done[crd] = true;
+            };
         };
 
-        bx += 50;
-    };
-
-    for (let [crd, possibleBlocks] of possible) {
-        if (possibleBlocks.length === 1) {
-            let bx = Math.floor(crd / 9) * 50;
-            let by = (crd % 9) * 50;
-            let blk = blocksData.get(possibleBlocks[0]);
-
-            for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                    ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
-                    ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
-                    ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
-                    ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
-                };
-            };
-
-            blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+        if (blocks.length === blkCount) {
+            break;
         };
+        blkCount = blocks.length;
     };
 
     await ref.write('ref2.png');
     console.log(blocks);
+    console.log(done);
 };
 
 main();
 ```
 ![](img/ref2.png)
-
-找到符合要求的右下角块：
-```JavaScript
-'use strict';
-
-const Jimp = require('jimp');
-
-let blocks = ['008d4bbb.png', '010d1361.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png'];
-
-const main = async () => {
-    for (let block of blocks) {
-        let blk = await Jimp.read(block);
-        let psb = true;
-
-        // 左上角一定是黑块
-        for (let { x, y, idx } of blk.scanIterator(0, 0, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-
-        // 右下角从左到右一定是白黑
-        for (let { x, y, idx } of blk.scanIterator(30, 40, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 255) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(40, 40, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-
-        // 它们上面的块一定同色
-        for (let { x: x1, y: y1, idx: idx1 } of blk.scanIterator(30, 30, 1, 1)) {
-            for (let { x: x2, y: y2, idx: idx2 } of blk.scanIterator(40, 30, 1, 1)) {
-                if (blk.bitmap.data[idx1] !== blk.bitmap.data[idx2]) {
-                    psb = false;
-                };
-            };
-        };
-
-        if (psb) {
-            console.log(block);
-        };
-    };
-};
-
-main();
 ```
-它只打印出了 010d1361.png，所以用 010d1361.png 填充右下角。
-
-同理可以作出上面一块的约束。
-```JavaScript
-'use strict';
-
-const Jimp = require('jimp');
-
-let blocks = ['008d4bbb.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png'];
-
-const main = async () => {
-    for (let block of blocks) {
-        let blk = await Jimp.read(block);
-        let psb = true;
-
-        // 校正图形约束
-        for (let { x, y, idx } of blk.scanIterator(0, 10, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(0, 20, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(0, 30, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(0, 40, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-
-        // 填充位约束
-        for (let { x, y, idx } of blk.scanIterator(30, 20, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(40, 20, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 255) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(30, 30, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(40, 30, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(30, 40, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 0) {
-                psb = false;
-            };
-        };
-        for (let { x, y, idx } of blk.scanIterator(40, 40, 1, 1)) {
-            if (blk.bitmap.data[idx] !== 255) {
-                psb = false;
-            };
-        };
-
-        if (psb) {
-            console.log(block);
-        };
-    };
-};
-
-main();
+['008d4bbb.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png']
+[true, true, false, false, false, false, false, true, true, true, true, false, false, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, false, true]
 ```
-打印出了 023aa809.png。
-
-然后再用 QRazyBox 补全填充位。
+根据填充位作出上面一块的约束。
 
 ![](img/ref3.png)
 ```JavaScript
@@ -1233,7 +1147,8 @@ main();
 
 const Jimp = require('jimp');
 
-let blocks = ['008d4bbb.png', '0188666e.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png'];
+let blocks = ['008d4bbb.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png'];
+let done = [true, true, false, false, false, false, false, true, true, true, true, false, false, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, false, true];
 
 const main = async () => {
     let ref = await Jimp.read('ref3.png');
@@ -1244,154 +1159,98 @@ const main = async () => {
         blocksData.set(block, blk);
     };
 
-    let possible = new Map();
+    let blkCount = blocks.length;
+    while (true) {
+        let possible = new Map();
 
-    let bx = 0;
-    while (bx < 450) {
-        let by = 0;
+        let bx = 0;
+        while (bx < 450) {
+            let by = 0;
 
-        while (by < 450) {
-            for (let block of blocks) {
-                let blk = blocksData.get(block);
-                let psb = true;
+            while (by < 450) {
+                let crd = bx / 50 * 9 + by / 50;
+                if (done[crd]) {
+                    by += 50;
+                    continue;
+                };
 
-                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                    if (ref.bitmap.data[idx] !== 189) {
-                        for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                            if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
-                                psb = false;
+                for (let block of blocks) {
+                    let blk = blocksData.get(block);
+                    let psb = true;
+
+                    for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                        if (ref.bitmap.data[idx] !== 189) {
+                            for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                                if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
+                                    psb = false;
+                                };
                             };
+                        };
+                    };
+
+                    if (psb) {
+                        if (possible.has(crd)) {
+                            possible.get(crd).push(block);
+                        } else {
+                            possible.set(crd, [block]);
                         };
                     };
                 };
 
-                if (psb) {
-                    let key = bx / 50 * 9 + by / 50;
-                    if (possible.has(key)) {
-                        possible.get(key).push(block);
-                    } else {
-                        possible.set(key, [block]);
+                by += 50;
+            };
+
+            bx += 50;
+        };
+
+        for (let [crd, possibleBlocks] of possible) {
+            if (possibleBlocks.length === 1) {
+                let bx = Math.floor(crd / 9) * 50;
+                let by = (crd % 9) * 50;
+                let blk = blocksData.get(possibleBlocks[0]);
+
+                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                    for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                        ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
+                        ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
+                        ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
+                        ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
                     };
                 };
-            };
 
-            by += 50;
+                blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+                done[crd] = true;
+            };
         };
 
-        bx += 50;
-    };
-
-    for (let [crd, possibleBlocks] of possible) {
-        if (possibleBlocks.length === 1) {
-            let bx = Math.floor(crd / 9) * 50;
-            let by = (crd % 9) * 50;
-            let blk = blocksData.get(possibleBlocks[0]);
-
-            for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                    ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
-                    ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
-                    ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
-                    ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
-                };
-            };
-
-            blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+        if (blocks.length === blkCount) {
+            break;
         };
+        blkCount = blocks.length;
     };
 
     await ref.write('ref4.png');
     console.log(blocks);
+    console.log(done);
 };
 
 main();
 ```
 ![](img/ref4.png)
-```JavaScript
-'use strict';
-
-const Jimp = require('jimp');
-
-let blocks = ['0188666e.png', '5953573a.png', '66e25640.png', '6c57b782.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8f6c7c18.png', '917c5453.png', 'ad9ff8d2.png', 'd5ddfc40.png', 'eefc9c6a.png'];
-
-const main = async () => {
-    let ref = await Jimp.read('ref4.png');
-
-    let blocksData = new Map();
-    for (let block of blocks) {
-        let blk = await Jimp.read(block);
-        blocksData.set(block, blk);
-    };
-
-    let possible = new Map();
-
-    let bx = 0;
-    while (bx < 450) {
-        let by = 0;
-
-        while (by < 450) {
-            for (let block of blocks) {
-                let blk = blocksData.get(block);
-                let psb = true;
-
-                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                    if (ref.bitmap.data[idx] !== 189) {
-                        for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                            if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
-                                psb = false;
-                            };
-                        };
-                    };
-                };
-
-                if (psb) {
-                    let key = bx / 50 * 9 + by / 50;
-                    if (possible.has(key)) {
-                        possible.get(key).push(block);
-                    } else {
-                        possible.set(key, [block]);
-                    };
-                };
-            };
-
-            by += 50;
-        };
-
-        bx += 50;
-    };
-
-    for (let [crd, possibleBlocks] of possible) {
-        if (possibleBlocks.length === 1) {
-            let bx = Math.floor(crd / 9) * 50;
-            let by = (crd % 9) * 50;
-            let blk = blocksData.get(possibleBlocks[0]);
-
-            for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                    ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
-                    ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
-                    ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
-                    ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
-                };
-            };
-
-            blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
-        };
-    };
-
-    await ref.write('ref5.png');
-    console.log(blocks);
-};
-
-main();
 ```
+['008d4bbb.png', '0188666e.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png']
+[true, true, false, false, false, false, false, true, true, true, true, false, false, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, true]
+```
+然后再用 QRazyBox 补全填充位。
+
 ![](img/ref5.png)
 ```JavaScript
 'use strict';
 
 const Jimp = require('jimp');
 
-let blocks = ['66e25640.png', '6c57b782.png', '73f337f4.png', '7c05eb85.png', '8085a682.png', '8f6c7c18.png', '917c5453.png', 'd5ddfc40.png', 'eefc9c6a.png'];
+let blocks = ['008d4bbb.png', '0188666e.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png'];
+let done = [true, true, false, false, false, false, false, true, true, true, true, false, false, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, true, true];
 
 const main = async () => {
     let ref = await Jimp.read('ref5.png');
@@ -1402,163 +1261,101 @@ const main = async () => {
         blocksData.set(block, blk);
     };
 
-    let possible = new Map();
+    let blkCount = blocks.length;
+    while (true) {
+        let possible = new Map();
 
-    let bx = 0;
-    while (bx < 450) {
-        let by = 0;
+        let bx = 0;
+        while (bx < 450) {
+            let by = 0;
 
-        while (by < 450) {
-            for (let block of blocks) {
-                let blk = blocksData.get(block);
-                let psb = true;
+            while (by < 450) {
+                let crd = bx / 50 * 9 + by / 50;
+                if (done[crd]) {
+                    by += 50;
+                    continue;
+                };
 
-                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                    if (ref.bitmap.data[idx] !== 189) {
-                        for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                            if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
-                                psb = false;
+                for (let block of blocks) {
+                    let blk = blocksData.get(block);
+                    let psb = true;
+
+                    for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                        if (ref.bitmap.data[idx] !== 189) {
+                            for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                                if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
+                                    psb = false;
+                                };
                             };
+                        };
+                    };
+
+                    if (psb) {
+                        if (possible.has(crd)) {
+                            possible.get(crd).push(block);
+                        } else {
+                            possible.set(crd, [block]);
                         };
                     };
                 };
 
-                if (psb) {
-                    let key = bx / 50 * 9 + by / 50;
-                    if (possible.has(key)) {
-                        possible.get(key).push(block);
-                    } else {
-                        possible.set(key, [block]);
+                by += 50;
+            };
+
+            bx += 50;
+        };
+
+        for (let [crd, possibleBlocks] of possible) {
+            if (possibleBlocks.length === 1) {
+                let bx = Math.floor(crd / 9) * 50;
+                let by = (crd % 9) * 50;
+                let blk = blocksData.get(possibleBlocks[0]);
+
+                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                    for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                        ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
+                        ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
+                        ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
+                        ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
                     };
                 };
-            };
 
-            by += 50;
+                blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+                done[crd] = true;
+            };
         };
 
-        bx += 50;
-    };
-
-    for (let [crd, possibleBlocks] of possible) {
-        if (possibleBlocks.length === 1) {
-            let bx = Math.floor(crd / 9) * 50;
-            let by = (crd % 9) * 50;
-            let blk = blocksData.get(possibleBlocks[0]);
-
-            for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                    ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
-                    ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
-                    ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
-                    ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
-                };
-            };
-
-            blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+        if (blocks.length === blkCount) {
+            break;
         };
+        blkCount = blocks.length;
     };
 
     await ref.write('ref6.png');
     console.log(blocks);
+    console.log(done);
 };
 
 main();
 ```
 ![](img/ref6.png)
-```JavaScript
-'use strict';
-
-const Jimp = require('jimp');
-
-let blocks = ['6c57b782.png', '73f337f4.png', '7c05eb85.png', '8085a682.png', '8f6c7c18.png', '917c5453.png', 'd5ddfc40.png', 'eefc9c6a.png'];
-
-const main = async () => {
-    let ref = await Jimp.read('ref6.png');
-
-    let blocksData = new Map();
-    for (let block of blocks) {
-        let blk = await Jimp.read(block);
-        blocksData.set(block, blk);
-    };
-
-    let possible = new Map();
-
-    let bx = 0;
-    while (bx < 450) {
-        let by = 0;
-
-        while (by < 450) {
-            for (let block of blocks) {
-                let blk = blocksData.get(block);
-                let psb = true;
-
-                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                    if (ref.bitmap.data[idx] !== 189) {
-                        for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                            if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
-                                psb = false;
-                            };
-                        };
-                    };
-                };
-
-                if (psb) {
-                    let key = bx / 50 * 9 + by / 50;
-                    if (possible.has(key)) {
-                        possible.get(key).push(block);
-                    } else {
-                        possible.set(key, [block]);
-                    };
-                };
-            };
-
-            by += 50;
-        };
-
-        bx += 50;
-    };
-
-    for (let [crd, possibleBlocks] of possible) {
-        if (possibleBlocks.length === 1) {
-            let bx = Math.floor(crd / 9) * 50;
-            let by = (crd % 9) * 50;
-            let blk = blocksData.get(possibleBlocks[0]);
-
-            for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                    ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
-                    ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
-                    ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
-                    ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
-                };
-            };
-
-            blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
-        };
-    };
-
-    await ref.write('ref7.png');
-    console.log(blocks);
-};
-
-main();
 ```
+['6c57b782.png', '73f337f4.png', '7c05eb85.png', '8085a682.png', '8f6c7c18.png', '917c5453.png', 'eefc9c6a.png']
+[true, true, false, false, true, false, true, true, true, true, true, true, false, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+```
+效果可以说非常 Amazing 啊。再利用 github.com 的约束：
+
 ![](img/ref7.png)
-
-补到这一步就收束了，但效果可以说非常 Amazing 啊。
-
-再利用 github.com 的约束：
-
-![](img/ref8.png)
 ```JavaScript
 'use strict';
 
 const Jimp = require('jimp');
 
 let blocks = ['6c57b782.png', '73f337f4.png', '7c05eb85.png', '8085a682.png', '8f6c7c18.png', '917c5453.png', 'eefc9c6a.png'];
+let done = [true, true, false, false, true, false, true, true, true, true, true, true, false, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
 
 const main = async () => {
-    let ref = await Jimp.read('ref8.png');
+    let ref = await Jimp.read('ref7.png');
 
     let blocksData = new Map();
     for (let block of blocks) {
@@ -1566,70 +1363,88 @@ const main = async () => {
         blocksData.set(block, blk);
     };
 
-    let possible = new Map();
+    let blkCount = blocks.length;
+    while (true) {
+        let possible = new Map();
 
-    let bx = 0;
-    while (bx < 450) {
-        let by = 0;
+        let bx = 0;
+        while (bx < 450) {
+            let by = 0;
 
-        while (by < 450) {
-            for (let block of blocks) {
-                let blk = blocksData.get(block);
-                let psb = true;
+            while (by < 450) {
+                let crd = bx / 50 * 9 + by / 50;
+                if (done[crd]) {
+                    by += 50;
+                    continue;
+                };
 
-                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                    if (ref.bitmap.data[idx] !== 189) {
-                        for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                            if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
-                                psb = false;
+                for (let block of blocks) {
+                    let blk = blocksData.get(block);
+                    let psb = true;
+
+                    for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                        if (ref.bitmap.data[idx] !== 189) {
+                            for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                                if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
+                                    psb = false;
+                                };
                             };
+                        };
+                    };
+
+                    if (psb) {
+                        if (possible.has(crd)) {
+                            possible.get(crd).push(block);
+                        } else {
+                            possible.set(crd, [block]);
                         };
                     };
                 };
 
-                if (psb) {
-                    let key = bx / 50 * 9 + by / 50;
-                    if (possible.has(key)) {
-                        possible.get(key).push(block);
-                    } else {
-                        possible.set(key, [block]);
+                by += 50;
+            };
+
+            bx += 50;
+        };
+
+        for (let [crd, possibleBlocks] of possible) {
+            if (possibleBlocks.length === 1) {
+                let bx = Math.floor(crd / 9) * 50;
+                let by = (crd % 9) * 50;
+                let blk = blocksData.get(possibleBlocks[0]);
+
+                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                    for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                        ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
+                        ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
+                        ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
+                        ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
                     };
                 };
-            };
 
-            by += 50;
+                blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+                done[crd] = true;
+            };
         };
 
-        bx += 50;
-    };
-
-    for (let [crd, possibleBlocks] of possible) {
-        if (possibleBlocks.length === 1) {
-            let bx = Math.floor(crd / 9) * 50;
-            let by = (crd % 9) * 50;
-            let blk = blocksData.get(possibleBlocks[0]);
-
-            for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
-                for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
-                    ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
-                    ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
-                    ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
-                    ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
-                };
-            };
-
-            blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+        if (blocks.length === blkCount) {
+            break;
         };
+        blkCount = blocks.length;
     };
 
-    await ref.write('ref9.png');
+    await ref.write('ref8.png');
     console.log(blocks);
+    console.log(done);
 };
 
 main();
 ```
-![](img/ref9.png)
-
-这时再次收束，还余 6 块，退回到前文的操作就行。
+![](img/ref8.png)
+```
+['6c57b782.png', '7c05eb85.png', '8085a682.png', '8f6c7c18.png', '917c5453.png', 'eefc9c6a.png']
+[true, true, false, false, true, false, true, true, true, true, true, true, false, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+```
+还余 6 块，退回到前文的操作就行。
 
 可以看出这个半自动操作就快了不少，根本不是纯手工拼图能比的。
