@@ -1098,7 +1098,7 @@ main();
 ![](img/ref2.png)
 
 找到符合要求的右下角块：
-```
+```JavaScript
 'use strict';
 
 const Jimp = require('jimp');
