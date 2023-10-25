@@ -1014,7 +1014,7 @@ Nano 有一种智取的美，Hard 纯粹暴力。
 
 首先用 QRazyBox 生成 QR Version 7 的模板。
 
-![](img/ref1.png)
+![](img/ref0.png)
 
 然后就可以写这么一段代码迭代：
 ```JavaScript
@@ -1024,6 +1024,106 @@ const Jimp = require('jimp');
 
 let blocks = ['008d4bbb.png', '010d1361.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '1e705384.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '31aa5509.png', '33fd7c9b.png', '34172d5e.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '43877307.png', '4a9be412.png', '4b6a235b.png', '4b7f2c8f.png', '54a873f5.png', '561ffd26.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e348659.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a73492e3.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c0ff63ff.png', 'c2fb5966.png', 'c4aa069a.png', 'c80f5d89.png', 'cc438036.png', 'd02ab635.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f3ddeb68.png', 'f845f0c9.png', 'fa154d23.png', 'fb96e606.png', 'fbcf5270.png', 'ff002042.png'];
 let done = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+
+const main = async () => {
+    let ref = await Jimp.read('ref0.png');
+
+    let blocksData = new Map();
+    for (let block of blocks) {
+        let blk = await Jimp.read(block);
+        blocksData.set(block, blk);
+    };
+
+    let blkCount = blocks.length;
+    while (true) {
+        let possible = new Map();
+
+        let bx = 0;
+        while (bx < 450) {
+            let by = 0;
+
+            while (by < 450) {
+                let crd = bx / 50 * 9 + by / 50;
+                if (done[crd]) {
+                    by += 50;
+                    continue;
+                };
+
+                for (let block of blocks) {
+                    let blk = blocksData.get(block);
+                    let psb = true;
+
+                    for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                        if (ref.bitmap.data[idx] !== 189) {
+                            for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                                if (blk.bitmap.data[blkIdx] !== ref.bitmap.data[idx]) {
+                                    psb = false;
+                                };
+                            };
+                        };
+                    };
+
+                    if (psb) {
+                        if (possible.has(crd)) {
+                            possible.get(crd).push(block);
+                        } else {
+                            possible.set(crd, [block]);
+                        };
+                    };
+                };
+
+                by += 50;
+            };
+
+            bx += 50;
+        };
+
+        for (let [crd, possibleBlocks] of possible) {
+            if (possibleBlocks.length === 1) {
+                let bx = Math.floor(crd / 9) * 50;
+                let by = (crd % 9) * 50;
+                let blk = blocksData.get(possibleBlocks[0]);
+
+                for (let { x, y, idx } of ref.scanIterator(bx, by, 50, 50)) {
+                    for (let { x: blkX, y: blkY, idx: blkIdx } of blk.scanIterator(x % 50, y % 50, 1, 1)) {
+                        ref.bitmap.data[idx] = blk.bitmap.data[blkIdx];
+                        ref.bitmap.data[idx + 1] = blk.bitmap.data[blkIdx + 1];
+                        ref.bitmap.data[idx + 2] = blk.bitmap.data[blkIdx + 2];
+                        ref.bitmap.data[idx + 3] = blk.bitmap.data[blkIdx + 3];
+                    };
+                };
+
+                blocks.splice(blocks.indexOf(possibleBlocks[0]), 1);
+                done[crd] = true;
+            };
+        };
+
+        if (blocks.length === blkCount) {
+            break;
+        };
+        blkCount = blocks.length;
+    };
+
+    await ref.write('ref1.png');
+    console.log(blocks);
+    console.log(done);
+};
+
+main();
+```
+![](img/ref1.png)
+```
+['008d4bbb.png', '010d1361.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png']
+[true, true, false, false, false, false, false, true, true, true, true, false, false, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, false, false]
+```
+掩码款式确定了，所以就可以作出前四位的约束。
+```JavaScript
+'use strict';
+
+const Jimp = require('jimp');
+
+let blocks = ['008d4bbb.png', '010d1361.png', '0188666e.png', '023aa809.png', '04669a01.png', '0884fb0d.png', '16fc8210.png', '1e2f7cf6.png', '1e5064bf.png', '1e69142c.png', '2291af84.png', '24ecdc4d.png', '28a2d0bc.png', '29a55f2d.png', '2bb38fd9.png', '36f625d2.png', '376295aa.png', '3d0da53e.png', '4099a013.png', '4b6a235b.png', '54a873f5.png', '5953573a.png', '5a16e1c0.png', '5b132947.png', '5cd5ebbc.png', '63e83750.png', '63eabe8f.png', '6528fa46.png', '66e25640.png', '6873f44b.png', '6c57b782.png', '6f3e227f.png', '73f337f4.png', '7ab7fe2b.png', '7c05eb85.png', '8085a682.png', '8e883989.png', '8f6c7c18.png', '912f6edc.png', '917c5453.png', '9618d447.png', '977b54cf.png', '992e0cf9.png', '9dc61c8c.png', '9f6885d5.png', 'a5c8e500.png', 'a9a29e34.png', 'aaf42fd3.png', 'aba989e8.png', 'ad9ff8d2.png', 'b85cf3d7.png', 'bdd97143.png', 'c2fb5966.png', 'c4aa069a.png', 'cc438036.png', 'd2d28ed9.png', 'd5ddfc40.png', 'dc469f6f.png', 'dffc166b.png', 'e00aa3c1.png', 'eefc9c6a.png', 'f845f0c9.png', 'fb96e606.png'];
+let done = [true, true, false, false, false, false, false, true, true, true, true, false, false, true, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false, false, true, false, false, true, false, true, true, false, false, false, false, false, false, false];
 
 const main = async () => {
     let ref = await Jimp.read('ref1.png');
@@ -1063,6 +1163,7 @@ const main = async () => {
                         };
                     };
 
+                    // 该 QR 的掩码款式为 1，推测前四位为 0100 或 0111
                     if (bx === 400 && by === 400) {
                         // 右下角从左到右一定是白黑
                         for (let { x, y, idx } of blk.scanIterator(30, 40, 1, 1)) {
