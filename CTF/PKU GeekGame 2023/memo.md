@@ -1005,6 +1005,193 @@ Solve[Table[Sum[str[[k+1]] j^k, {k, 0, 35}] == known[[j]], {j, 1, 36}], Table[st
 ![](img/QQ图片20231020184435.png)
 
 ## 复盘
+### \[Misc\] 麦恩·库拉夫特
+#### 为什么会变成这样呢？
+不知为何[官解](https://github.com/PKU-GeekGame/geekgame-3rd/tree/master/official_writeup/prob22-minecraft)脚本没处理死循环的问题，稍作修改即可。
+```Python
+import os
+from struct import unpack
+import zlib
+import io
+
+from nbtlib import File, schema
+
+import tempfile
+
+
+class Chunk:
+    def __init__(self, location, size):
+        self.location = location
+        self.size = size
+
+
+def read_chunks(f):
+    chunks = [Chunk(int.from_bytes(f.read(3), 'big') * 4096,
+                    f.read(1)[0] * 4096) for _ in range(1024)]
+    f.read(4096)
+
+    for i in range(1024):
+        if chunks[i].size == 0:
+            chunks[i] = None
+
+    for chunk in chunks:
+        if not chunk:
+            continue
+
+        f.seek(chunk.location)
+        length = unpack('>I', f.read(4))[0]
+
+        compression = f.read(1)[0]
+        assert compression == 2
+
+        data = f.read(length)
+        inflate = zlib.decompressobj()
+        data = inflate.decompress(data)
+        data += inflate.flush()
+
+        chunk.nbt = File.parse(io.BytesIO(data))
+
+    chunk_x_base = 32
+    chunk_z_base = -32
+
+    def chunk_index(x, z):
+        return (x // 16) - chunk_x_base + ((z // 16) - chunk_z_base) * 32
+
+    def get_section(x, y, z):
+        chunk = chunks[chunk_index(x, z)]
+        if not chunk:
+            return None
+
+        for section in chunk.nbt['sections']:
+            if section['Y'] == y // 16:
+                return section
+
+        return None
+
+    def get_block(x, y, z):
+        section = get_section(x, y, z)
+        if not section:
+            return None
+
+        block_states = section['block_states']
+        palette = block_states['palette']
+        if len(palette) == 1:
+            return palette[0]
+
+        idx = 256 * (y % 16) + 16 * (z % 16) + (x % 16)
+        length = max(4, (len(palette) - 1).bit_length())
+        capability = 64 // length
+        what = (block_states['data'][idx // capability] >>
+                (length * (idx % capability))) & ((1 << length) - 1)
+        return block_states['palette'][what]
+
+    entities = {}
+    for chunk in chunks:
+        if not chunk:
+            continue
+        for entity in chunk.nbt['block_entities']:
+            if entity['id'] == 'minecraft:comparator':
+                entities[(entity['x'], entity['y'], entity['z'])] = entity
+
+    dirs = {
+        'east': (-1, 0),
+        'south': (0, -1),
+        'west': (1, 0),
+        'north': (0, 1),
+    }
+
+    cmps = []
+
+    x, y, z = 592, 1, -98
+    while True:
+        block = get_block(x, y, z)
+        assert block['Name'] == 'minecraft:comparator'
+        cmps.append([entities[(x, y, z)], [], 0])
+
+        facing = block['Properties']['facing']
+        dx, dz = dirs[facing]
+        x += dx
+        z += dz
+        to = get_block(x, y, z)
+        if to['Name'] == 'minecraft:comparator':
+            cmps[-1][2] = -1
+            continue
+
+        candidates = []
+
+        def search_block(x, y, z):
+            blk = get_block(x, y, z)
+            assert blk['Name'].endswith(
+                'concrete') or blk['Name'] == 'minecraft:redstone_wire'
+            if blk['Name'] == 'minecraft:redstone_wire':
+                cmps[-1][1].append((x, y, z))
+
+            for fac in dirs:
+                dx, dz = dirs[fac]
+                if get_block(x + dx, y, z + dz)['Name'] == 'minecraft:comparator' and get_block(x + dx, y, z + dz)['Properties']['facing'] == fac:
+                    if (x + dx, y, z + dz) != (608, 102, -98):
+                        candidates.append((x + dx, y, z + dz))
+
+        search_block(x, y, z)
+        for dy in (-1, 1):
+            if get_block(x, y + dy, z)['Name'] == 'minecraft:redstone_wire':
+                search_block(x, y + dy, z)
+                for dx, dz in dirs.values():
+                    if get_block(x + dx, y + dy, z + dz)['Name'].endswith('concrete'):
+                        search_block(x + dx, y + dy, z + dz)
+                if get_block(x, y + dy - 1, z)['Name'].endswith('concrete'):
+                    search_block(x, y + dy - 1, z)
+
+        if len(candidates) == 0:
+            break
+
+        candidates = list(set(candidates))
+
+        if len(candidates) != 1:
+            print('expected 1 candidate', x, y, z, candidates)
+            quit()
+
+        x, y, z = candidates[0]
+        if (x, y, z) == (592, 1, -98):
+            break
+
+    # 收集信号
+    signals = list(map(lambda x: int(x[0]['OutputSignal']), cmps))[::-1]
+    for i in range(0, len(signals), 2):
+        if signals[i] != signals[i + 1]:
+            print('swap', i, signals[i], signals[i + 1])
+            signals = signals[1:] + [signals[0]]
+            break
+
+    hx = ''
+    for i in range(0, len(signals), 2):
+        assert signals[i] == signals[i + 1]
+        hx += '0123456789abcdef'[signals[i]]
+
+    data = bytes.fromhex(hx)
+
+    if data.find(b'\x89PNG') == -1:
+        data = bytes.fromhex(hx[1:] + hx[0])
+
+    index = data.index(b'\x89PNG')
+    data = data[index:] + data[:index]
+
+    open('output.bin', 'wb').write(data)
+
+
+path = './wherestheflag/region/'
+for file in os.listdir(path):
+    if file == 'r.1.-1.mca':
+        read_chunks(open(os.path.join(path, file), 'rb+'))
+```
+生成后可以看到整个数据流长 2018 字节。
+```
+89504E470D0A1A0A0000000D4948445200000157000000160803000000439C2F57000000A2504C5445000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000A011253A0000003574524E5300FB3428F717F3DE453C07E8B44B0AA0BB0DD9EEA4AF1CEA6F2F11417FCC693724209485D5A9C8C58A997860CF74E4C28F655C5852527AC5B10000058E4944415458C3ED996D939A3014852F168282828082E0AAABE2EB5A7557CFFFFF6BDD40D6904645A79D4E67DAF3C1897A3DB9F7597393AC44D4E8BB46B2A66F879CEEEB63C5BED3036A2E17F4CF6AB45FA4C56062E2536B6AC1A5BB1A03D83E623D409B7EB386891D93D45F63AF7F7007B0291F1C10B63C2BAEE73A82CF3DFA79641AD1E898D6723551A8FB394C0F4BF97E6B133296CFD267F28FEC58B154852F6DE815B0C4B2815967DB582F5D5FD8DFB26C2BFE97FA670D995735D86984E0ABDA3330E411F55C23C4CA84EB3AAE90103A084928585C9274E859E177728DDBBA573D5739BE11FC1DB3CFC729E03DC6D584537AB488AC4E1B18DFE79A615F3E57B83A2B18B38617B47A409F9E92B4D42134C4E809AEDF5C24F3E6AB437596F289ACBFD9075EAE07BFC1E7EE30E809AED2A38DF03ED7297657B8CE6134CBD13B30A6E7242D7F9D6B10A29D91503D576DEC23BACFB5D0EC8BEB60B437D9E124E67ED9312359CED22B5CCFE517DD3ADA66D24F4551FEDE70177EC9B5816E856BA137CA18E624B428BE7DD9BA6B3323EA76884BFA29FA0643583EC555B797DA22F714FB5786739996FF08D7163015793DC2B58742DB22471BA5BE975C49E79ABAE03287451767B2CDF0BA7C9DEB098645421360C213107A2752FD54AEC2F239AE8ABD2A17E79FECDF91584427D8C1835CE3AB5C4F57FBC0A41190B506FB64E6E4B03B1E5987826B8CBDBA0E607F86D8D84D9CB4CBC714B808874E760A4BAE1F3092E53155FBC01AB9CC80615024F0EAD16B1F2C50FC34AED2F239AED2BEAA1438E68CADDE2AF67DB4298E8CD6437D608388AE726DE170B3BFDA488B2A5ECBE9BE179BE7CBC5D7B3863E302EFEC419279AA0C90FB8CCAAF4D7AD58090A57BFBA9243CC2F09780C1DC54FE3AA58AA82D04AE3AAD857F50E215F06652EC65DCC154B5BF517F5C7C31E44F25A30E518041AD7789E47661EF12C7A58D017D70C185D6A90D52D3013215BFEE02BE72CCF9A0C46C0FC21AED4C5BBEAA7739596CF7095F66A7BB54FB1333D021D19D484819153C755A8E7DCE09A1AE8FECC358DC055CCB6C44B952BC6D509D98488877CE9C82F0E5BFDBE3583E9D5F501B18BBD287E1A57C5F2893E20EDAB5AA32D78FB15FB0D90D69E07007E2F6889BCB4605A41E7DA45D8091C2B4787731A5CB8D2B48D5CCE91B2F25A30AA9E929718E85C33A025B96AFB96ACA98717C54FE3AA58DEE46A01DFBEA64A48B5AFEA0507F1BD5DC92067071C6BB98AF12DAE29AEF401B34C79C9B9B631935C298651F13D01CDE2ADB5345CA87D40C8E4F7B9A65822DA394B2D5CF5D3B94ACB9B5C89E1A31C1CB1BCC3F50457F0EDCAA00D5626CEBFC8F5ACEE5B13309972C1750B6609AEFAF9750337E35B951D540E6E6CAA716D02313F789ADED57B815AB8F4D3B9AA96B7B9F6B12BF2B412BCDCE16A19E546B6ABF4F80FD8D91BA2E9535CEBEE5B3130F66885D1C4A36CC727B518762D6FFAE15EE31AD8FCE3C11EAB6640D970C8575188FD29A3AC6C5DD3F52420EBCD2D362ACFC42C73D2897E8F550B977E1A57D5F236D7868143CBB13A3912EB0657F142D471E21ECCE9C59E1913FEFAE1F77115BDD2A7A121F72D3A8B271A57AE66D1E52689D81C8B59ECCABDE0438CC3B8589497A8A02FFFEFA271957E1A57CD52E32AF42EB28E86748FAB158ABBCA25A83C6265FBA25C5CD4ACE1AA06EB5CA78B644B94F66CD374778BA2F93716AEB1F79718975C3DC5B78F154F6FBE6386DB2D7B5AB01D3183E58B33B79BAF22233A0C3CB14F8466B21C979DDCB74D166E848D52B8F4D3B9AA963A5719CCFDF3B5A5D9AB0AE6A119B5E5B67E46E894FD91598F724D6F707D486179488F30A5FF52D581ABBDB6C58CEE6BD08C1D27ED21F1CA3EB1F80FB62ACF795D6A3F8D38131B75BF56992864764ACA00B6F4C764416A5CFBEEF38EBFAE3700468BAEFD0E7357C171B93758BEF9F6B5218CD87FAE158D4D76186ABF56256DDE7F7F0049B44950A8B91A2C0000000049454E44AE426082000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+```
+![](img/不会模红.png)
+
+上图档案去掉了末尾的填充零字节；当然不去掉也没有关系，遇到 IEND 本就会终止读取。
+
 ### \[Algorithm\] 华维码
 可以确定的是 Hard 按 Nano 的做法确实行不通，因为右下角的块不好直接确定——单按头四位筛有两个可能，即使按照正确的块拼了也看不见想要的文本。所以我之前作出的论断「Nano 比 Hard 简单」没大问题。
 
@@ -1549,3 +1736,130 @@ main();
 还余 6 块，退回到前文的操作就行。
 
 可以看出这个半自动操作就快了不少，根本不是纯手工拼图能比的。
+
+现在想想怎么减轻拼华容道的负担。
+
+得到完整的 QR 码后很容易排出华容道的目标分布。
+```
+4b7f2c8f.png 1e705384.png dc469f6f.png 28a2d0bc.png 16fc8210.png 29a55f2d.png 6f3e227f.png a73492e3.png c0ff63ff.png
+8e348659.png 34172d5e.png 1e5064bf.png c2fb5966.png 561ffd26.png dffc166b.png 4b6a235b.png f3ddeb68.png fa154d23.png
+8f6c7c18.png 66e25640.png bdd97143.png 9dc61c8c.png 912f6edc.png e00aa3c1.png 6873f44b.png cc438036.png 24ecdc4d.png
+8085a682.png 7c05eb85.png 5b132947.png f845f0c9.png b85cf3d7.png d5ddfc40.png 73f337f4.png 1e2f7cf6.png 3d0da53e.png
+7ab7fe2b.png ff002042.png 63eabe8f.png 5cd5ebbc.png    empty     d2d28ed9.png c4aa069a.png c80f5d89.png 0884fb0d.png
+6c57b782.png 917c5453.png 5a16e1c0.png fb96e606.png 54a873f5.png 2291af84.png 008d4bbb.png a5c8e500.png 8e883989.png
+0188666e.png ad9ff8d2.png 04669a01.png 977b54cf.png 9618d447.png eefc9c6a.png 5953573a.png 4099a013.png 2bb38fd9.png
+d02ab635.png 4a9be412.png aba989e8.png a9a29e34.png 33fd7c9b.png 63e83750.png aaf42fd3.png 31aa5509.png 023aa809.png
+fbcf5270.png 43877307.png 992e0cf9.png 1e69142c.png 376295aa.png 36f625d2.png 9f6885d5.png 6528fa46.png 010d1361.png
+```
+那就把图片的内容换成数字就好了嘛（智将）
+
+![](img/狸猫换太子.png)
+
+Fiddler，启动！
+
+![](img/数字华容道啊嗯.png)
+
+![](img/Can%20you%20try.png)
+
+生成了 1788 步：
+```
+drrrrrrulddrullllllllurrdlurrdlurrdlurrdlurrdlurrdldrulluulurrdldrulddrulddruluuuurdlulddrulddrulddrulddrurruuurulldrulldrulldrdlulddrulddrulddrullluuulurrdlurrdldrulddrulddrulddruluuuldrulddrulddrulddruuuuuuululddrulddrulddrulddrulddrulddrulddruluuurdlurddlurddldrulurddlurrrrrruuulurrdlurrdldrulddrulddruluuurdlulddrulddrulddruuurulldrdlulddrulddrulllldlurrdlurrdlurrdllluuuuulurrdlurrdldrulddrulddrulddrulddrulllulurrdlurrdldrulddrululddruruuuurulldrulldrdlulddrulddrulddrulddrurrrrrruuurulldrulldrulldrulldrulldrulldrulldrdlurddlurddldrulurddlurulurrdlurrdlurrdlurrdlurrdlurrdlurrdldruuuuululddrulddrulddrulddrulddrulllllurrdlurrdlurrdldrullllluuuuuldrruldrruldrruldrruldrulddrulddrulddrulddrulddrullulurrdldrulddrululdrulddrurruuurulldrulldrulldrdlulddrulddrulddrurrruurulldrulldrulldrulldrdlulddrulddrurrrrrulldrulldrulldrulldrulldrulddrulurddlurrrruuuulurrdlurrdlurrdlurrdldrulddrulddrulddrullllllldlurrdlurrdlurrdlurrdlurrdluldrulllldlurrdlurrdlurrdlluuulurrdldrulddrulddrurrulldrulldrullddrurrrurulldrulldrulldrulldrdlulddrurrrrruurulldrulldrulldrulldrulldrulldrdlurddldrulurddluuurrrrrrrrdluurdluurdlddruldluurdluurddrdlluruldluurdlllllddldrruldrruldrruldrrulurdluurdluurdlluldrrulddlurdluurdrrrdrdllurdllurdllurdlluruldluurdrrrrdddrulldrulldrulldrulldrulldruldluurdluurdluurddddrulldruldruuldruulurdldruulddrrrrrrrrullllldldrruldrruldrruldrrulurddlluurdlddlurdluurdluurdldruldluurdlllddlurrdlurrdlurdluurdluurdrdllurdlluurdlldrulurdldruuldrrrrrrrdldrrulurdllluldrruldrrulllldldrruldrruldrrulurdllurdrrrdllurdllurdllurdlluurdrrdrulldrulldrulldruldluurdldruldluurdrdrulldrulldruldluurddrrrrrrrullldruldrrurdluldrrullllllldrruldrruldrruldrruldrruldrullllldruldrruldrruldrrurdluldrruldlllllurrdlurrdlurrdlullldruldrruldrrurdluldrrullldrulldrulldrurdluldrurdllurrdrulldrudrurdllurdr
+```
+……看来我之前手做 2056 步真的算脑子瓦特了。
+
+接下来都不用网页手拼了，直接在发送步骤的时候劫持，修改成上面生成的那串就行；依旧是 Fiddler 启动。但要注意上下左右分别是 tblr，而不是 udlr。
+```
+{"level":9,"move":"brrrrrrtlbbrtlllllllltrrbltrrbltrrbltrrbltrrbltrrblbrtllttltrrblbrtlbbrtlbbrtlttttrbltlbbrtlbbrtlbbrtlbbrtrrtttrtllbrtllbrtllbrbltlbbrtlbbrtlbbrtllltttltrrbltrrblbrtlbbrtlbbrtlbbrtltttlbrtlbbrtlbbrtlbbrtttttttltlbbrtlbbrtlbbrtlbbrtlbbrtlbbrtlbbrtltttrbltrbbltrbblbrtltrbbltrrrrrrtttltrrbltrrblbrtlbbrtlbbrtltttrbltlbbrtlbbrtlbbrtttrtllbrbltlbbrtlbbrtllllbltrrbltrrbltrrbllltttttltrrbltrrblbrtlbbrtlbbrtlbbrtlbbrtllltltrrbltrrblbrtlbbrtltlbbrtrttttrtllbrtllbrbltlbbrtlbbrtlbbrtlbbrtrrrrrrtttrtllbrtllbrtllbrtllbrtllbrtllbrtllbrbltrbbltrbblbrtltrbbltrtltrrbltrrbltrrbltrrbltrrbltrrbltrrblbrtttttltlbbrtlbbrtlbbrtlbbrtlbbrtllllltrrbltrrbltrrblbrtllllltttttlbrrtlbrrtlbrrtlbrrtlbrtlbbrtlbbrtlbbrtlbbrtlbbrtlltltrrblbrtlbbrtltlbrtlbbrtrrtttrtllbrtllbrtllbrbltlbbrtlbbrtlbbrtrrrttrtllbrtllbrtllbrtllbrbltlbbrtlbbrtrrrrrtllbrtllbrtllbrtllbrtllbrtlbbrtltrbbltrrrrttttltrrbltrrbltrrbltrrblbrtlbbrtlbbrtlbbrtlllllllbltrrbltrrbltrrbltrrbltrrbltlbrtllllbltrrbltrrbltrrblltttltrrblbrtlbbrtlbbrtrrtllbrtllbrtllbbrtrrrtrtllbrtllbrtllbrtllbrbltlbbrtrrrrrttrtllbrtllbrtllbrtllbrtllbrtllbrbltrbblbrtltrbbltttrrrrrrrrblttrblttrblbbrtlblttrblttrbbrblltrtlblttrblllllbblbrrtlbrrtlbrrtlbrrtltrblttrblttrblltlbrrtlbbltrblttrbrrrbrblltrblltrblltrblltrtlblttrbrrrrbbbrtllbrtllbrtllbrtllbrtllbrtlblttrblttrblttrbbbbrtllbrtlbrttlbrttltrblbrttlbbrrrrrrrrtlllllblbrrtlbrrtlbrrtlbrrtltrbbllttrblbbltrblttrblttrblbrtlblttrblllbbltrrbltrrbltrblttrblttrbrblltrbllttrbllbrtltrblbrttlbrrrrrrrblbrrtltrbllltlbrrtlbrrtllllblbrrtlbrrtlbrrtltrblltrbrrrblltrblltrblltrbllttrbrrbrtllbrtllbrtllbrtlblttrblbrtlblttrbrbrtllbrtllbrtlblttrbbrrrrrrrtlllbrtlbrrtrbltlbrrtlllllllbrrtlbrrtlbrrtlbrrtlbrrtlbrtlllllbrtlbrrtlbrrtlbrrtrbltlbrrtlbllllltrrbltrrbltrrbltlllbrtlbrrtlbrrtrbltlbrrtlllbrtllbrtllbrtrbltlbrtrblltrrbrtllbrtbrtrblltrbr"}
+```
+![](img/不战而胜.png)
+
+此所谓战胜于 Fiddler（？）
+
+看看 NanoApe 在[官解](https://github.com/PKU-GeekGame/geekgame-3rd/tree/master/official_writeup/prob19-qrcode)里面说的甚么：
+
+> 最后再手推一下 9\*9 的华容道就可以了！
+
+真打算让选手手推？我怎么就不信呢（
+
+## Omake：与 THUCTF 2023 的关联
+|PKU GeekGame 3rd 分类|题名||序号|THUCTF 2023 分类|题名|序号|
+|-|-|-|-|-|-|-|
+|Tutorial|一眼盯帧|#prob23-signin|1||||
+|Tutorial|小北问答!!!!!|#prob18-trivia|2||||
+|↑|↑|半份 Flag|2-1||||
+|↑|↑|整份 Flag|2-2||||
+|Misc|Z 公司的服务器|#prob05-zserver|3||||
+|↑|↑|服务器|3-1|Forensics|Z 公司的服务器|49|
+|↑|↑|流量包|3-2|Forensics|Z 公司的流量包|50|
+|Misc|猫咪状态监视器|#prob15-service|4|Misc|猫咪状态监视器|5|
+|Misc|基本功|#prob24-password|5||||
+|↑|↑|简单的 Flag|5-1|Misc|简单的基本功|17|
+|↑|↑|冷酷的 Flag|5-2|Misc|深奥的基本功|18|
+|Misc|Dark Room|#prob16-darkroom|6||||
+|↑|↑|Flag 1|6-1|Misc|Dark Room|13|
+|↑|↑|Flag 2|6-2|Misc|Darker Room|14|
+|Misc|麦恩·库拉夫特|#prob22-minecraft|7||||
+|↑|↑|探索的时光|7-1|Misc|麦恩·库拉夫特 - 1|6|
+|↑|↑|结束了？|7-2|Misc|麦恩·库拉夫特 - 2|7|
+|↑|↑|为什么会变成这样呢？|7-3|Misc|麦恩·库拉夫特 - 3|8|
+|Web|Emoji Wordle|#prob14-emoji|8||||
+|↑|↑|Level 1|8-1|Web|Emodle - Level 1|39|
+|↑|↑|Level 2|8-2|Web|Emodle - Level 2|40|
+|↑|↑|Level 3|8-3|Web|Emodle - Level 3|41|
+|Web|第三新XSS|#prob01-homepage|9||||
+|↑|↑|巡猎|9-1||||
+|↑|↑|记忆|9-2||||
+|Web|简单的打字稿|#prob13-easyts|10||||
+|↑|↑|Super Easy|10-1|Web|简单的打字稿 - 1|34|
+|↑|↑|Very Easy|10-2|Web|简单的打字稿 - 2|35|
+|Web|逝界计划|#prob17-hass|11|Web|逝界计划|42|
+|Web|非法所得|#prob02-greatwall|12||||
+|↑|↑|Flag 1|12-1||||
+|↑|↑|Flag 2|12-2||||
+|↑|↑|Flag 3|12-3||||
+|Binary|汉化绿色版免费下载|#prob25-krkr|13||||
+|↑|↑|普通下载|13-1|Reverse|汉化绿色版免费普通下载|47|
+|↑|↑|高速下载|13-2|Reverse|汉化绿色版免费高速下载|48|
+|Binary|初学 C 语言|#prob09-easyc|14||||
+|↑|↑|Flag 1|14-1|Pwn|初学 C 语言|30|
+|↑|↑|Flag 2|14-2|Pwn|熟悉 C 语言|31|
+|Binary|Baby Stack|#prob10-babystack|15||||
+|↑|↑|Flag 1|15-1|Pwn|babystack|26|
+|↑|↑|Flag 2|15-2|Pwn|teenagerstack|33|
+|Binary|绝妙的多项式|#prob20-polynomial|16||||
+|↑|↑|Baby|16-1|Reverse|绝妙的多项式|43|
+|↑|↑|Easy|16-2|Reverse|美妙的多项式|44|
+|↑|↑|Hard|16-3|Reverse|巧妙的多项式|45|
+|Binary|禁止执行，启动|#prob07-noexec|17||||
+|↑|↑|Flag 1|17-1|Pwn|禁止执行，启动|27|
+|↑|↑|Flag 2|17-2|Pwn|启动执行，禁止|28|
+|↑|↑|Flag 3|17-3|Pwn|禁止启动，执行|29|
+|Algorithm|关键词过滤喵，谢谢喵|#prob04-filtered|18||||
+|↑|↑|字数统计喵|18-1|PPC|关键词过滤喵，字数统计谢谢喵|51|
+|↑|↑|排序喵|18-2|PPC|关键词过滤喵，排序谢谢喵|52|
+|↑|↑|Brainfuck 喵|18-3|PPC|关键词过滤喵，运行程序谢谢喵|53|
+|Algorithm|未来磁盘|#prob21-gzip|19||||
+|↑|↑|Flag 1|19-1|Misc|未来磁盘 · 小|11|
+|↑|↑|Flag 2|19-2|Misc|未来磁盘 · 大|12|
+|Algorithm|扫雷III|#prob12-minesweeper|20|Reverse|扫雷 III|46|
+|Algorithm|小章鱼的曲奇|#prob08-cookie|21||||
+|↑|↑|Smol Cookie|21-1|Crypto|小章鱼的 Smol Cookie|21|
+|↑|↑|Big Cookie|21-2|Crypto|小章鱼的 Big Cookie|22|
+|↑|↑|SUPA BIG Cookie|21-3|Crypto|小章鱼的 SUPA BIG Cookie|23|
+|Algorithm|华维码|#prob19-qrcode|22||||
+|↑|↑|华维码 · 特难|22-1|Misc|Huavvei Mate Hard|15|
+|↑|↑|华维码 · 特小|22-2|Misc|Huavvei Mate Nano|16|
+|||||Misc|一道难题|1|
+|||||Misc|easymaze - 1|2|
+|||||Misc|easymaze - 2|3|
+|||||Misc|呀哈哈|4|
+|||||Misc|关注 THUCTF 谢谢喵|9|
+|||||Misc|KFC|10|
+|||||Crypto|easycrypto - 1|19|
+|||||Crypto|easycrypto - 2|20|
+|||||Crypto|Another V ME 50|24|
+|||||Pwn|测测你的网猫|25|
+|||||Pwn|childstack|32|
+|||||Web|Chrone - 1|36|
+|||||Web|Chrone - 2|37|
+|Web|prob03（未公开）|||Web|V ME 50|38|
