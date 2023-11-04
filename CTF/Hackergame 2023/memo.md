@@ -128,7 +128,7 @@ Google 一搜「ボタン＆カフリンクス JR上野」，好巧不巧，正�
 ## \[web\] 组委会模拟器
 谢谢出题人，已经练出超高手速了（？）
 
-（↑见 bandicam 2023-10-29 00-28-37-734.mp4）
+（↑见 [bandicam 2023-10-29 00-28-37-734.mp4](https://github.com/mrhso/IshisashiWebsite/raw/master/CTF/Hackergame%202023/bandicam%202023-10-29%2000-28-37-734.mp4)）
 
 ——真的是手点的吗？
 
@@ -427,7 +427,7 @@ main();
 ImageSource(".\%d.png", 0, 138, pixel_type = "RGB24")
 AssumeFPS(20)
 ```
-还原画面参见 video_stream_restore.mp4；x264 --qp 0 无损压制，请放心食用。
+还原画面参见 [video_stream_restore.mp4](https://github.com/mrhso/IshisashiWebsite/raw/master/CTF/Hackergame%202023/video_stream_restore.mp4)；x264 --qp 0 无损压制，请放心食用。
 
 顺带一提，我最开始测试 RGB 顺序的时候用的是「虫」那张 SSTV 结果图。
 
