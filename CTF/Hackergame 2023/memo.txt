@@ -321,6 +321,7 @@ JSON ⊂ YAML?
 把代码前后的内容删掉，这样就不会清屏了。
 asciinema 的网页本身提供纯文本下载。
 （还原档案为 flag.js，SHA-256 验证通过）
+（过程参见附带录像 bandicam 2023-11-05 00-44-41-579.mp4）
 
 HTTP 集邮册
 状态名称根据 RFC 9110（https://datatracker.ietf.org/doc/html/rfc9110）编写。
