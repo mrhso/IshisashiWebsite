@@ -24,7 +24,6 @@ CRC32 以解密 ROM 为准。
 |[5047](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5047)|[5045](https://www.advanscene.com/html/Releases/dbdswrel.php?id=5163)|5047|NTR-BCKJ-JPN|こちらかつしかくかめあり<br>こうえんまえはしゅつじょ<br>バンダイナムコゲームス|DD6F88C7|5CE1E165|EEPROM 8192|EEPROM 8192|Eeprom - 64 kbit|Unknown||
 |[5047](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5047)|[5045](https://www.advanscene.com/html/Releases/dbrelds.php?id=5163)|[5047](http://www.ds-scene.net/?s=viewtopic&nid=9624)|NTR-BCKJ-JPN|こちらかつしかくかめあり<br>こうえんまえはしゅつじょ<br>バンダイナムコゲームス|D544F207|54CA9BA5|EEPROM 8192|EEPROM 8192|Eeprom - 64 kbit|Unknown|Bad Dump|
 |5047|5045|5047|NTR-BCKJ-JPN|こちらかつしかくかめあり<br>こうえんまえはしゅつじょ<br>バンダイナムコゲームス|C23CC13D|CEA2970E|EEPROM 8192|EEPROM 8192|Eeprom - 64 kbit|Unknown|Bad Dump<br>Soul Trip 汉化组汉化|
-|5047|5045|5047|NTR-BCKJ-JPN||88356669||EEPROM 8192|EEPROM 8192|Eeprom - 64 kbit|Unknown|信息不明的汉化版，出现于 RetroGameFan 的反烧录数据库<br>未能找到该 ROM|
 |[5051](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5051)|[5049](https://www.advanscene.com/html/Releases/dbdswrel.php?id=5167)|5051|NTR-B3DJ-JPN|たいこのたつじんDS<br>ドロロンヨ-カイだいけっせん<br>バンダイナムコゲームス|EA7D5805|B7CDA67C|EEPROM 8192|EEPROM 8192|Eeprom - 4 kbit|Unknown|ADVANsCEne 之存档类型有误|
 |[5051](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5051)|[5049](https://www.advanscene.com/html/Releases/dbrelds.php?id=5167)|[5051](http://www.ds-scene.net/?s=viewtopic&nid=9629)|NTR-B3DJ-JPN|たいこのたつじんDS<br>ドロロンヨ-カイだいけっせん<br>バンダイナムコゲームス|B31CEC0A|EEAC1273|EEPROM 8192|EEPROM 8192|Eeprom - 4 kbit|Unknown|Bad Dump<br>ADVANsCEne 之存档类型有误|
 |[5216](https://datomatic.no-intro.org/index.php?page=show_record&s=28&n=5216)|[5215](https://www.advanscene.com/html/Releases/dbrelds.php?id=5343)|[5216](http://www.ds-scene.net/?s=viewtopic&nid=9890)|TWL-IRAJ-JPN|ポケットモンスター<br>ホワイト<br>Nintendo|CAA820CB|B807626C|Flash 524288|Flash(FF) 524288|Flash - 4 Mbit|Unknown||
@@ -40,6 +39,10 @@ CRC32 以解密 ROM 为准。
 |[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|e081|XXXX|NTR-NTRJ-JPN|ぎゃくてんけんじ2<br>たいけんばん<br>CAPCOM|4A8A60D2|4A8A60D2|None||None|N/A|Demo|
 |[0058](https://datomatic.no-intro.org/index.php?page=show_record&s=65&n=0058)|[e081](https://www.advanscene.com/html/Releases/dbrelds.php?id=5698)|[XXXX](http://www.ds-scene.net/?s=viewtopic&nid=10419)|NTR-NTRJ-JPN|ぎゃくてんけんじ2<br>けんじのミツルギをそうさして、じけんを<br>かいけつするすいりアドベンチャー。|47E4D309|47E4D309|None||None|N/A|Hacked<br>Demo|
 
+|No-Intro|ADVANsCEne|DS-Scene|序列号|标题|CRC32（原 ROM）|CRC32（打补丁后）|实测存档大小（字节）|存档类型（No-Intro）|存档类型（ADVANsCEne）|存档类型（DS-Scene）|注释|
+|-|-|-|-|-|-|-|-|-|-|-|-|
+|5047|5045|5047|NTR-BCKJ-JPN||88356669||EEPROM 8192|EEPROM 8192|Eeprom - 64 kbit|Unknown|信息不明的汉化版，出现于 RetroGameFan 的反烧录数据库<br>未能找到该 ROM|
+
 ### 附录：存档类型对照表
 |大小|No-Intro|ADVANsCEne|DS-Scene|
 |-|-|-|-|
@@ -50,3 +53,23 @@ CRC32 以解密 ROM 为准。
 |512 KiB = 4 Mibit = 524288 B = 4194304 bit|Flash 524288|Flash - 4 Mbit|FLASH 4Mb|
 |1 MiB = 8 Mibit = 1048576 B = 8388608 bit|Flash 1048576|Flash - 8 Mbit|FLASH 8Mb|
 |8 MiB = 64 Mibit = 8388608 B = 67108864 bit|Flash 8388608|Flash - 64 Mbit|FLASH 64Mb|
+
+### 附录：DS-Scene Rom Tool 数据库参考加解密代码
+```JavaScript
+'use strict';
+
+const crypto = require('crypto');
+
+const encrypt = (buf, key = 'y\0w\0?\0(\0') => {
+    const cipher = crypto.createCipheriv('des-cbc', key, key);
+    let initial = cipher.update(buf);
+    let final = cipher.final();
+    return Buffer.concat([initial, final]);
+};
+const decrypt = (buf, key = 'y\0w\0?\0(\0') => {
+    const decipher = crypto.createDecipheriv('des-cbc', key, key);
+    let initial = decipher.update(buf);
+    let final = decipher.final();
+    return Buffer.concat([initial, final]);
+};
+```
