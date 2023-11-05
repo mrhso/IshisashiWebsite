@@ -1,4 +1,4 @@
-本数据库仅供参考。
+本数据库仅供参考。关于 DS 反烧录的具体技术细节可以参考 [pleonex/nitrap](https://github.com/pleonex/nitrap)。
 
 CRC32 以解密 ROM 为准。
 
