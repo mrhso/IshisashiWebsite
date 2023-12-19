@@ -62,13 +62,17 @@
 
 <script>
     setTimeout(() => {
-        document.body.classList.add("loaded");
+        document.body.classList.add('loaded');
     }, 1000);
     setTimeout(() => {
-        document.title = "元神启动";
+        document.title = '元神启动';
     }, 2200);
     setTimeout(() => {
-        window.location.href = "https://dlied4.myapp.com/myapp/1112198072/cos.release-70882/10045079_com.tencent.letsgo_a2913005_1.2.66.1_5lwStM.apk";
+        if (/iphone|ipod|ipad/i.test(navigator.userAgent)) {
+            window.location.href = 'https://itunes.apple.com/cn/app/id1632344522';
+        } else if (/android/i.test(navigator.userAgent)) {
+            window.location.href = 'https://dlied4.myapp.com/myapp/1112198072/cos.release-70882/10045079_com.tencent.letsgo_a2913005_1.2.66.1_5lwStM.apk';
+        };
     }, 2400);
 </script>
 </body>
