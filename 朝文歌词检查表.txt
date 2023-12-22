@@ -63,6 +63,7 @@
 풀무打（타）令（령）	풀무타령	Phul'mu'tha'ryŏng	Pul'mu'ta'ryeong	P'ul-mu-t'a-ryŏng	プ<ル>-ム-タ-リョン	P'ul-mu-t'a-ryŏng
 뽕打（타）令（령）	뽕타령	Ppong'tha'ryŏng	Ppong'ta'ryeong	Ppong-t'a-ryŏng	ポン-タ-リョン	Ppong-t'a-ryŏng
 둥가打（타）令（령）	둥가타령	Tung'ga'tha'ryŏng	Dung'ga'ta'ryeong	Tung-ga-t'a-ryŏng	トゥン-ガ-タ-リョン	Tung-ga-t'a-ryŏng
+완웨이 티케트
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -879,3 +880,12 @@
 銀（은）실金（금）실 五（오）色（색）唐（당）실 두손에다 갈라쥐고	은실금실 오ː색땅실 두ː소네다 갈라쥐고	Ŭn'sil'gŭm'sil o'saek'tang'sil tu'so'ne'da kal'ra'jwi'go	Eun'sil'geum'sil o'saek'dang'sil du'so'ne'da gal'la'jwi'go	Ŭn-sil-gŭm-sil o-saek-tang-sil tu-so-ne-da kal-la-jwi-go	ウン-シ<ル>-グ<ム>-シ<ル> オ-セ<ク>-タン-シ<ル> トゥ-ソ-ネ-ダ カ<ル>-ラ-ジュィ-ゴ	Ŭn-shil-gŭm-shil o:-saek-ttang-shil tu:-so-ne-da kal-ra-jwi-go
 달도 달도 밝은 달을 고이고이 잡아매여	달도 달도 발근 다를 고ː이고이 자바매여	Tal'do tal'do pal'gŭn ta'rŭl ko'i'go'i ja'ba'mae'yŏ	Dal'do dal'do bal'geun da'reul go'i'go'i ja'ba'mae'yeo	Tal-do tal-do pal-gŭn ta-rŭl ko-i-go-i cha-ba-mae-yŏ	タ<ル>-ド タ<ル>-ド パ<ル>-グン タ-ル<ル> コ-イ-ゴ-イ ツァ-バ-メ-ヨ	Tal-do tal-do pal-gŭn ta-rŭl ko:-i-go-i tsa-ba-mae-yŏ
 너와 나와 노는 房（방）에 대롱대롱 달아매세	너와 나와 노ː는 방에 대롱대롱 다라매세	Nŏ'wa na'wa no'nŭn pang-e tae'rong'dae'rong ta'ra'mae'se	Neo'wa na'wa no'neun bang-e dae'rong'dae'rong da'ra'mae'se	Nŏ-wa na-wa no-nŭn pang-e tae-rong-dae-rong ta-ra-mae-se	ノ-ワ ナ-ワ ノ-ヌン パン-エ テ-ロン-デ-ロン タ-ラ-メ-セ	Nŏ-wa na-wa no:-nŭn pang-e tae-rong-dae-rong ta-ra-mae-se
+汽（기）笛（적）소리 멀리 울려퍼지네
+그댄 다시 못올 길을 가는가
+우 離（리）別（별）의 車（차）票（표） 正（정）말 野（야）俗（속）해라
+情（정）든 그대 나를 버리고 가니
+흐르는 눈물 앞을 가리네
+閒（한）寂（적）한 시골은 나도 가련다
+쓸쓸한 밤 비내련다
+나는 丁（정）寧（녕） 어디서 걷지
+눈물흘려 무슨 所（소）用（용）있어
