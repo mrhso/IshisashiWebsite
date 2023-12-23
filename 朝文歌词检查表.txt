@@ -63,7 +63,8 @@
 풀무打（타）令（령）	풀무타령	Phul'mu'tha'ryŏng	Pul'mu'ta'ryeong	P'ul-mu-t'a-ryŏng	プ<ル>-ム-タ-リョン	P'ul-mu-t'a-ryŏng
 뽕打（타）令（령）	뽕타령	Ppong'tha'ryŏng	Ppong'ta'ryeong	Ppong-t'a-ryŏng	ポン-タ-リョン	Ppong-t'a-ryŏng
 둥가打（타）令（령）	둥가타령	Tung'ga'tha'ryŏng	Dung'ga'ta'ryeong	Tung-ga-t'a-ryŏng	トゥン-ガ-タ-リョン	Tung-ga-t'a-ryŏng
-완웨이 티케트
+완웨이 티케트	와눼이 티케트	Wa'nwe'i thi'khe'thŭ	Wa'nwe'i ti'ke'teu	Wa-nwe-i t'i-k'e-t'ŭ	ワ-ヌェ-イ ティ-ケ-トゥ	Wa-nwe-i t'i-k'e-t'ŭ
+淸（청）津（진）浦（포）배노래	청진포밴노래	Chŏng'jin'pho'baen'no'rae	Cheong'jin'po'baen'no'rae	Ch'ŏng-jin-p'o-baen-no-rae	ツォン-ジン-ポ-ベン-ノ-レ	Ts'ŏng-jin-p'o-baen-no-rae
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -880,12 +881,32 @@
 銀（은）실金（금）실 五（오）色（색）唐（당）실 두손에다 갈라쥐고	은실금실 오ː색땅실 두ː소네다 갈라쥐고	Ŭn'sil'gŭm'sil o'saek'tang'sil tu'so'ne'da kal'ra'jwi'go	Eun'sil'geum'sil o'saek'dang'sil du'so'ne'da gal'la'jwi'go	Ŭn-sil-gŭm-sil o-saek-tang-sil tu-so-ne-da kal-la-jwi-go	ウン-シ<ル>-グ<ム>-シ<ル> オ-セ<ク>-タン-シ<ル> トゥ-ソ-ネ-ダ カ<ル>-ラ-ジュィ-ゴ	Ŭn-shil-gŭm-shil o:-saek-ttang-shil tu:-so-ne-da kal-ra-jwi-go
 달도 달도 밝은 달을 고이고이 잡아매여	달도 달도 발근 다를 고ː이고이 자바매여	Tal'do tal'do pal'gŭn ta'rŭl ko'i'go'i ja'ba'mae'yŏ	Dal'do dal'do bal'geun da'reul go'i'go'i ja'ba'mae'yeo	Tal-do tal-do pal-gŭn ta-rŭl ko-i-go-i cha-ba-mae-yŏ	タ<ル>-ド タ<ル>-ド パ<ル>-グン タ-ル<ル> コ-イ-ゴ-イ ツァ-バ-メ-ヨ	Tal-do tal-do pal-gŭn ta-rŭl ko:-i-go-i tsa-ba-mae-yŏ
 너와 나와 노는 房（방）에 대롱대롱 달아매세	너와 나와 노ː는 방에 대롱대롱 다라매세	Nŏ'wa na'wa no'nŭn pang-e tae'rong'dae'rong ta'ra'mae'se	Neo'wa na'wa no'neun bang-e dae'rong'dae'rong da'ra'mae'se	Nŏ-wa na-wa no-nŭn pang-e tae-rong-dae-rong ta-ra-mae-se	ノ-ワ ナ-ワ ノ-ヌン パン-エ テ-ロン-デ-ロン タ-ラ-メ-セ	Nŏ-wa na-wa no:-nŭn pang-e tae-rong-dae-rong ta-ra-mae-se
-汽（기）笛（적）소리 멀리 울려퍼지네
-그댄 다시 못올 길을 가는가
-우 離（리）別（별）의 車（차）票（표） 正（정）말 野（야）俗（속）해라
-情（정）든 그대 나를 버리고 가니
-흐르는 눈물 앞을 가리네
-閒（한）寂（적）한 시골은 나도 가련다
-쓸쓸한 밤 비내련다
-나는 丁（정）寧（녕） 어디서 걷지
-눈물흘려 무슨 所（소）用（용）있어
+汽（기）笛（적）소리 멀리 울려퍼지네	기적쏘리 멀ː리 울려퍼지네	Ki'jŏk'so'ri mŏl'ri ul'ryŏ'phŏ'ji'ne	Gi'jeok'so'ri meol'li ul'lyeo'peo'ji'ne	Ki-jŏk-so-ri mŏl-li ul-lyŏ-p'ŏ-ji-ne	キ-ゾ<ク>-ソ-リ モ<ル>-リ ウ<ル>-リョ-ポ-ジ-ネ	Ki-zŏk-sso-ri mŏ:l-ri ul-ryŏ-p'ŏ-ji-ne
+그댄 다시 못올 길을 가는가	그댄 다시 모ː돌 기를 가는가	Kŭ'daen ta'si mo'dol ki'rŭl ka'nŭn-ga	Geu'daen da'si mo'dol gi'reul ga'neun-ga	Kŭ-daen ta-si mo-dol ki-rŭl ka-nŭn'ga	ク-デン タ-シ モ-ド<ル> キ-ル<ル> カ-ヌン-ガ	Kŭ-daen ta-shi mo:-dol ki-rŭl ka-nŭn-ga
+우 離（리）別（별）의 車（차）票（표） 正（정）말 野（야）俗（속）해라	우 리ː벼레 차표 정ː말 야ː소캐라	U ri'byŏ're cha'phyo jŏng'mal ya'so'khae'ra	U ri'byeo're cha'pyo jeong'mal ya'so'kae'ra	U ri-byŏ-re ch'a-p'yo chŏng-mal ya-so-khae-ra	ウ リ-ビョ-レ ツァ-ピョ ツォン-マ<ル> ヤ-ソ-ケ-ラ	U ri:-byŏ-re ts'a-p'yo tsŏ:ng-mal ya:-so-k'ae-ra
+情（정）든 그대 나를 버리고 가니	정든 그대 나를 버리고 가니	Jŏng'dŭn kŭ'dae na'rŭl pŏ'ri'go ka'ni	Jeong'deun geu'dae na'reul beo'ri'go ga'ni	Chŏng-dŭn kŭ-dae na-rŭl pŏ-ri-go ka-ni	ツォン-ドゥン ク-デ ナ-ル<ル> ポ-リ-ゴ カ-ニ	Tsŏng-dŭn kŭ-dae na-rŭl pŏ-ri-go ka-ni
+흐르는 눈물 앞을 가리네	흐르는 눈물 아플 가리네	Hŭ'rŭ'nŭn nun'mul a'phŭl ka'ri'ne	Heu'reu'neun nun'mul a'peul ga'ri'ne	Hŭ-rŭ-nŭn nun-mul a-p'ŭl ka-ri-ne	ホゥ-ル-ヌン ヌン-ム<ル> ア-プ<ル> カ-リ-ネ	Hŭ-rŭ-nŭn nun-mul a-p'ŭl ka-ri-ne
+閒（한）寂（적）한 시골은 나도 가련다	한저칸 시고른 나도 가련다	Han'jŏ'khan si'go'rŭn na'do ka'ryŏn'da	Han'jeo'kan si'go'reun na'do ga'ryeon'da	Han-jŏ-khan si-go-rŭn na-do ka-ryŏn-da	ハン-ゾ-カン シ-ゴ-ルン ナ-ド カ-リョン-ダ	Han-zŏ-k'an shi-go-rŭn na-do ka-ryŏn-da
+쓸쓸한 밤 비 내련다	쓸쓸한 밤 비 내련다	Ssŭl'ssŭl'han pam pi nae'ryŏn'da	Sseul'sseul'han bam bi nae'ryeon'da	Ssŭl-ssŭr-han pam pi nae-ryŏn-da	ス<ル>-ス-ラン パ<ム> ピ ネ-リョン-ダ	Ssŭl-ssŭl-han pam pi nae-ryŏn-da
+나는 丁（정）寧（녕） 어디서 걷지	나는 정녕 어디서 걷ː찌	Na'nŭn jŏng'nyŏng ŏ'di'sŏ kŏt'ji	Na'neun jeong'nyeong eo'di'seo geot'ji	Na-nŭn chŏng-nyŏng ŏ-di-sŏ kŏt-chi	ナ-ヌン ツォン-ニョン オ-ディ-ソ コッ-チ	Na-nŭn tsŏng-nyŏng ŏ-di-sŏ kŏ:t-tchi
+눈물흘려 무슨 所（소）用（용）있어	눈물흘려 무슨 소ː용이써	Nun'mul'hŭl'ryŏ mu'sŭn so'yong-i'ssŏ	Nun'mul'heul'lyeo mu'seun so'yong-i'sseo	Nun-mur-hŭl-lyŏ mu-sŭn so-yong-i-ssŏ	ヌン-ム<ル>-ホゥ<ル>-リョ ム-スン ソ-ヨン-イ-ッソ	Nun-mul-hŭl-ryŏ mu-sŭn so:-yong-i-ssŏ
+淸（청）津（진）浦（포）口（구）에 波（파）濤（도）가 넘실넘실	청진포구에 파도가 넘실럼실	Chŏng'jin'pho'gu'e pha'do'ga nŏm'sil'rŏm'sil	Cheong'jin'po'gu'e pa'do'ga neom'sil'leom'sil	Ch'ŏng-jin-p'o-gu-e p'a-do-ga nŏm-sil-lŏm-sil	ツォン-ジン-ポ-グ-エ パ-ド-ガ ノ<ム>-シ<ル>-ロ<ム>-シ<ル>	Ts'ŏng-jin-p'o-gu-e p'a-do-ga nŏm-shil-rŏm-shil
+滄（창）波（파）에 둥실 배 띄우고	창파에 둥실 배 띄우고	Chang'pha-e tung'sil pae ttŭi'u'go	Chang'pa-e dung'sil bae ttui'u'go	Ch'ang-p'a-ë tung-sil pae ttŭi-u-go	ツァン-パ-エ トゥン-シ<ル> ペ ティ-ウ-ゴ	Ts'ang-p'a-e tung-shil pae ttŭi-u-go
+에루화 고기를 잡잔다	에루화 고기를 잡짠다	E'ru'hwa ko'gi'rŭl jap'jan'da	E'ru'hwa go'gi'reul jap'jan'da	E-ru-hwa ko-gi-rŭl chap-chan-da	エ-ル-ホァ コ-ギ-ル<ル> ツァ<プ>-ツァン-ダ	E-ru-hwa ko-gi-rŭl tsap-ttsan-da
+둥그레 당실 둥그레 당실	둥그레 당실 둥그레 당실	Tung'gŭ're tang'sil tung'gŭ're tang'sil	Dung'geu're dang'sil dung'geu're dang'sil	Tung-gŭ-re tang-sil tung-gŭ-re tang-sil	トゥン-グ-レ タン-シ<ル> トゥン-グ-レ タン-シ<ル>	Tung-gŭ-re tang-shil tung-gŭ-re tang-shil
+너도 당실 나도 당실	너도 당실 나도 당실	Nŏ'do tang'sil na'do tang'sil	Neo'do dang'sil na'do dang'sil	Nŏ-do tang-sil na-do tang-sil	ノ-ド タン-シ<ル> ナ-ド タン-シ<ル>	Nŏ-do tang-shil na-do tang-shil
+달도 밝은데	달도 발근데	Tal'do pal'gŭn'de	Dal'do bal'geun'de	Tal-do pal-gŭn-de	タ<ル>-ド パ<ル>-グン-デ	Tal-do pal-gŭn-de
+에루화 바다로 가잔다	에루화 바다로 가잔다	E'ru'hwa pa'da'ro ka'jan'da	E'ru'hwa ba'da'ro ga'jan'da	E-ru-hwa pa-da-ro ka-jan-da	エ-ル-ホァ パ-ダ-ロ カ-ザン-ダ	E-ru-hwa pa-da-ro ka-zan-da
+東（동）海（해）바다에 고기떼가 늠실늠실	동해바다에 고기떼가 늠실름실	Tong'hae'ba'da-e ko'gi'tte'ga nŭm'sil'rŭm'sil	Dong'hae'ba'da-e go'gi'tte'ga neum'sil'leum'sil	Tong-hae-ba-da-ë ko-gi-tte-ga nŭm-sil-lŭm-sil	トン-ヘ-バ-ダ-エ コ-ギ-ッテ-ガ ヌ<ム>-シ<ル>-ル<ム>-シ<ル>	Tong-hae-ba-da-e ko-gi-tte-ga nŭm-shil-rŭm-shil
+銀（은）金（금）波（파）濤（도） 넘고넘어	은금파도 넘ː꼬너머	Ŭn-gŭm'pha'do nŏm'ko'nŏ'mŏ	Eun-geum'pa'do neom'go'neo'meo	Ŭn'gŭm-p'a-do nŏm-ko-nŏ-mŏ	ウン-グ<ム>-パ-ド ノ<ム>-コ-ノ-モ	Ŭn-gŭm-p'a-do nŏ:m-kko-nŏ-mŏ
+에루화 그물을 던져라	에루화 그무를 던져라	E'ru'hwa kŭ'mu'rŭl tŏn'jyŏ'ra	E'ru'hwa geu'mu'reul deon'jyeo'ra	E-ru-hwa kŭ-mu-rŭl tŏn-jyŏ-ra	エ-ル-ホァ ク-ム-ル<ル> トン-ジョ-ラ	E-ru-hwa kŭ-mu-rŭl tŏn-jyŏ-ra
+뛰는 고기 숨은 고기	뛰는 고기 수믄 고기	Ttwi'nŭn ko'gi su'mŭn ko'gi	Ttwi'neun go'gi su'meun go'gi	Ttwi-nŭn ko-gi su-mŭn ko-gi	トィ-ヌン コ-ギ ス-ムン コ-ギ	Ttwi-nŭn ko-gi su-mŭn ko-gi
+에루화 모두다 잡잔다	에루화 모두다 잡짠다	E'ru'hwa mo'du'da jap'jan'da	E'ru'hwa mo'du'da jap'jan'da	E-ru-hwa mo-du-da chap-chan-da	エ-ル-ホァ モ-ドゥ-ダ ツァ<プ>-ツァン-ダ	E-ru-hwa mo-du-da tsap-ttsan-da
+바람새 좋아서 고기잡이가 좋구좋다	바람쌔 조ː아서 고기자비가 조ː쿠조타	Pa'ram'sae jo'a'sŏ ko'gi'ja'bi'ga jo'khu'jo'tha	Ba'ram'sae jo'a'seo go'gi'ja'bi'ga jo'ku'jo'ta	Pa-ram-ssae cho-a-sŏ ko-gi-ja-bi-ga cho-k'u-jo-t'a	パ-ラ<ム>-セ ツォ-ア-ソ コ-ギ-ザ-ビ-ガ ツォ-ク-ゾ-タ	Pa-ram-ssae tso:-a-sŏ ko-gi-za-bi-ga tso:-k'u-zo-t'a
+한그물 듬뿍 건져도	한그물 듬뿍 건져도	Han-gŭ'mul tŭm'ppuk kŏn'jyŏ'do	Han-geu'mul deum'ppuk geon'jyeo'do	Han'gŭ-mul tŭm-ppuk kŏn-jyŏ-do	ハン-グ-ム<ル> トゥ<ム>-プ<ク> コン-ジョ-ド	Han-gŭ-mul tŭm-ppuk kŏn-jyŏ-do
+에루화 滿（만）船（선）旗（기） 날린다	에루화 만ː선기 날린다	E'ru'hwa man'sŏn-gi nal'rin'da	E'ru'hwa man'seon-gi nal'lin'da	E-ru-hwa man-sŏn'gi nal-lin-da	エ-ル-ホァ マン-ソン-ギ ナ<ル>-リン-ダ	E-ru-hwa ma:n-sŏn-gi nal-rin-da
+물고기 철철 넘치는 배에	물꼬기 철철 넘ː치는 배에	Mul'ko'gi chŏl'chŏl nŏm'chi'nŭn pae'e	Mul'go'gi cheol'cheol neom'chi'neun bae'e	Mul-ko-gi ch'ŏl-ch'ŏl nŏm-ch'i-nŭn pae-e	ム<ル>-コ-ギ ツォ<ル>-ツォ<ル> ノ<ム>-チ-ヌン ペ-エ	Mul-kko-gi ts'ŏl-ts'ŏl nŏ:m-ch'i-nŭn pae-e
+에루화 노래도 넘친다	에루화 노래도 넘ː친다	E'ru'hwa no'rae'do nŏm'chin'da	E'ru'hwa no'rae'do neom'chin'da	E-ru-hwa no-rae-do nŏm-ch'in-da	エ-ル-ホァ ノ-レ-ド ノ<ム>-チン-ダ	E-ru-hwa no-rae-do nŏ:m-ch'in-da
+에헤 에헤야 에루화 좋다	에헤 에헤야 에루화 조ː타	E'he e'he'ya e'ru'hwa jo'tha	E'he e'he'ya e'ru'hwa jo'ta	E-he e-he-ya e-ru-hwa cho-t'a	エ-ヘ エ-ヘ-ヤ エ-ル-ホァ ツォ-タ	E-he e-he-ya e-ru-hwa tso:-t'a
+에헤 에헤요	에헤 에헤요	E'he e'he'yo	E'he e'he'yo	E-he e-he-yo	エ-ヘ エ-ヘ-ヨ	E-he e-he-yo
+에헤에헤 에헤헤헤야	에헤에헤 에헤헤헤야	E'he'e'he e'he'he'he'ya	E'he'e'he e'he'he'he'ya	E-he-e-he e-he-he-he-ya	エ-ヘ-エ-ヘ エ-ヘ-ヘ-ヘ-ヤ	E-he-e-he e-he-he-he-ya
