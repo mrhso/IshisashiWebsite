@@ -65,6 +65,7 @@
 둥가打（타）令（령）	둥가타령	Tung'ga'tha'ryŏng	Dung'ga'ta'ryeong	Tung-ga-t'a-ryŏng	トゥン-ガ-タ-リョン	Tung-ga-t'a-ryŏng
 완웨이 티케트	와눼이 티케트	Wa'nwe'i thi'khe'thŭ	Wa'nwe'i ti'ke'teu	Wa-nwe-i t'i-k'e-t'ŭ	ワ-ヌェ-イ ティ-ケ-トゥ	Wa-nwe-i t'i-k'e-t'ŭ
 淸（청）津（진）浦（포）배노래	청진포밴노래	Chŏng'jin'pho'baen'no'rae	Cheong'jin'po'baen'no'rae	Ch'ŏng-jin-p'o-baen-no-rae	ツォン-ジン-ポ-ベン-ノ-レ	Ts'ŏng-jin-p'o-baen-no-rae
+설눈아 내려라	설ː루나 내려라	Sŏl'ru'na nae'ryŏ'ra	Seol'lu'na nae'ryeo'ra	Sŏl-lu-na nae-ryŏ-ra	ソ<ル>-ル-ナ ネ-リョ-ラ	Sŏ:l-ru-na nae-ryŏ-ra
 
 도라지 도라지 도라지 深（심）深（심）山（산）川（천）의 白（백）도라지	도라지 도라지 도라지 심ː심산처네 백또라지	To'ra'ji to'ra'ji to'ra'ji sim'sim'san'chŏ'ne paek'to'ra'ji	Do'ra'ji do'ra'ji do'ra'ji sim'sim'san'cheo'ne baek'do'ra'ji	To-ra-ji to-ra-ji to-ra-ji sim-sim-san-ch'ŏ-ne paek-to-ra-ji	ト-ラ-ジ ト-ラ-ジ ト-ラ-ジ シ<ム>-シ<ム>-サン-ツォ-ネ ペ<ク>-ト-ラ-ジ	To-ra-ji to-ra-ji to-ra-ji shi:m-shim-san-ts'ŏ-ne paek-tto-ra-ji
 한두뿌리만 캐여도 대바구니에 스리살살 다 넘누나	한두뿌리만 캐여도 대바구니에 스리살살 다ː 넘ː누나	Han'du'ppu'ri'man khae'yŏ'do tae'ba'gu'ni'e sŭ'ri'sal'sal ta nŏm'nu'na	Han'du'ppu'ri'man kae'yeo'do dae'ba'gu'ni'e seu'ri'sal'sal da neom'nu'na	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta nŏm-nu-na	ハン-ドゥ-ップ-リ-マン ケ-ヨ-ド テ-バ-グ-ニ-エ ス-リ-サ<ル>-サ<ル> タ ノ<ム>-ヌ-ナ	Han-du-ppu-ri-man k'ae-yŏ-do tae-ba-gu-ni-e sŭ-ri-sal-sal ta: nŏ:m-nu-na
@@ -910,3 +911,10 @@
 에헤 에헤야 에루화 좋다	에헤 에헤야 에루화 조ː타	E'he e'he'ya e'ru'hwa jo'tha	E'he e'he'ya e'ru'hwa jo'ta	E-he e-he-ya e-ru-hwa cho-t'a	エ-ヘ エ-ヘ-ヤ エ-ル-ホァ ツォ-タ	E-he e-he-ya e-ru-hwa tso:-t'a
 에헤 에헤요	에헤 에헤요	E'he e'he'yo	E'he e'he'yo	E-he e-he-yo	エ-ヘ エ-ヘ-ヨ	E-he e-he-yo
 에헤에헤 에헤헤헤야	에헤에헤 에헤헤헤야	E'he'e'he e'he'he'he'ya	E'he'e'he e'he'he'he'ya	E-he-e-he e-he-he-he-ya	エ-ヘ-エ-ヘ エ-ヘ-ヘ-ヘ-ヤ	E-he-e-he e-he-he-he-ya
+고드름처마에 흰까치 울고울어	고드름처마에 흰까치 울ː고우러	Ko'dŭ'rŭm'chŏ'ma-e hŭin'kka'chi ul'go'u'rŏ	Go'deu'reum'cheo'ma-e huin'kka'chi ul'go'u'reo	Ko-dŭ-rŭm-ch'ŏ-ma-ë hŭin-kka-ch'i ul-go-u-rŏ	コ-ドゥ-ル<ム>-ツォ-マ-エ ヒン-カ-チ ウ<ル>-ゴ-ウ-ロ	Ko-dŭ-rŭm-ts'ŏ-ma-e hŭin-kka-ch'i u:l-go-u-rŏ
+새해의 이 아침에 노래불러준다네	새해에 이 아치메 노래불러준다네	Sae'hae'e i a'chi'me no'rae'bul'rŏ'jun'da'ne	Sae'hae'e i a'chi'me no'rae'bul'leo'jun'da'ne	Sae-hae-e i a-ch'i-me no-rae-bul-lŏ-jun-da-ne	セ-ヘ-エ イ ア-チ-メ ノ-レ-ブ<ル>-ロ-ズン-ダ-ネ	Sae-hae-e i a-ch'i-me no-rae-bul-rŏ-zun-da-ne
+설눈아 내려라 어서야 내려라	설ː루나 내려라 어서야 내려라	Sŏl'ru'na nae'ryŏ'ra ŏ'sŏ'ya nae'ryŏ'ra	Seol'lu'na nae'ryeo'ra eo'seo'ya nae'ryeo'ra	Sŏl-lu-na nae-ryŏ-ra ŏ-sŏ-ya nae-ryŏ-ra	ソ<ル>-ル-ナ ネ-リョ-ラ オ-ソ-ヤ ネ-リョ-ラ	Sŏ:l-ru-na nae-ryŏ-ra ŏ-sŏ-ya nae-ryŏ-ra
+山（산）에도 들에도 하얗게	사네도 드ː레도 하ː야케	Sa'ne'do tŭ're'do ha'ya'khe	Sa'ne'do deu're'do ha'ya'ke	Sa-ne-do tŭ-re-do ha-ya-k'e	サ-ネ-ド トゥ-レ-ド ハ-ヤ-ケ	Sa-ne-do tŭ:-re-do ha:-ya-k'e
+太（태）陽（양）의 祝（축）福（복）받은 三（삼）千（천）里（리）江（강）山（산）에	태양에 축뽁빠든 삼철리강사네	Thae'yang-e chuk'pok'pa'dŭn sam'chŏl'ri'gang'sa'ne	Tae'yang-e chuk'bok'ba'deun sam'cheol'li'gang'sa'ne	T'ae-yang-e ch'uk-pok-pa-dŭn sam-ch'ŏl-li-gang-sa-ne	テ-ヤン-エ ツ<ク>-ポ<ク>-パ-ドゥン サ<ム>-ツォ<ル>-リ-ガン-サ-ネ	T'ae-yang-e ts'uk-ppok-ppa-dŭn sam-ts'ŏl-ri-gang-sa-ne
+어서야 펑펑 내려라	어서야 펑펑 내려라	Ŏ'sŏ'ya phŏng'phŏng nae'ryŏ'ra	Eo'seo'ya peong'peong nae'ryeo'ra	Ŏ-sŏ-ya p'ŏng-p'ŏng nae-ryŏ-ra	オ-ソ-ヤ ポン-ポン ネ-リョ-ラ	Ŏ-sŏ-ya p'ŏng-p'ŏng nae-ryŏ-ra
+설눈아 내려라	설ː루나 내려라	Sŏl'ru'na nae'ryŏ'ra	Seol'lu'na nae'ryeo'ra	Sŏl-lu-na nae-ryŏ-ra	ソ<ル>-ル-ナ ネ-リョ-ラ	Sŏ:l-ru-na nae-ryŏ-ra
