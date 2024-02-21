@@ -7,10 +7,10 @@ const err = '¿你在想桃子？';
 
 const table = [...'FcwAPNKTMug3GV5Lj7EJnHpWsx4tb8haYeviqBz6rkCy12mUSDQX9RdoZf'];
 // JS 中 Number 的位运算只适用于 32 位整数，故用 BigInt
+const base = BigInt(table.length);
 const xor = 23442827791579n;
 const rangeLeft = 1n;
 const rangeRight = 2n ** 51n;
-const base = 58n;
 
 const av2bv = (av) => {
     let num = av;
