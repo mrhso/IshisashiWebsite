@@ -64,7 +64,8 @@ const bv2av = (bv) => {
     let result = 0n;
     let i = 3;
     while (i < 12) {
-        result = result * base + BigInt(table.indexOf(str[i]));
+        result *= base;
+        result += BigInt(table.indexOf(str[i]));
         i += 1;
     };
 
@@ -72,7 +73,7 @@ const bv2av = (bv) => {
         throw err;
     };
 
-    result = result % rangeRight ^ xor;
+    result = result - rangeRight ^ xor;
 
     if (result < rangeLeft) {
         throw err;
