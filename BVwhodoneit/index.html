@@ -46,7 +46,7 @@ const av2bv = (av) => {
     num = num + rangeRight ^ xor;
     let result = [...'BV1000000000'];
     let i = 11;
-    while (num !== 0n) {
+    while (i > 2) {
         result[i] = table[Number(num % base)];
         num /= base;
         i -= 1;
