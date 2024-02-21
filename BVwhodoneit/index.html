@@ -78,11 +78,10 @@ const bv2av = (bv) => {
 
     [str[3], str[9]] = [str[9], str[3]];
     [str[4], str[7]] = [str[7], str[4]];
-    str.splice(0, 3);
 
     let result = 0n;
-    let i = 0;
-    while (i < 9) {
+    let i = 3;
+    while (i < 12) {
         result = result * base + BigInt(table.indexOf(str[i]));
         i += 1;
     };
