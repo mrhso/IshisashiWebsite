@@ -103,7 +103,7 @@ const bv2av = (bv) => {
 const av = () => {
     let result = av2bv(document.getElementById('av').value);
     if (result !== err) {
-        document.getElementById('result').innerHTML = `结果：<a href="https://www.bilibili.com/video/${result}">${result}</a>`;
+        document.getElementById('result').innerHTML = `结果：<a href="https://www.bilibili.com/video/${result}/">${result}</a>`;
     } else {
         document.getElementById('result').innerHTML = `结果：${result}`;
     };
@@ -112,7 +112,7 @@ const av = () => {
 const bv = () => {
     let result = bv2av(document.getElementById('bv').value);
     if (result !== err) {
-        document.getElementById('result').innerHTML = `结果：<a href="https://www.bilibili.com/video/${result}">${result}</a>`;
+        document.getElementById('result').innerHTML = `结果：<a href="https://www.bilibili.com/video/${result}/">${result}</a>`;
     } else {
         document.getElementById('result').innerHTML = `结果：${result}`;
     };
