@@ -865,6 +865,7 @@ flag9{KHTALK} flag10{6BxMkW} flag11{HPQfVF} flag12{HOXI} flagC{87bd66db}
 Solve[Mod[999063388n, 2^64]==0 && n>0 && n<2^63, {n}, Integers]
 ```
 很幸运的是，有解。
+<!-- {% raw %} -->
 ```Wolfram
 {{n->4611686018427387904}}
 ```
@@ -936,6 +937,7 @@ Solve[Mod[50n, 2^64]==2 && n>0 && n<2^63, {n}, Integers]
 ```Wolfram
 {{n->1106804644422573097}}
 ```
+<!-- {% endraw %} -->
 中级题完成！
 ```
 flag5{P3prqF} flag6{20240217} flag7{Djl9NQ} flag8{OaOjIK} flagB{d8319b0f}
