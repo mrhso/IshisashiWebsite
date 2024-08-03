@@ -10,7 +10,7 @@ const pitches = ['1', '1.5', '2', '2.5', '3', '4', '4.5', '5', '5.5', '6', '6.5'
 let files = ['阻碍歌'];
 
 // 调号
-let key = 'C';
+let key = 'G';
 // 量化
 let timeUnit = 8;
 
@@ -114,9 +114,9 @@ for (let file of files) {
     let offset = 0;
 
     if (ufdata.project.tracks[0].notes[offset].tickOn > 0) {
-        notes.push(['@@', pitchBase, ufdata.project.tracks[0].notes[offset].tickOn]);
+        notes.push(['@@', pitchBase, ufdata.project.tracks[0].notes[offset].tickOn, 1]);
     };
-    notes.push([ufdata.project.tracks[0].notes[offset].lyric, ufdata.project.tracks[0].notes[offset].key, ufdata.project.tracks[0].notes[offset].tickOff - ufdata.project.tracks[0].notes[offset].tickOn]);
+    notes.push([ufdata.project.tracks[0].notes[offset].lyric, ufdata.project.tracks[0].notes[offset].key, ufdata.project.tracks[0].notes[offset].tickOff - ufdata.project.tracks[0].notes[offset].tickOn, 1]);
     offset += 1;
 
     while (offset < ufdata.project.tracks[0].notes.length) {
@@ -124,17 +124,21 @@ for (let file of files) {
         let curr = ufdata.project.tracks[0].notes[offset];
 
         if (last.tickOff !== curr.tickOn) {
-            notes.push(['@@', pitchBase, curr.tickOn - last.tickOff]);
+            notes.push(['@@', pitchBase, curr.tickOn - last.tickOff, 1]);
         };
 
-        notes.push([curr.lyric, curr.key, curr.tickOff - curr.tickOn]);
+        if (curr.lyric === '-' || curr.lyric === '－') {
+            notes.push([' ', curr.key, curr.tickOff - curr.tickOn, 0]);
+        } else {
+            notes.push([curr.lyric, curr.key, curr.tickOff - curr.tickOn, 1]);
+        };
 
         offset += 1;
     };
 
     let js = `// 试用版作者指定主页不能更改删除，否则脚本命令不可用\r\nweibo=https://weibo.com/DreamerChw\r\n\r\n//===================================\r\n//===================================\r\n//== 曲调1=?有如下:\r\n//== C1,#C1,D1,#D1,E1,F1,#F1,G1,#G1,A1,#A1,B1\r\n//== C2,#C2,D2,#D2,E2,F2,#F2,G2,#G2,A2,#A2,B2\r\n//== C3,#C3,D3,#D3,E3,F3,#F3,G3,#G3,A3,#A3,B3\r\n//== C,#C,D,#D,E,F,#F,G,#G,A,#A,B\r\n//== C5,#C5,D5,#D5,E5,F5,#F5,G5,#G5,A5,#A5,B5\r\n//== C6,#C6,D6,#D6,E6,F6,#F6,G6,#G6,A6,#A6,B6\r\n//===================================\r\n//===================================\r\n\r\nspeed=${ufdata.project.tempos[0].bpm},\r\nbeat=2/4,\r\n1=${key},\r\n\r\n\r\nSinger=大市唱,\r\n\r\n// 回响参数\r\nreverb=0,    //开启1,关闭0\r\nroom=0.600,    //房间\r\nmix=0.350,     //干湿\r\ndamp=0.200,    //阻尼\r\nvolume=1.200,  //音量\r\n\r\n// 音轨颜色\r\ncolor=143,47,243, //RGB颜色\r\nalpha=200,    //不透明度\r\n\r\n`;
 
-    for (let [lyric, pitch, length] of notes) {
+    for (let [lyric, pitch, length, main] of notes) {
         pitch -= pitchBase;
         let octave = Math.floor(pitch / 12);
         pitch = pitches[(pitch % 12 + 12) % 12];
@@ -150,7 +154,7 @@ for (let file of files) {
 
         length /= timeBase;
 
-        js += `lyric=${lyric},pitch=${pitch},${unitName}=${length},main=1,\r\n`;
+        js += `lyric=${lyric},pitch=${pitch},${unitName}=${length},main=${main},\r\n`;
     };
 
     fs.writeFileSync(`${file}.js`, Buffer.from(js));
