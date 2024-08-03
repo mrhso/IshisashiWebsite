@@ -144,6 +144,9 @@ for (let file of files) {
         } else if (octave < 0) {
             pitch += 'l'.repeat(-octave);
         };
+        if (Math.abs(octave) > 2) {
+            console.warn('超出音域');
+        };
 
         length /= timeBase;
 
