@@ -108,6 +108,7 @@ let unitName = timeUnit === 1 ? 'note' : `note${timeUnit}`;
 let timeBase = 1920 / timeUnit;
 
 for (let file of files) {
+    console.log(`${file}.ufdata`);
     let ufdata = JSON.parse(fs.readFileSync(`${file}.ufdata`).toString());
 
     let notes = [];
