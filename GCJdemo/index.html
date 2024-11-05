@@ -9,6 +9,7 @@ Snapshot from http://jsbin.com/zonafut/37/edit
   <meta name="author" content="Mingye Wang, Ishisashi">
   <meta name="description" content="A Public Domain GCJ-02/BD-09 to WGS-84 Deobfscator (not eviltransform, but PRCoords)">
   <link href="https://Artoria2e5.github.io/PRCoords/Globe%2C_distorted_China.svg" type="image/svg+xml" rel="icon">
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/">
   <title>People Rectify Coordinates</title>
 <style id="jsbin-css">
 body {
@@ -101,7 +102,7 @@ tbody td:nth-child(n+2) {
   <a href="https://commons.wikimedia.org/wiki/File:Globe,_distorted_China.svg">
   <img class="logo" src="https://Artoria2e5.github.io/PRCoords/Globe%2C_distorted_China.svg" width="100" height="100" alt="logo: China? Where?"></a>
   <article>
-    <article><section>
+    <section>
       <h2>Input</h2>
       <form id="inputc" onsubmit="return false"><!-- also make edge happy -->
         <ul>
@@ -120,7 +121,7 @@ tbody td:nth-child(n+2) {
               <input type="number" name="slon" min="0" max="69" value="0" step=any>″
               <select name="hlon"><option>E</option><option>W</option></select>.</ul>
         <li><label>Accuracy:</label><ul id="accuracy">
-          <li><input type="checkbox" name="bored" checked=true> <label>Bored</label>
+          <li><input type="checkbox" name="bored" checked> <label>Bored</label>
           <li><label>Epsilon</label> <input type="number" name="eps" value="2.220446049250313e-16">
           <li><label>Max times</label> <input type="number" name="maxTimes" value="20">
           <li><input type="checkbox" name="inputRoundBoolean"> <label>Input round</label> <input type="number" name="inputRoundNumber" value="7">
@@ -129,7 +130,7 @@ tbody td:nth-child(n+2) {
         <button onclick="return fill_output() && false">Screw that!</button>
       </form>
       <script src="IshisashiMap.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/prcoords@1//js/PRCoords.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/prcoords@1/js/PRCoords.min.js"></script>
       <script src="https://api.tianditu.gov.cn/api?v=4.0&tk=31f1da09a075fbfb835aec24c5618ee6"></script>
       <script src="https://webapi.amap.com/maps?v=1.4.15&key=45d1c9aca0b67cdfb982018bf14d211b"></script>
       <script src="https://api.map.baidu.com/api?v=3.0&ak=dIYjmuWbi4cxhLichsDyr80lTrQ3WGyU"></script>
@@ -155,19 +156,19 @@ tbody td:nth-child(n+2) {
       <form id="map">
         <ul>
         <li><label>Region:</label><ul>
-          <li><input type="radio" name="region" value="cn" checked=true> <label>Chinese mainland</label>
+          <li><input type="radio" name="region" value="cn" checked> <label>Chinese mainland</label>
           <li><input type="radio" name="region" value="hkmo"> <label>HKSAR / Macao</label>
           <li><input type="radio" name="region" value="tw"> <label>Taiwan</label>
           <li><input type="radio" name="region" value="ph"> <label>Penghu / Lienchiang (ROC)</label>
           <li><input type="radio" name="region" value="km"> <label>Kinmen</label>
           <li><input type="radio" name="region" value="other"> <label>Other</label></ul>
         <li><label>Coords type:</label><ul>
-          <li><input type="radio" name="coordsType" value="wgs" checked=true> <label>WGS-84</label>
+          <li><input type="radio" name="coordsType" value="wgs" checked> <label>WGS-84</label>
           <li><input type="radio" name="coordsType" value="gcj"> <label>GCJ-02</label>
           <li><input type="radio" name="coordsType" value="bd"> <label>BD-09</label></ul>
         <li><input type="checkbox" name="clickEvent"> <label>Get coords by clicking</label>
         <li><label>Map type:</label><ul>
-          <li><input type="radio" name="mapType" value="normal" checked=true> <label>Normal</label>
+          <li><input type="radio" name="mapType" value="normal" checked> <label>Normal</label>
           <li><input type="radio" name="mapType" value="satellite"> <label>Satellite</label>
           <li><input type="radio" name="mapType" value="hybrid"> <label>Hybrid</label></ul></ul>
       </form>
@@ -180,7 +181,7 @@ tbody td:nth-child(n+2) {
       <p id="bmapText">百度地图 BD-09</p>
       <div id="qmapDiv" style="width: 250px; height: 250px;"></div>
       <p id="qmapText">腾讯地图 GCJ-02</p>
-    </section></article>
+    </section>
     <section id="notes">
       <h2>Notes</h2>
       <ol>
@@ -197,6 +198,7 @@ tbody td:nth-child(n+2) {
                 BD-09&nbsp;∘&nbsp;GCJ-02 chained distortions.
             <li>Coordinates in Russia, outside of the sanity check rectangle, uses WGS-84 or and/or friends.
             <li>TODO: check along the boundary.
+            </ul>
       </ol>
     </section>
     <section id="faq">
@@ -222,30 +224,31 @@ tbody td:nth-child(n+2) {
         <dt id="caijun">How does Caijun’s iterative method work?</dt>
         <dd>Cai has explained the method in full in his
             <a href="https://github.com/caijun/geoChina/blob/5c6284b/R/cst.R#L101-L107"> R implementation</a>. Go read it, or read Wikipedia.
+      </dl>
     </section>
   </article>
   <footer id="footer">
     <hr>
     Powered by <a href="https://github.com/Artoria2e5/PRCoords">PRCoords</a>. Try playing with <code>window.PRCoords</code> in your console!
 
-    <p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <p>
       <a rel="license"
         href="http://creativecommons.org/publicdomain/zero/1.0/">
         <img src="https://licensebuttons.net/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0"></a>
         <br>
         To the extent possible under law,
-      <a rel="dct:publisher"
+      <a rel="DCTERMS.publisher"
         href="https://zh.wikipedia.org/wiki/User:Artoria2e5">
-        <span property="dct:title">Mingye Wang</span></a>
+        <span property="DCTERMS.title">Mingye Wang</span></a>
       has waived all copyright and related or neighboring rights to
-      <span property="dct:title">People Rectify Coordinates</span>.
+      <span property="DCTERMS.title">People Rectify Coordinates</span>.
       This work is published from:
-      <span property="vcard:Country" datatype="dct:ISO3166"
-          content="US" about="http://jsbin.com/zonafut">
+      <span property="geo.country"
+          content="US" about="https://artoria2e5.github.io/PRCoords/demo">
       United States</span>. Modified by 
-      <a rel="dct:publisher"
+      <a rel="DCTERMS.publisher"
         href="https://github.com/mrhso">
-        <span property="dct:title">Ishisashi</span></a>.</p>
+        <span property="DCTERMS.title">Ishisashi</span></a>.</p>
     </footer>
 <script>
 "use strict";
