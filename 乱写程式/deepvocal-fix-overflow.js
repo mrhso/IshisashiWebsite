@@ -3,7 +3,7 @@
 'use strict';
 
 const fs = require('fs');
-const { parseWAV, parseFmt, writeWAV, writeFmt } = require('./wavHandler.js');
+const { parseWAV, parseFmt, writeWAV } = require('./wavHandler.js');
 
 let files = ['迷路日々_1_Track 1', '迷路日々_2_Track 2', '迷路日々_3_Track 3'];
 
