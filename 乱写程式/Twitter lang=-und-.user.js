@@ -5,6 +5,7 @@
 // @description  lang 全部置 und
 // @author       Ishisashi
 // @match        *://*.twitter.com/*
+// @match        *://*.x.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -27,9 +28,9 @@
         };
 
         for (let tweet of tweets) {
-            let tlDivs = tweet.querySelectorAll('.css-901oao.r-16dba41.r-bcqeeo.r-bnwqim.r-qvutc0.css-1rynq56.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim');
-            let replyDivs = tweet.querySelectorAll('.css-1rynq56.r-bcqeeo.r-qvutc0.r-37j5jr.r-1inkyih.r-16dba41.r-bnwqim.r-135wba7');
-            let notificationDivs = document.querySelectorAll('.css-1rynq56.r-bcqeeo.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim');
+            let tlDivs = tweet.querySelectorAll('.css-146c3p1.r-8akbws.r-krxsd3.r-dnmrzs.r-1udh08x.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim');
+            let replyDivs = tweet.querySelectorAll('.css-146c3p1.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-1inkyih.r-16dba41.r-bnwqim.r-135wba7');
+            let notificationDivs = document.querySelectorAll('.css-146c3p1.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-16dba41.r-bnwqim');
 
             processDivs(tlDivs);
             processDivs(replyDivs);
