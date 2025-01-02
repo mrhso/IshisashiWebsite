@@ -7,14 +7,14 @@ const tpcs = new Map();
 names.forEach((value, index) => tpcs.set(value, index));
 const baseOct = [2, 4, 5, 7, 8, 10, 11];
 
-const baseAcc2tpc = (base, acc) =>{
+const baseAcc2tpc = (base, acc) => {
     let tpc = base + 13;
     tpc += 7 * acc;
 
     return tpc;
 };
 
-const tpc2baseAcc = (tpc) =>{
+const tpc2baseAcc = (tpc) => {
     let base = (tpc % 7 + 8) % 7;
     let acc = (tpc - 13 - base) / 7;
 
