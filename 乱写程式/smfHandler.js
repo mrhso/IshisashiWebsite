@@ -64,18 +64,7 @@ const parseTrack = (buf) => {
             event.event.push(buf.slice(offset, offset + 2));
             offset += 2;
         // SysEx
-        } else if (type8 === 0xF0) {
-            let lengthSize = 0;
-            while (buf[offset + lengthSize] >> 7) {
-                lengthSize += 1;
-            };
-            lengthSize += 1;
-            let length = parseVLQ(buf.slice(offset, offset + lengthSize));
-            offset += lengthSize;
-            event.event.push(buf.slice(offset, offset + length));
-            offset += length;
-        // SysEx
-        } else if (type8 === 0xF7) {
+        } else if (type8 === 0xF0 || type8 === 0xF7) {
             let lengthSize = 0;
             while (buf[offset + lengthSize] >> 7) {
                 lengthSize += 1;
@@ -178,7 +167,7 @@ const writeTrack = (arr) => {
         let delta = event.time - time;
         events.push(writeVLQ(delta));
         time = event.time;
-        let type8 === event.event[0];
+        let type8 = event.event[0];
         // SysEx
         if (type8 === 0xF0 || type8 === 0xF7) {
             events.push(event.event.slice(0, 1));
