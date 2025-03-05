@@ -33,52 +33,73 @@ const parseTrack = (buf) => {
         } else {
             offset += 1;
         };
+        event.event = [Buffer.from([type8])];
         let type4 = type8 >> 4;
         // Note Off
         if (type4 === 0x8) {
-            event.event = buf.slice(offset, offset + 2);
+            event.event.push(buf.slice(offset, offset + 2));
             offset += 2;
         // Note On
         } else if (type4 === 0x9) {
-            event.event = buf.slice(offset, offset + 2);
+            event.event.push(buf.slice(offset, offset + 2));
             offset += 2;
         // Polyphonic Key Pressure
         } else if (type4 === 0xA) {
-            event.event = buf.slice(offset, offset + 2);
+            event.event.push(buf.slice(offset, offset + 2));
             offset += 2;
         // Control Change / Channel Mode Messages
         } else if (type4 === 0xB) {
-            event.event = buf.slice(offset, offset + 2);
+            event.event.push(buf.slice(offset, offset + 2));
             offset += 2;
         // Program Change
         } else if (type4 === 0xC) {
-            event.event = buf.slice(offset, offset + 1);
+            event.event.push(buf.slice(offset, offset + 1));
             offset += 1;
         // Channel Pressure
         } else if (type4 === 0xD) {
-            event.event = buf.slice(offset, offset + 1);
+            event.event.push(buf.slice(offset, offset + 1));
             offset += 1;
         // Pitch Bend Change
         } else if (type4 === 0xE) {
-            event.event = buf.slice(offset, offset + 2);
+            event.event.push(buf.slice(offset, offset + 2));
             offset += 2;
         // SysEx
         } else if (type8 === 0xF0) {
-            let length = buf[offset];
-            event.event = buf.slice(offset, offset + length + 1);
-            offset += length + 1;
+            let lengthSize = 0;
+            while (buf[offset + lengthSize] >> 7) {
+                lengthSize += 1;
+            };
+            lengthSize += 1;
+            let length = parseVLQ(buf.slice(offset, offset + lengthSize));
+            offset += lengthSize;
+            event.event.push(buf.slice(offset, offset + length));
+            offset += length;
         // SysEx
         } else if (type8 === 0xF7) {
-            let length = buf[offset];
-            event.event = buf.slice(offset, offset + length + 1);
-            offset += length + 1;
+            let lengthSize = 0;
+            while (buf[offset + lengthSize] >> 7) {
+                lengthSize += 1;
+            };
+            lengthSize += 1;
+            let length = parseVLQ(buf.slice(offset, offset + lengthSize));
+            offset += lengthSize;
+            event.event.push(buf.slice(offset, offset + length));
+            offset += length;
         // Meta
         } else if (type8 === 0xFF) {
-            let length = buf[offset + 1];
-            event.event = buf.slice(offset, offset + length + 2);
-            offset += length + 2;
+            event.event.push(buf.slice(offset, offset + 1));
+            offset += 1;
+            let lengthSize = 0;
+            while (buf[offset + lengthSize] >> 7) {
+                lengthSize += 1;
+            };
+            lengthSize += 1;
+            let length = parseVLQ(buf.slice(offset, offset + lengthSize));
+            offset += lengthSize;
+            event.event.push(buf.slice(offset, offset + length));
+            offset += length;
         };
-        event.event = Buffer.concat([Buffer.from([type8]), event.event]);
+        event.event = Buffer.concat(event.event);
         lastType = type8;
         events.push(event);
     };
@@ -157,7 +178,20 @@ const writeTrack = (arr) => {
         let delta = event.time - time;
         events.push(writeVLQ(delta));
         time = event.time;
-        events.push(event.event);
+        let type8 === event.event[0];
+        // SysEx
+        if (type8 === 0xF0 || type8 === 0xF7) {
+            events.push(event.event.slice(0, 1));
+            events.push(writeVLQ(event.event.length - 1));
+            events.push(event.event.slice(1, event.event.length));
+        // Meta
+        } else if (type8 === 0xFF) {
+            events.push(event.event.slice(0, 2));
+            events.push(writeVLQ(event.event.length - 2));
+            events.push(event.event.slice(2, event.event.length));
+        } else {
+            events.push(event.event);
+        };
     };
     return Buffer.concat(events);
 };
