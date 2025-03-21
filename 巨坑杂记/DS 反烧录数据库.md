@@ -45,15 +45,21 @@ CRC32 以解密 ROM 为准。
 |5047|5045|5047|NTR-BCKJ-JPN||88356669||EEPROM 8192|EEPROM 8192|Eeprom - 64 kbit|Unknown|信息不明的汉化版，出现于 RetroGameFan 的反烧录数据库<br>未能找到该 ROM|
 
 ### 附录：存档类型对照表
-|大小|No-Intro|ADVANsCEne|DS-Scene|
-|-|-|-|-|
-|512 B = 4 Kibit = 4096 bit|EEPROM 512|Eeprom - 4 kbit|EEPROM 4kb|
-|8 KiB = 64 Kibit = 8192 B = 65536 bit|EEPROM 8192|Eeprom - 64 kbit|EEPROM 64kb|
-|64 KiB = 512 Kibit = 65536 B = 524288 bit|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb|
-|256 KiB = 2 Mibit = 262144 B = 2097152 bit|Flash 262144|Flash - 2 Mbit|FLASH 2Mb|
-|512 KiB = 4 Mibit = 524288 B = 4194304 bit|Flash 524288|Flash - 4 Mbit|FLASH 4Mb|
-|1 MiB = 8 Mibit = 1048576 B = 8388608 bit|Flash 1048576|Flash - 8 Mbit|FLASH 8Mb|
-|8 MiB = 64 Mibit = 8388608 B = 67108864 bit|Flash 8388608|Flash - 64 Mbit|FLASH 64Mb|
+|大小|No-Intro|ADVANsCEne|DS-Scene|melonDS|R4|
+|-|-|-|-|-|-|
+|0||None||0|1 (No Save)|
+|512 B = 4 Kibit = 4096 bit|EEPROM 512|Eeprom - 4 kbit|EEPROM 4kb|1 (EEPROM, small)|2 (4K)|
+|8 KiB = 64 Kibit = 8192 B = 65536 bit|EEPROM 8192|Eeprom - 64 kbit|EEPROM 64kb|2 (EEPROM, regular)|3 (64K)|
+|64 KiB = 512 Kibit = 65536 B = 524288 bit|EEPROM 65536|Eeprom - 512 kbit|EEPROM 512kb|3 (EEPROM, regular)|4 (512K)|
+|128 KiB = 1 Mibit = 131072 B = 1048576 bit|EEPROM 131072|Eeprom - 1 Mbit|EEPROM 1Mb|4 (EEPROM, regular)|10 (1M)|
+|256 KiB = 2 Mibit = 262144 B = 2097152 bit|Flash 262144|Flash - 2 Mbit|FLASH 2Mb|5 (FLASH)|5 (2M)|
+|512 KiB = 4 Mibit = 524288 B = 4194304 bit|Flash 524288|Flash - 4 Mbit|FLASH 4Mb|6 (FLASH)|6 (4M)|
+|1 MiB = 8 Mibit = 1048576 B = 8388608 bit|Flash 1048576|Flash - 8 Mbit|FLASH 8Mb|7 (FLASH)|7 (8M)|
+|2 MiB = 16 Mibit = 2097152 B = 16777216 bit|Flash 2097152|Flash - 16 Mbit|FLASH 16Mb||11 (16M)|
+|4 MiB = 32 Mibit = 4194304 B = 33554432 bit|Flash 4194304|Flash - 32 Mbit|FLASH 32Mb||12 (32M)|
+|8 MiB = 64 Mibit = 8388608 B = 67108864 bit|Flash 8388608|Flash - 64 Mbit|FLASH 64Mb|8 (NAND)|13 (64M)|
+|16 MiB = 128 Mibit = 16777216 B = 134217728 bit|Flash 16777216|Flash - 128 Mbit|FLASH 128Mb|9 (NAND)||
+|64 MiB = 512 Mibit = 67108864 B = 536870912 bit|Flash 67108864|Flash - 512 Mbit|FLASH 512Mb|10 (NAND)||
 
 ### 附录：DS-Scene Rom Tool 数据库参考加解密代码
 ```JavaScript
