@@ -1507,6 +1507,7 @@ $ reveng -w 48 -i ffffffffffff -b -x ffffffffffff -s c484f4aece4ef4469676f40e9e2
 width=48  poly=0x89941763b33b  init=0xffffffffffff  refin=false  refout=false  xorout=0xffffffffffff  check=0xe0b62d989f8b  residue=0xeaf6010e7ab4  name=(none)
 ```
 你问我 Hash 前的 CRC 是怎么来的？那当然是用 Mathematica 解的啊——每个 Hash 对应 2 种 CRC，也就只需要穷举 32 次嘛（笑）
+<!-- {% raw %} -->
 ```Wolfram
 Solve[Mod[241818181881667x^2 + 279270832074457x + 202208575380941, 2^48] == 66782253079833 && 0 <= x < 2^48, {x}, Integers]
 {{x->151735510046673},{x->272642359142012}}
@@ -1522,6 +1523,7 @@ Solve[Mod[241818181881667x^2 + 279270832074457x + 202208575380941, 2^48] == 1341
 ```
 正确！你的 flag 是：flag{Succe55fu11y-Deduced-A-CRC-Po1ynomia1}
 ```
+<!-- {% endraw %} -->
 ### 附注
 我初次用到 CRC-RevEng 就是在这题，所以不熟参数——其实只要指定 `-l` 就可以直接按倒转序输入，不过这时 CRC 部分就要以小端序表示了。
 ```
