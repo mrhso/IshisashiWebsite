@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # 第三届北京大学信息安全综合能力竞赛非官方题解暨吐槽（Ishisashi 篇）
 ## 第一阶段
 ### \[Tutorial\] 一眼盯帧
@@ -933,11 +934,9 @@ str = Table[ToExpression /@ Table["str" <> ToString[n], {n, 0, 35}]]
 Solve[Table[Sum[str[[k+1]] j^k, {k, 0, 35}] == known[[j]], {j, 1, 36}], Table[str[[n+1]], {n, 0, 35}], Modulus -> 998244353]
 ```
 啪的一下，很快啊，MMA 立马给我输出了结果：
-<!-- {% raw %} -->
 ```Wolfram
 {{str35->125,str34->101,str33->71,str32->110,str31->52,str30->82,str29->103,str28->64,str27->108,str26->95,str25->102,str24->111,str23->95,str22->114,str21->51,str20->84,str19->36,str18->65,str17->109,str16->95,str15->69,str14->72,str13->84,str12->95,str11->101,str10->114,str9->65,str8->95,str7->85,str6->111,str5->121,str4->123,str3->103,str2->97,str1->108,str0->102}}
 ```
-<!-- {% endraw %} -->
 最终我在比赛快要结束的那一刹那满意交上了 Flag 1！
 
 ![](img/啪的一下，很快啊！.png)
@@ -1865,3 +1864,4 @@ drrrrrrulddrullllllllurrdlurrdlurrdlurrdlurrdlurrdldrulluulurrdldrulddrulddruluu
 |||||Web|Chrone - 1|36|
 |||||Web|Chrone - 2|37|
 |Web|prob03（未公开）|||Web|V ME 50|38|
+<!-- {% endraw %} -->

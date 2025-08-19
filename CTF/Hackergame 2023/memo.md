@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # 中国科学技术大学第十届信息安全大赛非官方题解暨吐槽（Ishisashi 篇）
 ## \[web\] Hackergame 启动
 一开始尝试内录，无果，猜想是把相似度 POST 过去的。于是打开 Fiddler 把 similarity 改成 114514，顺利通过。
@@ -893,10 +894,9 @@ $\displaystyle\int_{1}^{2}(x^4+2x^3+3x^2+4x+5)dx=\dfrac{202}{5}-\dfrac{87}{10}=\
 
 尽管 $31.7$ 是精确值，它还是填 $31.7000000000$ 才算过。
 
-<!-- {% raw %} -->
 > 5. 求 $$\lim_{{x \to 10}} \frac{e^x + \sin(x) - \sqrt{x}}{2x - \ln(x)}$$
-<!-- {% endraw %} -->
 
 ……这有甚么好算的？直接代不就好了吗？
 
 $\displaystyle\lim_{x\rightarrow10}\dfrac{e^x+\sin x-\sqrt{x}}{2x-\ln x}=\dfrac{e^{10}+\sin10-\sqrt{10}}{20-\ln10}\doteq1244.4054463185$
+<!-- {% endraw %} -->
