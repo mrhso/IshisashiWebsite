@@ -1,6 +1,6 @@
 <!-- {% raw %} -->
 # LilCTF 2025 非官方题解暨吐槽（TeamKIC 篇）
-这里是 TeamKIC 的 LilCTF 2025 WP！本次比赛中，TeamKIC 得 2062 分，位于第 33 名。
+这里是 TeamKIC 的 LilCTF 2025 WP！本次比赛中，TeamKIC 得 2062 分，位于第 32 名。
 
 队名来源于成员名的首字母，外加谐音鼓点中的 Kick：
 - Klekta（昌九）
@@ -1051,6 +1051,23 @@ echo "Built compressed: $pharFile\n";
 
 ## Omake：队名
 ![](img/a37f94ff84e6322c97e33202b6db98fb.png)
+
+## Omake：队长 Ishisashi 的一些感想
+诸位如果在 GeekGame 或是 Hackergame 见过我的话，不知还记不记得我用过的用户名。
+
+[GeekGame 3rd](https://github.com/PKU-GeekGame/geekgame-3rd/blob/master/ranking/score_all.csv)：「Ishisashi #赛后和阿冯CT进行」
+
+[Hackergame 2023](https://github.com/USTC-Hackergame/hackergame2023-writeups/blob/master/archive/core.json)：「Ishisashi #赛前同阿冯和 CT 进行了一个」
+
+[GeekGame 4th](https://github.com/PKU-GeekGame/geekgame-4th/blob/master/ranking/score_all.csv)：「Ishisashi #和CT打一辈子CTF #想阿冯」
+
+当中出现的 CT 当然就是诸位在本文看到的那个 CT（RenzukaCtone）。那阿冯又是谁呢？其实就是昌九（KLEk）。
+
+<del>因为改换圈名，时常有认识昌九的人在问「昌九是谁？」，成为了一个哏。</del>
+
+虽说以前有一起打过 Puzzle Hunt……这次三个人一起组队打 CTF 也实在是很难得的经历呢！既然如此，光听我自己的感想可不够。
+
+请欣赏属于整个 TeamKIC 的后日谈！
 
 ## Omake：后日谈
 RenzukaCtone：这次 CTF，虽然一开始说是准备摆烂，最后为了解题连觉都没怎么睡（在家就可以凌晨解题了）。现在回想，只是自己转弯太慢，大部分时间都在进行无意义的尝试。
