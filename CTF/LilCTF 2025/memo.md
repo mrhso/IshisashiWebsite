@@ -1,3 +1,4 @@
+<!-- {% raw %} -->
 # LilCTF 2025 非官方题解暨吐槽（TeamKIC 篇）
 这里是 TeamKIC 的 LilCTF 2025 WP！本次比赛中，TeamKIC 得 2062 分，位于第 33 名。
 
@@ -1135,3 +1136,4 @@ Ishisashi：没拿到一血，所以和昌九吵了一架……这种事情以�
 Ishisashi：LilCTF 2025 TeamKIC 座谈，到此结束！撒花
 
 ![](img/7f572d56f2065ff12ce47dfdccb08af3.png)
+<!-- {% endraw %} -->
