@@ -320,7 +320,7 @@ print(rr.recvline())
 ```
 这次为了加快速度，头一回用上了 pwntools。
 
-……结果还是用剪贴版当胶水吗。
+……结果还是用剪贴板当胶水吗。
 ```
 [x] Opening connection to challenge.xinshi.fun on port 32842
 [x] Opening connection to challenge.xinshi.fun on port 32842: Trying 110.42.47.200
