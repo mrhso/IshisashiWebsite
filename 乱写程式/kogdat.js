@@ -151,4 +151,3 @@ module.exports = {
     parseDAT,
     writeDAT,
 };
-
