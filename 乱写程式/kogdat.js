@@ -4,7 +4,7 @@
 const buf2bin = (buf) => {
     let str = '';
     for (let b of buf) {
-        str += `0000000${b.toString(2)}`.slice(-8);
+        str += b.toString(2).padStart(8, '0');
     };
     return str;
 };
@@ -134,13 +134,13 @@ const writeDAT = (arr) => {
         fileInfo += buf2bin(Buffer.from(`${chunk.name}\0`));
     };
     let infoLen = Math.ceil(fileInfo.length / 8) * 8;
-    fileInfo = bin2buf(`${fileInfo}0000000`.slice(0, infoLen));
+    fileInfo = bin2buf(fileInfo.padEnd(infoLen, '0'));
 
     let header = '';
     header += writeInt(arr.length);
     header += writeInt(start);
     let headerLen = Math.ceil(header.length / 8) * 8;
-    header = bin2buf(`${header}0000000`.slice(0, headerLen));
+    header = bin2buf(header.padEnd(headerLen, '0'));
 
     let output = Buffer.concat([magic, header, Buffer.alloc(9 - header.length), ...chunks, fileInfo]);
 
@@ -151,3 +151,4 @@ module.exports = {
     parseDAT,
     writeDAT,
 };
+
