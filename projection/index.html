@@ -33,7 +33,7 @@
             let svg = d3.select('body').append('svg');
             let outline = { type: 'Sphere' };
             let graticule = d3.geoGraticule10();
-            let world;
+            let land;
 
             // 修正曲线定向
             // https://observablehq.com/@fil/rewind
@@ -246,7 +246,7 @@
                 defs.append('path').datum(outline).attr('id', 'outline').attr('d', path);
                 defs.append('clipPath').attr('id', 'clip').append('use').attr('xlink:href', '#outline');
                 svg.append('path').datum(graticule).attr('id', 'graticule').attr('d', path).attr('clip-path', 'url(#clip)').attr('stroke', '#808080').attr('fill', 'none');
-                svg.append('path').datum(rewind(topojson.feature(world, world.objects.land))).attr('id', 'land').attr('d', path).attr('clip-path', 'url(#clip)');
+                svg.append('path').datum(land).attr('id', 'land').attr('d', path).attr('clip-path', 'url(#clip)');
                 svg.append('use').attr('xlink:href', '#outline').attr('stroke', '#000000').attr('fill', 'none');
             };
 
@@ -269,7 +269,7 @@
             };
 
             d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then((json) => {
-                world = json;
+                land = rewind(topojson.feature(json, json.objects.land));
                 reload();
             });
         </script>
