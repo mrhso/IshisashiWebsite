@@ -1,0 +1,11 @@
+b=11/10
+lambdaN=Pi
+c=(1-1/b)/lambdaN
+y0[phi_]:=4980600phi/(1592779Pi)+729000phi^3/(1592779Pi^3)
+yn[phi_]:=75132387phi/(15927790Pi)-7360094808phi^3/(995486875Pi^3)+90799706349phi^5/(7963895000Pi^5)
+xn[phi_]:=Sqrt[16677014062500/2536944942841-13yn[phi]^2/8]+41250/1592779
+rho[phi_]:=(xn[phi]^2+(yn[phi]-y0[phi])^2)/(2(yn[phi]-y0[phi]))
+deltaPhiN[phi_]:=ArcSin[xn[phi]/rho[phi]]
+deltaPhi[lambda_,phi_]:=deltaPhiN[phi]b(1-c Abs[lambda])lambda/lambdaN
+y[lambda_,phi_]:=Piecewise[{{0,phi==0},{y0[phi]+rho[phi](1-Cos[deltaPhi[lambda,phi]]),phi!=0}}]
+x[lambda_,phi_]:=Piecewise[{{xn[phi]b(1-c Abs[lambda])lambda/lambdaN,phi==0},{rho[phi]Sin[deltaPhi[lambda,phi]],phi!=0}}]
