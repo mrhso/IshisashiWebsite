@@ -14,4 +14,3 @@ deltaPhiN[phi_]:=ArcSin[xn[phi]/rho[phi]]
 deltaPhi[lambda_,phi_]:=deltaPhiN[phi]b(1-c Abs[lambda])lambda/lambdaN
 y[lambda_,phi_]:=Piecewise[{{0,phi==0},{y0[phi]+rho[phi](1-Cos[deltaPhi[lambda,phi]]),phi!=0}}]
 x[lambda_,phi_]:=Piecewise[{{xn[phi]b(1-c Abs[lambda])lambda/lambdaN,phi==0},{rho[phi]Sin[deltaPhi[lambda,phi]],phi!=0}}]
-
