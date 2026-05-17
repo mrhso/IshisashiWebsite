@@ -1,0 +1,18 @@
+c=(1-1/b)/f[lambdaN]
+rho[phi_]:=(xn[phi]^2+(yn[phi]-y0[phi])^2)/(2(yn[phi]-y0[phi]))
+Derivative[1][rho][phi_]:=(2xn[phi]Derivative[1][xn][phi](yn[phi]-y0[phi])+((yn[phi]-y0[phi])^2-xn[phi]^2)(Derivative[1][yn][phi]-Derivative[1][y0][phi]))/(2(yn[phi]-y0[phi])^2)
+deltaPhiN[phi_]:=ArcSin[xn[phi]/rho[phi]]
+Derivative[1][deltaPhiN][phi_]:=(Derivative[1][xn][phi]rho[phi]-xn[phi]Derivative[1][rho][phi])/(Abs[rho[phi]]Sqrt[rho[phi]^2-xn[phi]^2])
+deltaPhi[lambda_,phi_]:=deltaPhiN[phi]b(1-c f[Abs[lambda]])lambda/lambdaN
+Derivative[1,0][deltaPhi][lambda_,phi_]:=deltaPhiN[phi]b(1-c(f[Abs[lambda]]+Abs[lambda]Derivative[1][f][Abs[lambda]]))/lambdaN
+Derivative[0,1][deltaPhi][lambda_,phi_]:=Derivative[1][deltaPhiN][phi]b(1-c f[Abs[lambda]])lambda/lambdaN
+x[lambda_,phi_]:=Piecewise[{{xn[phi]b(1-c f[Abs[lambda]])lambda/lambdaN,phi==0},{rho[phi]Sin[deltaPhi[lambda,phi]],phi!=0}}]
+Derivative[1,0][x][lambda_,phi_]:=Piecewise[{{xn[phi]b(1-c(f[Abs[lambda]]+Abs[lambda]Derivative[1][f][Abs[lambda]]))/lambdaN,phi==0},{rho[phi]Cos[deltaPhi[lambda,phi]]Derivative[1,0][deltaPhi][lambda,phi],phi!=0}}]
+Derivative[0,1][x][lambda_,phi_]:=Piecewise[{{0,phi==0},{Derivative[1][rho][phi]Sin[deltaPhi[lambda,phi]]+rho[phi]Cos[deltaPhi[lambda,phi]]Derivative[0,1][deltaPhi][lambda,phi],phi!=0}}]
+y[lambda_,phi_]:=Piecewise[{{0,phi==0},{y0[phi]+rho[phi](1-Cos[deltaPhi[lambda,phi]]),phi!=0}}]
+Derivative[1,0][y][lambda_,phi_]:=Piecewise[{{0,phi==0},{rho[phi]Sin[deltaPhi[lambda,phi]]Derivative[1,0][deltaPhi][lambda,phi],phi!=0}}]
+Derivative[0,1][y][lambda_,phi_]:=Piecewise[{{Derivative[1][y0][phi]+b^2(1-c f[Abs[lambda]])^2lambda^2(Derivative[1][yn][phi]-Derivative[1][y0][phi])/lambdaN^2,phi==0},{Derivative[1][y0][phi]+Derivative[1][rho][phi](1-Cos[deltaPhi[lambda,phi]])+rho[phi]Sin[deltaPhi[lambda,phi]]Derivative[0,1][deltaPhi][lambda,phi],phi!=0}}]
+m[lambda_,phi_]:=Sqrt[Derivative[0,1][x][lambda,phi]^2+Derivative[0,1][y][lambda,phi]^2]
+n[lambda_,phi_]:=Sqrt[Derivative[1,0][x][lambda,phi]^2+Derivative[1,0][y][lambda,phi]^2]/Cos[phi]
+P[lambda_,phi_]:=(Derivative[1,0][x][lambda,phi]Derivative[0,1][y][lambda,phi]-Derivative[0,1][x][lambda,phi]Derivative[1,0][y][lambda,phi])/Cos[phi]
+omega[lambda_,phi_]:=2ArcTan[Sqrt[(m[lambda,phi]^2+n[lambda,phi]^2)/P[lambda,phi]-2]/2]
