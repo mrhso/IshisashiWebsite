@@ -1,3 +1,8 @@
+(*
+郝晓光《经纬跨越四百年》附录 1
+http://www.hxgmap.com/lunwen/book-sjdt.pdf
+*)
+
 b=11/10
 lambdaN=Pi
 c=(1-1/b)/lambdaN
