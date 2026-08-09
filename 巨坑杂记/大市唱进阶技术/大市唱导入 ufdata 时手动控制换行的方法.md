@@ -2,7 +2,7 @@
 
 注意以下所有变量名都会随着版本不同而变化，所以需要自行寻找代换。
 
-搜 `一会儿补充` 定位负责导入处理的 JS：
+搜 `"🏠一会儿补充"` 定位负责导入处理的 JS：
 
 ![](https://raw.githubusercontent.com/mrhso/IshisashiWebsite/master/img/1370f25121502977062a317d069bd1c60f1fa522.png)
 
