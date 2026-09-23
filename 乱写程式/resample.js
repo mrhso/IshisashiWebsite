@@ -9,7 +9,8 @@ const { parseWAV, parseFmt, writeWAV, writeFmt } = require('./wavHandler.js');
 
 let soxr = '3-options-input-fn';
 let rate = 48000;
-let bandwidth = 99.995;
+let passband = 95;
+let stopband = 105;
 
 let files = ['th06_01', 'th06_02', 'th06_03', 'th06_04', 'th06_05', 'th06_06', 'th06_07', 'th06_08', 'th06_09', 'th06_10', 'th06_11', 'th06_12', 'th06_13', 'th06_14', 'th06_15', 'th06_16', 'th06_17'];
 
@@ -34,7 +35,7 @@ for (let file of files) {
     };
 
     let data = wav.data;
-    let dataResampled = child_process.execSync(`${soxr} ${fmt.nSamplesPerSec} ${rate} ${fmt.nChannels} 0 0 7 0 ${bandwidth} 100 50 1`, { input: data, maxBuffer: Infinity });
+    let dataResampled = child_process.execSync(`${soxr} ${fmt.nSamplesPerSec} ${rate} ${fmt.nChannels} 0 0 7 0 ${passband} ${stopband} 50 1`, { input: data, maxBuffer: Infinity });
 
     fmt.nSamplesPerSec = rate;
     fmt.nAvgBytesPerSec = fmt.nSamplesPerSec * fmt.nBlockAlign;
